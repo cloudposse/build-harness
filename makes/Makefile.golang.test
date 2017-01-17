@@ -1,0 +1,4 @@
+.PHONY: test
+## Run tests
+test: $(GO)
+	$(GO) test $(shell $(GO) list . | grep -v /vendor/)

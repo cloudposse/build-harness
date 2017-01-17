@@ -11,7 +11,7 @@ install:
     --password="$DOCKER_HUB_PASSWORD"
 
 - |-
-  curl https://raw.githubusercontent.com/cloudposse/build-harness/initial/scripts/travis_docker_tag.sh > travis_docker_tag.sh \
+  curl https://raw.githubusercontent.com/cloudposse/build-harness/master/scripts/travis_docker_tag.sh > travis_docker_tag.sh \
   && chmod +x travis_docker_tag.sh
 
 script:

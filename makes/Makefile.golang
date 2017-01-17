@@ -1,0 +1,1 @@
+GO:= $(shell which go)
