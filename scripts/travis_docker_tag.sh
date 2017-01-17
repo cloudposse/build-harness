@@ -26,5 +26,5 @@ fi
 
 
 for TAG in "${DOCKER_TAGS[@]}"; do
-  docker tag $DOCKER_IMAGE_NAME $TAG && docker push $TAG;
+  docker tag $DOCKER_IMAGE_NAME $DOCKER_IMAGE_NAME:TAG && docker push $DOCKER_IMAGE_NAME:TAG;
 done
