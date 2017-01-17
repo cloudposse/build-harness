@@ -1,0 +1,48 @@
+GLIDE	:= $(shell which glide)
+INSTALL_DIR ?= /usr/local/sbin
+RELEASE_DIR ?= release
+APP?=########################################
+
+.PHONY: build
+## Build binary
+build: $(GO)
+	$(GO) build -o $(RELEASE_DIR)/$(APP)
+
+.PHONY: build-all
+## Build binary for all platforms
+build-all: $(GO)
+	gox  -output "${RELEASE_DIR}/${APP}_{{.OS}}_{{.Arch}}"
+
+.PHONY: deps
+## Install dependencies
+deps: $(GLIDE)
+	$(GLIDE) install --strip-vendor
+	$(GLIDE) update  --strip-vendor
+
+.PHONY: deps-build
+## Install dependencies for build
+deps-build:
+	mkdir -p  $(GOPATH)/bin
+	which $(GLIDE) || (curl https://glide.sh/get | sh)
+
+.PHONY: deps-dev
+## Install development dependencies
+deps-dev: $(GO)
+	$(GO) get -d -v "github.com/golang/lint"
+	$(GO) install -v "github.com/golang/lint/golint"
+	$(GO) get -d -v github.com/mitchellh/gox
+	$(GO) install -v github.com/mitchellh/gox
+
+## Clean compiled binary
+clean:
+	rm -rf $(RELEASE_DIR)
+
+## Clean compiled binary and dependency
+clean-all: clean
+	rm -rf vendor
+	rm -rf glide.lock
+
+## Install cli
+install: $(APP) build
+	cp $(RELEASE_DIR)/$(APP) $(INSTALL_DIR)
+	chmod 555 $(INSTALL_DIR)/$(APP)

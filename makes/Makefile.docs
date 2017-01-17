@@ -1,0 +1,4 @@
+.PHONY : update-docs
+## Update table of contents in README.md
+update-docs:
+	@doctoc --notitle --github README.md
