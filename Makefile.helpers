@@ -2,6 +2,17 @@
 # Helpers - stuff that's shared between make files
 #
 
+# This `Makefile` is intended to be included into other projects for the purpose of adding `Docker` capabilities
+PACKAGE_NAME = $(shell basename `pwd`)
+BUILD_HARNESS_MAKEFILE ?= $(BUILD_HARNESS_PATH)/Makefile
+BUILD_NAMESPACES=docker\:% circle\:% kubernetes\:% datadog\:%
+MAKEFILE_LIST += $(BUILD_HARNESS_MAKEFILE)
+
+include $(BUILD_HARNESS_PATH)/modules/Makefile.help
+
+# Expose various namespaces from build-harness
+$(BUILD_NAMESPACES):
+	@make --no-print-directory -f "$(BUILD_HARNESS_MAKEFILE)" $@
 
 MAKEFILE_PATH := $(strip $(MAKEFILE_LIST))
 MAKEFILE_DIR := $(shell dirname "$(MAKEFILE_PATH)")
@@ -26,7 +37,6 @@ define assert-unset
 endef
 
 default: help
-
 
 .PHONY : help
 ## This help screen
