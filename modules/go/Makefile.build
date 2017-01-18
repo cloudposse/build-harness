@@ -43,6 +43,6 @@ clean-all: clean
 	rm -rf glide.lock
 
 ## Install cli
-install: $(APP) build
+install: $(APP) go\:build
 	cp $(RELEASE_DIR)/$(APP) $(INSTALL_DIR)
 	chmod 555 $(INSTALL_DIR)/$(APP)

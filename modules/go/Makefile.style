@@ -1,6 +1,6 @@
 .PHONY: lint
 ## Lint code
-lint: $(GO) vet
+lint: $(GO) go\:vet
 	find . ! -path "*/vendor/*" ! -path "*/.glide/*" -type f -name '*.go' | xargs -n 1 golint
 
 .PHONY: vet
