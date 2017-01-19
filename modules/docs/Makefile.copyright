@@ -1,9 +1,9 @@
 COPYRIGHT_CMD ?= docker run --rm --volume `pwd`:$(COPYRIGHT_OUTPUT_DIR) osterman/copyright-header:latest
 COPYRIGHT_LICENSE ?= ASL2
 COPYRIGHT_HOLDER ?= Cloud Posse, LLC <hello@cloudposse.com>
-COPYRIGHT_YEAR ?= 2016
-COPYRIGHT_SOFTWARE ?= Github PAM
-COPYRIGHT_SOFTWARE_DESCRIPTION ?= Use GitHub authentication as PAM
+COPYRIGHT_YEAR ?= $(shell date +%Y)
+COPYRIGHT_SOFTWARE ?= Example App
+COPYRIGHT_SOFTWARE_DESCRIPTION ?= Example Software Description
 COPYRIGHT_OUTPUT_DIR ?= /usr/src
 COPYRIGHT_WORD_WRAP ?= 100
 
