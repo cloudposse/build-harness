@@ -9,4 +9,4 @@ docker\:build: $(DOCKER)
 ## User ARGS to pass arguments
 ## Build docker image with args
 docker\:build-with-args: $(DOCKER)
-	$(DOCKER) build --no-cache -build-arg $(ARGS) -t $(DOCKER_IMAGE_NAME) .
+	@$(DOCKER) build --no-cache --build-arg $(ARGS) -t $(DOCKER_IMAGE_NAME) .
