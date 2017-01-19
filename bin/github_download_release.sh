@@ -32,6 +32,7 @@ VERSION=$1                       # tag name or the word "latest"
 GITHUB="https://api.github.com"
 
 echo "REPO $REPO"
+echo "TOKEN $GITHUB_TOKEN"
 
 alias errcho='>&2 echo'
 
