@@ -31,6 +31,8 @@
 VERSION=$1                       # tag name or the word "latest"
 GITHUB="https://api.github.com"
 
+echo "REPO $REPO"
+
 alias errcho='>&2 echo'
 
 function gh_curl() {
