@@ -2,4 +2,4 @@
 ## Use DOCKER_IMAGE_NAME envvar to specify docker image with tags
 ## Build docker image
 docker\:build: $(DOCKER)
-	$(DOCKER) build -t $DOCKER_IMAGE_NAME .
+	$(DOCKER) build -t $(DOCKER_IMAGE_NAME) .
