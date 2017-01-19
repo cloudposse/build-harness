@@ -1,21 +1,20 @@
 sudo: required
+addons:
+  apt:
+    packages:
+    - git
+    - make
+    - curl
 env:
-  - DOCKER_IMAGE_NAME=cloudposse/##################
+  - DOCKER_IMAGE_NAME=cloudposse/#####################
 services:
 - docker
 install:
-- |-
-  docker login \
-    --email="$DOCKER_HUB_EMAIL" \
-    --username="$DOCKER_HUB_USERNAME" \
-    --password="$DOCKER_HUB_PASSWORD"
-
-- |-
-  curl https://raw.githubusercontent.com/cloudposse/build-harness/master/scripts/travis_docker_tag.sh > travis_docker_tag.sh \
-  && chmod +x travis_docker_tag.sh
+- make init
+- make docker:login
 
 script:
-- docker build -t $DOCKER_IMAGE_NAME .
+- make docker:build
 
 after_success:
-- ./travis_docker_tag.sh
+- make travis:docker-tag-and-push
