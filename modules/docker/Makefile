@@ -1,2 +1,1 @@
-include ../../Makefile.helpers
-include Makefile.*
+DOCKER:= $(shell which docker)

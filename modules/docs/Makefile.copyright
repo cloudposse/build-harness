@@ -7,9 +7,9 @@ COPYRIGHT_SOFTWARE_DESCRIPTION ?= Example Software Description
 COPYRIGHT_OUTPUT_DIR ?= /usr/src
 COPYRIGHT_WORD_WRAP ?= 100
 
-.PHONY : add-copyright
+.PHONY : docs\:copyright-add
 ## Add copyright to source code
-add-copyright:
+docs\:copyright-add:
 	$(COPYRIGHT_CMD) \
     --license $(COPYRIGHT_LICENSE) \
     --add-path cmd:main.go \
