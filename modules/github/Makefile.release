@@ -4,4 +4,4 @@
 ## FILE="<name_of_asset_file>"      # the name of your release asset file, e.g. build.tar.gz
 ## Download release from github
 github\:download-release:
-	REPO=$(REPO) $(BUILD_HARNESS_PATH)/bin/github_download_release.sh $(VERSION) $(FILE)
+	REPO=$(REPO) FILE=$(FILE) $(BUILD_HARNESS_PATH)/bin/github_download_release.sh $(VERSION) $(OUTPUT)
