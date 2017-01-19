@@ -3,7 +3,7 @@
 travis\:docker-tag-and-push:
 	DOCKER_TAGS=($(TRAVIS_COMMIT))																			\
 																											\
-	if [ ! -z "$TRAVIS_TAG" ]; then																			\
+	if [ ! -z "$(TRAVIS_TAG)" ]; then																			\
   		DOCKER_TAGS+=($(TRAVIS_TAG))																			\
 	fi																										\
 																											\
