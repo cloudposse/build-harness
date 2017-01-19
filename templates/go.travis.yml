@@ -13,13 +13,15 @@ env:
   - APP=##################
 
 install:
-- make deps-dev
+- make init
+- make go:deps-build
+- make go:deps-dev
 
 script:
-- make deps
-- make test
-- make lint
-- make build-all
+- make go:deps
+- make go:test
+- make go:lint
+- make go:build-all
 
 deploy:
   provider: releases

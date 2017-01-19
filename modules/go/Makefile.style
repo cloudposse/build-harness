@@ -1,14 +1,14 @@
-.PHONY: lint
+.PHONY: go\:lint
 ## Lint code
-lint: $(GO) vet
+go\:lint: $(GO) go\:vet
 	find . ! -path "*/vendor/*" ! -path "*/.glide/*" -type f -name '*.go' | xargs -n 1 golint
 
-.PHONY: vet
+.PHONY: go\:vet
 ## Vet code
-vet: $(GO)
+go\:vet: $(GO)
 	find . ! -path "*/vendor/*" ! -path "*/.glide/*" -type f -name '*.go' | xargs -n 1 $(GO) vet -v
 
-.PHONY: fmt
+.PHONY: go\:fmt
 ## Format code according to Golang convention
-fmt: $(GO)
+go\:fmt: $(GO)
 	find . ! -path "*/vendor/*" ! -path "*/.glide/*" -type f -name '*.go' | xargs -n 1 gofmt -w -l -s

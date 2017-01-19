@@ -1,48 +1,48 @@
 GLIDE	:= $(shell which glide)
 INSTALL_DIR ?= /usr/local/sbin
 RELEASE_DIR ?= release
-APP?=########################################
+APP?=Example App
 
-.PHONY: build
+.PHONY: go\:build
 ## Build binary
-build: $(GO)
+go\:build: $(GO)
 	$(GO) build -o $(RELEASE_DIR)/$(APP)
 
-.PHONY: build-all
+.PHONY: go\:build-all
 ## Build binary for all platforms
-build-all: $(GO)
+go\:build-all: $(GO)
 	gox  -output "${RELEASE_DIR}/${APP}_{{.OS}}_{{.Arch}}"
 
-.PHONY: deps
+.PHONY: go\:deps
 ## Install dependencies
-deps: $(GLIDE)
+go\:deps: $(GLIDE)
 	$(GLIDE) install --strip-vendor
 	$(GLIDE) update  --strip-vendor
 
-.PHONY: deps-build
+.PHONY: go\:deps-build
 ## Install dependencies for build
-deps-build:
+go\:deps-build:
 	mkdir -p  $(GOPATH)/bin
 	which $(GLIDE) || (curl https://glide.sh/get | sh)
 
 .PHONY: deps-dev
 ## Install development dependencies
-deps-dev: $(GO)
+go\:deps-dev: $(GO)
 	$(GO) get -d -v "github.com/golang/lint"
 	$(GO) install -v "github.com/golang/lint/golint"
 	$(GO) get -d -v github.com/mitchellh/gox
 	$(GO) install -v github.com/mitchellh/gox
 
 ## Clean compiled binary
-clean:
+go\:clean:
 	rm -rf $(RELEASE_DIR)
 
 ## Clean compiled binary and dependency
-clean-all: clean
+go\:clean-all: go\:clean
 	rm -rf vendor
 	rm -rf glide.lock
 
 ## Install cli
-install: $(APP) build
+go\:install: $(APP) go\:build
 	cp $(RELEASE_DIR)/$(APP) $(INSTALL_DIR)
 	chmod 555 $(INSTALL_DIR)/$(APP)

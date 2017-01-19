@@ -1,0 +1,4 @@
+.PHONY: travis\:docker-tag-and-push
+## Tag according travis envvars and push
+travis\:docker-tag-and-push:
+	$(BUILD_HARNESS_PATH)/bin/travis_docker_tag_and_push.sh

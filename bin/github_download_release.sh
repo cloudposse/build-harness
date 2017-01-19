@@ -48,7 +48,7 @@ fi;
 
 asset_id=`gh_curl -s $GITHUB/repos/$REPO/releases | jq "$parser"`
 if [ "$asset_id" = "null" ]; then
-  errcho "ERROR: version not found $VERSION"
+  echo "ERROR: version not found $VERSION"
   exit 1
 fi;
 
