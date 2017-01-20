@@ -4,7 +4,7 @@
 .PHONY: docker\:build
 ## Build docker image
 docker\:build: $(DOCKER)
-   @BUILD_ARGS=`for arg in $$ARGS; do \
-     printf -- '--build-arg %s=%s ' "$$arg" "$${!arg}"; \
-   done`; \
-   $(DOCKER) build --no-cache $$BUILD_ARGS -t $(DOCKER_IMAGE_NAME) .
+	@BUILD_ARGS=`for arg in $$ARGS; do \
+		printf -- '--build-arg %s=%s ' "$$arg" "$${!arg}"; \
+	done`; \
+	$(DOCKER) build --no-cache $$BUILD_ARGS -t $(DOCKER_IMAGE_NAME) .
