@@ -1,0 +1,7 @@
+.PHONY: github\:download-release
+## GITHUB_TOKEN="<github_access_token>"
+## REPO="<user_or_org>/<repo_name>"
+## FILE="<name_of_asset_file>"      # the name of your release asset file, e.g. build.tar.gz
+## Download release from github
+github\:download-release:
+	$(BUILD_HARNESS_PATH)/bin/github_download_release.sh $(VERSION) $(OUTPUT)
