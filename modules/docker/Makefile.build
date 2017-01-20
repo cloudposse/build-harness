@@ -1,12 +1,10 @@
-.PHONY: docker\:build
-## Use DOCKER_IMAGE_NAME envvar to specify docker image with tags
-## Build docker image
-docker\:build: $(DOCKER)
-	$(DOCKER) build --no-cache -t $(DOCKER_IMAGE_NAME) .
-
-.PHONY: docker\:build-with-args
 ## Use DOCKER_IMAGE_NAME envvar to specify docker image with tags
 ## User ARGS to pass arguments
-## Build docker image with args
-docker\:build-with-args: $(DOCKER)
-	@$(DOCKER) build --no-cache --build-arg $(ARGS) -t $(DOCKER_IMAGE_NAME) .
+
+.PHONY: docker\:build
+## Build docker image
+docker\:build: $(DOCKER)
+   @BUILD_ARGS=`for arg in $$ARGS; do \
+     printf -- '--build-arg %s=%s ' "$$arg" "$${!arg}"; \
+   done`; \
+   $(DOCKER) build --no-cache $$BUILD_ARGS -t $(DOCKER_IMAGE_NAME) .
