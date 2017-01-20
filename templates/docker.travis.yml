@@ -1,0 +1,20 @@
+sudo: required
+addons:
+  apt:
+    packages:
+    - git
+    - make
+    - curl
+env:
+  - DOCKER_IMAGE_NAME=cloudposse/#####################
+services:
+- docker
+install:
+- make init
+- make docker:login
+
+script:
+- make docker:build
+
+after_success:
+- make travis:docker-tag-and-push

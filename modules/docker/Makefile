@@ -1,0 +1,1 @@
+DOCKER:= $(shell which docker)
