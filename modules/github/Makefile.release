@@ -4,4 +4,9 @@
 ## FILE="<name_of_asset_file>"      # the name of your release asset file, e.g. build.tar.gz
 ## Download release from github
 github\:download-release:
+	$(call assert-set,GITHUB_TOKEN)
+	$(call assert-set,REPO)
+	$(call assert-set,FILE)
+	$(call assert-set,VERSION)
+	$(call assert-set,OUTPUT)
 	$(BUILD_HARNESS_PATH)/bin/github_download_release.sh $(VERSION) $(OUTPUT)

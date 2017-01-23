@@ -3,7 +3,7 @@ export BUILD_HARNESS_PATH ?= $(shell until [ -d "build-harness" ] || [ "`pwd`" =
 -include $(BUILD_HARNESS_PATH)/Makefile
 
 ####################### If go app ####################################################
-override APP:=Example App
+APP:=Example App
 ######################################################################################
 
 .PHONY : init

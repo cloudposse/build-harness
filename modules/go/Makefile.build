@@ -6,28 +6,34 @@ APP?=Example App
 .PHONY: go\:build
 ## Build binary
 go\:build: $(GO)
+	$(call assert-set,GO)
 	$(GO) build -o $(RELEASE_DIR)/$(APP)
 
 .PHONY: go\:build-all
 ## Build binary for all platforms
 go\:build-all: $(GO)
+	$(call assert-set,GO)
 	gox  -output "${RELEASE_DIR}/${APP}_{{.OS}}_{{.Arch}}"
 
 .PHONY: go\:deps
 ## Install dependencies
 go\:deps: $(GLIDE)
+	$(call assert-set,GLIDE)
 	$(GLIDE) install --strip-vendor
 	$(GLIDE) update  --strip-vendor
 
 .PHONY: go\:deps-build
 ## Install dependencies for build
 go\:deps-build:
+	$(call assert-set,GLIDE)
+	$(call assert-set,GOPATH)
 	mkdir -p  $(GOPATH)/bin
 	which $(GLIDE) || (curl https://glide.sh/get | sh)
 
 .PHONY: deps-dev
 ## Install development dependencies
 go\:deps-dev: $(GO)
+	$(call assert-set,GO)
 	$(GO) get -d -v "github.com/golang/lint"
 	$(GO) install -v "github.com/golang/lint/golint"
 	$(GO) get -d -v github.com/mitchellh/gox

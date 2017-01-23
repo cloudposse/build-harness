@@ -1,4 +1,5 @@
 .PHONY: travis\:docker-tag-and-push
 ## Tag according travis envvars and push
 travis\:docker-tag-and-push:
+	$(call assert-set,DOCKER_IMAGE_NAME)
 	$(BUILD_HARNESS_PATH)/bin/travis_docker_tag_and_push.sh
