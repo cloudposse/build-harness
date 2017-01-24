@@ -13,12 +13,12 @@ red = $(shell echo -e '\x1b[33;31m$1\x1b[0m')
 
 # Ensures that a variable is defined
 define assert-set
-  @[ -n "$$$1" ] || (echo "$(1) not defined in $(@)"; exit 1)
+  @[ -n "$($1)" ] || (echo "$(1) not defined in $(@)"; exit 1)
 endef
 
 # Ensures that a variable is undefined
 define assert-unset
-  @[ -z "$$$1" ] || (echo "$(1) should not be defined in $(@)"; exit 1)
+  @[ -z "$($1)" ] || (echo "$(1) should not be defined in $(@)"; exit 1)
 endef
 
 default: help

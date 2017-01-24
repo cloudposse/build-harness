@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# gh-dl-release! It works!
+# github_download_release.sh! It works!
 #
 # Source https://gist.github.com/maxim/6e15aa45ba010ab030c4
 #
@@ -17,11 +17,11 @@
 # Set all the variables inside the script, make sure you chmod +x it, then
 # to download specific version to my_app.tar.gz:
 #
-#     gh-dl-release 2.1.1 my_app.tar.gz
+#     github_download_release.sh 2.1.1 my_app.tar.gz
 #
 # to download latest version:
 #
-#     gh-dl-release latest latest.tar.gz
+#     github_download_release.sh latest latest.tar.gz
 #
 # If your version/tag doesn't match, the script will exit with error.
 

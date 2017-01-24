@@ -5,6 +5,8 @@ DOCKER_BUILD_FLAGS ?= --no-cache
 .PHONY: docker\:build
 ## Build docker image
 docker\:build: $(DOCKER)
+	$(call assert-set,DOCKER)
+	$(call assert-set,DOCKER_IMAGE_NAME)
 	@BUILD_ARGS=`for arg in $$ARGS; do \
 		printf -- '--build-arg %s=%s ' "$$arg" "$${!arg}"; \
 	done`; \
