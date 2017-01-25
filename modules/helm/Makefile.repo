@@ -11,10 +11,15 @@ else
   BRANCH=$(shell git rev-parse --abbrev-ref HEAD)
 endif
 
+.PHONY : helm\:repo\:info:
+## Show repo info
+helm\:repo\:info:
+	@echo "REPO_URL: $(REPO_URL)"
+	@echo "REPO_DEV_URL: $(REPO_DEV_URL)"
 
-.PHONY: helm\:add_repo
+.PHONY: helm\:repo\:add_remote
 ## Add helm repo
-helm\:add_repo:
+helm\:repo\:add:
 	@$($(HELM) repo rm kubernetes-charts)
 	@$(HELM) repo add kubernetes-charts http://storage.googleapis.com/kubernetes-charts
 	@$($(HELM) repo rm cloudposse-stable)
@@ -24,13 +29,52 @@ helm\:add_repo:
 	@$(HELM) repo update
 	@$(HELM) repo list
 
-.PHONY: helm\:add_dev_repo
-## Add helm dev repo
-helm\:add_dev_repo:
+.PHONY: helm\:repo\:add_dev_remote
+## Add helm repo
+helm\:repo\:add_dev:
 	@$($(HELM) repo rm cloudposse-dev-stable)
 	$(HELM) repo add cloudposse-dev-stable $(REPO_DEV_URL)/$(BRANCH)/stable
 	$($(HELM) repo rm cloudposse-dev-incubator)
 	$(HELM) repo add cloudposse-dev-incubator $(REPO_DEV_URL)/$(BRANCH)/incubator
 	$(HELM) repo update
 	$(HELM) repo list
+
+.PHONY : helm\:repo\:fix-perms
+## Fix repo filesystem permissions
+helm\:repo\:fix-perms:
+	@find . -type f -name '*.yaml' -exec chmod 644 {} \;
+	@find . -type f -name '*.txt' -exec chmod 644 {} \;
+	@find . -type f -name '*.tpl' -exec chmod 644 {} \;
+	@find . -type f -name '*.md' -exec chmod 644 {} \;
+	@find . -type f -name '*.tgz' -exec chmod 644 {} \;
+
+.PHONY : helm\:repo\:package
+helm\:repo\:package:
+	@echo "## Building packages in $(shell basename $(CURDIR))"
+	@find library -maxdepth 1 -mindepth 1 -type d '!' -name packages  | \
+    xargs -n 1 -I '{}' sh -c 'echo && echo "# Updating dependencies for {}" && $(HELM) --debug {}'
+	@find library -maxdepth 1 -mindepth 1 -type d '!' -name packages  | \
+    xargs -n 1 -I '{}' sh -c 'echo && echo "# Building package for {}" && $(HELM) package --debug {}'
+	@find . -maxdepth 1 -mindepth 1 -type f -name '*.tgz' | xargs -I '{}' mv {} packages
+
+.PHONY : helm\:repo\:index
+helm\:repo\:index:
+	@echo "## Generating index for $(REPO_URL)"
+	@$(HELM) repo index . --url $(REPO_URL) --debug
+
+.PHONY : helm\:repo\:lint
+## Lint library charts
+helm\:repo\:lint:
+	@echo "## Linting charts $(shell pwd)/library"
+	@find ./library -maxdepth 1 -mindepth 1 -type d | \
+    xargs -n 1 -I'{}' helm lint --strict {}
+
+
+.PHONY : helm\:repo\:clean
+## Clean helm repo
+helm\:repo\:clean:
+	@rm -f *.tgz
+	@find ./library -maxdepth 3 -mindepth 3 -type f -name '*.tgz' -delete
+	@rm -f ./packages/index.yaml ./packages/*.tgz
+
 
