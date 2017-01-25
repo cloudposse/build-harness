@@ -51,9 +51,9 @@ helm\:repo\:fix-perms:
 .PHONY : helm\:repo\:package
 helm\:repo\:package:
 	@echo "## Building packages in $(shell basename $(CURDIR))"
-	@find library -maxdepth 1 -mindepth 1 -type d '!' -name packages  | \
-    xargs -n 1 -I '{}' sh -c 'echo && echo "# Updating dependencies for {}" && $(HELM) --debug {}'
-	@find library -maxdepth 1 -mindepth 1 -type d '!' -name packages  | \
+	@find ./library -maxdepth 1 -mindepth 1 -type d '!' -name packages  | \
+    xargs -n 1 -I '{}' sh -c 'echo && echo "# Updating dependencies for {}" && $(HELM) dependency build --debug {}'
+	@find ./library -maxdepth 1 -mindepth 1 -type d '!' -name packages  | \
     xargs -n 1 -I '{}' sh -c 'echo && echo "# Building package for {}" && $(HELM) package --debug {}'
 	@find . -maxdepth 1 -mindepth 1 -type f -name '*.tgz' | xargs -I '{}' mv {} packages
 
