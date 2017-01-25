@@ -1,0 +1,35 @@
+REPO_URL=$(${REPO_URL:-https://charts.cloudposse.com})
+
+ifneq ($(TRAVIS_PULL_REQUEST_BRANCH),)
+  BRANCH=pr-$(TRAVIS_PULL_REQUEST_BRANCH)
+else ifneq ($(TRAVIS_BRANCH),)
+  BRANCH=$(TRAVIS_BRANCH)
+else ifneq ($(TRAVIS_TAG),)
+  BRANCH=$(TRAVIS_TAG)
+else
+  BRANCH=$(shell git rev-parse --abbrev-ref HEAD)
+endif
+
+
+.PHONY: helm\:add_repo
+## Add helm repo
+helm\:add_repo:
+	@$(HELM) repo rm kubernetes-charts 2>/dev/null
+	@$(HELM) repo add kubernetes-charts http://storage.googleapis.com/kubernetes-charts
+	@$(HELM) repo rm cloudposse-stable 2>/dev/null
+	@$(HELM) repo add cloudposse-stable ${REPO_URL}/stable
+	@$(HELM) repo rm cloudposse-incubator 2>/dev/null
+	@$(HELM) repo add cloudposse-incubator ${REPO_URL}/incubator
+	@$(HELM) repo update
+	@$(HELM) repo list
+
+.PHONY: helm\:add_dev_repo
+## Add helm dev repo
+helm\:add_dev_repo:
+	@$(HELM) repo rm cloudposse-dev-stable 2>/dev/null
+	@$(HELM) repo add cloudposse-dev-stable ${REPO_URL}/${BRANCH}/stable
+	@$(HELM) repo rm cloudposse-dev-incubator 2>/dev/null
+	@$(HELM) repo add cloudposse-dev-incubator ${REPO_URL}/${BRANCH}/incubator
+	@$(HELM) repo update
+	@$(HELM) repo list
+
