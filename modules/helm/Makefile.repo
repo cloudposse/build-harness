@@ -33,11 +33,11 @@ helm\:repo\:add_remote:
 ## Add helm remote dev repos
 helm\:repo\:add_dev_remote:
 	@$($(HELM) repo rm cloudposse-dev-stable)
-	$(HELM) repo add cloudposse-dev-stable $(REPO_DEV_URL)/$(BRANCH)/stable
-	$($(HELM) repo rm cloudposse-dev-incubator)
-	$(HELM) repo add cloudposse-dev-incubator $(REPO_DEV_URL)/$(BRANCH)/incubator
-	$(HELM) repo update
-	$(HELM) repo list
+	@$(HELM) repo add cloudposse-dev-stable $(REPO_DEV_URL)/$(BRANCH)/stable
+	@$($(HELM) repo rm cloudposse-dev-incubator)
+	@$(HELM) repo add cloudposse-dev-incubator $(REPO_DEV_URL)/$(BRANCH)/incubator
+	@$(HELM) repo update
+	@$(HELM) repo list
 
 .PHONY : helm\:repo\:fix-perms
 ## Fix repo filesystem permissions
@@ -52,10 +52,11 @@ helm\:repo\:fix-perms:
 helm\:repo\:package:
 	@echo "## Building packages in $(shell basename $(CURDIR))"
 	@find ./library -maxdepth 1 -mindepth 1 -type d '!' -name packages  | \
-    xargs -n 1 -I '{}' sh -c 'echo && echo "# Updating dependencies for {}" && $(HELM) dependency build --debug {}'
+    	xargs -n 1 -I '{}' sh -c 'echo && echo "# Updating dependencies for {}" && $(HELM) dependency build --debug {}'
 	@find ./library -maxdepth 1 -mindepth 1 -type d '!' -name packages  | \
-    xargs -n 1 -I '{}' sh -c 'echo && echo "# Building package for {}" && $(HELM) package --debug {}'
-	@find . -maxdepth 1 -mindepth 1 -type f -name '*.tgz' | xargs -I '{}' mv {} packages
+    	xargs -n 1 -I '{}' sh -c 'echo && echo "# Building package for {}" && $(HELM) package --debug {}'
+	@find ./library -maxdepth 1 -mindepth 1 -type f -name '*.tgz' | \
+		xargs -I '{}' mv {} packages
 
 .PHONY : helm\:repo\:index
 helm\:repo\:index:
@@ -67,7 +68,7 @@ helm\:repo\:index:
 helm\:repo\:lint:
 	@echo "## Linting charts $(shell pwd)/library"
 	@find ./library -maxdepth 1 -mindepth 1 -type d | \
-    xargs -n 1 -I'{}' helm lint --strict {}
+    	xargs -n 1 -I'{}' $(HELM) lint --strict {}
 
 
 .PHONY : helm\:repo\:clean
