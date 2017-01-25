@@ -9,6 +9,6 @@ HELM:=$(shell which helm)
 helm\:install:
 	@$(CURL) https://kubernetes-helm.storage.googleapis.com/helm-$(HELM_VERSION)-$(HELM_PLATFORM).tar.gz | tar xvz
 	@chmod +x $(HELM_PLATFORM)/helm
-	@chmod -R 777 $(HOME)/.helm
 	@mv $(HELM_PLATFORM)/helm /usr/bin
 	@helm init --client-only
+	@chmod -R 777 $(HOME)/.helm
