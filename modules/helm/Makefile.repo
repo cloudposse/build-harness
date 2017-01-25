@@ -29,7 +29,7 @@ helm\:add_repo:
 helm\:add_dev_repo:
 	@$($(HELM) repo rm cloudposse-dev-stable)
 	$(HELM) repo add cloudposse-dev-stable $(REPO_DEV_URL)/$(BRANCH)/stable
-	$(HELM) repo rm cloudposse-dev-incubator
+	$($(HELM) repo rm cloudposse-dev-incubator)
 	$(HELM) repo add cloudposse-dev-incubator $(REPO_DEV_URL)/$(BRANCH)/incubator
 	$(HELM) repo update
 	$(HELM) repo list
