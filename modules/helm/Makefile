@@ -3,7 +3,6 @@ HELM_VERSION?=v2.1.3
 HELM_PLATFORM?=linux-amd64
 HELM:=$(shell which helm)
 
-
 .PHONY: helm\:install
 ## Install helm
 helm\:install:

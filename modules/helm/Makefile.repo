@@ -11,14 +11,14 @@ else
   BRANCH=$(shell git rev-parse --abbrev-ref HEAD)
 endif
 
-.PHONY : helm\:repo\:info:
+.PHONY : helm\:repo\:info
 ## Show repo info
 helm\:repo\:info:
 	@echo "REPO_URL: $(REPO_URL)"
 	@echo "REPO_DEV_URL: $(REPO_DEV_URL)"
 
 .PHONY: helm\:repo\:add_remote
-## Add helm repo
+## Add helm remote repos
 helm\:repo\:add:
 	@$($(HELM) repo rm kubernetes-charts)
 	@$(HELM) repo add kubernetes-charts http://storage.googleapis.com/kubernetes-charts
@@ -30,7 +30,7 @@ helm\:repo\:add:
 	@$(HELM) repo list
 
 .PHONY: helm\:repo\:add_dev_remote
-## Add helm repo
+## Add helm remote dev repos
 helm\:repo\:add_dev:
 	@$($(HELM) repo rm cloudposse-dev-stable)
 	$(HELM) repo add cloudposse-dev-stable $(REPO_DEV_URL)/$(BRANCH)/stable
