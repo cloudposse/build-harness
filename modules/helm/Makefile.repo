@@ -1,5 +1,4 @@
 REPO_URL?=https://charts.cloudposse.com
-REPO_DEV_URL?=https://charts.dev.cloudposse.com
 
 ifneq ($(TRAVIS_PULL_REQUEST_BRANCH),)
   BRANCH=pr-$(TRAVIS_PULL_REQUEST_BRANCH)
@@ -11,11 +10,18 @@ else
   BRANCH=$(shell git rev-parse --abbrev-ref HEAD)
 endif
 
+ifeq ($(BRANCH),master)
+	CURRENT_REPO_URL?=$(REPO_URL)
+else
+	CURRENT_REPO_URL?=https://charts.dev.cloudposse.com/$(BRANCH)
+endif
+
+
 .PHONY : helm\:repo\:info
 ## Show repo info
 helm\:repo\:info:
 	@echo "REPO_URL: $(REPO_URL)"
-	@echo "REPO_DEV_URL: $(REPO_DEV_URL)"
+	@echo "CURRENT_REPO_URL: $(CURRENT_REPO_URL)"
 
 .PHONY: helm\:repo\:add_remote
 ## Add helm remote repos
@@ -29,13 +35,13 @@ helm\:repo\:add_remote:
 	@$(HELM) repo update
 	@$(HELM) repo list
 
-.PHONY: helm\:repo\:add_dev_remote
+.PHONY: helm\:repo\:add_current
 ## Add helm remote dev repos
-helm\:repo\:add_dev_remote:
+helm\:repo\:add_current:
 	@$($(HELM) repo rm cloudposse-dev-stable)
-	@$(HELM) repo add cloudposse-dev-stable $(REPO_DEV_URL)/$(BRANCH)/stable
+	@$(HELM) repo add cloudposse-dev-stable $(CURRENT_REPO_URL)/stable
 	@$($(HELM) repo rm cloudposse-dev-incubator)
-	@$(HELM) repo add cloudposse-dev-incubator $(REPO_DEV_URL)/$(BRANCH)/incubator
+	@$(HELM) repo add cloudposse-dev-incubator $(CURRENT_REPO_URL)/incubator
 	@$(HELM) repo update
 	@$(HELM) repo list
 
@@ -60,8 +66,8 @@ helm\:repo\:package:
 
 .PHONY : helm\:repo\:index
 helm\:repo\:index:
-	@echo "## Generating index for $(REPO_URL)"
-	@$(HELM) repo index . --url $(REPO_URL) --debug
+	@echo "## Generating index for $(CURRENT_REPO_URL)"
+	@$(HELM) repo index ./packages --url $(CURRENT_REPO_URL) --debug
 
 .PHONY : helm\:repo\:lint
 ## Lint library charts
