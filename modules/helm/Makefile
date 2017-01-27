@@ -12,11 +12,10 @@ helm\:install:
 	@helm init --client-only
 	@chmod -R 777 $(HOME)/.helm
 
-.PHONY: helm\:serve
-## Serve helm charts repo
-helm\:serve:
+.PHONY: helm\:serve:index
+## Build index for serve helm charts
+helm\:serve:index:
 	$(call assert-set,CURRENT_REPO_URL)
 	$(call assert-set,HELM)
 	@make helm:repo:index REPO_PATH=incubator
 	@make helm:repo:index REPO_PATH=stable
-	$(HELM) serve
