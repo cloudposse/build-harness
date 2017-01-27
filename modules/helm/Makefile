@@ -12,9 +12,9 @@ helm\:install:
 	@helm init --client-only
 	@chmod -R 777 $(HOME)/.helm
 
-.PHONY: helm\:serve:index
+.PHONY: helm\:serve\:index
 ## Build index for serve helm charts
-helm\:serve:index:
+helm\:serve\:index:
 	$(call assert-set,CURRENT_REPO_URL)
 	$(call assert-set,HELM)
 	@make helm:repo:index REPO_PATH=incubator
