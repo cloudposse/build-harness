@@ -62,7 +62,9 @@ helm\:repo\:package:
 	@find ./$(REPO_PATH)/library -maxdepth 1 -mindepth 1 -type d '!' -name packages  | \
     	xargs -n 1 -I '{}' sh -c 'echo && echo "# Updating dependencies for {}" && $(HELM) dependency build --debug {}'
 	@find ./$(REPO_PATH)/library -maxdepth 1 -mindepth 1 -type d '!' -name packages  | \
-    	xargs -n 1 -I '{}' sh -c 'echo && echo "# Building package for {}" && $(HELM) package --save ./$(REPO_PATH)/packages --debug {}'
+    	xargs -n 1 -I '{}' sh -c 'echo && echo "# Building package for {}" && $(HELM) package --debug {}'
+	@find . -maxdepth 1 -mindepth 1 -type f -name '*.tgz' | \
+		xargs -I '{}' mv {} ./$(REPO_PATH)/packages
 
 .PHONY : helm\:repo\:index
 helm\:repo\:index:
