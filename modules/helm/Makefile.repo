@@ -23,9 +23,9 @@ helm\:repo\:info:
 	@echo "REPO_URL: $(REPO_URL)"
 	@echo "CURRENT_REPO_URL: $(CURRENT_REPO_URL)"
 
-.PHONY: helm\:repo\:add_remote
+.PHONY: helm\:repo\:add-remote
 ## Add helm remote repos
-helm\:repo\:add_remote:
+helm\:repo\:add-remote:
 	@$($(HELM) repo rm kubernetes-charts)
 	@$(HELM) repo add kubernetes-charts http://storage.googleapis.com/kubernetes-charts
 	@$($(HELM) repo rm cloudposse-stable)
@@ -35,9 +35,9 @@ helm\:repo\:add_remote:
 	@$(HELM) repo update
 	@$(HELM) repo list
 
-.PHONY: helm\:repo\:add_current
+.PHONY: helm\:repo\:add-current
 ## Add helm remote dev repos
-helm\:repo\:add_current:
+helm\:repo\:add-current:
 	@$($(HELM) repo rm cloudposse-dev-stable)
 	@$(HELM) repo add cloudposse-dev-stable $(CURRENT_REPO_URL)/stable
 	@$($(HELM) repo rm cloudposse-dev-incubator)
