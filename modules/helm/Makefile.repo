@@ -54,12 +54,6 @@ helm\:repo\:fix-perms:
 	@find ./$(REPO_PATH) -type f -name '*.tpl' -exec chmod 644 {} \;
 	@find ./$(REPO_PATH) -type f -name '*.md' -exec chmod 644 {} \;
 	@find ./$(REPO_PATH) -type f -name '*.tgz' -exec chmod 644 {} \;
-	@find ./packages/$(REPO_PATH) -type f -name '*.yaml' -exec chmod 644 {} \;
-	@find ./packages/$(REPO_PATH) -type f -name '*.txt' -exec chmod 644 {} \;
-	@find ./packages/$(REPO_PATH) -type f -name '*.tpl' -exec chmod 644 {} \;
-	@find ./packages/$(REPO_PATH) -type f -name '*.md' -exec chmod 644 {} \;
-	@find ./packages/$(REPO_PATH) -type f -name '*.tgz' -exec chmod 644 {} \;
-
 
 .PHONY : helm\:repo\:package
 helm\:repo\:package:
