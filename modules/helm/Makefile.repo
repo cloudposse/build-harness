@@ -69,6 +69,7 @@ helm\:repo\:package:
     	xargs -n 1 -I '{}' sh -c 'echo && echo "# Updating dependencies for {}" && $(HELM) dependency build --debug {}'
 	@find ./$(REPO_PATH) -maxdepth 1 -mindepth 1 -type d '!' -name packages  | \
     	xargs -n 1 -I '{}' sh -c 'echo && echo "# Building package for {}" && $(HELM) package --debug {}'
+   	@mkdir -p ./packages/$(REPO_PATH)
 	@find . -maxdepth 1 -mindepth 1 -type f -name '*.tgz' | \
 		xargs -I '{}' mv {} ./packages/$(REPO_PATH)
 
