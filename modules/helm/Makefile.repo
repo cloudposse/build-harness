@@ -1,3 +1,6 @@
+REPO_PATH ?= ./$(REPO_NAME)
+PACKAGE_PATH ?= ./packages/$(REPO_NAME)
+
 REPO_URL?=https://charts.cloudposse.com
 
 ifneq ($(TRAVIS_PULL_REQUEST_BRANCH),)
@@ -48,52 +51,52 @@ helm\:repo\:add-current:
 .PHONY : helm\:repo\:fix-perms
 ## Fix repo filesystem permissions
 helm\:repo\:fix-perms:
-	$(call assert-set,REPO_PATH)
-	@find ./$(REPO_PATH) -type f -name '*.yaml' -exec chmod 644 {} \;
-	@find ./$(REPO_PATH) -type f -name '*.txt' -exec chmod 644 {} \;
-	@find ./$(REPO_PATH) -type f -name '*.tpl' -exec chmod 644 {} \;
-	@find ./$(REPO_PATH) -type f -name '*.md' -exec chmod 644 {} \;
-	@find ./$(REPO_PATH) -type f -name '*.tgz' -exec chmod 644 {} \;
+	$(call assert-set,REPO_NAME)
+	@find $(REPO_PATH) -type f -name '*.yaml' -exec chmod 644 {} \;
+	@find $(REPO_PATH) -type f -name '*.txt' -exec chmod 644 {} \;
+	@find $(REPO_PATH) -type f -name '*.tpl' -exec chmod 644 {} \;
+	@find $(REPO_PATH) -type f -name '*.md' -exec chmod 644 {} \;
+	@find $(REPO_PATH) -type f -name '*.tgz' -exec chmod 644 {} \;
 
 .PHONY : helm\:repo\:package
 helm\:repo\:package:
-	$(call assert-set,REPO_PATH)
+	$(call assert-set,REPO_NAME)
 	@echo "## Building packages in $(shell basename $(CURDIR))"
-	@find ./$(REPO_PATH) -maxdepth 1 -mindepth 1 -type d '!' -name packages  | \
+	@find $(REPO_PATH) -maxdepth 1 -mindepth 1 -type d  | \
     	xargs -n 1 -I '{}' sh -c 'echo && echo "# Updating dependencies for {}" && $(HELM) dependency build --debug {}'
-	@find ./$(REPO_PATH) -maxdepth 1 -mindepth 1 -type d '!' -name packages  | \
+	@find $(REPO_PATH) -maxdepth 1 -mindepth 1 -type d  | \
     	xargs -n 1 -I '{}' sh -c 'echo && echo "# Building package for {}" && $(HELM) package --debug {}'
-	@mkdir -p ./packages/$(REPO_PATH)
+	@mkdir -p $(PACKAGE_PATH)
 	@find . -maxdepth 1 -mindepth 1 -type f -name '*.tgz' | \
-		xargs -I '{}' mv {} ./packages/$(REPO_PATH)
+		xargs -I '{}' mv {} $(PACKAGE_PATH)
 
 .PHONY : helm\:repo\:index
 helm\:repo\:index:
-	$(call assert-set,REPO_PATH)
+	$(call assert-set,REPO_NAME)
 	@echo "## Generating index for $(CURRENT_REPO_URL)"
-	@$(HELM) repo index ./packages/$(REPO_PATH) --url $(CURRENT_REPO_URL)/$(REPO_PATH) --debug
+	@$(HELM) repo index $(PACKAGE_PATH) --url $(CURRENT_REPO_URL)/$(REPO_NAME) --debug
 
 .PHONY : helm\:repo\:lint
 ## Lint charts
 helm\:repo\:lint:
-	$(call assert-set,REPO_PATH)
+	$(call assert-set,REPO_NAME)
 	@echo "## Linting charts $(shell pwd)"
-	@find ./$(REPO_PATH) -maxdepth 1 -mindepth 1 -type d | \
+	@find $(REPO_PATH) -maxdepth 1 -mindepth 1 -type d | \
     	xargs -n 1 -I'{}' $(HELM) lint --strict {}
 
 
 .PHONY : helm\:repo\:clean
 ## Clean helm repo
 helm\:repo\:clean:
-	$(call assert-set,REPO_PATH)
+	$(call assert-set,REPO_NAME)
 	@rm -f *.tgz
-	@find ./$(REPO_PATH) -maxdepth 3 -mindepth 3 -type f -name '*.tgz' -delete
-	@rm -f ./packages/$(REPO_PATH)/index.yaml ./packages/*.tgz
+	@find $(REPO_PATH) -maxdepth 3 -mindepth 3 -type f -name '*.tgz' -delete
+	@rm -f $(PACKAGE_PATH)/*
 
 .PHONY : helm\:repo\:build
 ## Build repo
 helm\:repo\:build:
-	$(call assert-set,REPO_PATH)
+	$(call assert-set,REPO_NAME)
 	@make helm:repo:clean
 	@make helm:repo:fix-perms
 	@make helm:repo:lint

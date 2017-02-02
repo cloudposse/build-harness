@@ -17,5 +17,5 @@ helm\:install:
 helm\:serve\:index:
 	$(call assert-set,CURRENT_REPO_URL)
 	$(call assert-set,HELM)
-	@make helm:repo:index REPO_PATH=incubator
-	@make helm:repo:index REPO_PATH=stable
+	@make helm:repo:index REPO_NAME=incubator
+	@make helm:repo:index REPO_NAME=stable
