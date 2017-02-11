@@ -46,7 +46,7 @@ helm\:repo\:add:
 	@for repo in $(HELM_REPO_NAMES); do \
 		if [ -d "$$repo" ]; then \
 			curl --fail -s -q $(HELM_REPO_URL)/$$repo/index.yaml -o /dev/null; \
-			if [ $? -eq 0 ]; then \
+			if [ $$? -eq 0 ]; then \
 				$(HELM) repo add $(HELM_REPO_PREFIX)-$$repo $(HELM_REPO_URL)/$$repo; \
 			else \
 				echo "$(HELM_REPO_URL)/$$repo not available"; \
