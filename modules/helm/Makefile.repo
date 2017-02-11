@@ -1,3 +1,6 @@
+HELM_REPO_NAMES ?= stable incubator demo
+HELM_REPO_PREFIX ?= cloudposse
+
 REPO_PATH ?= ./$(REPO_NAME)
 PACKAGE_PATH ?= ./packages/$(REPO_NAME)
 
@@ -19,7 +22,6 @@ else
 	CURRENT_REPO_URL?=https://charts.dev.cloudposse.com/$(BRANCH)
 endif
 
-
 .PHONY : helm\:repo\:info
 ## Show repo info
 helm\:repo\:info:
@@ -29,22 +31,30 @@ helm\:repo\:info:
 .PHONY: helm\:repo\:add-remote
 ## Add helm remote repos
 helm\:repo\:add-remote:
-	@$($(HELM) repo rm kubernetes-charts)
+	@$(HELM) repo rm kubernetes-charts
 	@$(HELM) repo add kubernetes-charts http://storage.googleapis.com/kubernetes-charts
-	@$($(HELM) repo rm cloudposse-stable)
-	@$(HELM) repo add cloudposse-stable $(REPO_URL)/stable
-	@$($(HELM) repo rm cloudposse-incubator)
-	@$(HELM) repo add cloudposse-incubator $(REPO_URL)/incubator
+	@for repo in $(HELM_REPO_NAMES); do \
+		if [ -d "$$repo" ]; then \
+			$(HELM) repo rm $(HELM_REPO_PREFIX)-$$repo; \
+			$(HELM) repo add $(HELM_REPO_PREFIX)-$$repo $(REPO_URL)/$$repo; \
+		else \
+			echo "$$repo does not exist; skipping..."; \
+		fi; \
+	done
 	@$(HELM) repo update
 	@$(HELM) repo list
 
 .PHONY: helm\:repo\:add-current
 ## Add helm remote dev repos
 helm\:repo\:add-current:
-	@$($(HELM) repo rm cloudposse-dev-stable)
-	@$(HELM) repo add cloudposse-dev-stable $(CURRENT_REPO_URL)/stable
-	@$($(HELM) repo rm cloudposse-dev-incubator)
-	@$(HELM) repo add cloudposse-dev-incubator $(CURRENT_REPO_URL)/incubator
+	@for repo in $(HELM_REPO_NAMES); do \
+		if [ -d "$$repo" ]; then \
+			$(HELM) repo rm $(HELM_REPO_PREFIX)-$$repo; \
+			$(HELM) repo add $(HELM_REPO_PREFIX)-$$repo $(REPO_URL)/$$repo; \
+		else \
+			echo "$$repo does not exist; skipping..."; \
+		fi; \
+	done
 	@$(HELM) repo update
 	@$(HELM) repo list
 
@@ -73,7 +83,7 @@ helm\:repo\:package:
 .PHONY : helm\:repo\:index
 helm\:repo\:index:
 	$(call assert-set,REPO_NAME)
-	@echo "## Generating index for $(CURRENT_REPO_URL)"
+	@echo "## Generating index for $(CURRENT_REPO_URL)/$(REPO_NAME)"
 	@$(HELM) repo index $(PACKAGE_PATH) --url $(CURRENT_REPO_URL)/$(REPO_NAME) --debug
 
 .PHONY : helm\:repo\:lint
