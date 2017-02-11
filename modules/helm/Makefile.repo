@@ -31,23 +31,26 @@ helm\:repo\:info:
 .PHONY: helm\:repo\:add-remote
 ## Add helm remote repos
 helm\:repo\:add-remote:
-	@$(HELM) repo add kubernetes-charts http://storage.googleapis.com/kubernetes-charts
-	@for repo in $(HELM_REPO_NAMES); do \
-		if [ -d "$$repo" ]; then \
-			$(HELM) repo add $(HELM_REPO_PREFIX)-$$repo $(REPO_URL)/$$repo; \
-		else \
-			echo "$$repo does not exist; skipping..."; \
-		fi; \
-	done
-	@$(HELM) repo update
-	@$(HELM) repo list
+	@make helm:repo:add \
+		HELM_REPO_URL=$(REPO_URL)
 
 .PHONY: helm\:repo\:add-current
 ## Add helm remote dev repos
 helm\:repo\:add-current:
+	@make helm:repo:add \
+		HELM_REPO_PREFIX=$(HELM_REPO_PREFIX)-dev \
+		HELM_REPO_URL=$(CURRENT_REPO_URL)
+	
+helm\:repo\:add:
+	@$(HELM) repo add kubernetes-charts http://storage.googleapis.com/kubernetes-charts
 	@for repo in $(HELM_REPO_NAMES); do \
 		if [ -d "$$repo" ]; then \
-			$(HELM) repo add $(HELM_REPO_PREFIX)-$$repo $(REPO_URL)/$$repo; \
+			curl --fail -s -q $(HELM_REPO_URL)/$$repo/index.yaml -o /dev/null; \
+			if [ $$? -eq 0 ]; then \
+				$(HELM) repo add $(HELM_REPO_PREFIX)-$$repo $(HELM_REPO_URL)/$$repo; \
+			else \
+				echo "$(HELM_REPO_URL)/$$repo not available"; \
+			fi; \
 		else \
 			echo "$$repo does not exist; skipping..."; \
 		fi; \
