@@ -31,11 +31,9 @@ helm\:repo\:info:
 .PHONY: helm\:repo\:add-remote
 ## Add helm remote repos
 helm\:repo\:add-remote:
-	@$(HELM) repo rm kubernetes-charts
 	@$(HELM) repo add kubernetes-charts http://storage.googleapis.com/kubernetes-charts
 	@for repo in $(HELM_REPO_NAMES); do \
 		if [ -d "$$repo" ]; then \
-			$(HELM) repo rm $(HELM_REPO_PREFIX)-$$repo; \
 			$(HELM) repo add $(HELM_REPO_PREFIX)-$$repo $(REPO_URL)/$$repo; \
 		else \
 			echo "$$repo does not exist; skipping..."; \
@@ -49,7 +47,6 @@ helm\:repo\:add-remote:
 helm\:repo\:add-current:
 	@for repo in $(HELM_REPO_NAMES); do \
 		if [ -d "$$repo" ]; then \
-			$(HELM) repo rm $(HELM_REPO_PREFIX)-$$repo; \
 			$(HELM) repo add $(HELM_REPO_PREFIX)-$$repo $(REPO_URL)/$$repo; \
 		else \
 			echo "$$repo does not exist; skipping..."; \
