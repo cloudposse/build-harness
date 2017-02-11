@@ -32,10 +32,12 @@ helm\:repo\:info:
 helm\:repo\:add-remote:
 	@$(HELM) repo rm kubernetes-charts
 	@$(HELM) repo add kubernetes-charts http://storage.googleapis.com/kubernetes-charts
-	@for repo in "$(HELM_REPO_NAMES)"; do \
+	@for repo in $(HELM_REPO_NAMES); do \
 		if [ -d "$$repo" ]; then \
 			$(HELM) repo rm cloudposse-$$repo; \
 			$(HELM) repo add cloudposse-$$repo $(REPO_URL)/$$repo; \
+		else \
+			echo "$$repo does not exist; skipping..."; \
 		fi; \
 	done
 	@$(HELM) repo update
@@ -44,10 +46,12 @@ helm\:repo\:add-remote:
 .PHONY: helm\:repo\:add-current
 ## Add helm remote dev repos
 helm\:repo\:add-current:
-	@for repo in "$(HELM_REPO_NAMES)"; do \
+	@for repo in $(HELM_REPO_NAMES); do \
 		if [ -d "$$repo" ]; then \
 			$(HELM) repo rm cloudposse-$$repo; \
 			$(HELM) repo add cloudposse-$$repo $(REPO_URL)/$$repo; \
+		else \
+			echo "$$repo does not exist; skipping..."; \
 		fi; \
 	done
 	@$(HELM) repo update
