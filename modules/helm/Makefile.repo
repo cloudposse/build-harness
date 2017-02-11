@@ -39,7 +39,7 @@ helm\:repo\:add-remote:
 helm\:repo\:add-current:
 	@make helm:repo:add \
 		HELM_REPO_PREFIX=$(HELM_REPO_PREFIX)-dev \
-		HELM_REPO_URL=$(CURENT_REPO_URL)
+		HELM_REPO_URL=$(CURRENT_REPO_URL)
 	
 helm\:repo\:add:
 	@$(HELM) repo add kubernetes-charts http://storage.googleapis.com/kubernetes-charts
