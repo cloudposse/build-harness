@@ -1,4 +1,5 @@
 COPYRIGHT_CMD ?= docker run --rm --volume `pwd`:$(COPYRIGHT_OUTPUT_DIR) osterman/copyright-header:latest
+COPYRIGHT_SOFTWARE ?= $(shell basename $(pwd))
 COPYRIGHT_LICENSE ?= ASL2
 COPYRIGHT_HOLDER ?= Cloud Posse, LLC <hello@cloudposse.com>
 COPYRIGHT_YEAR ?= $(shell date +%Y)
