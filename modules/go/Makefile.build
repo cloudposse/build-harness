@@ -1,7 +1,7 @@
 GLIDE	:= $(shell which glide)
 INSTALL_DIR ?= /usr/local/sbin
 RELEASE_DIR ?= release
-APP?=Example App
+APP ?= $(shell basename `pwd`)
 
 .PHONY: go\:build
 ## Build binary
