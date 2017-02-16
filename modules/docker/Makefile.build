@@ -10,4 +10,5 @@ docker\:build: $(DOCKER)
 	@BUILD_ARGS=`for arg in $$ARGS; do \
 		printf -- '--build-arg %s=%s ' "$$arg" "$${!arg}"; \
 	done`; \
+	echo "Building $(DOCKER_IMAGE_NAME) with [$(DOCKER_BUILD_FLAGS)] build args..."; \
 	$(DOCKER) build $(DOCKER_BUILD_FLAGS) $$BUILD_ARGS -t $(DOCKER_IMAGE_NAME) .
