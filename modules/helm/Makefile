@@ -1,16 +1,17 @@
-CURL:= $(shell which curl)
-HELM_VERSION?=v2.1.3
-HELM_PLATFORM?=linux-amd64
-HELM:=$(shell which helm)
+CURL := $(shell which curl)
+HELM_VERSION ?= v2.2.0
+HELM_PLATFORM ?= $(OS)-amd64
+HELM := $(shell which helm)
 
 .PHONY: helm\:install
 ## Install helm
 helm\:install:
 	@$(CURL) https://kubernetes-helm.storage.googleapis.com/helm-$(HELM_VERSION)-$(HELM_PLATFORM).tar.gz | tar xvz
 	@chmod +x $(HELM_PLATFORM)/helm
-	@mv $(HELM_PLATFORM)/helm /usr/bin
+	@mv $(HELM_PLATFORM)/helm /usr/local/bin/
 	@helm init --client-only
 	@chmod -R 777 $(HOME)/.helm
+	@helm repo remove local || true
 
 .PHONY: helm\:serve\:index
 ## Build index for serve helm charts
