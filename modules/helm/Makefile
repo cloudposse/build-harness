@@ -11,6 +11,7 @@ helm\:install:
 	@mv $(HELM_PLATFORM)/helm /usr/bin
 	@helm init --client-only
 	@chmod -R 777 $(HOME)/.helm
+	@helm repo remove local || true
 
 .PHONY: helm\:serve\:index
 ## Build index for serve helm charts
