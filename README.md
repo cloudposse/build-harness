@@ -10,7 +10,7 @@ It's 100% Open Source and licensed under [APACHE2](LICENSE).
 At the top of your `Makefile` add, the following...
 
 ```make
-$(shell curl --fail -O "https://raw.githubusercontent.com/cloudposse/build-harness/master/templates/Makefile.build-harness)
+$(shell curl --silent -O "https://raw.githubusercontent.com/cloudposse/build-harness/master/templates/Makefile.build-harness")
 include Makefile.build-harness
 ```
 
