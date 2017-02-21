@@ -23,8 +23,10 @@ Run `make help` for a available targets.
 
 ```bash
 $ make help
+
 Available targets:
 
+  bash:lint                           Lint all bash scripts
   docker:build                        Build docker image
   docker:login                        Login into docker hub
   docs:copyright-add                  Add copyright headers to source code
