@@ -2,6 +2,8 @@
 
 This `build-harness` is a collection of Makefiles to facilitate building Golang projects, Dockerfiles, Helm charts, and more. 
 
+It's designed to work with CI/CD systems such as Travis CI, CircleCI and Jenkins.
+
 It's 100% Open Source and licensed under [APACHE2](LICENSE).
 
 
