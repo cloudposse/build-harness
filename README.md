@@ -1,4 +1,4 @@
-# Cloudposse Build Harness
+# Cloud Posse Build Harness
 
 This `build-harness` is a collection of Makefiles to facilitate building Golang projects, Dockerfiles, Helm charts, and more. 
 
