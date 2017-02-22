@@ -1,4 +1,5 @@
-SHELL = /bin/bash
+SHELL ?= /bin/bash
+
 export BUILD_HARNESS_PATH ?= $(shell until [ -d "build-harness" ] || [ "`pwd`" == '/' ]; do cd ..; done; pwd)/build-harness
 -include $(BUILD_HARNESS_PATH)/Makefile
 
@@ -10,4 +11,4 @@ init:
 .PHONY : clean
 ## Clean build-harness
 clean:
-  rm -rf $(BUILD_HARNESS_PATH)
+	rm -rf $(BUILD_HARNESS_PATH)

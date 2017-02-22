@@ -1,3 +1,4 @@
+## Lint all bash scripts
 bash\:lint:
 	@set -o pipefail; \
 	(find . -type f -name '*.sh'; \
