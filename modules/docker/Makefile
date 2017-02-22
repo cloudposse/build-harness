@@ -1,4 +1,4 @@
 DOCKER:= $(shell which docker)
 
-placeholder::
+default::
 	@exit 0

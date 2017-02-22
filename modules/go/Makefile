@@ -1,4 +1,4 @@
 GO:= $(shell which go)
 
-placeholder::
+default::
 	@exit 0

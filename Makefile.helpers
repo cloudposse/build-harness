@@ -21,7 +21,7 @@ define assert-unset
   @[ -z "$($1)" ] || (echo "$(1) should not be defined in $(@)"; exit 1)
 endef
 
-default: help
+default:: help
 
 .PHONY : help
 ## This help screen
