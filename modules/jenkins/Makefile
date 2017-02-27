@@ -11,5 +11,4 @@ jenkins\:run-job-with-tag:
 	$(call assert-set,JOB)
 	$(call assert-set,TAG)
 	@echo "Running $(JOB) on $(JENKINS_HOST) with tag $(TAG)..."
-	@curl --fail --silent '$(JENKINS_URL) -d 'job=$(JOB)&token=$(TOKEN)&TAG=$(TAG)'
-
+	@curl --fail '$(JENKINS_URL)' -d 'job=$(JOB)&token=$(TOKEN)&TAG=$(TAG)'
