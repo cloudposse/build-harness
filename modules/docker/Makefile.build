@@ -7,7 +7,7 @@ DOCKER_BUILD_FLAGS ?= --no-cache
 docker\:build: $(DOCKER)
 	$(call assert-set,DOCKER)
 	$(call assert-set,DOCKER_IMAGE_NAME)
-	git ls-files -s | awk '{print $$1" "$$4}' | sed s'/^..//' | xargs --no-run-if-empty -n 2 echo chmod  | bash -x
+	git ls-files -s | awk '{print $$1" "$$4}' | grep '^10' | sed s'/^..//' | xargs --no-run-if-empty -n 2 echo chmod  | bash -x
 	@BUILD_ARGS=`for arg in $$ARGS; do \
 		printf -- '--build-arg %s=%s ' "$$arg" "$${!arg}"; \
 	done`; \
