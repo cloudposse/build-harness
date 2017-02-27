@@ -33,6 +33,8 @@ Available targets:
   docker:login                        Login into docker hub
   docs:copyright-add                  Add copyright headers to source code
   docs:toc-update                     Update table of contents in README.md
+  geodesic:deploy                     Run a Jenkins Job to Deploy $(APP) with $(CANONICAL_TAG)
+  git:aliases-update                  Update git aliases
   git:submodules-update               Update submodules
   github:download-release             Download release from github
   go:build                            Build binary
@@ -57,6 +59,7 @@ Available targets:
   helm:repo:lint                      Lint charts
   helm:serve:index                    Build index for serve helm charts
   help                                This help screen
+  jenkins:run-job-with-tag            Run a Jenkins Job with $(TAG)
   make:lint                           Lint all makefiles
   travis:docker-tag-and-push          Tag according travis envvars and push
 ```
