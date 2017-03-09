@@ -1,12 +1,23 @@
-.PHONY: github\:download-release
+.PHONY: github\:download-private-release
 ## GITHUB_TOKEN="<github_access_token>"
 ## REPO="<user_or_org>/<repo_name>"
 ## FILE="<name_of_asset_file>"      # the name of your release asset file, e.g. build.tar.gz
 ## Download release from github
-github\:download-release:
+github\:download-private-release:
 	$(call assert-set,GITHUB_TOKEN)
 	$(call assert-set,REPO)
 	$(call assert-set,FILE)
 	$(call assert-set,VERSION)
 	$(call assert-set,OUTPUT)
-	$(BUILD_HARNESS_PATH)/bin/github_download_release.sh $(VERSION) $(OUTPUT)
+	$(BUILD_HARNESS_PATH)/bin/github_download_private_release.sh $(VERSION) $(OUTPUT)
+
+.PHONY: github\:download-public-release
+## REPO="<user_or_org>/<repo_name>"
+## FILE="<name_of_asset_file>"      # the name of your release asset file, e.g. build.tar.gz
+## Download release from github
+github\:download-public-release:
+	$(call assert-set,REPO)
+	$(call assert-set,FILE)
+	$(call assert-set,VERSION)
+	$(call assert-set,OUTPUT)
+	$(BUILD_HARNESS_PATH)/bin/github_download_public_release.sh $(VERSION) $(OUTPUT)

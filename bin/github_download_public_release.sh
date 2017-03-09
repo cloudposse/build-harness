@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# github_download_release.sh! It works!
+# github_download_public_release.sh! It works!
 #
 # Source https://gist.github.com/maxim/6e15aa45ba010ab030c4
 #
@@ -17,15 +17,14 @@
 # Set all the variables inside the script, make sure you chmod +x it, then
 # to download specific version to my_app.tar.gz:
 #
-#     github_download_release.sh 2.1.1 my_app.tar.gz
+#     github_download_public_release.sh 2.1.1 my_app.tar.gz
 #
 # to download latest version:
 #
-#     github_download_release.sh latest latest.tar.gz
+#     github_download_public_release.sh latest latest.tar.gz
 #
 # If your version/tag doesn't match, the script will exit with error.
 
-#GITHUB_TOKEN="<github_access_token>"
 #REPO="<user_or_org>/<repo_name>"
 #FILE="<name_of_asset_file>"      # the name of your release asset file, e.g. build.tar.gz
 VERSION=$1                       # tag name or the word "latest"
@@ -34,8 +33,7 @@ GITHUB="https://api.github.com"
 alias errcho='>&2 echo'
 
 function gh_curl() {
-  curl -H "Authorization: token $GITHUB_TOKEN" \
-       -H "Accept: application/vnd.github.v3.raw" \
+  curl -H "Accept: application/vnd.github.v3.raw" \
        $@
 }
 
@@ -53,4 +51,4 @@ if [ "$asset_id" = "null" ]; then
 fi;
 
 curl -H 'Accept:application/octet-stream' -o $2 -L  \
-  https://$GITHUB_TOKEN:@api.github.com/repos/$REPO/releases/assets/$asset_id
+  https://api.github.com/repos/$REPO/releases/assets/$asset_id
