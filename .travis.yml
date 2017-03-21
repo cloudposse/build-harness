@@ -1,3 +1,18 @@
+language: go
+go:
+  - 1.7.x
+addons:
+  apt:
+    packages:
+    - git
+    - make
+    - curl
+
+install:
+- make init
+- make go:deps-build
+- make go:deps-dev
+
 script:
   - "make bash:lint"
   - "make make:lint"
