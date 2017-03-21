@@ -27,7 +27,7 @@ go\:deps: $(GLIDE)
 go\:deps-build:
 	$(call assert-set,GOPATH)
 	mkdir -p  $(GOPATH)/bin
-	which $(GLIDE) || (curl https://glide.sh/get | sh)
+	which $(GLIDE) || (curl https://getglide.sh/get | sh -x)
 
 .PHONY: deps-dev
 ## Install development dependencies
