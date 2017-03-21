@@ -12,13 +12,14 @@ It's 100% Open Source and licensed under [APACHE2](LICENSE).
 At the top of your `Makefile` add, the following...
 
 ```make
-$(shell curl --silent -O "https://raw.githubusercontent.com/cloudposse/build-harness/master/templates/Makefile.build-harness")
-include Makefile.build-harness
+-include $(shell curl -so .build-harness "https://raw.githubusercontent.com/cloudposse/build-harness/master/templates/Makefile.build-harness"; echo .build-harness)
 ```
 
-This will expose many new targets that you can leverage throughout your build & CI/CD process.
+This will download a `Makefile` called `.build-harness` and include it at run-time. We recommend adding the `.build-harness` file to your `.gitignore`.
 
-Run `make help` for a available targets.
+This automatically exposes many new targets that you can leverage throughout your build & CI/CD process.
+
+Run `make help` for a list of available targets.
 
 
 ## Makefile Targets
