@@ -9,7 +9,6 @@ addons:
     - curl
 
 install:
-- make init
 - make go:deps-build
 - make go:deps-dev
 
