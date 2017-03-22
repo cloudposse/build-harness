@@ -13,7 +13,11 @@ go\:build: $(GO)
 ## Build binary for all platforms
 go\:build-all: $(GO)
 	$(call assert-set,GO)
-	gox  -output "${RELEASE_DIR}/${APP}_{{.OS}}_{{.Arch}}"
+ifeq ($(RELEASE_ARCH),)
+	gox -output "${RELEASE_DIR}/${APP}_{{.OS}}_{{.Arch}}"
+else
+	gox -osarch="$(RELEASE_ARCH)" -output "${RELEASE_DIR}/${APP}_{{.OS}}_{{.Arch}}"
+endif
 
 .PHONY: go\:deps
 ## Install dependencies
