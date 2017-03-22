@@ -1,4 +1,4 @@
-# Cloud Posse Build Harness
+# Cloud Posse Build Harness [![Build Status](https://travis-ci.org/cloudposse/build-harness.svg)](https://travis-ci.org/cloudposse/build-harness)
 
 This `build-harness` is a collection of Makefiles to facilitate building Golang projects, Dockerfiles, Helm charts, and more. 
 
@@ -12,13 +12,14 @@ It's 100% Open Source and licensed under [APACHE2](LICENSE).
 At the top of your `Makefile` add, the following...
 
 ```make
-$(shell curl --silent -O "https://raw.githubusercontent.com/cloudposse/build-harness/master/templates/Makefile.build-harness")
-include Makefile.build-harness
+-include $(shell curl -so .build-harness "https://raw.githubusercontent.com/cloudposse/build-harness/master/templates/Makefile.build-harness"; echo .build-harness)
 ```
 
-This will expose many new targets that you can leverage throughout your build & CI/CD process.
+This will download a `Makefile` called `.build-harness` and include it at run-time. We recommend adding the `.build-harness` file to your `.gitignore`.
 
-Run `make help` for a available targets.
+This automatically exposes many new targets that you can leverage throughout your build & CI/CD process.
+
+Run `make help` for a list of available targets.
 
 
 ## Makefile Targets
@@ -72,5 +73,80 @@ Available targets:
 - [`bastion`](https://github.com/cloudposse/bastion/) - A docker image that leverages `docker:%` and `bash:lint` targets
 
 
+## Help
+
+**Got a question?** 
+
+File a GitHub [issue](https://github.com/cloudposse/build-harness/issues), send us an [email](mailto:hello@cloudposse.com) or reach out to us on [Gitter](https://gitter.im/cloudposse/).
+
+## Contributing
+
+### Bug Reports & Feature Requests
+
+Please use the [issue tracker](https://github.com/cloudposse/build-harness/issues) to report any bugs or file feature requests.
+
+### Developing
+
+If you are interested in being a contributor and want to get involved in developing the `build-harness`, we would love to hear from you! Shoot us an [email](mailto:hello@cloudposse.com).
+
+In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
+
+ 1. **Fork** the repo on GitHub
+ 2. **Clone** the project to your own machine
+ 3. **Commit** changes to your own branch
+ 4. **Push** your work back up to your fork
+ 5. Submit a **Pull request** so that we can review your changes
+
+**NOTE:** Be sure to merge the latest from "upstream" before making a pull request!
+
+Here's how to get started...
+
+1. `git clone https://github.com/cloudposse/build-harness.git` to pull down the repository 
+2. `make init` to initialize the [`build-harness`](https://github.com/cloudposse/build-harness/)
+3. Review the [documentation](docs/) on compiling
+
+## License
+
+[APACHE 2.0](LICENSE) © 2016-2017 [Cloud Posse, LLC](https://cloudposse.com)
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+     
+      http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+## About
+
+GitHub Authorized Keys is maintained and funded by [Cloud Posse, LLC][website]. Like it? Please let us know at <hello@cloudposse.com>
+
+We love [Open Source Software](https://github.com/cloudposse/)! 
+
+See [our other projects][community] or [hire us][hire] to help build your next cloud-platform.
+
+  [website]: http://cloudposse.com/
+  [community]: https://github.com/cloudposse/
+  [hire]: http://cloudposse.com/contact/
+  
+### Contributors
+
+
+| [![Erik Osterman][erik_img]][erik_web]<br/>[Erik Osterman][erik_web] | [![Igor Rodionov][igor_img]][igor_web]<br/>[Igor Rodionov][igor_web] |
+|-------------------------------------------------------|------------------------------------------------------------------|
+
+  [erik_img]: http://s.gravatar.com/avatar/88c480d4f73b813904e00a5695a454cb?s=144
+  [erik_web]: https://github.com/osterman/
+  [igor_img]: http://s.gravatar.com/avatar/bc70834d32ed4517568a1feb0b9be7e2?s=144
+  [igor_web]: https://github.com/goruha/
 
 
