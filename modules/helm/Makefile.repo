@@ -84,7 +84,8 @@ helm\:repo\:package:
 helm\:repo\:index:
 	$(call assert-set,REPO_NAME)
 	@echo "## Generating index for $(CURRENT_REPO_URL)/$(REPO_NAME)"
-	@$(HELM) repo index $(PACKAGE_PATH) --url $(CURRENT_REPO_URL)/$(REPO_NAME) --debug
+	@$(CURL) $(CURRENT_REPO_URL)/$(REPO_NAME)/index.yaml $(PACKAGE_PATH)/index.yaml
+	@$(HELM) repo index $(PACKAGE_PATH) --merge --url $(CURRENT_REPO_URL)/$(REPO_NAME) --debug
 
 .PHONY : helm\:repo\:lint
 ## Lint charts
