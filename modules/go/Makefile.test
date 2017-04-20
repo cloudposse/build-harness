@@ -3,5 +3,5 @@
 go\:test: $(GO)
 	$(call assert-set,GO)
 ifneq ($(LINT),true)
-	$(GO) test $(shell $(GO) list . | grep -v /vendor/)
+	$(GO) test $(shell $(GO) list ./... | grep -v /vendor/)
 endif
