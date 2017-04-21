@@ -1,5 +1,5 @@
 CURL := $(shell which curl)
-HELM_VERSION ?= v2.2.0
+HELM_VERSION ?= v2.3.1
 HELM_PLATFORM ?= $(OS)-amd64
 HELM := $(shell which helm)
 
