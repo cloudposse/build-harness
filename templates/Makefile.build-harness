@@ -8,7 +8,8 @@ export BUILD_HARNESS_PATH ?= $(shell until [ -d "$(BUILD_HARNESS_PROJECT)" ] || 
 .PHONY : init
 ## Init build-harness
 init::
-	@curl --retry 5 --fail --silent --retry-delay 1 https://raw.githubusercontent.com/$(BUILD_HARNESS_ORG)/$(BUILD_HARNESS_PROJECT)/$(BUILD_HARNESS_BRANCH)/bin/install.sh | bash
+	@curl --retry 5 --fail --silent --retry-delay 1 https://raw.githubusercontent.com/$(BUILD_HARNESS_ORG)/$(BUILD_HARNESS_PROJECT)/$(BUILD_HARNESS_BRANCH)/bin/install.sh | \
+		bash -s "$(BUILD_HARNESS_ORG)" "$(BUILD_HARNESS_PROJECT)" "$(BUILD_HARNESS_BRANCH)"
 
 .PHONY : clean
 ## Clean build-harness

@@ -1,7 +1,7 @@
 #!/bin/bash
-export BUILD_HARNESS_ORG=${BUILD_HARNESS_ORG:-cloudposse}
-export BUILD_HARNESS_PROJECT=${BUILD_HARNESS_PROJECT:-build-harness}
-export BUILD_HARNESS_BRANCH=${BUILD_HARNESS_BRANCH:-master}
+export BUILD_HARNESS_ORG=${1:-cloudposse}
+export BUILD_HARNESS_PROJECT=${2:-build-harness}
+export BUILD_HARNESS_BRANCH=${3:-master}
 export GITHUB_REPO="https://github.com/${BUILD_HARNESS_ORG}/${BUILD_HARNESS_PROJECT}.git"
 
 if [ "$BUILD_HARNESS_PROJECT" ] && [ -d "$BUILD_HARNESS_PROJECT" ]; then
