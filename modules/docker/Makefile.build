@@ -1,5 +1,6 @@
 ## Use DOCKER_IMAGE_NAME envvar to specify docker image with tags
 ## User ARGS to pass arguments
+DOCKER_BUILD_PATH ?= .
 DOCKER_BUILD_FLAGS ?= --no-cache
 DOCKER_FILE ?= ./Dockerfile
 
@@ -15,4 +16,4 @@ endif
 		printf -- '--build-arg %s=%s ' "$$arg" "$${!arg}"; \
 	done`; \
 	echo "Building $(DOCKER_IMAGE_NAME) from $(DOCKER_FILE) with [$(DOCKER_BUILD_FLAGS)] build args..."; \
-	$(DOCKER) build $(DOCKER_BUILD_FLAGS) $$BUILD_ARGS -t $(DOCKER_IMAGE_NAME) -f $(DOCKER_FILE)
+	$(DOCKER) build $(DOCKER_BUILD_FLAGS) $$BUILD_ARGS -t $(DOCKER_IMAGE_NAME) -f $(DOCKER_FILE) $(DOCKER_BUILD_PATH)
