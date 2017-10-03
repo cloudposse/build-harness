@@ -16,3 +16,4 @@ install:
 script:
   - "make bash:lint"
   - "make make:lint"
+  - "make terraform:install"
