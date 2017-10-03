@@ -14,4 +14,5 @@ terraform\:validate:
 
 ## Lint check Terraform
 terraform\:lint:
-	@[ $$($(TERRAFORM) fmt -write=false | wc -l) -eq 0 ] || (echo "Terraform configuration needs linting. Run '$(TERRAFORM) fmt'"; exit 1)
+	@FAIL=`$(TERRAFORM) fmt -write=false | xargs printf '\t- %s\n'`; \
+	[ -z "$$FAIL" ] || (echo "Terraform configuration needs linting. Run '$(TERRAFORM) fmt'"; echo $$FAIL; exit 1)
