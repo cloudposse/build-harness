@@ -13,6 +13,7 @@ terraform\:install:
 		mv $(TMP)/terraform $(TERRAFORM) && \
 		rm -f $(TMP)/terraform.zip \
 		)
+	$(TERRAFORM) version
 
 ## Ensure all plugins can be fetched
 terraform\:get-plugins:
