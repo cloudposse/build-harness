@@ -1,4 +1,18 @@
+TMP ?= /tmp
 TERRAFORM ?= terraform
+TERRAFORM_VERSION ?= 0.10.6
+TERRAFORM_URL ?= https://releases.hashicorp.com/terraform/$(TERRAFORM_VERSION)/terraform_$(TERRAFORM_VERSION)_$(OS)_amd64.zip
+
+## Install terraform
+terraform\:install:
+	$(call assert,TF_BIN_URL)
+	@[ -x $(TERRAFORM) ] || ( \
+		echo "Installing Terraform $(TERRAFORM_VERSION) ($(OS)) from $(TERRAFORM_URL)" && \
+		curl '-#' -fL -o $(TMP)/terraform.zip $(TERRAFORM_URL) && \
+		unzip -q -d $(TMP)/ $(TMP)/terraform.zip && \
+		mv $(TMP)/terraform $(TERRAFORM) && \
+		rm -f $(TMP)/terraform.zip \
+		)
 
 ## Ensure all plugins can be fetched
 terraform\:get-plugins:
