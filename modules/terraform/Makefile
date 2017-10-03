@@ -5,7 +5,6 @@ TERRAFORM_URL ?= https://releases.hashicorp.com/terraform/$(TERRAFORM_VERSION)/t
 
 ## Install terraform
 terraform\:install:
-	$(call assert,TF_BIN_URL)
 	@[ -x $(TERRAFORM) ] || ( \
 		echo "Installing Terraform $(TERRAFORM_VERSION) ($(OS)) from $(TERRAFORM_URL)" && \
 		curl '-#' -fL -o $(TMP)/terraform.zip $(TERRAFORM_URL) && \
