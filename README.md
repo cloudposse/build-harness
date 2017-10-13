@@ -37,7 +37,8 @@ Available targets:
   geodesic:deploy                     Run a Jenkins Job to Deploy $(APP) with $(CANONICAL_TAG)
   git:aliases-update                  Update git aliases
   git:submodules-update               Update submodules
-  github:download-release             Download release from github
+  github:download-private-release     Download release from github
+  github:download-public-release      Download release from github
   go:build                            Build binary
   go:build-all                        Build binary for all platforms
   go:clean                            Clean compiled binary
@@ -62,7 +63,12 @@ Available targets:
   help                                This help screen
   jenkins:run-job-with-tag            Run a Jenkins Job with $(TAG)
   make:lint                           Lint all makefiles
-  travis:docker-tag-and-push          Tag according travis envvars and push
+  terraform:get-modules               Ensure all modules can be fetched
+  terraform:get-plugins               Ensure all plugins can be fetched
+  terraform:lint                      Lint check Terraform
+  terraform:validate                  Basic terraform sanity check
+  travis:docker-login                 Login into docker hub
+  travis:docker-tag-and-push          Tag & Push according Travis environment variables
 ```
 
 
@@ -71,7 +77,7 @@ Available targets:
 - [`github-authorized-keys`](https://github.com/cloudposse/github-authorized-keys/) - A Golang project that leverages `docker:%`, `go:%`, `travis:%` targets
 - [`charts`](https://github.com/cloudposse/charts/) - A collection of Helm Charts that leverages `docker:%` and `helm:%` targets
 - [`bastion`](https://github.com/cloudposse/bastion/) - A docker image that leverages `docker:%` and `bash:lint` targets
-
+- [`terraform-null-label`](https://github.com/cloudposse/terraform-null-label/) - A terraform module that leverages `terraform:%` targets
 
 ## Help
 
