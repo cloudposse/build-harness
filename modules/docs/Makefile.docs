@@ -1,4 +1,50 @@
+GOMPLATE_VERSION ?= v2.2.0
+GOMPLATE_REPO ?= hairyhenderson/gomplate
+GOMPLATE ?= gomplate
+
+TEMPLATES ?= $(BUILD_HARNESS_PATH)/templates/docs
+
 .PHONY : docs\:toc-update
 ## Update table of contents in README.md
 docs\:toc-update:
 	@doctoc --notitle --github README.md
+
+## Install dependencies
+docs\:deps:
+	@make github:download-public-release \
+		REPO=$(GOMPLATE_REPO) \
+		FILE=$(GOMPLATE)_$(OS)-amd64 \
+		VERSION=$(GOMPLATE_VERSION) \
+		OUTPUT=/usr/local/bin/$(GOMPLATE) > /dev/null
+	@chmod +x /usr/local/bin/$(GOMPLATE)
+
+.PHONY : docs\:create
+## Create basic minimalistic .README.md template file
+docs\:create:
+	@cp $(BUILD_HARNESS_PATH)/templates/README.md ./.README.md
+
+.PHONY : docs\:build
+## Create README.md by building it from .README.md file
+docs\:build:
+	@NAME='$(NAME)' \
+		DESCRIPTION='$(DESCRIPTION)' \
+		$(GOMPLATE) \
+		--file  ./.README.md \
+		--out ./README.md \
+		--datasource section=file://$(TEMPLATES)/sections.yml \
+		--datasource license=file://$(TEMPLATES)/licenses.yml \
+		--datasource contributor=file://$(TEMPLATES)/contributors.yml \
+		--datasource terraform=file://$(TEMPLATES)/terraform.yml
+
+.PHONY : docs\:process
+## Cleanup placeholders in README.md
+docs\:process:
+	@NAME='$(NAME)' \
+		DESCRIPTION='$(DESCRIPTION)' \
+		$(GOMPLATE) \
+		--file ./README.md \
+		--out  ./README.md \
+		--datasource section=file://$(TEMPLATES)/sections.yml \
+		--datasource license=file://$(TEMPLATES)/licenses.yml \
+		--datasource contributor=file://$(TEMPLATES)/contributors.yml \
+		--datasource terraform=file://$(TEMPLATES)/terraform.yml
