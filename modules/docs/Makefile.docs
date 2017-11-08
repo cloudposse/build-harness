@@ -36,9 +36,10 @@ docs\:build:
 		--datasource contributor=file://$(TEMPLATES)/contributors.yml \
 		--datasource terraform=file://$(TEMPLATES)/terraform.yml
 
-.PHONY : docs\:process
+.PHONY : docs\:make
 ## Cleanup placeholders in README.md
-docs\:process:
+docs\:make:
+	@make docs:build > /dev/null
 	@NAME='$(NAME)' \
 		DESCRIPTION='$(DESCRIPTION)' \
 		$(GOMPLATE) \

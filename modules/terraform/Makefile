@@ -30,6 +30,7 @@ terraform\:deps:
 .PHONY : terraform\:docs
 ## Postprocess README.md by filling terraform module data
 terraform\:docs:
+	@make docs:build > /dev/null
 	@$(eval TMP := $(shell date +'%Y%m%d-%H%M%S'))
 	@$(TERRAFORM_DOCS) json . > /tmp/$(TMP).json
 	@NAME='$(NAME)' \
