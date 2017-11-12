@@ -1,0 +1,67 @@
+GOMPLATE_VERSION ?= v2.2.0
+GOMPLATE_REPO ?= hairyhenderson/gomplate
+GOMPLATE ?= gomplate
+
+TEMPLATES ?= $(BUILD_HARNESS_PATH)/templates/readme
+
+INCLUDED_MODULES ?= "repo"
+
+.PHONY : readme\:toc-update
+## Update table of contents in README.md
+readme\:toc-update:
+	@doctoc --notitle --github README.md
+
+## Install dependencies
+readme\:deps:
+	@make github:download-public-release \
+		REPO=$(GOMPLATE_REPO) \
+		FILE=$(GOMPLATE)_$(OS)-amd64 \
+		VERSION=$(GOMPLATE_VERSION) \
+		OUTPUT=/usr/local/bin/$(GOMPLATE) > /dev/null
+	@chmod +x /usr/local/bin/$(GOMPLATE)
+
+.PHONY : readme\:init
+## Create basic minimalistic .README.md template file
+readme\:init:
+	@if [ -s ./.README.md ]; then \
+		echo ".README.md already exists!"; \
+	else \
+		cp $(BUILD_HARNESS_PATH)/templates/README.md ./.README.md ; \
+		echo ".README.md created!"; \
+	fi;
+
+.PHONY : readme\:build
+## Create README.md by building it from .README.md file
+readme\:build:
+	$(eval IN=./.README.md)
+	$(eval OUT=./README.md)
+
+## We support only 10 levels on inheritance templates
+	$(foreach module, 1 2 3 4 5 6 7 8 9 10, \
+		$(eval MODULES=) \
+		$(call modules,MODULES) \
+		$(call modules-merge,INCLUDED_MODULES,$(INCLUDED_MODULES),$(MODULES)) \
+		$(foreach module, $(MODULES), $(call $(module)-docs-prepare-data)) \
+		$(shell $(GOMPLATE) --file $(IN) --out $(OUT) $(foreach module, $(INCLUDED_MODULES), $(call $(module)-docs-provide))) \
+		$(eval IN=./README.md) \
+	)
+
+	$(foreach module, \
+		$(INCLUDED_MODULES), \
+		$(call $(module)-docs-cleanup-data) \
+	)
+	@echo "README.md generated"
+
+
+# Get template docs modules from $(IN) file ( .README.md / README.md )
+define modules
+	$(eval MODULES=$$(shell grep -oP "(?<=datasource)\s+\".*?\"" $(IN) | sed 's/[ |\"]//g' | sort | uniq |  paste -sd " " - ))
+endef
+
+# Merge 2 lists (in format words separated be space in string)
+define modules-merge
+	$(eval $(1)=$$(shell echo "$(2) $(3)" | tr ' ' '\n' | sort | uniq |  paste -sd " " - ))
+endef
+
+
+

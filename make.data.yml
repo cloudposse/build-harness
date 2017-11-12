@@ -1,0 +1,50 @@
+---
+  help: Available targets:
+
+  bash:lint                           Lint all bash scripts
+  docker:build                        Build docker image
+  docker:login                        Login into docker hub
+  docs:copyright-add                  Add copyright headers to source code
+  geodesic:deploy                     Run a Jenkins Job to Deploy $(APP) with $(CANONICAL_TAG)
+  git:aliases-update                  Update git aliases
+  github:download-private-release     Download release from github
+  github:download-public-release      Download release from github
+  git:submodules-update               Update submodules
+  go:build                            Build binary
+  go:build-all                        Build binary for all platforms
+  go:clean                            Clean compiled binary
+  go:clean-all                        Clean compiled binary and dependency
+  go:deps                             Install dependencies
+  go:deps-build                       Install dependencies for build
+  go:deps-dev                         Install development dependencies
+  go:fmt                              Format code according to Golang convention
+  go:install                          Install cli
+  go:lint                             Lint code
+  go:test                             Run tests
+  go:vet                              Vet code
+  helm:install                        Install helm
+  helm:repo:add-current               Add helm remote dev repos
+  helm:repo:add-remote                Add helm remote repos
+  helm:repo:build                     Build repo
+  helm:repo:clean                     Clean helm repo
+  helm:repo:fix-perms                 Fix repo filesystem permissions
+  helm:repo:info                      Show repo info
+  helm:repo:lint                      Lint charts
+  helm:serve:index                    Build index for serve helm charts
+  help                                This help screen
+  jenkins:run-job-with-tag            Run a Jenkins Job with $(TAG)
+  make:lint                           Lint all makefiles
+  readme:build                        Create README.md by building it from .README.md file
+  readme:deps                         Install dependencies
+  readme:init                         Create basic minimalistic .README.md template file
+  readme:toc-update                   Update table of contents in README.md
+  terraform:deps                      Install dependencies
+  terraform:get-modules               Ensure all modules can be fetched
+  terraform:get-plugins               Ensure all plugins can be fetched
+  terraform:install                   Install terraform
+  terraform:lint                      Lint check Terraform
+  terraform:readme                    Build README.md by filling terraform module data
+  terraform:validate                  Basic terraform sanity check
+  travis:docker-login                 Login into docker hub
+  travis:docker-tag-and-push          Tag & Push according Travis environment variables
+
