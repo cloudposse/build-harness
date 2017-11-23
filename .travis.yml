@@ -11,8 +11,6 @@ addons:
 
 install:
 - make all
-- make go:deps-build
-- make go:deps-dev
 
 script:
   - "make bash:lint"
