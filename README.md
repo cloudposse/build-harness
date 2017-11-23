@@ -62,6 +62,13 @@ Available targets:
   helm:serve:index                    Build index for serve helm charts
   help                                This help screen
   jenkins:run-job-with-tag            Run a Jenkins Job with $(TAG)
+  jekyll:install                      Installs Jekyll
+  jekyll:Serve                        Serve the Jekyll site locally @ 127.0.0.1:4000
+  jekyll:newpost                      
+  jekyll:generate-tags
+  jekyll:generate-categories
+  jekyll:integrate-personal
+  jekyll:building                     Builds the Jekyll site for publication
   make:lint                           Lint all makefiles
   terraform:get-modules               Ensure all modules can be fetched
   terraform:get-plugins               Ensure all plugins can be fetched
