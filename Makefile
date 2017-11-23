@@ -13,7 +13,9 @@ green = $(shell echo -e '\x1b[32;01m$1\x1b[0m')
 yellow = $(shell echo -e '\x1b[33;01m$1\x1b[0m')
 red = $(shell echo -e '\x1b[33;31m$1\x1b[0m')
 
-include $(BUILD_MAKER_PATH)/*.make
+.DEFAULT_GOAL := help
+
+-include $(BUILD_MAKER_PATH)/*.make
 
 # Ensures that a variable is defined
 define assert-set
@@ -44,8 +46,10 @@ help:
 	{ lastLine = $$0 }' $(MAKEFILE_LIST) | sort -u
 	@printf "\n"
 
-.PHONY : include\:all
-all:: $(MODULES)
+all: $(MODULES)
+
+$(MODULES):
+	curl -sSL -o $@.make "https://raw.githubusercontent.com/$(BUILD_MAKER_ORG)/$(BUILD_MAKER_PROJECT)/$(BUILD_MAKER_BRANCH)/modules/$@/Makefile" >/dev/null
 
 .PHONY : clean
 	## Clean build-maker
@@ -53,7 +57,3 @@ all:: $(MODULES)
 		@[ "$(BUILD_MAKER_PATH)" == '/' ] || \
 		 [ "$(BUILD_MAKER_PATH)" == '.' ] || \
 		   echo rm -rf $(BUILD_MAKER_PATH)/*.make
-
-.PHONY : include\:$(MODULES)
-include\:$(MODULES)
-	curl -sSL -o $0.make "https://raw.githubusercontent.com/$(BUILD_MAKER_ORG)/$(BUILD_MAKER_REPO)/$(BUILD_MAKER_BRANCH)/modules/$0/Makefile"

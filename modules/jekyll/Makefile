@@ -5,12 +5,13 @@ SELF ?= make
 .PHONY: jekyll\:install
 # Install Jekyll
 jekyll\:install:
-	./scripts/install
+	gem install jekyll jekyll-paginate jemoji html-proofer
+	which jekyll
 
 .PHONY: jekyll\:serve
 ## serve Jekyll
 jekyll\:serve: ## serve Jekyll
-	./scripts/serve
+	jekyll serve --watch --host "127.0.0.1" --baseurl ""
 
 .PHONY: jekyll\:newpost
 ##
@@ -35,4 +36,4 @@ jekyll\:integrate-personal:
 .PHONY: jekyll\:build
 ## Build Jekyll
 jekyll\:build:
-	./scripts/build
+	jekyll build
