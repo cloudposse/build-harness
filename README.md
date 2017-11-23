@@ -2,20 +2,19 @@
 
 This `build-maker` is a collection of Makefiles to facilitate building Jekyll, Terraform, and more.
 
-It's designed to work with CI/CD systems such as Travis CI, CircleCI and Jenkins.
+It's designed to work with CI/CD systems such as Travis CI, and Jenkins.
 
-It's 100% Open Source and licensed under [APACHE2](LICENSE).
-
+It's 100% Open Source and licensed under [APACHE2](LICENSE). || Thank you [Cloudposse](https://github.com/cloudposse)!
 
 ## Usage
 
 At the top of your `Makefile` add, the following...
 
-```make
--include $(shell curl -sSL -o .build-maker "https://git.io/build-maker"; echo .build-maker)
+```
+-include $(shell curl -o build-maker.make "https://raw.githubusercontent.com/neildmorris/build-maker/master/Makefile")
 ```
 
-This will download a `Makefile` called `.build-maker` and include it at run-time. We recommend adding the `.build-maker` file to your `.gitignore`.
+This will download a `Makefile` called `build-maker.make` and include it at run-time. We recommend adding `*.make` to your `.gitignore`.
 
 This automatically exposes many new targets that you can leverage throughout your build & CI/CD process.
 

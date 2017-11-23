@@ -7,4 +7,4 @@
 .terraform/
 
 # Project files
-.build-maker
+*.make

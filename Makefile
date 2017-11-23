@@ -3,12 +3,17 @@ OS ?= $(shell uname -s | tr '[:upper:]' '[:lower:]')
 SELF ?= make
 EDITOR ?= vi
 SHELL = /bin/bash
+BUILD_MAKER_ORG ?= neildmorris
+BUILD_MAKER_PROJECT ?= build-maker
+BUILD_MAKER_BRANCH ?= master
+BUILD_MAKER_VERSION ?=
+MODULES = bash docker docs geodesic git github go helm jekyll jenkins make terraform travis
 
 green = $(shell echo -e '\x1b[32;01m$1\x1b[0m')
 yellow = $(shell echo -e '\x1b[33;01m$1\x1b[0m')
 red = $(shell echo -e '\x1b[33;31m$1\x1b[0m')
 
-include $(BUILD_MAKER_PATH)/modules/*/*
+include $(BUILD_MAKER_PATH)/*.make
 
 # Ensures that a variable is defined
 define assert-set
@@ -38,3 +43,17 @@ help:
 	} \
 	{ lastLine = $$0 }' $(MAKEFILE_LIST) | sort -u
 	@printf "\n"
+
+.PHONY : include\:all
+all:: $(MODULES)
+
+.PHONY : clean
+	## Clean build-maker
+	clean::
+		@[ "$(BUILD_MAKER_PATH)" == '/' ] || \
+		 [ "$(BUILD_MAKER_PATH)" == '.' ] || \
+		   echo rm -rf $(BUILD_MAKER_PATH)/*.make
+
+.PHONY : include\:$(MODULES)
+include\:$(MODULES)
+	curl -sSL -o $0.make "https://raw.githubusercontent.com/$(BUILD_MAKER_ORG)/$(BUILD_MAKER_REPO)/$(BUILD_MAKER_BRANCH)/modules/$0/Makefile"
