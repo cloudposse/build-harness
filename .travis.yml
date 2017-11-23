@@ -10,6 +10,7 @@ addons:
     - curl
 
 install:
+- make all
 - make go:deps-build
 - make go:deps-dev
 
