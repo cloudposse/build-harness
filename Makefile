@@ -1,6 +1,6 @@
-BUILD_HARNESS_PATH ?= .
+BUILD_MAKER_PATH ?= .
 OS ?= $(shell uname -s | tr '[:upper:]' '[:lower:]')
 SELF ?= make
 
-include $(BUILD_HARNESS_PATH)/Makefile.*
-include $(BUILD_HARNESS_PATH)/modules/*/*
+include $(BUILD_MAKER_PATH)/Makefile.*
+include $(BUILD_MAKER_PATH)/modules/*/*

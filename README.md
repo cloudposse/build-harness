@@ -1,6 +1,6 @@
-# Cloud Posse Build Harness [![Build Status](https://travis-ci.org/cloudposse/build-harness.svg)](https://travis-ci.org/cloudposse/build-harness)
+# Build Maker [![Build Status](https://travis-ci.org/neildmorris/build-maker.svg)](https://travis-ci.org/neildmorris/build-maker)
 
-This `build-harness` is a collection of Makefiles to facilitate building Golang projects, Dockerfiles, Helm charts, and more. 
+This `build-maker` is a collection of Makefiles to facilitate building Jekyll, Terraform, and more.
 
 It's designed to work with CI/CD systems such as Travis CI, CircleCI and Jenkins.
 
@@ -12,10 +12,10 @@ It's 100% Open Source and licensed under [APACHE2](LICENSE).
 At the top of your `Makefile` add, the following...
 
 ```make
--include $(shell curl -sSL -o .build-harness "https://git.io/build-harness"; echo .build-harness)
+-include $(shell curl -sSL -o .build-maker "https://git.io/build-maker"; echo .build-maker)
 ```
 
-This will download a `Makefile` called `.build-harness` and include it at run-time. We recommend adding the `.build-harness` file to your `.gitignore`.
+This will download a `Makefile` called `.build-maker` and include it at run-time. We recommend adding the `.build-maker` file to your `.gitignore`.
 
 This automatically exposes many new targets that you can leverage throughout your build & CI/CD process.
 
@@ -81,19 +81,19 @@ Available targets:
 
 ## Help
 
-**Got a question?** 
+**Got a question?**
 
-File a GitHub [issue](https://github.com/cloudposse/build-harness/issues), send us an [email](mailto:hello@cloudposse.com) or reach out to us on [Gitter](https://gitter.im/cloudposse/).
+File a GitHub [issue](https://github.com/neildmorris/build-maker/issues), send me an [email](mailto:neil.daren.morris@gmail.com) or reach out to us on [neildmorris.com](https://neildmorris.com).
 
 ## Contributing
 
 ### Bug Reports & Feature Requests
 
-Please use the [issue tracker](https://github.com/cloudposse/build-harness/issues) to report any bugs or file feature requests.
+Please use the [issue tracker](https://github.com/neildmorris/build-maker/issues) to report any bugs or file feature requests.
 
 ### Developing
 
-If you are interested in being a contributor and want to get involved in developing the `build-harness`, we would love to hear from you! Shoot us an [email](mailto:hello@cloudposse.com).
+If you are interested in being a contributor to this fork and want to get involved in developing the `build-maker`, we would love to hear from you! Shoot me an [email](mailto:neil.daren.morris@gmail.com).
 
 In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
@@ -107,13 +107,13 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
 Here's how to get started...
 
-1. `git clone https://github.com/cloudposse/build-harness.git` to pull down the repository 
-2. `make init` to initialize the [`build-harness`](https://github.com/cloudposse/build-harness/)
+1. `git clone https://github.com/neildmorris/build-maker.git` to pull down the repository
+2. `make init` to initialize the [`build-maker`](https://github.com/neildmorris/build-maker/)
 3. Review the [documentation](docs/) on compiling
 
 ## License
 
-[APACHE 2.0](LICENSE) © 2016-2017 [Cloud Posse, LLC](https://cloudposse.com)
+[APACHE 2.0](LICENSE) © 2016-2017 [Cloud Posse, LLC](https://neildmorris.com)
 
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -122,7 +122,7 @@ Here's how to get started...
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-     
+
       http://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing,
@@ -134,25 +134,17 @@ Here's how to get started...
 
 ## About
 
-GitHub Authorized Keys is maintained and funded by [Cloud Posse, LLC][website]. Like it? Please let us know at <hello@cloudposse.com>
+build-maker is a fork of [build-harness](https://github.com/cloudposse/build-harness) maintained by [Neil D. Morris](https://neildmorris.com). Like it? Please let us know at <neil.daren.morris@gmail.com>
 
-We love [Open Source Software](https://github.com/cloudposse/)! 
+We love [Open Source Software](https://github.com/neildmorris/)!
 
-See [our other projects][community] or [hire us][hire] to help build your next cloud-platform.
+See my other projects on [GitHub]](https://github.com/neildmorris) or [My Website](https://neildmorris.com) to help build your next project.
 
-  [website]: http://cloudposse.com/
-  [community]: https://github.com/cloudposse/
-  [hire]: http://cloudposse.com/contact/
-  
+  [website]: http://neildmorris.com/
+  [community]: https://github.com/neildmorris/
+  [get in touch]: http://neildmorris.com/contact/
+
 ### Contributors
 
-
-| [![Erik Osterman][erik_img]][erik_web]<br/>[Erik Osterman][erik_web] | [![Igor Rodionov][igor_img]][igor_web]<br/>[Igor Rodionov][igor_web] |
-|-------------------------------------------------------|------------------------------------------------------------------|
-
-  [erik_img]: http://s.gravatar.com/avatar/88c480d4f73b813904e00a5695a454cb?s=144
-  [erik_web]: https://github.com/osterman/
-  [igor_img]: http://s.gravatar.com/avatar/bc70834d32ed4517568a1feb0b9be7e2?s=144
-  [igor_web]: https://github.com/goruha/
-
-
+[Erik Osterman](https://github.com/osterman/)
+[Igor Rodionov](https://github.com/goruha/)

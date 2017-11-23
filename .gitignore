@@ -1,0 +1,10 @@
+
+# Compiled files
+*.tfstate
+*.tfstate.backup
+
+# Module directory
+.terraform/
+
+# Project files
+.build-maker

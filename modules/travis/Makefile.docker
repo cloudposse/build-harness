@@ -26,7 +26,7 @@ endif
 travis\:docker-tag-and-push:
 ifeq ($(ALLOW_DOCKER_ACTIONS),true)
 	$(call assert-set,DOCKER_IMAGE_NAME)
-	$(BUILD_HARNESS_PATH)/bin/travis_docker_tag_and_push.sh
+	$(BUILD_MAKER_PATH)/bin/travis_docker_tag_and_push.sh
 else
 	@echo "Skipping docker tag and push for untrusted builds"
 endif

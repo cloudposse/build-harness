@@ -6,7 +6,7 @@ addons:
     - make
     - curl
 env:
-  - DOCKER_IMAGE_NAME=cloudposse/#####################
+  - DOCKER_IMAGE_NAME=neildmorris/#####################
 services:
 - docker
 install:

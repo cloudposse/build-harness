@@ -9,7 +9,7 @@ github\:download-private-release:
 	$(call assert-set,FILE)
 	$(call assert-set,VERSION)
 	$(call assert-set,OUTPUT)
-	$(BUILD_HARNESS_PATH)/bin/github_download_private_release.sh $(VERSION) $(OUTPUT)
+	$(BUILD_MAKER_PATH)/bin/github_download_private_release.sh $(VERSION) $(OUTPUT)
 
 .PHONY: github\:download-public-release
 ## REPO="<user_or_org>/<repo_name>"
@@ -20,4 +20,4 @@ github\:download-public-release:
 	$(call assert-set,FILE)
 	$(call assert-set,VERSION)
 	$(call assert-set,OUTPUT)
-	$(BUILD_HARNESS_PATH)/bin/github_download_public_release.sh $(VERSION) $(OUTPUT)
+	$(BUILD_MAKER_PATH)/bin/github_download_public_release.sh $(VERSION) $(OUTPUT)

@@ -1,10 +1,10 @@
 HELM_REPO_NAMES ?= stable incubator demo
-HELM_REPO_PREFIX ?= cloudposse
+HELM_REPO_PREFIX ?= neildmorris
 
 REPO_PATH ?= ./$(REPO_NAME)
 PACKAGE_PATH ?= ./packages/$(REPO_NAME)
 
-REPO_URL?=https://charts.cloudposse.com
+REPO_URL?=https://charts.neildmorris.com
 
 ifneq ($(TRAVIS_PULL_REQUEST_BRANCH),)
   BRANCH=pr-$(TRAVIS_PULL_REQUEST_BRANCH)
@@ -19,7 +19,7 @@ endif
 ifeq ($(BRANCH),master)
 	CURRENT_REPO_URL?=$(REPO_URL)
 else
-	CURRENT_REPO_URL?=https://charts.dev.cloudposse.com/$(BRANCH)
+	CURRENT_REPO_URL?=https://charts.dev.neildmorris.com/$(BRANCH)
 endif
 
 .PHONY : helm\:repo\:info
@@ -40,7 +40,7 @@ helm\:repo\:add-current:
 	@make helm:repo:add \
 		HELM_REPO_PREFIX=$(HELM_REPO_PREFIX)-dev \
 		HELM_REPO_URL=$(CURRENT_REPO_URL)
-	
+
 helm\:repo\:add:
 	@$(HELM) repo add kubernetes-charts http://storage.googleapis.com/kubernetes-charts
 	@for repo in $(HELM_REPO_NAMES); do \
@@ -116,5 +116,3 @@ helm\:repo\:build:
 	@make helm:repo:fix-perms
 	@make helm:repo:lint
 	@make helm:repo:package
-
-
