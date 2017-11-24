@@ -7,7 +7,7 @@ BUILD_MAKER_ORG ?= neildmorris
 BUILD_MAKER_PROJECT ?= build-maker
 BUILD_MAKER_BRANCH ?= master
 BUILD_MAKER_VERSION ?=
-MODULES = bash docker docs geodesic git github go helm jekyll jenkins make terraform travis
+MODULES = $(shell awk -F "?" '{print $1}' requirements.make)
 
 green = $(shell echo -e '\x1b[32;01m$1\x1b[0m')
 yellow = $(shell echo -e '\x1b[33;01m$1\x1b[0m')
@@ -15,7 +15,7 @@ red = $(shell echo -e '\x1b[33;31m$1\x1b[0m')
 
 .DEFAULT_GOAL := help
 
--include $(BUILD_MAKER_PATH)/*.make
+-include $(BUILD_MAKER_PATH)/.$(BUILD_MAKER_PROJECT).d/*
 
 # Ensures that a variable is defined
 define assert-set
@@ -46,14 +46,17 @@ help:
 	{ lastLine = $$0 }' $(MAKEFILE_LIST) | sort -u
 	@printf "\n"
 
-all: $(MODULES)
+.PHONY : init
+init:
+	@mkdir .$(BUILD_MAKER_PROJECT).d >/dev/null
+	@$(MAKE) all >/dev/null
+
+all: .$(BUILD_MAKER_PROJECT).d $(MODULES)
 
 $(MODULES):
-	curl -sSL -o $@.make "https://raw.githubusercontent.com/$(BUILD_MAKER_ORG)/$(BUILD_MAKER_PROJECT)/$(BUILD_MAKER_BRANCH)/modules/$@/Makefile" >/dev/null
+	@curl -sSL -o $(BUILD_MAKER_PATH)/.$(BUILD_MAKER_PROJECT).d/$@.make "https://raw.githubusercontent.com/$(BUILD_MAKER_ORG)/$(BUILD_MAKER_PROJECT)/$(BUILD_MAKER_BRANCH)/modules/$@/Makefile" >/dev/null
 
 .PHONY : clean
 	## Clean build-maker
-	clean::
-		@[ "$(BUILD_MAKER_PATH)" == '/' ] || \
-		 [ "$(BUILD_MAKER_PATH)" == '.' ] || \
-		   echo rm -rf $(BUILD_MAKER_PATH)/*.make
+clean:
+		@rm -rf $(BUILD_MAKER_PATH)/.$(BUILD_MAKER_PROJECT)* >/dev/null

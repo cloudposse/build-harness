@@ -11,7 +11,7 @@ It's 100% Open Source and licensed under [APACHE2](LICENSE). || Thank you [Cloud
 At the top of your `Makefile` add, the following...
 
 ```
--include $(shell curl -o build-maker.make "https://raw.githubusercontent.com/neildmorris/build-maker/master/Makefile")
+-include $(shell curl -o .build-maker "https://raw.githubusercontent.com/neildmorris/build-maker/master/Makefile?ref=latest)
 ```
 
 This will download a `Makefile` called `build-maker.make` and include it at run-time. We recommend adding `*.make` to your `.gitignore`.
