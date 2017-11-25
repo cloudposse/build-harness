@@ -49,7 +49,7 @@ help:
 .PHONY : init
 ## init build-maker
 init:
-	@mkdir .$(BUILD_MAKER_PROJECT).d >/dev/null
+	@mkdir -p .$(BUILD_MAKER_PROJECT).d >/dev/null
 	@$(MAKE) requirements >/dev/null
 
 requirements: .$(BUILD_MAKER_PROJECT).d $(BUILD_MAKER_MODULES)
