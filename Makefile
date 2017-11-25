@@ -47,6 +47,7 @@ help:
 	@printf "\n"
 
 .PHONY : init
+## init build-maker
 init:
 	@mkdir .$(BUILD_MAKER_PROJECT).d >/dev/null
 	@$(MAKE) requirements >/dev/null
@@ -57,6 +58,6 @@ $(BUILD_MAKER_MODULES):
 	@curl -sSL -o $(BUILD_MAKER_PATH)/.$(BUILD_MAKER_PROJECT).d/$@.make "https://raw.githubusercontent.com/$(BUILD_MAKER_ORG)/$(BUILD_MAKER_PROJECT)/$(BUILD_MAKER_BRANCH)/modules/$@/Makefile?ref=$(BUILD_MAKER_VERSION)" >/dev/null
 
 .PHONY : clean
-	## Clean build-maker
+## Clean build-maker
 clean:
 		@rm -rf $(BUILD_MAKER_PATH)/.$(BUILD_MAKER_PROJECT)* >/dev/null
