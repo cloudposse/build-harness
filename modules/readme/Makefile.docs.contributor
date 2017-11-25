@@ -1,0 +1,4 @@
+
+define contributor-docs-provide
+--datasource contributor=file:///$(TEMPLATES)/contributor.yml
+endef

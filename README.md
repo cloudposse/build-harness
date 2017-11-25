@@ -35,18 +35,17 @@ NOTE: `make help` uses comments in the Makefile to dynamically build the help.  
 ```bash
 $ make help
 
-Available targets:
+  Available targets:
 
   bash:lint                           Lint all bash scripts
   docker:build                        Build docker image
   docker:login                        Login into docker hub
   docs:copyright-add                  Add copyright headers to source code
-  docs:toc-update                     Update table of contents in README.md
   geodesic:deploy                     Run a Jenkins Job to Deploy $(APP) with $(CANONICAL_TAG)
   git:aliases-update                  Update git aliases
-  git:submodules-update               Update submodules
   github:download-private-release     Download release from github
   github:download-public-release      Download release from github
+  git:submodules-update               Update submodules
   go:build                            Build binary
   go:build-all                        Build binary for all platforms
   go:clean                            Clean compiled binary
@@ -78,13 +77,18 @@ Available targets:
   jekyll:integrate-personal           Integrate personal
   jekyll:building                     Builds the Jekyll site for publication
   make:lint                           Lint all makefiles
+  readme:build                        Create README.md by building it from .README.md file
+  readme:deps                         Install dependencies
+  readme:init                         Create basic minimalistic .README.md template file
+  readme:toc-update                   Update table of contents in README.md
+  terraform:deps                      Install dependencies
   terraform:get-modules               Ensure all modules can be fetched
   terraform:get-plugins               Ensure all plugins can be fetched
+  terraform:install                   Install terraform
   terraform:lint                      Lint check Terraform
   terraform:validate                  Basic terraform sanity check
   travis:docker-login                 Login into docker hub
   travis:docker-tag-and-push          Tag & Push according Travis environment variables
-```
 
 ## Help
 
@@ -132,7 +136,6 @@ In general, PRs are welcome. Follow the typical "fork-and-pull" Git workflow.
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-
 ## About
 
 build-maker is a fork of [build-harness](https://github.com/cloudposse/build-harness) maintained by [Neil D. Morris](https://neildmorris.com).
