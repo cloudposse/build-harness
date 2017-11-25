@@ -1,44 +1,51 @@
-# Cloud Posse Build Harness [![Build Status](https://travis-ci.org/cloudposse/build-harness.svg)](https://travis-ci.org/cloudposse/build-harness)
+# Build Maker [![Build Status](https://travis-ci.org/neildmorris/build-maker.svg)](https://travis-ci.org/neildmorris/build-maker)
 
-This `build-harness` is a collection of Makefiles to facilitate building Golang projects, Dockerfiles, Helm charts, and more. 
+This `build-maker` is a collection of Makefiles to facilitate building Jekyll, Terraform, and more. fored from [build-harness](https://github.com/cloudposse/build-harness)
 
-It's designed to work with CI/CD systems such as Travis CI, CircleCI and Jenkins.
+It's designed to work with CI/CD systems such as Travis CI, and Jenkins.
 
-It's 100% Open Source and licensed under [APACHE2](LICENSE).
-
+It's 100% Open Source and licensed under [APACHE2](LICENSE). || Thank you [Cloudposse](https://github.com/cloudposse)!
 
 ## Usage
 
 At the top of your `Makefile` add, the following...
 
-```make
--include $(shell curl -sSL -o .build-harness "https://git.io/build-harness"; echo .build-harness)
+```
+-include $(shell curl -o .build-maker "https://raw.githubusercontent.com/neildmorris/build-maker/master/Makefile?ref=1.0.0)
 ```
 
-This will download a `Makefile` called `.build-harness` and include it at run-time. We recommend adding the `.build-harness` file to your `.gitignore`.
+This will download a `Makefile` called `.build-maker` and include it at run-time. Add `.build-maker` and `.build-maker.d/*` to your .gitignore file
 
 This automatically exposes many new targets that you can leverage throughout your build & CI/CD process.
 
+create a file in your project root folder called `requirements.build-maker` and include a list of modules to be included in your project
+
+---
+NOTE: This is the reason for this fork vs using the original [build-hareness](https://github.com/cloudposse/build-harness).  In the original work make `init` downloaded a install.sh which cloned the repo.  I choose to build a requirements file where I can be more selective on which Makefile to include in my project.  I also consolidated a number of Makefile and updated the folder structure for my purpose.
+---
+
 Run `make help` for a list of available targets.
 
+---
+NOTE: `make help` uses comments in the Makefile to dynamically build the help.  This means if you run `make help` prior to `make init` the only target is `help`.  Once your modules have been downloaded those targets will also be available and will show up in `make help`
+---
 
 ## Makefile Targets
 
 ```bash
 $ make help
 
-Available targets:
+  Available targets:
 
   bash:lint                           Lint all bash scripts
   docker:build                        Build docker image
   docker:login                        Login into docker hub
   docs:copyright-add                  Add copyright headers to source code
-  docs:toc-update                     Update table of contents in README.md
   geodesic:deploy                     Run a Jenkins Job to Deploy $(APP) with $(CANONICAL_TAG)
   git:aliases-update                  Update git aliases
-  git:submodules-update               Update submodules
   github:download-private-release     Download release from github
   github:download-public-release      Download release from github
+  git:submodules-update               Update submodules
   go:build                            Build binary
   go:build-all                        Build binary for all platforms
   go:clean                            Clean compiled binary
@@ -62,40 +69,44 @@ Available targets:
   helm:serve:index                    Build index for serve helm charts
   help                                This help screen
   jenkins:run-job-with-tag            Run a Jenkins Job with $(TAG)
+  jekyll:install                      Installs Jekyll
+  jekyll:Serve                        Serve the Jekyll site locally @ 127.0.0.1:4000
+  jekyll:newpost                      Create a new Jekyll post using vi
+  jekyll:generate-tags                Generate tags
+  jekyll:generate-categories          Generate categories
+  jekyll:integrate-personal           Integrate personal
+  jekyll:building                     Builds the Jekyll site for publication
   make:lint                           Lint all makefiles
+  readme:build                        Create README.md by building it from .README.md file
+  readme:deps                         Install dependencies
+  readme:init                         Create basic minimalistic .README.md template file
+  readme:toc-update                   Update table of contents in README.md
+  terraform:deps                      Install dependencies
   terraform:get-modules               Ensure all modules can be fetched
   terraform:get-plugins               Ensure all plugins can be fetched
+  terraform:install                   Install terraform
   terraform:lint                      Lint check Terraform
   terraform:validate                  Basic terraform sanity check
   travis:docker-login                 Login into docker hub
   travis:docker-tag-and-push          Tag & Push according Travis environment variables
 ```
-
-
-## Real World Examples
-
-- [`github-authorized-keys`](https://github.com/cloudposse/github-authorized-keys/) - A Golang project that leverages `docker:%`, `go:%`, `travis:%` targets
-- [`charts`](https://github.com/cloudposse/charts/) - A collection of Helm Charts that leverages `docker:%` and `helm:%` targets
-- [`bastion`](https://github.com/cloudposse/bastion/) - A docker image that leverages `docker:%` and `bash:lint` targets
-- [`terraform-null-label`](https://github.com/cloudposse/terraform-null-label/) - A terraform module that leverages `terraform:%` targets
-
 ## Help
 
-**Got a question?** 
+**Got a question?**
 
-File a GitHub [issue](https://github.com/cloudposse/build-harness/issues), send us an [email](mailto:hello@cloudposse.com) or reach out to us on [Gitter](https://gitter.im/cloudposse/).
+File a GitHub [issue](https://github.com/neildmorris/build-maker/issues), send me an [email](mailto:neil.daren.morris@gmail.com) or [neildmorris.com](https://neildmorris.com#contact).
 
 ## Contributing
 
 ### Bug Reports & Feature Requests
 
-Please use the [issue tracker](https://github.com/cloudposse/build-harness/issues) to report any bugs or file feature requests.
+Please use the [issue tracker](https://github.com/neildmorris/build-maker/issues) to report any bugs or file feature requests.
 
 ### Developing
 
-If you are interested in being a contributor and want to get involved in developing the `build-harness`, we would love to hear from you! Shoot us an [email](mailto:hello@cloudposse.com).
+If you are interested in being a contributor to this fork and want to get involved in developing the `build-maker`, reach out via [email](mailto:neil.daren.morris@gmail.com) or on my [website](https://neildmorris.com#contact)
 
-In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
+In general, PRs are welcome. Follow the typical "fork-and-pull" Git workflow.
 
  1. **Fork** the repo on GitHub
  2. **Clone** the project to your own machine
@@ -105,15 +116,9 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
 **NOTE:** Be sure to merge the latest from "upstream" before making a pull request!
 
-Here's how to get started...
-
-1. `git clone https://github.com/cloudposse/build-harness.git` to pull down the repository 
-2. `make init` to initialize the [`build-harness`](https://github.com/cloudposse/build-harness/)
-3. Review the [documentation](docs/) on compiling
-
 ## License
 
-[APACHE 2.0](LICENSE) © 2016-2017 [Cloud Posse, LLC](https://cloudposse.com)
+[APACHE 2.0](LICENSE)
 
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -122,7 +127,7 @@ Here's how to get started...
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-     
+
       http://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing,
@@ -131,28 +136,19 @@ Here's how to get started...
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-
 ## About
 
-GitHub Authorized Keys is maintained and funded by [Cloud Posse, LLC][website]. Like it? Please let us know at <hello@cloudposse.com>
+build-maker is a fork of [build-harness](https://github.com/cloudposse/build-harness) maintained by [Neil D. Morris](https://neildmorris.com).
 
-We love [Open Source Software](https://github.com/cloudposse/)! 
+See my other projects on [GitHub]](https://github.com/neildmorris) or [My Website](https://neildmorris.com).
 
-See [our other projects][community] or [hire us][hire] to help build your next cloud-platform.
+  [website]: http://neildmorris.com/
+  [community]: https://github.com/neildmorris/
+  [get in touch]: http://neildmorris.com/contact/
 
-  [website]: http://cloudposse.com/
-  [community]: https://github.com/cloudposse/
-  [hire]: http://cloudposse.com/contact/
-  
 ### Contributors
 
+Thank you [cloudposse](https://github.com/cloudposse) for [build-hareness](https://github.com/cloudposse/build-harness)
 
-| [![Erik Osterman][erik_img]][erik_web]<br/>[Erik Osterman][erik_web] | [![Igor Rodionov][igor_img]][igor_web]<br/>[Igor Rodionov][igor_web] |
-|-------------------------------------------------------|------------------------------------------------------------------|
-
-  [erik_img]: http://s.gravatar.com/avatar/88c480d4f73b813904e00a5695a454cb?s=144
-  [erik_web]: https://github.com/osterman/
-  [igor_img]: http://s.gravatar.com/avatar/bc70834d32ed4517568a1feb0b9be7e2?s=144
-  [igor_web]: https://github.com/goruha/
-
-
+[Erik Osterman](https://github.com/osterman/)
+[Igor Rodionov](https://github.com/goruha/)

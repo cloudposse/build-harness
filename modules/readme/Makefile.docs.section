@@ -1,0 +1,4 @@
+
+define section-docs-provide
+--datasource section=file:///$(TEMPLATES)/section.yml
+endef

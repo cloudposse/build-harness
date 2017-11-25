@@ -1,8 +1,0 @@
-.PHONY: docker\:login
-## Use DOCKER_HUB_USERNAME and DOCKER_HUB_PASSWORD env variables to pass credentials
-## Login into docker hub
-docker\:login: $(DOCKER)
-	$(call assert-set,DOCKER)
-	$(call assert-set,DOCKER_HUB_USERNAME)
-	$(call assert-set,DOCKER_HUB_PASSWORD)
-	@$(DOCKER) login --username="$(DOCKER_HUB_USERNAME)" --password="$(DOCKER_HUB_PASSWORD)"

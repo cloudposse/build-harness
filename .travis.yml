@@ -10,8 +10,7 @@ addons:
     - curl
 
 install:
-- make go:deps-build
-- make go:deps-dev
+- make init
 
 script:
   - "make bash:lint"
