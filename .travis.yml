@@ -10,6 +10,7 @@ addons:
     - curl
 
 install:
+- make init
 - make all
 
 script:
