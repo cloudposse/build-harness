@@ -14,21 +14,20 @@ At the top of your `Makefile` add, the following...
 -include $(shell curl -o .build-maker "https://raw.githubusercontent.com/neildmorris/build-maker/master/Makefile?ref=latest)
 ```
 
-This will download a `Makefile` called `.build-maker` and include it at run-time. Add .build-maker and .build-maker.d/* to yoru .gitignore file
+This will download a `Makefile` called `.build-maker` and include it at run-time. Add `.build-maker` and `.build-maker.d/*` to your .gitignore file
 
 This automatically exposes many new targets that you can leverage throughout your build & CI/CD process.
 
-create a file in your project root folder called ```requirements.build-maker``` and include a list of modules to be included in your project
+create a file in your project root folder called `requirements.build-maker` and include a list of modules to be included in your project
 
 ---
-NOTE: This is the primary reason for this fork vs using the original [build-hareness](https://github.com/cloudposse/build-harness).  In the original work ```make init``` downloaded a install.sh which cloned the repo.  I choose to build a requirements file where I can be more selective on which Makefile to include in my project.  I also consolidated a number of Makefile and updated the folder structure for my purpose.
+NOTE: This is the reason for this fork vs using the original [build-hareness](https://github.com/cloudposse/build-harness).  In the original work make `init` downloaded a install.sh which cloned the repo.  I choose to build a requirements file where I can be more selective on which Makefile to include in my project.  I also consolidated a number of Makefile and updated the folder structure for my purpose.
 ---
-
 
 Run `make help` for a list of available targets.
 
 ---
-NOTE: ```make help``` uses comments in the Makefile to dynamically build the help.  This means if you run ```make help``` prior to ```make init``` the only target is ```help```.  Once your modules have been downloaded those targets will also be available and will show up in ```make help```
+NOTE: `make help` uses comments in the Makefile to dynamically build the help.  This means if you run `make help` prior to `make init` the only target is `help`.  Once your modules have been downloaded those targets will also be available and will show up in `make help`
 ---
 
 ## Makefile Targets
@@ -138,7 +137,7 @@ In general, PRs are welcome. Follow the typical "fork-and-pull" Git workflow.
 
 build-maker is a fork of [build-harness](https://github.com/cloudposse/build-harness) maintained by [Neil D. Morris](https://neildmorris.com).
 
-See my other projects on [GitHub]](https://github.com/neildmorris) or [My Website](https://neildmorris.com) to help build your next project.
+See my other projects on [GitHub]](https://github.com/neildmorris) or [My Website](https://neildmorris.com).
 
   [website]: http://neildmorris.com/
   [community]: https://github.com/neildmorris/

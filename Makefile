@@ -7,7 +7,7 @@ BUILD_MAKER_ORG ?= neildmorris
 BUILD_MAKER_PROJECT ?= build-maker
 BUILD_MAKER_BRANCH ?= master
 BUILD_MAKER_VERSION ?= latest
-MODULES = $(shell cat requirements.build-maker)
+BUILD_MAKER_MODULES = $(shell cat requirements.build-maker)
 
 green = $(shell echo -e '\x1b[32;01m$1\x1b[0m')
 yellow = $(shell echo -e '\x1b[33;01m$1\x1b[0m')
@@ -51,9 +51,9 @@ init:
 	@mkdir .$(BUILD_MAKER_PROJECT).d >/dev/null
 	@$(MAKE) requirements >/dev/null
 
-requirements: .$(BUILD_MAKER_PROJECT).d $(MODULES)
+requirements: .$(BUILD_MAKER_PROJECT).d $(BUILD_MAKER_MODULES)
 
-$(MODULES):
+$(BUILD_MAKER_MODULES):
 	@curl -sSL -o $(BUILD_MAKER_PATH)/.$(BUILD_MAKER_PROJECT).d/$@.make "https://raw.githubusercontent.com/$(BUILD_MAKER_ORG)/$(BUILD_MAKER_PROJECT)/$(BUILD_MAKER_BRANCH)/modules/$@/Makefile?ref=$(BUILD_MAKER_VERSION)" >/dev/null
 
 .PHONY : clean
