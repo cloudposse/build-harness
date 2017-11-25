@@ -1,6 +1,6 @@
 # Build Maker [![Build Status](https://travis-ci.org/neildmorris/build-maker.svg)](https://travis-ci.org/neildmorris/build-maker)
 
-This `build-maker` is a collection of Makefiles to facilitate building Jekyll, Terraform, and more.
+This `build-maker` is a collection of Makefiles to facilitate building Jekyll, Terraform, and more. fored from [build-harness](https://github.com/cloudposse/build-harness)
 
 It's designed to work with CI/CD systems such as Travis CI, and Jenkins.
 
@@ -14,12 +14,22 @@ At the top of your `Makefile` add, the following...
 -include $(shell curl -o .build-maker "https://raw.githubusercontent.com/neildmorris/build-maker/master/Makefile?ref=latest)
 ```
 
-This will download a `Makefile` called `build-maker.make` and include it at run-time. We recommend adding `*.make` to your `.gitignore`.
+This will download a `Makefile` called `.build-maker` and include it at run-time. Add .build-maker and .build-maker.d/* to yoru .gitignore file
 
 This automatically exposes many new targets that you can leverage throughout your build & CI/CD process.
 
+create a file in your project root folder called ```requirements.build-maker``` and include a list of modules to be included in your project
+
+---
+NOTE: This is the primary reason for this fork vs using the original [build-hareness](https://github.com/cloudposse/build-harness).  In the original work ```make init``` downloaded a install.sh which cloned the repo.  I choose to build a requirements file where I can be more selective on which Makefile to include in my project.  I also consolidated a number of Makefile and updated the folder structure for my purpose.
+---
+
+
 Run `make help` for a list of available targets.
 
+---
+NOTE: ```make help``` uses comments in the Makefile to dynamically build the help.  This means if you run ```make help``` prior to ```make init``` the only target is ```help```.  Once your modules have been downloaded those targets will also be available and will show up in ```make help```
+---
 
 ## Makefile Targets
 
@@ -63,10 +73,10 @@ Available targets:
   jenkins:run-job-with-tag            Run a Jenkins Job with $(TAG)
   jekyll:install                      Installs Jekyll
   jekyll:Serve                        Serve the Jekyll site locally @ 127.0.0.1:4000
-  jekyll:newpost                      
-  jekyll:generate-tags
-  jekyll:generate-categories
-  jekyll:integrate-personal
+  jekyll:newpost                      Create a new Jekyll post using vi
+  jekyll:generate-tags                Generate tags
+  jekyll:generate-categories          Generate categories
+  jekyll:integrate-personal           Integrate personal
   jekyll:building                     Builds the Jekyll site for publication
   make:lint                           Lint all makefiles
   terraform:get-modules               Ensure all modules can be fetched
@@ -77,19 +87,11 @@ Available targets:
   travis:docker-tag-and-push          Tag & Push according Travis environment variables
 ```
 
-
-## Real World Examples
-
-- [`github-authorized-keys`](https://github.com/cloudposse/github-authorized-keys/) - A Golang project that leverages `docker:%`, `go:%`, `travis:%` targets
-- [`charts`](https://github.com/cloudposse/charts/) - A collection of Helm Charts that leverages `docker:%` and `helm:%` targets
-- [`bastion`](https://github.com/cloudposse/bastion/) - A docker image that leverages `docker:%` and `bash:lint` targets
-- [`terraform-null-label`](https://github.com/cloudposse/terraform-null-label/) - A terraform module that leverages `terraform:%` targets
-
 ## Help
 
 **Got a question?**
 
-File a GitHub [issue](https://github.com/neildmorris/build-maker/issues), send me an [email](mailto:neil.daren.morris@gmail.com) or reach out to us on [neildmorris.com](https://neildmorris.com).
+File a GitHub [issue](https://github.com/neildmorris/build-maker/issues), send me an [email](mailto:neil.daren.morris@gmail.com) or [neildmorris.com](https://neildmorris.com#contact).
 
 ## Contributing
 
@@ -99,9 +101,9 @@ Please use the [issue tracker](https://github.com/neildmorris/build-maker/issues
 
 ### Developing
 
-If you are interested in being a contributor to this fork and want to get involved in developing the `build-maker`, we would love to hear from you! Shoot me an [email](mailto:neil.daren.morris@gmail.com).
+If you are interested in being a contributor to this fork and want to get involved in developing the `build-maker`, reach out via [email](mailto:neil.daren.morris@gmail.com) or on my [website](https://neildmorris.com#contact)
 
-In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
+In general, PRs are welcome. Follow the typical "fork-and-pull" Git workflow.
 
  1. **Fork** the repo on GitHub
  2. **Clone** the project to your own machine
@@ -111,15 +113,9 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
 **NOTE:** Be sure to merge the latest from "upstream" before making a pull request!
 
-Here's how to get started...
-
-1. `git clone https://github.com/neildmorris/build-maker.git` to pull down the repository
-2. `make init` to initialize the [`build-maker`](https://github.com/neildmorris/build-maker/)
-3. Review the [documentation](docs/) on compiling
-
 ## License
 
-[APACHE 2.0](LICENSE) © 2016-2017 [Cloud Posse, LLC](https://neildmorris.com)
+[APACHE 2.0](LICENSE)
 
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -140,9 +136,7 @@ Here's how to get started...
 
 ## About
 
-build-maker is a fork of [build-harness](https://github.com/cloudposse/build-harness) maintained by [Neil D. Morris](https://neildmorris.com). Like it? Please let us know at <neil.daren.morris@gmail.com>
-
-We love [Open Source Software](https://github.com/neildmorris/)!
+build-maker is a fork of [build-harness](https://github.com/cloudposse/build-harness) maintained by [Neil D. Morris](https://neildmorris.com).
 
 See my other projects on [GitHub]](https://github.com/neildmorris) or [My Website](https://neildmorris.com) to help build your next project.
 
@@ -151,6 +145,8 @@ See my other projects on [GitHub]](https://github.com/neildmorris) or [My Websit
   [get in touch]: http://neildmorris.com/contact/
 
 ### Contributors
+
+Thank you [cloudposse](https://github.com/cloudposse) for [build-hareness](https://github.com/cloudposse/build-harness)
 
 [Erik Osterman](https://github.com/osterman/)
 [Igor Rodionov](https://github.com/goruha/)
