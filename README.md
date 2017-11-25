@@ -89,7 +89,7 @@ $ make help
   terraform:validate                  Basic terraform sanity check
   travis:docker-login                 Login into docker hub
   travis:docker-tag-and-push          Tag & Push according Travis environment variables
-
+```
 ## Help
 
 **Got a question?**
