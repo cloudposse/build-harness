@@ -3,6 +3,11 @@
 IN=${IN:-".README.md"}
 OUT=${OUT:-"README.md"}
 
+TIMESTAMP=$(date +"%s")
+TMP=/tmp/$TIMESTAMP
+
+mkdir -p $TMP
+
 declare -A DATASOURCES
 
 INCLUDED_MODULES=()
@@ -77,6 +82,8 @@ done
 
 ## Cleanup prepared data for all used modules
 fire_event "docs-cleanup-data" $INCLUDED_MODULES
+
+rm -rf $TMP
 
 echo "$OUT doc generated"
 

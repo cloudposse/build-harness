@@ -4,8 +4,10 @@ TERRAFORM_DOCS_REPO=segmentio/terraform-docs
 TERRAFORM_DOCS_VERSION=v0.3.0
 TERRAFORM_DOCS=terraform-docs
 
+TERRAFORM_DATA_FILE=$TMP/terraform_data.yml
+
 DATASOURCES[terraform]=file://$BUILD_HARNESS_PATH/modules/terraform/docs/templates/terraform.yml
-DATASOURCES[terraform_data]=file:///tmp/terraform_data.json
+DATASOURCES[terraform_data]=file://$TERRAFORM_DATA_FILE
 
 
 function terraform-docs-prepare-data {
@@ -20,9 +22,9 @@ function terraform-docs-prepare-data {
 }
 
 function terraform_data-docs-prepare-data {
-  $TERRAFORM_DOCS json . > /tmp/terraform_data.json
+  $TERRAFORM_DOCS json . > $TERRAFORM_DATA_FILE
 }
 function terraform-docs-cleanup-data {
-  rm -rf /tmp/terraform_data.json
+  rm -rf $TERRAFORM_DATA_FILE
 }
 
