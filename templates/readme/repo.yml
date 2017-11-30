@@ -1,3 +1,0 @@
----
-name: |-
-  {{ (datasource "repo_data").name }}

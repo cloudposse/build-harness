@@ -1,4 +1,0 @@
-
-define license-docs-provide
---datasource license=file:///$(TEMPLATES)/license.yml
-endef
