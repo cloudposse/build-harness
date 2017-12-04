@@ -10,15 +10,15 @@ readme\:toc-update:
 ## Create basic minimalistic .README.md template file
 readme\:init:
 	@if [ -s ./$(README_TEMPLATE_FILE) ]; then \
-		echo "$(README_TEMPLATE_FILE) already exists!"; \
+	  echo "$(README_TEMPLATE_FILE) already exists!"; \
 	else \
-		cp $(BUILD_HARNESS_PATH)/templates/$(README_TEMPLATE_FILE) ./$(README_FILE) ; \
-		echo "$(README_FILE) created!"; \
+	  cp $(BUILD_HARNESS_PATH)/templates/$(README_TEMPLATE_FILE) ./$(README_FILE) ; \
+	  echo "$(README_FILE) created!"; \
 	fi;
 
 .PHONY : readme\:build
 ## Create README.md by building it from .README.md file
 readme\:build:
 	@IN=$(README_TEMPLATE_FILE) \
-		OUT=$(README_FILE) \
-		make -s docs:build
+	  OUT=$(README_FILE) \
+	  make -s docs:build

@@ -14,5 +14,5 @@ EOF
 }
 
 function git_data-docs-cleanup-data {
-  rm -rf $GIT_DATA_FILE
+  rm -f $GIT_DATA_FILE
 }

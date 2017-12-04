@@ -14,5 +14,5 @@ EOF
 }
 
 function make_data-docs-cleanup-data {
-  rm -rf $MAKE_DATA_FILE
+  rm -f $MAKE_DATA_FILE
 }

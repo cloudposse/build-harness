@@ -12,19 +12,20 @@ DATASOURCES[terraform_data]=file://$TERRAFORM_DATA_FILE
 
 function terraform-docs-prepare-data {
   if [ ! -s /usr/local/bin/$TERRAFORM_DOCS ]; then
-		REPO=$TERRAFORM_DOCS_REPO \
-		  FILE=${TERRAFORM_DOCS}_${OS}_amd64 \
-		  VERSION=$TERRAFORM_DOCS_VERSION \
-		  OUTPUT=/usr/local/bin/$TERRAFORM_DOCS \
-	      make github:download-public-release > /dev/null
-	  chmod +x /usr/local/bin/$TERRAFORM_DOCS
-	fi;
+    REPO=$TERRAFORM_DOCS_REPO \
+    FILE=${TERRAFORM_DOCS}_${OS}_amd64 \
+    VERSION=$TERRAFORM_DOCS_VERSION \
+    OUTPUT=/usr/local/bin/$TERRAFORM_DOCS \
+    make github:download-public-release > /dev/null
+
+    chmod +x /usr/local/bin/$TERRAFORM_DOCS
+  fi;
 }
 
 function terraform_data-docs-prepare-data {
   $TERRAFORM_DOCS json . > $TERRAFORM_DATA_FILE
 }
 function terraform-docs-cleanup-data {
-  rm -rf $TERRAFORM_DATA_FILE
+  rm -f $TERRAFORM_DATA_FILE
 }
 
