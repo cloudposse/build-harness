@@ -20,7 +20,7 @@
       {{- else -}}
         __REQUIRED__
       {{- end }} |
-      {{-  $element.Description | strings.ReplaceAll "\n" " " }}  |
+      {{-  $element.Description | strings.ReplaceAll "\n" " " | regexp.Replace "(.{50}[^\\s]*)\\s+" "$1<br/>" }}  |
       {{- end }}
 
   output: |-
@@ -30,5 +30,5 @@
       |  Name | Description  |
       |:------|:------------:|
       {{- range $index, $element := (datasource "terraform_data").Outputs }}
-      | {{  $element.Name }} | {{  $element.Description | strings.ReplaceAll "\n" " " }}  |
+      | {{  $element.Name }} | {{  $element.Description | strings.ReplaceAll "\n" " " | regexp.Replace "(.{50}[^\\s]*)\\s+" "$1<br/>" }}  |
       {{- end }}
