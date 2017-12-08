@@ -1,0 +1,3 @@
+---
+name: |-
+  {{ (datasource "git_data").name }}
