@@ -2,7 +2,7 @@
 
 TERRAFORM_DOCS_REPO=segmentio/terraform-docs
 TERRAFORM_DOCS_VERSION=v0.3.0
-TERRAFORM_DOCS=terraform-docs
+TERRAFORM_DOCS=${BUILD_HARNESS_PATH}/vendor/terraform-docs
 
 TERRAFORM_DATA_FILE=$TMP/terraform_data.yml
 
@@ -11,14 +11,14 @@ DATASOURCES[terraform_data]=file://$TERRAFORM_DATA_FILE
 
 
 function terraform-docs-prepare-data {
-  if [ ! -s /usr/local/bin/$TERRAFORM_DOCS ]; then
+  if [ ! -s $TERRAFORM_DOCS ]; then
     REPO=$TERRAFORM_DOCS_REPO \
-    FILE=${TERRAFORM_DOCS}_${OS}_amd64 \
+    FILE=terraform-docs_${OS}_amd64 \
     VERSION=$TERRAFORM_DOCS_VERSION \
-    OUTPUT=/usr/local/bin/$TERRAFORM_DOCS \
-    make github:download-public-release > /dev/null
+    OUTPUT=$TERRAFORM_DOCS \
+    make github:download-public-release
 
-    chmod +x /usr/local/bin/$TERRAFORM_DOCS
+    chmod +x $TERRAFORM_DOCS
   fi;
 }
 
