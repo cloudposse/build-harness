@@ -68,12 +68,17 @@ helm\:repo\:fix-perms:
 	@find $(REPO_PATH) -type f -name '*.md' -exec chmod 644 {} \;
 	@find $(REPO_PATH) -type f -name '*.tgz' -exec chmod 644 {} \;
 
+.PHONY : helm\:repo\:deps
+helm\:repo\:deps:
+	$(call assert-set,REPO_NAME)
+	@echo "## Fetching deps for charts in $(shell basename $(CURDIR))"
+	@find $(REPO_PATH) -maxdepth 1 -mindepth 1 -type d  | \
+    	xargs -n 1 -I '{}' sh -c 'echo && echo "# Updating dependencies for {}" && $(HELM) dependency build --debug {}'
+
 .PHONY : helm\:repo\:package
 helm\:repo\:package:
 	$(call assert-set,REPO_NAME)
 	@echo "## Building packages in $(shell basename $(CURDIR))"
-	@find $(REPO_PATH) -maxdepth 1 -mindepth 1 -type d  | \
-    	xargs -n 1 -I '{}' sh -c 'echo && echo "# Updating dependencies for {}" && $(HELM) dependency build --debug {}'
 	@find $(REPO_PATH) -maxdepth 1 -mindepth 1 -type d  | \
     	xargs -n 1 -I '{}' sh -c 'echo && echo "# Building package for {}" && $(HELM) package --debug {}'
 	@mkdir -p $(PACKAGE_PATH)
@@ -114,6 +119,7 @@ helm\:repo\:build:
 	$(call assert-set,REPO_NAME)
 	@make helm:repo:clean
 	@make helm:repo:fix-perms
+	@make helm:repo:deps
 	@make helm:repo:lint
 	@make helm:repo:package
 
