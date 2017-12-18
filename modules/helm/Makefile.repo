@@ -44,7 +44,7 @@ helm\:repo\:add-current:
 helm\:repo\:add:
 	@$(HELM) repo add kubernetes-charts http://storage.googleapis.com/kubernetes-charts
 	@$(HELM) repo add opsgoodness http://charts.opsgoodness.com
-	@$(HELM) repo add inclubator https://kubernetes-charts-incubator.storage.googleapis.com
+	@$(HELM) repo add kubernetes-charts-incubator https://kubernetes-charts-incubator.storage.googleapis.com
 	@for repo in $(HELM_REPO_NAMES); do \
 		if [ -d "$$repo" ]; then \
 			curl --fail -s -q $(HELM_REPO_URL)/$$repo/index.yaml -o /dev/null; \
