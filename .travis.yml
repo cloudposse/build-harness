@@ -4,7 +4,7 @@ go:
   - 1.7.x
 
 env:
-  - DOCKER_IMAGE_NAME=cloudposse/build-harness
+- DOCKER_IMAGE_NAME=cloudposse/build-harness
 
 addons:
   apt:
