@@ -13,7 +13,6 @@ docs\:deps:
 	@chmod +x $(GOMPLATE)
 
 
-
 .PHONY : docs\:build
 ## Create $OUT file by building it from $IN template file
 docs\:build:

@@ -2,6 +2,10 @@ CURL := $(shell which curl)
 HELM_VERSION ?= v2.7.2
 HELM_PLATFORM ?= $(OS)-amd64
 HELM := $(shell which helm)
+HELM_HOME ?= $(HOME)/.helm
+
+HELM_REPO_PATH ?= ./$(REPO_NAME)
+HELM_PACKAGE_PATH ?= ./packages/$(REPO_NAME)
 
 .PHONY: helm\:install
 ## Install helm
@@ -10,7 +14,7 @@ helm\:install:
 	@chmod +x $(HELM_PLATFORM)/helm
 	@mv $(HELM_PLATFORM)/helm /usr/local/bin/
 	@helm init --client-only
-	@chmod -R 777 $(HOME)/.helm
+	@chmod -R 777 $(HELM_HOME)
 	@helm repo remove local || true
 
 .PHONY: helm\:serve\:index

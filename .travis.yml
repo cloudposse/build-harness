@@ -2,6 +2,10 @@ sudo: required
 language: go
 go:
   - 1.7.x
+
+env:
+  - DOCKER_IMAGE_NAME=cloudposse/build-harness
+
 addons:
   apt:
     packages:
@@ -9,11 +13,20 @@ addons:
     - make
     - curl
 
+services:
+- docker
+
 install:
+- make init
+- make docker:login
 - make go:deps-build
 - make go:deps-dev
 
 script:
-  - "make bash:lint"
-  - "make make:lint"
-  - "make terraform:install"
+- make bash:lint
+- make make:lint
+- make terraform:install
+- make docker:build
+
+after_success:
+- make travis:docker-tag-and-push
