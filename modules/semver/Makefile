@@ -17,4 +17,6 @@ export SEMVERSION ?= $(word 1,$(SEMVERSIONS))
 
 ## Show
 semver\:show:
-	@echo $(SEMVERSIONS) | xargs -d ' ' -I{} echo {}
+	@for version in $(SEMVERSIONS) ; do \
+		echo "$$version"; \
+	done
