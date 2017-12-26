@@ -4,7 +4,8 @@ RUN apk update && \
     apk add \
       git \
       make \
-      curl
+      curl \
+      bash
 
 ADD ./ /build-harness/
 
