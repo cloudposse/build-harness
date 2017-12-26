@@ -10,9 +10,9 @@ RUN apk update && \
 
 ADD ./ /build-harness/
 
-RUN make helm:install \
-  	  docs:deps \
-  	  
+RUN cd /build-harness && \
+      make helm:install docs:deps
+
 
 ENTRYPOINT ["/bin/bash"]
 
