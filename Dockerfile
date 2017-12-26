@@ -8,3 +8,5 @@ RUN apk update && \
 
 ADD ./ /build-harness/
 
+ENTRYPOINT ["/bin/bash"]
+
