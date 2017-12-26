@@ -17,7 +17,6 @@ services:
 - docker
 
 install:
-- make init
 - make docker:login
 - make go:deps-build
 - make go:deps-dev
