@@ -22,6 +22,16 @@ else
 	export GIT_IS_TAG := 1
 endif
 
+define git_vars_export
+GIT_COMMIT=$(GIT_COMMIT)
+GIT_COMMIT_SHORT=$(GIT_COMMIT_SHORT)
+GIT_BRANCH=$(GIT_BRANCH)
+GIT_LATEST_TAG=$(GIT_LATEST_TAG)
+GIT_IS_BRANCH=$(GIT_IS_BRANCH)
+GIT_IS_TAG=$(GIT_IS_TAG)
+endef
+
+export git_vars_export
 
 .PHONY: git\:submodules-update
 ## Update submodules
@@ -34,11 +44,15 @@ git\:submodules-update:
 git\:aliases-update:
 	@$(GIT) config --global --add alias.permission-reset '!git diff -p -R --no-color | grep -E "^(diff|(old|new) mode)" --color=never | git apply'
 
-## Test
-git\:test:
+## Show vars
+git\:show:
 	@echo "commit - $(GIT_COMMIT)"
 	@echo "commit short - $(GIT_COMMIT_SHORT)"
 	@echo "commit branch - $(GIT_BRANCH)"
 	@echo "latest tag - $(GIT_LATEST_TAG)"
 	@echo "tag - $(GIT_IS_TAG)"
 	@echo "branch - $(GIT_IS_BRANCH)"
+
+## Export git vars
+git\:export:
+	@echo "git_vars_export"
