@@ -28,25 +28,31 @@ helm\:repo\:info:
 .PHONY: helm\:repo\:add-remote
 ## Add helm remote repos
 helm\:repo\:add-remote:
-	@make helm:repo:add \
+	@make -s --no-print-directory helm:repo:add-all \
 		HELM_REPO_URL=$(REPO_URL)
 
 .PHONY: helm\:repo\:add-current
 ## Add helm remote dev repos
 helm\:repo\:add-current:
-	@make helm:repo:add \
+	@make -s --no-print-directory helm:repo:add-all \
 		HELM_REPO_PREFIX=$(HELM_REPO_PREFIX)-dev \
 		HELM_REPO_URL=$(CURRENT_REPO_URL)
 	
-helm\:repo\:add:
-	@$(HELM) repo add kubernetes-charts http://storage.googleapis.com/kubernetes-charts
-	@$(HELM) repo add opsgoodness http://charts.opsgoodness.com
-	@$(HELM) repo add kubernetes-charts-incubator https://kubernetes-charts-incubator.storage.googleapis.com
+helm\:repo\:add-all:
+	@REPO_NAME=kubernetes-charts \
+		REPO_ENDPOINT=http://storage.googleapis.com/kubernetes-charts \
+		make -s --no-print-directory helm:repo:add
+	@REPO_NAME=opsgoodness \
+		REPO_ENDPOINT=http://charts.opsgoodness.com \
+		make -s --no-print-directory helm:repo:add
+	@REPO_NAME=kubernetes-charts-incubator \
+		REPO_ENDPOINT=https://kubernetes-charts-incubator.storage.googleapis.com \
+		make -s --no-print-directory helm:repo:add
 	@for repo in $(HELM_REPO_NAMES); do \
 		if [ -d "$$repo" ]; then \
 			curl --fail -s -q $(HELM_REPO_URL)/$$repo/index.yaml -o /dev/null; \
 			if [ $$? -eq 0 ]; then \
-				$(HELM) repo add $(HELM_REPO_PREFIX)-$$repo $(HELM_REPO_URL)/$$repo; \
+				REPO_NAME=$(HELM_REPO_PREFIX)-$$repo REPO_ENDPOINT=$(HELM_REPO_URL)/$$repo make -s --no-print-directory helm:repo:add; \
 			else \
 				echo "$(HELM_REPO_URL)/$$repo not available"; \
 			fi; \
@@ -54,8 +60,19 @@ helm\:repo\:add:
 			echo "$$repo does not exist; skipping..."; \
 		fi; \
 	done
-	@$(HELM) repo update
+	@make -s --no-print-directory helm:repo:update
 	@$(HELM) repo list
+
+## Add $REPO_NAME from $REPO_ENDPOINT
+helm\:repo\:add:
+	$(call assert-set,REPO_NAME)
+	$(call assert-set,REPO_ENDPOINT)
+	@$(HELM) repo add $(REPO_NAME) $(REPO_ENDPOINT)
+	@echo "Added repo $(REPO_NAME)"
+
+## Update repo info
+helm\:repo\:update:
+	@$(HELM) repo update
 
 .PHONY : helm\:repo\:fix-perms
 ## Fix repo filesystem permissions
