@@ -14,6 +14,7 @@ ADD ./ /build-harness/
 RUN cd /build-harness && \
       make helm:install docs:deps
 
+WORKDIR /build-harness
 
 ENTRYPOINT ["/bin/bash"]
 
