@@ -65,3 +65,8 @@ helm\:chart\:publish:
 		curl --insecure --data-binary "@$$package" $(REPO_GATEWAY_ENDPOINT)/api/charts; \
 		echo "" ; \
 	done
+
+## Clean chart packages
+helm\:chart\:clean:
+	@rm -rf $(HELM_PACKAGE_PATH)
+	@echo "Remove packages from $(HELM_PACKAGE_PATH)"
