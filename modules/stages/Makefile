@@ -1,4 +1,4 @@
-FEATURE_PATTERN ?= ^feature-\d*
+FEATURE_PATTERN ?= "^feature-\d*"
 
 ifeq ($(GIT_IS_TAG),1)
 	FEATURE ?= $(GIT_LATEST_TAG)
