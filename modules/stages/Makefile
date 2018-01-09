@@ -5,10 +5,10 @@ ifeq ($(GIT_IS_TAG),1)
 endif
 
 ifeq ($(GIT_IS_BRANCH),1)
-	ifneq ($(shell $(GIT_BRANCH) | grep -Po "$(FEATURE_PATTERN))", "")
-		FEATURE ?= $(shell $(GIT_BRANCH) | grep -Po "$(FEATURE_PATTERN)")
+	ifneq ($(shell echo $(GIT_BRANCH) | grep -Po $(FEATURE_PATTERN)),)
+		FEATURE ?= $(shell echo $(GIT_BRANCH) | grep -Po $(FEATURE_PATTERN))
 	else
-		FEATURE ?= $(GIT_BRANCH)
+		FEATURE ?= "$(GIT_BRANCH)"
 	endif
 endif
 
