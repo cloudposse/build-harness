@@ -18,4 +18,4 @@ stages\:export:
 	$(call assert-set,FEATURE)
 	@echo "PROJECT=$(PROJECT)"
 	@echo "FEATURE=$(FEATURE)"
-	@echo "NAMESPACE=$(FEATURE)-$(PROJECT)"
+	@echo "NAMESPACE=$(PROJECT)-$(FEATURE)"
