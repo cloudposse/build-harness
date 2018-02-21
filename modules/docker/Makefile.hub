@@ -2,7 +2,8 @@
 ## Use DOCKER_HUB_USERNAME and DOCKER_HUB_PASSWORD env variables to pass credentials
 ## Login into docker hub
 docker\:login: $(DOCKER)
-	$(call assert-set,DOCKER)
-	$(call assert-set,DOCKER_HUB_USERNAME)
-	$(call assert-set,DOCKER_HUB_PASSWORD)
-	@$(DOCKER) login --username="$(DOCKER_HUB_USERNAME)" --password="$(DOCKER_HUB_PASSWORD)"
+	@if [ -n "$DOCKER" ] && [ -n "$DOCKER_HUB_USERNAME" ] && [ -n "$DOCKER_HUB_PASSWORD" ]; then\
+      @$(DOCKER) login --username="$(DOCKER_HUB_USERNAME)" --password="$(DOCKER_HUB_PASSWORD)";\
+	else \
+	  echo "Skipping docker:login. Docker credentials (DOCKER_HUB_USERNAME or DOCKER_HUB_PASSWORD) are not set"; \
+	fi;
