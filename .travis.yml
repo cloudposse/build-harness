@@ -1,10 +1,7 @@
 sudo: required
 language: go
 go:
-  - 1.7.x
-
-env:
-- DOCKER_IMAGE_NAME=cloudposse/build-harness
+  - 1.9.x
 
 addons:
   apt:
