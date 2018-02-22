@@ -23,17 +23,6 @@ else
 	export GIT_IS_TAG := 1
 endif
 
-define git_vars_export
-GIT_COMMIT=$(GIT_COMMIT)
-GIT_COMMIT_SHORT=$(GIT_COMMIT_SHORT)
-GIT_BRANCH=$(GIT_BRANCH)
-GIT_LATEST_TAG=$(GIT_LATEST_TAG)
-GIT_IS_BRANCH=$(GIT_IS_BRANCH)
-GIT_IS_TAG=$(GIT_IS_TAG)
-endef
-
-export git_vars_export
-
 .PHONY: git\:submodules-update
 ## Update submodules
 git\:submodules-update:
@@ -56,4 +45,9 @@ git\:show:
 
 ## Export git vars
 git\:export:
-	@echo "git_vars_export"
+	@echo "GIT_COMMIT=$(GIT_COMMIT)"
+	@echo "GIT_COMMIT_SHORT=$(GIT_COMMIT_SHORT)"
+	@echo "GIT_BRANCH=$(GIT_BRANCH)"
+	@echo "GIT_LATEST_TAG=$(GIT_LATEST_TAG)"
+	@echo "GIT_IS_BRANCH=$(GIT_IS_BRANCH)"
+	@echo "GIT_IS_TAG=$(GIT_IS_TAG)"
