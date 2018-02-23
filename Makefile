@@ -3,4 +3,5 @@ export OS ?= $(shell uname -s | tr '[:upper:]' '[:lower:]')
 export SELF ?= make
 
 include $(BUILD_HARNESS_PATH)/Makefile.*
+include $(BUILD_HARNESS_PATH)/modules/*/bootstrap.Makefile*
 include $(BUILD_HARNESS_PATH)/modules/*/Makefile*
