@@ -91,16 +91,16 @@ travis/docker-tag-and-push          Tag & Push according Travis environment vari
 
 **Got a question?**
 
-File a GitHub [issue](https://github.com/cloudposse/build-harness-git/issues), send us an [email](mailto:hello@cloudposse.com) or reach out to us on [Gitter](https://gitter.im/cloudposse/).
+File a GitHub [issue](https://github.com/cloudposse/build-harness/issues), send us an [email](mailto:hello@cloudposse.com) or reach out to us on [Gitter](https://gitter.im/cloudposse/).
 ## Contributing
 
 ### Bug Reports & Feature Requests
 
-Please use the [issue tracker](https://github.com/cloudposse/build-harness-git/issues) to report any bugs or file feature requests.
+Please use the [issue tracker](https://github.com/cloudposse/build-harness/issues) to report any bugs or file feature requests.
 
 ### Developing
 
-If you are interested in being a contributor and want to get involved in developing `build-harness-git`, we would love to hear from you! Shoot us an [email](mailto:hello@cloudposse.com).
+If you are interested in being a contributor and want to get involved in developing `build-harness`, we would love to hear from you! Shoot us an [email](mailto:hello@cloudposse.com).
 
 In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
@@ -114,8 +114,8 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
 Here's how to get started...
 
-1. `git clone https://github.com/cloudposse/build-harness-git.git` to pull down the repository
-2. `make init` to initialize the [`build-harness-git`](https://github.com/cloudposse/build-harness-git/)
+1. `git clone https://github.com/cloudposse/build-harness.git` to pull down the repository
+2. `make init` to initialize the [`build-harness`](https://github.com/cloudposse/build-harness/)
 3. Review the [documentation](docs/) on compiling
 
 
