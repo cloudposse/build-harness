@@ -10,10 +10,10 @@ addons:
     - curl
 
 install:
-- make go:deps-build
-- make go:deps-dev
+- make go/deps-build
+- make go/deps-dev
 
 script:
-  - "make bash:lint"
-  - "make make:lint"
-  - "make terraform:install"
+  - "make bash/lint"
+  - "make make/lint"
+  - "make terraform/install"
