@@ -9,7 +9,7 @@ function git_data-docs-prepare-data {
 cat << EOF > $GIT_DATA_FILE
 ---
   url: $(git ls-remote --get-url)
-  name: $(git ls-remote --get-url | grep -oP "(?<=\/).*(?=.git)")
+  name: $(basename -s .git `git ls-remote --get-url`)
 EOF
 }
 

@@ -1,5 +1,3 @@
-.PHONY: travis\:docker-login travis\:docker-tag-and-push
-
 # Allow docker actions on push to source repo or on PR's from trusted source only
 # check if we outside of Travis environment
 ifneq ($(TRAVIS), true)
@@ -15,15 +13,15 @@ else
 endif
 
 ## Login into docker hub
-travis\:docker-login:
+travis/docker-login:
 ifeq ($(ALLOW_DOCKER_ACTIONS),true)
-	@make docker:login
+	@$(SELF) docker/login
 else
 	@echo "Skipping docker login for untrusted builds"
 endif
 
 ## Tag & Push according Travis environment variables
-travis\:docker-tag-and-push:
+travis/docker-tag-and-push:
 ifeq ($(ALLOW_DOCKER_ACTIONS),true)
 	$(call assert-set,DOCKER_IMAGE_NAME)
 	$(BUILD_HARNESS_PATH)/bin/travis_docker_tag_and_push.sh

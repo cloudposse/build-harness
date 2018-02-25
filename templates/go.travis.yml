@@ -14,14 +14,14 @@ env:
 
 install:
 - make init
-- make go:deps-build
-- make go:deps-dev
+- make go/deps-build
+- make go/deps-dev
 
 script:
-- make go:deps
-- make go:test
-- make go:lint
-- make go:build-all
+- make go/deps
+- make go/test
+- make go/lint
+- make go/build-all
 
 deploy:
   provider: releases

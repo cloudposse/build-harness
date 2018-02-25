@@ -1,7 +1,6 @@
-.PHONY: docker\:login
 ## Use DOCKER_HUB_USERNAME and DOCKER_HUB_PASSWORD env variables to pass credentials
 ## Login into docker hub
-docker\:login: $(DOCKER)
+docker/login: $(DOCKER)
 	@if [ -n "$(DOCKER_HUB_USERNAME)" ] && [ -n "$(DOCKER_HUB_PASSWORD)" ]; then \
       $(DOCKER) login --username="$(DOCKER_HUB_USERNAME)" --password="$(DOCKER_HUB_PASSWORD)"; \
 	else \
