@@ -107,3 +107,4 @@ helm/repo/clean:
 
 ## Build repo
 helm/repo/build: helm/repo/clean helm/repo/fix-perms helm/repo/deps helm/repo/lint helm/repo/package
+	@exit 0

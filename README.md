@@ -25,6 +25,8 @@ This automatically exposes many new targets that you can leverage throughout you
 
 Run `make help` for a list of available targets.
 
+**NOTE:** the `/` is interchangable with the `:` in target names
+
 ## Makefile Targets
 
 ```bash
@@ -67,6 +69,7 @@ helm/serve/index                    Build index for serve helm charts
 help                                This help screen
 jenkins/run-job-with-tag            Run a Jenkins Job with $(TAG)
 make/lint                           Lint all makefiles
+readme                              Alias for readme/build
 readme/build                        Create README.md by building it from .README.md file
 readme/init                         Create basic minimalistic .README.md template file
 readme/toc-update                   Update table of contents in README.md
@@ -82,10 +85,11 @@ travis/docker-tag-and-push          Tag & Push according Travis environment vari
 
 ## Real World Examples
 
-- [`github-authorized-keys`](https://github.com/cloudposse/github-authorized-keys/) - A Golang project that leverages `docker:%`, `go:%`, `travis:%` targets
-- [`charts`](https://github.com/cloudposse/charts/) - A collection of Helm Charts that leverages `docker:%` and `helm:%` targets
-- [`bastion`](https://github.com/cloudposse/bastion/) - A docker image that leverages `docker:%` and `bash:lint` targets
-- [`terraform-null-label`](https://github.com/cloudposse/terraform-null-label/) - A terraform module that leverages `terraform:%` targets
+- [`github-authorized-keys`](https://github.com/cloudposse/github-authorized-keys/) - A Golang project that leverages `docker/%`, `go/%`, `travis/%` targets
+- [`charts`](https://github.com/cloudposse/charts/) - A collection of Helm Charts that leverages `docker/%` and `helm/%` targets
+- [`bastion`](https://github.com/cloudposse/bastion/) - A docker image that leverages `docker/%` and `bash/lint` targets
+- [`terraform-null-label`](https://github.com/cloudposse/terraform-null-label/) - A terraform module that leverages `terraform/%` targets
+
 
 ## Help
 

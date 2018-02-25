@@ -1,5 +1,9 @@
-README_FILE ?= README.md
-README_TEMPLATE_NAME ?= .$(README_FILE)
+export README_FILE ?= README.md
+export README_TEMPLATE_FILE ?= .$(README_FILE)
+
+## Alias for readme/build
+readme: readme/build
+	@exit 0
 
 ## Update table of contents in README.md
 readme/toc-update:
