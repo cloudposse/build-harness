@@ -1,14 +1,16 @@
-README_FILE ?= README.md
-README_TEMPLATE_NAME ?= .$(README_FILE)
+export README_FILE ?= README.md
+export README_TEMPLATE_FILE ?= .$(README_FILE)
 
-.PHONY : readme\:toc-update
+## Alias for readme/build
+readme: readme/build
+	@exit 0
+
 ## Update table of contents in README.md
-readme\:toc-update:
+readme/toc-update:
 	@doctoc --notitle --github $(README_FILE)
 
-.PHONY : readme\:init
 ## Create basic minimalistic .README.md template file
-readme\:init:
+readme/init:
 	@if [ -s ./$(README_TEMPLATE_FILE) ]; then \
 	  echo "$(README_TEMPLATE_FILE) already exists!"; \
 	else \
@@ -16,9 +18,6 @@ readme\:init:
 	  echo "$(README_FILE) created!"; \
 	fi;
 
-.PHONY : readme\:build
 ## Create README.md by building it from .README.md file
-readme\:build:
-	@IN=$(README_TEMPLATE_FILE) \
-	  OUT=$(README_FILE) \
-	  make -s template:build
+readme/build:
+	@$(SELF) -s template/build IN=$(README_TEMPLATE_FILE) OUT=$(README_FILE)

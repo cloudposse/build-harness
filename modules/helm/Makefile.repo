@@ -19,19 +19,16 @@ else
 	CURRENT_REPO_URL?=https://charts.dev.cloudposse.com/$(BRANCH)
 endif
 
-.PHONY : helm\:repo\:info
 ## Show repo info
-helm\:repo\:info:
+helm/repo/info:
 	@echo "REPO_URL: $(REPO_URL)"
 	@echo "CURRENT_REPO_URL: $(CURRENT_REPO_URL)"
 
-.PHONY: helm\:repo\:add-remote
 ## Add helm remote repos
 helm\:repo\:add-remote:
 	@make -s --no-print-directory helm:repo:add-all \
 		HELM_REPO_URL=$(REPO_URL)
 
-.PHONY: helm\:repo\:add-current
 ## Add helm remote dev repos
 helm\:repo\:add-current:
 	@make -s --no-print-directory helm:repo:add-all \
@@ -76,7 +73,7 @@ helm\:repo\:update:
 
 .PHONY : helm\:repo\:fix-perms
 ## Fix repo filesystem permissions
-helm\:repo\:fix-perms:
+helm/repo/fix-perms:
 	$(call assert-set,REPO_NAME)
 	@find $(HELM_REPO_PATH) -type f -name '*.yaml' -exec chmod 644 {} \;
 	@find $(HELM_REPO_PATH) -type f -name '*.txt' -exec chmod 644 {} \;
@@ -84,15 +81,13 @@ helm\:repo\:fix-perms:
 	@find $(HELM_REPO_PATH) -type f -name '*.md' -exec chmod 644 {} \;
 	@find $(HELM_REPO_PATH) -type f -name '*.tgz' -exec chmod 644 {} \;
 
-.PHONY : helm\:repo\:deps
-helm\:repo\:deps:
+helm/repo/deps:
 	$(call assert-set,REPO_NAME)
 	@echo "## Fetching deps for charts in $(shell basename $(CURDIR))"
 	@find $(HELM_REPO_PATH) -maxdepth 1 -mindepth 1 -type d  | \
     	xargs -n 1 -I '{}' sh -c 'echo && echo "# Updating dependencies for {}" && $(HELM) dependency build --debug {}'
 
-.PHONY : helm\:repo\:package
-helm\:repo\:package:
+helm/repo/package:
 	$(call assert-set,REPO_NAME)
 	@echo "## Building packages in $(shell basename $(CURDIR))"
 	@find $(HELM_REPO_PATH) -maxdepth 1 -mindepth 1 -type d  | \
@@ -101,8 +96,7 @@ helm\:repo\:package:
 	@find . -maxdepth 1 -mindepth 1 -type f -name '*.tgz' | \
 		xargs -I '{}' mv {} $(HELM_PACKAGE_PATH)
 
-.PHONY : helm\:repo\:index
-helm\:repo\:index:
+helm/repo/index:
 	$(call assert-set,REPO_NAME)
 	@echo "## Generating index for $(CURRENT_REPO_URL)/$(REPO_NAME)"
 	@$(CURL) --fail -s -q $(CURRENT_REPO_URL)/$(REPO_NAME)/index.yaml -o /tmp/index.yaml; \
@@ -112,31 +106,20 @@ helm\:repo\:index:
 		$(HELM) repo index $(HELM_PACKAGE_PATH) --url $(CURRENT_REPO_URL)/$(REPO_NAME) --debug; \
 	fi; \
 
-.PHONY : helm\:repo\:lint
 ## Lint charts
-helm\:repo\:lint:
+helm/repo/lint:
 	$(call assert-set,REPO_NAME)
 	@echo "## Linting charts $(shell pwd)"
 	@find $(HELM_REPO_PATH) -maxdepth 1 -mindepth 1 -type d | \
     	xargs -n 1 -I'{}' $(HELM) lint --strict {}
 
-
-.PHONY : helm\:repo\:clean
 ## Clean helm repo
-helm\:repo\:clean:
+helm/repo/clean:
 	$(call assert-set,REPO_NAME)
 	@rm -f *.tgz
 	@find $(HELM_REPO_PATH) -maxdepth 3 -mindepth 3 -type f -name '*.tgz' -delete
 	@rm -f $(HELM_PACKAGE_PATH)/*
 
-.PHONY : helm\:repo\:build
 ## Build repo
-helm\:repo\:build:
-	$(call assert-set,REPO_NAME)
-	@make helm:repo:clean
-	@make helm:repo:fix-perms
-	@make helm:repo:deps
-	@make helm:repo:lint
-	@make helm:repo:package
-
-
+helm/repo/build: helm/repo/clean helm/repo/fix-perms helm/repo/deps helm/repo/lint helm/repo/package
+	@exit 0

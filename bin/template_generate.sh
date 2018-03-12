@@ -26,7 +26,7 @@ function array-merge {
 ## Example of usage
 ## module ./.README.md
 function modules {
-  grep -oP "(?<=datasource)\s+\".*?\"" $1 | sed 's/[ |\"]//g' | sort | uniq |  paste -sd " " -
+  grep -Eo '\(datasource ".*?"\)' "$1" |cut -d'"' -f2  | sort -u |  paste -sd " " -
 }
 
 ## Fire event $1 for all modules passed as args

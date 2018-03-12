@@ -11,5 +11,3 @@ else
 endif
 
 export CANONICAL_TAG
-
-

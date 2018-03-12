@@ -4,9 +4,8 @@ DOCKER_BUILD_PATH ?= .
 DOCKER_BUILD_FLAGS ?= --no-cache
 DOCKER_FILE ?= ./Dockerfile
 
-.PHONY: docker\:build
 ## Build docker image
-docker\:build: $(DOCKER)
+docker/build: $(DOCKER)
 	$(call assert-set,DOCKER)
 	$(call assert-set,DOCKER_IMAGE_NAME)
 ifeq ($(TRAVIS),true)

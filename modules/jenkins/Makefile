@@ -4,7 +4,7 @@ export JENKINS_URL ?= https://$(JENKINS_HOST)/buildByToken/buildWithParameters
 # Depends on: https://wiki.jenkins-ci.org/display/JENKINS/Build+Token+Root+Plugin
 
 ## Run a Jenkins Job with $(TAG)
-jenkins\:run-job-with-tag:
+jenkins/run-job-with-tag:
 	$(call assert-set,JENKINS_HOST)
 	$(call assert-set,JENKINS_URL)
 	$(call assert-set,TOKEN)

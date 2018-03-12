@@ -25,6 +25,8 @@ This automatically exposes many new targets that you can leverage throughout you
 
 Run `make help` for a list of available targets.
 
+**NOTE:** the `/` is interchangable with the `:` in target names
+
 ## Makefile Targets
 
 ```bash
@@ -32,6 +34,7 @@ $ make help
 
   Available targets:
 
+<<<<<<< HEAD
 bash:lint                           Lint all bash scripts
 docker:build                        Build docker image
 docker:login                        Login into docker hub
@@ -92,14 +95,64 @@ terraform:lint                      Lint check Terraform
 terraform:validate                  Basic terraform sanity check
 travis:docker-login                 Login into docker hub
 travis:docker-tag-and-push          Tag & Push according Travis environment variables
+=======
+bash/lint                           Lint all bash scripts
+docker/build                        Build docker image
+docker/login                        Login into docker hub
+docs/build                          Create $OUT file by building it from $IN template file
+docs/copyright-add                  Add copyright headers to source code
+docs/deps                           Install dependencies
+geodesic/deploy                     Run a Jenkins Job to Deploy $(APP) with $(CANONICAL_TAG)
+git/aliases-update                  Update git aliases
+git/submodules-update               Update submodules
+github/download-private-release     Download release from github
+github/download-public-release      Download release from github
+go/build                            Build binary
+go/build-all                        Build binary for all platforms
+go/clean                            Clean compiled binary
+go/clean-all                        Clean compiled binary and dependency
+go/deps                             Install dependencies
+go/deps-build                       Install dependencies for build
+go/deps-dev                         Install development dependencies
+go/fmt                              Format code according to Golang convention
+go/install                          Install cli
+go/lint                             Lint code
+go/test                             Run tests
+go/vet                              Vet code
+helm/install                        Install helm
+helm/repo/add-current               Add helm remote dev repos
+helm/repo/add-remote                Add helm remote repos
+helm/repo/build                     Build repo
+helm/repo/clean                     Clean helm repo
+helm/repo/fix-perms                 Fix repo filesystem permissions
+helm/repo/info                      Show repo info
+helm/repo/lint                      Lint charts
+helm/serve/index                    Build index for serve helm charts
+help                                This help screen
+jenkins/run-job-with-tag            Run a Jenkins Job with $(TAG)
+make/lint                           Lint all makefiles
+readme                              Alias for readme/build
+readme/build                        Create README.md by building it from .README.md file
+readme/init                         Create basic minimalistic .README.md template file
+readme/toc-update                   Update table of contents in README.md
+terraform/get-modules               Ensure all modules can be fetched
+terraform/get-plugins               Ensure all plugins can be fetched
+terraform/install                   Install terraform
+terraform/lint                      Lint check Terraform
+terraform/validate                  Basic terraform sanity check
+test/me                             Test target
+travis/docker-login                 Login into docker hub
+travis/docker-tag-and-push          Tag & Push according Travis environment variables
+>>>>>>> master
 ```
 
 ## Real World Examples
 
-- [`github-authorized-keys`](https://github.com/cloudposse/github-authorized-keys/) - A Golang project that leverages `docker:%`, `go:%`, `travis:%` targets
-- [`charts`](https://github.com/cloudposse/charts/) - A collection of Helm Charts that leverages `docker:%` and `helm:%` targets
-- [`bastion`](https://github.com/cloudposse/bastion/) - A docker image that leverages `docker:%` and `bash:lint` targets
-- [`terraform-null-label`](https://github.com/cloudposse/terraform-null-label/) - A terraform module that leverages `terraform:%` targets
+- [`github-authorized-keys`](https://github.com/cloudposse/github-authorized-keys/) - A Golang project that leverages `docker/%`, `go/%`, `travis/%` targets
+- [`charts`](https://github.com/cloudposse/charts/) - A collection of Helm Charts that leverages `docker/%` and `helm/%` targets
+- [`bastion`](https://github.com/cloudposse/bastion/) - A docker image that leverages `docker/%` and `bash/lint` targets
+- [`terraform-null-label`](https://github.com/cloudposse/terraform-null-label/) - A terraform module that leverages `terraform/%` targets
+
 
 ## Help
 
@@ -170,4 +223,30 @@ or [hire us][hire] to help build your next cloud-platform.
 
 ### Contributors
 
+<<<<<<< HEAD
 |[![Erik Osterman][erik_img]][erik_web]<br/>[Erik Osterman][erik_web] |[![Igor Rodionov][igor_img]][igor_web]<br/>[Igor Rodionov][igor_img] |
+=======
+|[![Erik Osterman][erik_img]][erik_web]<br/>[Erik Osterman][erik_web] |[![Igor Rodionov][igor_img]][igor_web]<br/>[Igor Rodionov][igor_img] |[![Andriy Knysh][andriy_img]][andriy_web]<br/>[Andriy Knysh][andriy_web] |
+|---|---|---|
+
+[andriy_img]: https://avatars0.githubusercontent.com/u/7356997?v=4&u=ed9ce1c9151d552d985bdf5546772e14ef7ab617&s=144
+[andriy_web]: https://github.com/aknysh/
+
+[erik_img]: http://s.gravatar.com/avatar/88c480d4f73b813904e00a5695a454cb?s=144
+[erik_web]: https://github.com/osterman/
+
+[igor_img]: http://s.gravatar.com/avatar/bc70834d32ed4517568a1feb0b9be7e2?s=144
+[igor_web]: https://github.com/goruha/
+
+[konstantin_img]: https://avatars1.githubusercontent.com/u/11299538?v=4&u=ed9ce1c9151d552d985bdf5546772e14ef7ab617&s=144
+[konstantin_web]: https://github.com/comeanother/
+
+[sergey_img]: https://avatars1.githubusercontent.com/u/1134449?v=4&u=ed9ce1c9151d552d985bdf5546772e14ef7ab617&s=144
+[sergey_web]: https://github.com/s2504s/
+
+[valeriy_img]: https://avatars1.githubusercontent.com/u/10601658?v=4&u=ed9ce1c9151d552d985bdf5546772e14ef7ab617&s=144
+[valeriy_web]: https://github.com/drama17/
+
+[vladimir_img]: https://avatars1.githubusercontent.com/u/26582191?v=4&u=ed9ce1c9151d552d985bdf5546772e14ef7ab617&s=144
+[vladimir_web]: https://github.com/SweetOps/
+>>>>>>> master

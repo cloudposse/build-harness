@@ -14,15 +14,15 @@ services:
 - docker
 
 install:
-- make docker:login
-- make go:deps-build
-- make go:deps-dev
+- make docker/login
+- make go/deps-build
+- make go/deps-dev
 
 script:
-- make bash:lint
-- make make:lint
-- make terraform:install
-- make docker:build
+- make bash/lint
+- make make/lint
+- make terraform/install
+- make docker/build
 
 after_success:
-- make travis:docker-tag-and-push
+- make travis/docker-tag-and-push

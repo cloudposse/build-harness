@@ -1,16 +1,16 @@
-.PHONY: git\:submodules-update
+GIT:= $(shell which git)
+
 ## Update submodules
-git\:submodules-update:
+git/submodules-update:
 	$(call assert-set,GIT)
 	$(GIT) submodule update --init --remote
 
-.PHONY: git\:aliases-update
 ## Update git aliases
-git\:aliases-update:
+git/aliases-update:
 	@$(GIT) config --global --add alias.permission-reset '!git diff -p -R --no-color | grep -E "^(diff|(old|new) mode)" --color=never | git apply'
 
 ## Show vars
-git\:show:
+git/show:
 	@echo "commit - $(GIT_COMMIT)"
 	@echo "commit short - $(GIT_COMMIT_SHORT)"
 	@echo "commit branch - $(GIT_BRANCH)"
@@ -19,7 +19,7 @@ git\:show:
 	@echo "branch - $(GIT_IS_BRANCH)"
 
 ## Export git vars
-git\:export:
+git/export:
 	@echo "GIT_COMMIT=$(GIT_COMMIT)"
 	@echo "GIT_COMMIT_SHORT=$(GIT_COMMIT_SHORT)"
 	@echo "GIT_BRANCH=$(GIT_BRANCH)"

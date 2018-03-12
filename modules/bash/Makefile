@@ -1,5 +1,5 @@
 ## Lint all bash scripts
-bash\:lint:
+bash/lint:
 	@set -o pipefail; \
 	(find . -type f -name '*.sh'; \
 	  grep -l -r '#!/bin/bash' .; \
