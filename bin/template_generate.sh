@@ -22,7 +22,7 @@ function array-merge {
   echo "${!tmp[@]}"
 }
 
-## Get template docs modules from $IN file
+## Get template modules from $IN file
 ## Example of usage
 ## module ./.README.md
 function modules {
@@ -55,8 +55,8 @@ function datasources {
   done
 }
 
-## Register all documentation modules
-for file in $BUILD_HARNESS_PATH/modules/*/docs/*.sh ; do
+## Register modules
+for file in $BUILD_HARNESS_PATH/modules/*/template/*.sh ; do
   if [ -f "$file" ] ; then
     . "$file"
   fi
@@ -70,7 +70,7 @@ do
   ## Merge modules list with modules from previous iteration
   INCLUDED_MODULES=$( array-merge $INCLUDED_MODULES $MODULES)
   ## Prepare data for just found modules
-  fire_event "docs-prepare-data" $MODULES
+  fire_event "template-prepare-data" $MODULES
   ## Replace template
   $GOMPLATE --file $IN --out $OUT $(datasources $INCLUDED_MODULES)
 
@@ -81,11 +81,11 @@ do
 done
 
 ## Cleanup prepared data for all used modules
-fire_event "docs-cleanup-data" $INCLUDED_MODULES
+fire_event "template-cleanup-data" $INCLUDED_MODULES
 
 rm -rf $TMP
 
-echo "$OUT doc generated"
+echo "$OUT generated"
 
 
 

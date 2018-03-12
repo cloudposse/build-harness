@@ -22,6 +22,7 @@ define assert-unset
 endef
 
 default:: help
+	@exit 0
 
 .PHONY : help
 ## This help screen

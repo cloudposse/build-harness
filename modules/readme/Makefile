@@ -20,4 +20,4 @@ readme/init:
 
 ## Create README.md by building it from .README.md file
 readme/build:
-	@$(SELF) -s docs/build IN=$(README_TEMPLATE_FILE) OUT=$(README_FILE)
+	@$(SELF) -s template/build IN=$(README_TEMPLATE_FILE) OUT=$(README_FILE)

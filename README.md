@@ -37,14 +37,14 @@ $ make help
 bash/lint                           Lint all bash scripts
 docker/build                        Build docker image
 docker/login                        Login into docker hub
-docs/build                          Create $OUT file by building it from $IN template file
 docs/copyright-add                  Add copyright headers to source code
-docs/deps                           Install dependencies
 geodesic/deploy                     Run a Jenkins Job to Deploy $(APP) with $(CANONICAL_TAG)
 git/aliases-update                  Update git aliases
-git/submodules-update               Update submodules
+git/export                          Export git vars
 github/download-private-release     Download release from github
 github/download-public-release      Download release from github
+git/show                            Show vars
+git/submodules-update               Update submodules
 go/build                            Build binary
 go/build-all                        Build binary for all platforms
 go/clean                            Clean compiled binary
@@ -57,7 +57,16 @@ go/install                          Install cli
 go/lint                             Lint code
 go/test                             Run tests
 go/vet                              Vet code
+helm/chart/build                    Build chart $CHART_NAME from $CHART_TPL
+helm/chart/build-all                Build chart $CHART_NAME from $CHART_TPL for all available $SEMVERSIONS
+helm/chart/clean                    Clean chart packages
+helm/chart/create                   Create chart $CHART from starter scaffold
+helm/chart/publish                  Publish chart $CHART_NAME to $REPO_GATEWAY_ENDPOINT
+helm/chart/starter/fetch            Fetch starter
+helm/chart/starter/remove           Remove starter
+helm/chart/starter/update           Update starter
 helm/install                        Install helm
+helm/repo/add                       Add $REPO_NAME from $REPO_ENDPOINT
 helm/repo/add-current               Add helm remote dev repos
 helm/repo/add-remote                Add helm remote repos
 helm/repo/build                     Build repo
@@ -65,6 +74,7 @@ helm/repo/clean                     Clean helm repo
 helm/repo/fix-perms                 Fix repo filesystem permissions
 helm/repo/info                      Show repo info
 helm/repo/lint                      Lint charts
+helm/repo/update                    Update repo info
 helm/serve/index                    Build index for serve helm charts
 help                                This help screen
 jenkins/run-job-with-tag            Run a Jenkins Job with $(TAG)
@@ -73,12 +83,16 @@ readme                              Alias for readme/build
 readme/build                        Create README.md by building it from .README.md file
 readme/init                         Create basic minimalistic .README.md template file
 readme/toc-update                   Update table of contents in README.md
+semver/export                       Export semver vars
+semver/show                         Show
+stages/export                       Export stages vars
+template/build                      Create $OUT file by building it from $IN template file
+template/deps                       Install dependencies
 terraform/get-modules               Ensure all modules can be fetched
 terraform/get-plugins               Ensure all plugins can be fetched
 terraform/install                   Install terraform
 terraform/lint                      Lint check Terraform
 terraform/validate                  Basic terraform sanity check
-test/me                             Test target
 travis/docker-login                 Login into docker hub
 travis/docker-tag-and-push          Tag & Push according Travis environment variables
 ```

@@ -4,6 +4,7 @@ export SELF ?= make
 
 # Import Makefiles into current context
 include $(BUILD_HARNESS_PATH)/Makefile.*
+include $(BUILD_HARNESS_PATH)/modules/*/bootstrap.Makefile*
 include $(BUILD_HARNESS_PATH)/modules/*/Makefile*
 
 ifndef TRANSLATE_COLON_NOTATION
