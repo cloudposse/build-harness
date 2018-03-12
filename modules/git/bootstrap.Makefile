@@ -22,4 +22,3 @@ ifeq ($(shell $(GIT) describe --exact-match --tags 2>/dev/null),)
 else
 	export GIT_IS_TAG := 1
 endif
-

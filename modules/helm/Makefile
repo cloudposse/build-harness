@@ -13,7 +13,7 @@ helm/install:
 	@chmod +x $(HELM_PLATFORM)/helm
 	@mv $(HELM_PLATFORM)/helm /usr/local/bin/
 	@helm init --client-only
-	@chmod -R 777 $(HELM_HOME)
+	@chmod -R 777 "$(HELM_HOME)"
 	@helm repo remove local || true
 
 ## Build index for serve helm charts
