@@ -19,6 +19,7 @@ helm/chart/starter/remove:
 
 ## Update starter
 helm/chart/starter/update: helm/chart/starter/remove helm/chart/starter/fetch
+	@exit 0
 
 ## Create chart $CHART from starter scaffold
 helm/chart/create:
