@@ -6,36 +6,34 @@ CLOUDPOSSE_HELM_STARTER_NAME ?= cloudposse
 CHART_TPL ?= chart
 
 ## Fetch starter
-helm\:chart\:starter\:fetch:
+helm/chart/starter/fetch:
 	@echo "Fetch $(CLOUDPOSSE_HELM_STARTER_NAME) starter"
 	@[[ -d "$(HELM_STARTERS)/$(CLOUDPOSSE_HELM_STARTER_NAME)" ]] || \
 	  $(GIT) clone $(CLOUDPOSSE_HELM_STARTER_REPO) --branch $(CLOUDPOSSE_HELM_STARTER_REF) $(HELM_STARTERS)/$(CLOUDPOSSE_HELM_STARTER_NAME)
 
 ## Remove starter
-helm\:chart\:starter\:remove:
+helm/chart/starter/remove:
 	@echo "Remove $(CLOUDPOSSE_HELM_STARTER_NAME) starter"
 	@[[ ! -d "$(HELM_STARTERS)/$(CLOUDPOSSE_HELM_STARTER_NAME)" ]] || \
 	  rm -rf $(HELM_STARTERS)/$(CLOUDPOSSE_HELM_STARTER_NAME)
 
 ## Update starter
-helm\:chart\:starter\:update:
-	@make -s helm:chart:starter:remove
-	@make -s helm:chart:starter:fetch
+helm/chart/starter/update: helm/chart/starter/remove helm/chart/starter/fetch
 
 ## Create chart $CHART from starter scaffold
-helm\:chart\:create:
+helm/chart/create:
 	$(call assert-set,CHART)
 	@$(HELM) create $(CHART) -p $(CLOUDPOSSE_HELM_STARTER_NAME)
 	@chmod -R 777 $(CHART)
 
 ## Build chart $CHART_NAME from $CHART_TPL
-helm\:chart\:build:
+helm/chart/build:
 	$(call assert-set,CHART_NAME)
 	$(call assert-set,CHART_TPL)
 	@rm -rf $(HELM_PACKAGE_PATH)$(CHART_NAME)
 	@mkdir -p $(HELM_PACKAGE_PATH)$(CHART_NAME)
 	@cp -R $(CHART_TPL)/* $(HELM_PACKAGE_PATH)$(CHART_NAME)
-	@find $(HELM_PACKAGE_PATH)$(CHART_NAME) -type f | xargs -I{} bash -c 'IN={} OUT={} make -s template:build'
+	@find $(HELM_PACKAGE_PATH)$(CHART_NAME) -type f | xargs -I{} bash -c 'IN={} OUT={} $(SELF) -s template/build'
 	@echo "Fetch dependencies"
 	@$(HELM) dependency build --debug $(HELM_PACKAGE_PATH)$(CHART_NAME)
 	@echo "Create package"
@@ -45,7 +43,7 @@ helm\:chart\:build:
 	@rm -rf $(HELM_PACKAGE_PATH)$(CHART_NAME)
 
 ## Build chart $CHART_NAME from $CHART_TPL for all available $SEMVERSIONS
-helm\:chart\:build-all:
+helm/chart/build-all:
 	$(call assert-set,CHART_NAME)
 	$(call assert-set,CHART_TPL)
 	@for version in $(SEMVERSIONS) ; do \
@@ -53,11 +51,11 @@ helm\:chart\:build-all:
 		CHART_NAME=$(CHART_NAME) \
 		CHART_TPL=$(CHART_TPL) \
 		SEMVERSION=$$version \
-		make -s helm:chart:build; \
+		$(SELF) -s helm/chart/build; \
 	done
 
 ## Publish chart $CHART_NAME to $REPO_GATEWAY_ENDPOINT
-helm\:chart\:publish:
+helm/chart/publish:
 	$(call assert-set,CHART_NAME)
 	$(call assert-set,REPO_GATEWAY_ENDPOINT)
 	@for package in $(shell find ${HELM_PACKAGE_PATH} -maxdepth 1 -mindepth 1 -type f -name '${CHART_NAME}*.tgz') ; do \
@@ -67,6 +65,6 @@ helm\:chart\:publish:
 	done
 
 ## Clean chart packages
-helm\:chart\:clean:
+helm/chart/clean:
 	@rm -rf $(HELM_PACKAGE_PATH)
 	@echo "Remove packages from $(HELM_PACKAGE_PATH)"

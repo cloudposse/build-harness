@@ -29,13 +29,13 @@ endif
 export SEMVERSION ?= $(word 1,$(SEMVERSIONS))
 
 ## Show
-semver\:show:
+semver/show:
 	@for version in $(SEMVERSIONS) ; do \
 		echo "$$version"; \
 	done
 
 ## Export semver vars
-semver\:export:
+semver/export:
 	@echo "SEMVERSION_COMMIT_SHORT=$(SEMVERSION_COMMIT_SHORT)"
 	@echo "SEMVERSION_COMMIT=$(SEMVERSION_COMMIT)"
 	@echo "SEMVERSION_BRANCH=$(SEMVERSION_BRANCH)"

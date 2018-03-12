@@ -13,7 +13,7 @@ ifeq ($(GIT_IS_BRANCH),1)
 endif
 
 ## Export stages vars
-stages\:export:
+stages/export:
 	$(call assert-set,PROJECT)
 	$(call assert-set,FEATURE)
 	@echo "PROJECT=$(PROJECT)"
