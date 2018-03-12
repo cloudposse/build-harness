@@ -32,8 +32,7 @@ go/deps-build:
 ## Install development dependencies
 go/deps-dev: $(GO)
 	$(call assert-set,GO)
-	$(GO) get -d -v "golang.org/x/lint/golint"
-	$(GO) install -v "github.com/golang/lint/golint"
+	$(GO) get -u -d -v "golang.org/x/lint/golint"
 	$(GO) get -d -v github.com/mitchellh/gox
 	$(GO) install -v github.com/mitchellh/gox
 
