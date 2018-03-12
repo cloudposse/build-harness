@@ -21,4 +21,4 @@ readme\:init:
 readme\:build:
 	@IN=$(README_TEMPLATE_FILE) \
 	  OUT=$(README_FILE) \
-	  make -s docs:build
+	  make -s template:build

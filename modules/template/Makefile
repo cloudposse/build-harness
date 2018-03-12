@@ -4,7 +4,7 @@ GOMPLATE_REPO ?= hairyhenderson/gomplate
 
 
 ## Install dependencies
-docs\:deps:
+template\:deps:
 	@make github:download-public-release \
 		REPO=$(GOMPLATE_REPO) \
 		FILE=gomplate_$(OS)-amd64 \
@@ -13,7 +13,7 @@ docs\:deps:
 	@chmod +x $(GOMPLATE)
 
 
-.PHONY : docs\:build
+.PHONY : template\:build
 ## Create $OUT file by building it from $IN template file
-docs\:build:
-	@$(BUILD_HARNESS_PATH)/bin/doc_generate.sh
+template\:build:
+	@$(BUILD_HARNESS_PATH)/bin/template_generate.sh

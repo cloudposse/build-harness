@@ -6,11 +6,11 @@ TERRAFORM_DOCS=${BUILD_HARNESS_PATH}/vendor/terraform-docs
 
 TERRAFORM_DATA_FILE=$TMP/terraform_data.yml
 
-DATASOURCES[terraform]=file://$BUILD_HARNESS_PATH/modules/terraform/docs/templates/terraform.yml
+DATASOURCES[terraform]=file://$BUILD_HARNESS_PATH/modules/terraform/template/terraform.yml
 DATASOURCES[terraform_data]=file://$TERRAFORM_DATA_FILE
 
 
-function terraform-docs-prepare-data {
+function terraform-template-prepare-data {
   if [ ! -s $TERRAFORM_DOCS ]; then
     REPO=$TERRAFORM_DOCS_REPO \
     FILE=terraform-docs_${OS}_amd64 \
@@ -22,10 +22,10 @@ function terraform-docs-prepare-data {
   fi;
 }
 
-function terraform_data-docs-prepare-data {
+function terraform_data-template-prepare-data {
   $TERRAFORM_DOCS json . > $TERRAFORM_DATA_FILE
 }
-function terraform-docs-cleanup-data {
+function terraform-template-cleanup-data {
   rm -f $TERRAFORM_DATA_FILE
 }
 

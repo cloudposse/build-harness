@@ -2,10 +2,10 @@
 
 MAKE_DATA_FILE=$TMP/make_data.yml
 
-DATASOURCES[make]=file://$BUILD_HARNESS_PATH/modules/make/docs/templates/make.yml
+DATASOURCES[make]=file://$BUILD_HARNESS_PATH/modules/make/template/templates/make.yml
 DATASOURCES[make_data]=file://$MAKE_DATA_FILE
 
-function make_data-docs-prepare-data {
+function make_data-template-prepare-data {
 cat << EOF > $MAKE_DATA_FILE
 ---
 help: |-
@@ -13,6 +13,6 @@ help: |-
 EOF
 }
 
-function make_data-docs-cleanup-data {
+function make_data-template-cleanup-data {
   rm -f $MAKE_DATA_FILE
 }

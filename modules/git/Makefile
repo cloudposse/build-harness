@@ -26,4 +26,3 @@ git\:export:
 	@echo "GIT_LATEST_TAG=$(GIT_LATEST_TAG)"
 	@echo "GIT_IS_BRANCH=$(GIT_IS_BRANCH)"
 	@echo "GIT_IS_TAG=$(GIT_IS_TAG)"
-

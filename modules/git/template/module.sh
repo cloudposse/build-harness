@@ -4,7 +4,7 @@ GIT_FILE=$TMP/git.yml
 
 DATASOURCES[git]=file://$GIT_FILE
 
-function git-docs-prepare-data {
+function git-template-prepare-data {
 cat << EOF > $GIT_FILE
 ---
   url: $(git ls-remote --get-url)
@@ -18,6 +18,6 @@ cat << EOF > $GIT_FILE
 EOF
 }
 
-function git-docs-cleanup-data {
+function git-template-cleanup-data {
   rm -f $GIT_FILE
 }

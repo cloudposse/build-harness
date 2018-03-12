@@ -35,7 +35,7 @@ helm\:chart\:build:
 	@rm -rf $(HELM_PACKAGE_PATH)$(CHART_NAME)
 	@mkdir -p $(HELM_PACKAGE_PATH)$(CHART_NAME)
 	@cp -R $(CHART_TPL)/* $(HELM_PACKAGE_PATH)$(CHART_NAME)
-	@find $(HELM_PACKAGE_PATH)$(CHART_NAME) -type f | xargs -I{} bash -c 'IN={} OUT={} make -s docs:build'
+	@find $(HELM_PACKAGE_PATH)$(CHART_NAME) -type f | xargs -I{} bash -c 'IN={} OUT={} make -s template:build'
 	@echo "Fetch dependencies"
 	@$(HELM) dependency build --debug $(HELM_PACKAGE_PATH)$(CHART_NAME)
 	@echo "Create package"
