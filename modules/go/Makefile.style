@@ -1,5 +1,5 @@
 ## Lint code
-go/lint: $(GO) vet
+go/lint: $(GO) go/vet
 	$(call assert-set,GO)
 	find . ! -path "*/vendor/*" ! -path "*/.glide/*" -type f -name '*.go' | xargs -n 1 golint
 

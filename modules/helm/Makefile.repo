@@ -14,9 +14,9 @@ else
 endif
 
 ifeq ($(BRANCH),master)
-	CURRENT_REPO_URL?=$(REPO_URL)
+  CURRENT_REPO_URL?=$(REPO_URL)
 else
-	CURRENT_REPO_URL?=https://charts.dev.cloudposse.com/$(BRANCH)
+  CURRENT_REPO_URL?=https://charts.dev.cloudposse.com/$(BRANCH)
 endif
 
 ## Show repo info

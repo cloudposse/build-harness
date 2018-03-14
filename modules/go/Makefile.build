@@ -41,11 +41,11 @@ go/clean:
 	rm -rf $(RELEASE_DIR)
 
 ## Clean compiled binary and dependency
-go/clean-all: clean
+go/clean-all: go/clean
 	rm -rf vendor
 	rm -rf glide.lock
 
 ## Install cli
-go/install: $(APP) build
+go/install: $(APP) go/build
 	cp $(RELEASE_DIR)/$(APP) $(INSTALL_DIR)
 	chmod 555 $(INSTALL_DIR)/$(APP)
