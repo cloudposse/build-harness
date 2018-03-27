@@ -8,7 +8,7 @@ function git-template-prepare-data {
 cat << EOF > $GIT_FILE
 ---
   url: $(git ls-remote --get-url)
-  name: $(git ls-remote --get-url | grep -oP "(?<=\/).*(?=.git)")
+  name: $(basename `git ls-remote --get-url` .git)
   commit: ${GIT_COMMIT}
   commit_short: ${GIT_COMMIT_SHORT}
   branch: ${GIT_BRANCH}
