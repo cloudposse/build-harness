@@ -14,8 +14,8 @@ readme/init:
 	@if [ -s ./$(README_TEMPLATE_FILE) ]; then \
 	  echo "$(README_TEMPLATE_FILE) already exists!"; \
 	else \
-	  cp $(BUILD_HARNESS_PATH)/templates/$(README_TEMPLATE_FILE) ./$(README_FILE) ; \
-	  echo "$(README_FILE) created!"; \
+	  cp $(BUILD_HARNESS_PATH)/templates/$(README_TEMPLATE_FILE) ./$(README_TEMPLATE_FILE) ; \
+	  echo "$(README_TEMPLATE_FILE) created!"; \
 	fi;
 
 ## Create README.md by building it from .README.md file
