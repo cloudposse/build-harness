@@ -12,5 +12,5 @@ template/deps:
 	@chmod +x $(GOMPLATE)
 
 ## Create $OUT file by building it from $IN template file
-template/build:
+template/build: template/deps
 	@$(BUILD_HARNESS_PATH)/bin/template_generate.sh
