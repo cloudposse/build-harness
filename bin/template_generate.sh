@@ -16,9 +16,9 @@ INCLUDED_MODULES=()
 function array-merge {
   # Declare an associative array
   declare -A tmp
-  # Store the values of arr3 in arr4 as keys.
+  # Store the values of arr3 in arr4 as keys
   for k in $@; do tmp["$k"]=1; done
-  # Extract the keys.
+  # Extract the keys
   echo "${!tmp[@]}"
 }
 
@@ -31,7 +31,7 @@ function modules {
 
 ## Fire event $1 for all modules passed as args
 ## Example of usage
-## fire event "test" "git" "make"
+## fire_event "test" "git" "make"
 ## Will call functions "git-test" and "make-test" if exists
 function fire_event {
   local event=$1
@@ -46,7 +46,7 @@ function fire_event {
   done
 }
 
-## Provde datasource options for modules passed as args
+## Provide datasource options for modules passed as args
 ## Example of usage
 ## datasources "git" "make"
 function datasources {
@@ -67,7 +67,7 @@ MODULES=$(modules $IN)
 
 until [ -z "$MODULES" ]
 do
-  ## Merge modules list with modules from previous iteration
+  ## Merge module list with modules from previous iteration
   INCLUDED_MODULES=$( array-merge $INCLUDED_MODULES $MODULES)
   ## Prepare data for just found modules
   fire_event "template-prepare-data" $MODULES
@@ -76,7 +76,7 @@ do
 
   ## For all iterations (except first) use $OUT file as $IN template to replace recursive placeholders
   IN=$OUT
-  ## Find modules in $IN file for next interation.
+  ## Find modules in $IN file for the next iteration
   MODULES=$(modules $IN)
 done
 
@@ -86,6 +86,3 @@ fire_event "template-cleanup-data" $INCLUDED_MODULES
 rm -rf $TMP
 
 echo "$OUT generated"
-
-
-
