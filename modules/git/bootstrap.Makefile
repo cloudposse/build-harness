@@ -5,6 +5,8 @@ export GIT_COMMIT_SHORT ?= $(shell $(GIT) rev-parse --verify --short HEAD)
 export GIT_BRANCH ?= $(shell $(GIT) rev-parse --abbrev-ref HEAD)
 export GIT_LATEST_TAG ?= $(shell $(GIT)  describe --tags --abbrev=0 2>/dev/null)
 
+export GIT_TIMESTAMP ?= $(shell $(GIT) log -1 --format=%ct 2>/dev/null)
+
 ifeq ($(GIT_LATEST_TAG),)
 	export GIT_LATEST_TAG="0.0.0"
 endif
