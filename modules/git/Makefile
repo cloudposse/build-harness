@@ -17,6 +17,7 @@ git/show:
 	@echo "latest tag - $(GIT_LATEST_TAG)"
 	@echo "tag - $(GIT_IS_TAG)"
 	@echo "branch - $(GIT_IS_BRANCH)"
+	@echo "timestamp - $(GIT_TIMESTAMP)"
 
 ## Export git vars
 git/export:
@@ -26,3 +27,4 @@ git/export:
 	@echo "GIT_LATEST_TAG=$(GIT_LATEST_TAG)"
 	@echo "GIT_IS_BRANCH=$(GIT_IS_BRANCH)"
 	@echo "GIT_IS_TAG=$(GIT_IS_TAG)"
+	@echo "GIT_TIMESTAMP=$(GIT_TIMESTAMP)"
