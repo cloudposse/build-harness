@@ -12,7 +12,7 @@ RUN apk update && \
 ADD ./ /build-harness/
 
 RUN cd /build-harness && \
-      make helm/install helmfile/install template/deps
+      make chamber/install helm/install helmfile/install template/deps
 
 WORKDIR /build-harness
 
