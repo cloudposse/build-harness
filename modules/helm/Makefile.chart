@@ -35,8 +35,8 @@ helm/chart/build:
 	@mkdir -p $(HELM_PACKAGE_PATH)$(CHART_NAME)
 	@cp -R $(CHART_TPL)/* $(HELM_PACKAGE_PATH)$(CHART_NAME)
 	@echo "Pinning chart version and image.tag to $(SEMVERSION)"
-	@yq write --inplace $(HELM_PACKAGE_PATH)$(CHART_NAME)/Chart.yaml version $(SEMVERSION)
-	@yq write --inplace $(HELM_PACKAGE_PATH)$(CHART_NAME)/values.yaml image.tag $(SEMVERSION)
+	@set -o pipefile; yq write --inplace $(HELM_PACKAGE_PATH)$(CHART_NAME)/Chart.yaml version $(SEMVERSION) | head -1
+	@set -o pipefile; yq write --inplace $(HELM_PACKAGE_PATH)$(CHART_NAME)/values.yaml image.tag $(SEMVERSION) | head -1
 	@echo "Fetch dependencies"
 	@$(HELM) dependency build --debug $(HELM_PACKAGE_PATH)$(CHART_NAME)
 	@echo "Create package"
