@@ -7,7 +7,7 @@ distro/install:
 	@if [ ! -d $(DISTRO_PATH) ]; then \
 	  echo "Installing distro $(DISTRO_VERSION)..."; \
 	  rm -rf $(DISTRO_PATH); \
-	  git clone --depth=1 -b $(DISTRO_VERSION) git@github.com:cloudposse/distro.git $(DISTRO_PATH); \
+	  git clone --depth=1 -b $(DISTRO_VERSION) https://github.com/cloudposse/distro.git $(DISTRO_PATH); \
 	  rm -rf $(DISTRO_PATH)/.git; \
 	fi
 
