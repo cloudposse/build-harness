@@ -6,6 +6,7 @@ RUN apk update && \
       ca-certificates \
       curl \
       git \
+      gettext \
       grep \
       jq \
       make
