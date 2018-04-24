@@ -16,7 +16,7 @@ services:
 install:
 - make docker/login
 - make go/deps-build
-- make go/deps-dev
+#- make go/deps-dev
 
 script:
 - make bash/lint
