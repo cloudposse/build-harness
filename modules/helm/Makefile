@@ -8,7 +8,7 @@ HELM_REPO_PATH ?= ./$(REPO_NAME)
 HELM_PACKAGE_PATH ?= ./packages/$(REPO_NAME)
 
 ## Install helm
-helm/install: distro/install/helm distro/install/yq
+helm/install: packages/install/helm packages/install/yq
 	@helm init --client-only
 	@chmod -R 777 "$(HELM_HOME)"
 	@helm repo remove local || true
