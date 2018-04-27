@@ -63,6 +63,7 @@ function upsert() {
 if [ "$1" == "upsert" ]; then
 	check kubectl
 	check helm
+	check timeout
 	set_context
 	upsert
 else
