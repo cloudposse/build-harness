@@ -52,7 +52,7 @@ function upsert() {
 		wait_for_helm
 		sleep 3
 		info "Helm version"
-		helm version | sed 's/^/  - /'
+		helm version --short | sed 's/^/  - /'
 	else
 		info "Helm version: $helm_version matches tiller version: $tiller_version."
 		info "Initializing helm client..."
