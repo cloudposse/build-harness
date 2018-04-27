@@ -4,6 +4,7 @@ RUN apk update && \
     apk --update add \
       bash \
       ca-certificates \
+      coreutils \
       curl \
       git \
       gettext \
