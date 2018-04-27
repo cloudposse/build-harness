@@ -19,3 +19,8 @@ helm/serve/index:
 	$(call assert-set,HELM)
 	@$(SELF) helm/repo/index REPO_NAME=incubator
 	@$(SELF) helm/repo/index REPO_NAME=stable
+
+## Install or upgrade helm tiller 
+helm/toolbox/upsert:
+	@$(BUILD_HARNESS_PATH)/bin/helm_toolbox.sh upsert
+
