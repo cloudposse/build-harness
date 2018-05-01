@@ -17,9 +17,9 @@ function check() {
 	command -v "$1" >/dev/null 2>&1 || err "$1 not installed!"; 
 }
 
-# wait helm to be operational
+# wait for helm to become operational
 wait_for_helm() {
-	info "Waiting for helm..."
+	info "Waiting for helm tiller..."
 	while true; do
 		status=$(kubectl get pods -l app=helm -l name=tiller --show-all=false -o=custom-columns=STATUS:.status.phase --no-headers=true -nkube-system | tr '\n' ',')
 		info "Helm status: $status"
@@ -32,7 +32,7 @@ wait_for_helm() {
 
 function set_context() {
   if [ -n "$KUBE_CONTEXT" ]; then
-	info "Using ${KUBE_CONTEXT} context"
+	info "Using ${KUBE_CONTEXT} kube context"
 	kubectl config use-context ${KUBE_CONTEXT}
   fi
 }
