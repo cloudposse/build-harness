@@ -34,7 +34,9 @@ helm/chart/build:
 	@rm -rf $(HELM_PACKAGE_PATH)$(CHART_NAME)
 	@mkdir -p $(HELM_PACKAGE_PATH)$(CHART_NAME)
 	@cp -R $(CHART_TPL)/* $(HELM_PACKAGE_PATH)$(CHART_NAME)
-	@find $(HELM_PACKAGE_PATH)$(CHART_NAME) -type f | xargs -I{} bash -c 'IN={} OUT={} $(SELF) -s template/build'
+	@echo "Pinning chart version and image.tag to $(SEMVERSION)"
+	@set -o pipefail; yq write --inplace $(HELM_PACKAGE_PATH)$(CHART_NAME)/Chart.yaml version $(SEMVERSION) | head -1
+	@set -o pipefail; yq write --inplace $(HELM_PACKAGE_PATH)$(CHART_NAME)/values.yaml image.tag $(SEMVERSION) | head -1
 	@echo "Fetch dependencies"
 	@$(HELM) dependency build --debug $(HELM_PACKAGE_PATH)$(CHART_NAME)
 	@echo "Create package"
@@ -49,10 +51,10 @@ helm/chart/build-all:
 	$(call assert-set,CHART_TPL)
 	@for version in $(SEMVERSIONS) ; do \
 		echo "Build chart $(CHART_NAME) version $$version"; \
-		CHART_NAME=$(CHART_NAME) \
-		CHART_TPL=$(CHART_TPL) \
-		SEMVERSION=$$version \
-		$(SELF) -s helm/chart/build; \
+		$(SELF) -s helm/chart/build \
+			CHART_NAME=$(CHART_NAME) \
+			CHART_TPL=$(CHART_TPL) \
+			SEMVERSION=$$version; \
 	done
 
 ## Publish chart $CHART_NAME to $REPO_GATEWAY_ENDPOINT
