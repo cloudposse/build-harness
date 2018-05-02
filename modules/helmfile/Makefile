@@ -1,5 +1,4 @@
 CURL ?= curl
-HELMFILE_VERSION ?= 0.12.0
 HELMFILE ?= helmfile
 
 ## Install helmfile
