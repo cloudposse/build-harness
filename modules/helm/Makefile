@@ -1,7 +1,7 @@
-CURL ?= $(shell which curl)
+CURL ?= curl
 export HELM_VERSION ?= 2.9.0
 HELM_PLATFORM ?= $(OS)-amd64
-HELM ?= $(shell which helm)
+HELM ?= helm
 HELM_HOME ?= $(HOME)/.helm
 HELM_REPO_PATH ?= ./$(REPO_NAME)
 HELM_PACKAGE_PATH ?= ./packages/$(REPO_NAME)
