@@ -10,6 +10,7 @@ RUN apk update && \
       gettext \
       grep \
       jq \
+      libc6-compat \
       make
 
 ADD ./ /build-harness/
