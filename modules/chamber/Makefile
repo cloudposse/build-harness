@@ -1,6 +1,6 @@
-CURL := $(shell which curl)
+CURL ?= curl
 CHAMBER_VERSION ?= 2.0.0
-CHAMBER := $(shell which chamber)
+CHAMBER ?= chamber
 
 ## Install chamber
 chamber/install: packages/install/chamber
