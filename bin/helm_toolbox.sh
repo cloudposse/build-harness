@@ -21,7 +21,7 @@ function check() {
 wait_for_helm() {
 	info "Waiting for helm tiller..."
 	while true; do
-    status=$(echo $(kubectl get pods -l app=helm -l name=tiller --show-all=false -o=custom-columns=STATUS:.status.phase --no-headers=true -nkube-system))
+		status=$(echo $(kubectl get pods -l app=helm -l name=tiller --show-all=false -o=custom-columns=STATUS:.status.phase --no-headers=true -nkube-system))
 		info "Helm status: $status"
 		if [ "$status" = "Running" ]; then
 			break;
