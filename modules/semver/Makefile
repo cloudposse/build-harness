@@ -1,3 +1,4 @@
+ifneq ($(wildcard .git),)
 ## Array of all possible versions based on this git commit
 SEMVERSIONS :=
 
@@ -35,6 +36,7 @@ ifeq ($(GIT_IS_BRANCH),1)
   SEMVERSIONS += $(SEMVERSION_BRANCH_COMMIT)
 endif
 
+
 ## Use as default version first of possible versions
 export SEMVERSION ?= $(word 1,$(SEMVERSIONS))
 
@@ -52,3 +54,8 @@ semver/export:
 	@echo "SEMVERSION_BRANCH_COMMIT_SHORT=$(SEMVERSION_BRANCH_COMMIT_SHORT)"
 	@echo "SEMVERSION_BRANCH_COMMIT=$(SEMVERSION_BRANCH_COMMIT)"
 	@echo "SEMVERSION_TAG=$(SEMVERSION_TAG)"
+
+else
+  $(warning disabled semver processing)
+endif
+

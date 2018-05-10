@@ -11,7 +11,9 @@ RUN apk update && \
       grep \
       jq \
       libc6-compat \
-      make
+      make \
+      py-pip && \
+    git config --global advice.detachedHead false
 
 ADD ./ /build-harness/
 
@@ -19,7 +21,7 @@ ENV INSTALL_PATH /usr/local/bin
 
 WORKDIR /build-harness
 
-RUN make -s chamber/install helm/install helmfile/install template/deps
+RUN make -s chamber/install helm/install helmfile/install template/deps aws/install
 
 ENTRYPOINT ["/bin/bash"]
 
