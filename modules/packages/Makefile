@@ -1,5 +1,5 @@
 export INSTALL_PATH ?= $(BUILD_HARNESS_PATH)/vendor
-export PACKAGES_VERSION ?= 0.1.6
+export PACKAGES_VERSION ?= 0.1.7
 export PACKAGES_PATH ?= $(BUILD_HARNESS_PATH)/vendor/packages
 
 ## Install packages 
