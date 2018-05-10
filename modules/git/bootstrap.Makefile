@@ -26,5 +26,4 @@ else
   export GIT_IS_TAG := 1
 endif
 
-$(warning dude 3)
 endif
