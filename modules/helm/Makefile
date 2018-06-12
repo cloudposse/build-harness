@@ -23,3 +23,7 @@ helm/serve/index:
 helm/toolbox/upsert:
 	@$(BUILD_HARNESS_PATH)/bin/helm_toolbox.sh upsert
 
+## Delete all releases in a namespace as well as the namespace
+helm/delete/namespace:
+	@helm list --namespace $(NAMESPACE) --short | xargs helm delete --purge
+	@kubectl delete namespace $(NAMESPACE) --ignore-not-found
