@@ -3,6 +3,8 @@ export OS ?= $(shell uname -s | tr '[:upper:]' '[:lower:]')
 export SELF ?= make
 export PATH := $(BUILD_HARNESS_PATH)/vendor:$(PATH)
 export DOCKER_BUILD_FLAGS ?=
+
+# List of targets the `readme` target should call before generating the readme
 export README_DEPS ?= docs/targets.md
 
 # Import Makefiles into current context
@@ -17,7 +19,7 @@ endif
 
 
 .PHONY : docs/targets.md
-## Update `docs/targets.md`
+## Update `docs/targets.md` from `make help`
 docs/targets.md:
 	@( \
 		echo "## Makefile Targets"; \
