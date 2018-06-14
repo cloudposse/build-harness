@@ -1,7 +1,19 @@
 ---
+# 
+# This is the configuration for the `README.md`
+# Run `make readme` to rebuild the `README.md`
+#
+
+# Name of this project
 name: Cloud Posse Build Harness 
+
+# License of this project
 license: "APACHE2"
+
+# Cannonical GitHub repo 
 github_repo: cloudposse/build-harness
+
+# Badges to display
 badges:
   - name: "Build Status"
     image: "https://travis-ci.org/cloudposse/build-harness.svg?branch=master"
@@ -10,10 +22,12 @@ badges:
     image: "https://slack.cloudposse.com/badge.svg"
     href: "https://slack.cloudposse.com"
 
+# Short description of this project
 description: |-
   This `build-harness` is a collection of Makefiles to facilitate building Golang projects, Dockerfiles, Helm charts, and more.
   It's designed to work with CI/CD systems such as Travis CI, CircleCI and Jenkins.
 
+# How to use this project
 usage: |-
   At the top of your `Makefile` add, the following...
 
@@ -29,6 +43,7 @@ usage: |-
 
   **NOTE:** the `/` is interchangable with the `:` in target names
 
+# Example usage
 examples: |-
   Here are some real world examples:
   - [`github-authorized-keys`](https://github.com/cloudposse/github-authorized-keys/) - A Golang project that leverages `docker/%`, `go/%`, `travis/%` targets
@@ -36,15 +51,18 @@ examples: |-
   - [`bastion`](https://github.com/cloudposse/bastion/) - A docker image that leverages `docker/%` and `bash/lint` targets
   - [`terraform-null-label`](https://github.com/cloudposse/terraform-null-label/) - A terraform module that leverages `terraform/%` targets
 
+# How to get started quickly
 quickstart: |-
   Here's how to get started...
 
   1. `git clone https://github.com/cloudposse/build-harness.git` to pull down the repository
   2. `make init` to initialize the [`build-harness`](https://github.com/cloudposse/build-harness/)
 
+# Other files to include in this README from the project folder
 include:
   - "docs/targets.md"
 
+# Contributors to this project
 contributors:
   - name: "Erik Osterman"
     homepage: "https://github.com/osterman"
