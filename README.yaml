@@ -4,7 +4,7 @@ license: "APACHE2"
 github_repo: cloudposse/build-harness
 badges:
   - name: "Build Status"
-    image: "https://travis-ci.org/cloudposse/build-harness.svg"
+    image: "https://travis-ci.org/cloudposse/build-harness.svg?branch=master"
     href: "https://travis-ci.org/cloudposse/build-harness"
   - name: "Slack Community"
     image: "https://slack.cloudposse.com/badge.svg"
