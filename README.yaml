@@ -43,7 +43,7 @@ quickstart: |-
   2. `make init` to initialize the [`build-harness`](https://github.com/cloudposse/build-harness/)
 
 include:
-  - "targets.md"
+  - "docs/targets.md"
 
 contributors:
   - name: "Erik Osterman"

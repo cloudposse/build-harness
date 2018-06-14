@@ -28,7 +28,7 @@ It's 100% Open Source and licensed under [APACHE2](LICENSE).
 {{ end}}
 
 {{ range $file := (datasource "config").include -}}
-{{ (include "docs" $file) }}
+{{ (include "includes" $file) }}
 {{- end }}
 
 ## Help

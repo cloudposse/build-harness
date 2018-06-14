@@ -29,5 +29,5 @@ readme/build: $(README_DEPS)
 	@gomplate --file $(README_TEMPLATE_FILE) \
 		--out $(README_FILE) \
 		--datasource config=$(README_YAML) \
-		--datasource=docs='file://$(shell pwd)/docs/?type=text/plain'
+		--datasource includes='file://$(shell pwd)/?type=text/plain'
 	@echo "Generated $(README_FILE) from $(README_TEMPLATE_FILE) using data from $(README_TEMPLATE_YAML)"
