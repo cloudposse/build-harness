@@ -24,7 +24,7 @@ readme/lint:
 	@rm -f $(README_LINT)
 
 ## Create README.md by building it from README.yaml
-readme/build:
+readme/build: $(README_DEPS)
 	@mkdir -p docs
 	@gomplate --file $(README_TEMPLATE_FILE) \
 		--out $(README_FILE) \

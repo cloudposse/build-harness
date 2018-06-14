@@ -3,7 +3,7 @@
 
 [![Cloud Posse](https://cloudposse.com/logo-300x69.png)](https://cloudposse.com)
 
-# Cloud Posse Build Harness [![Build Status](https://travis-ci.org/cloudposse/build-harness.svg)](https://travis-ci.org/cloudposse/build-harness) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
+# Cloud Posse Build Harness [![Build Status](https://travis-ci.org/cloudposse/build-harness.svg?branch=master)](https://travis-ci.org/cloudposse/build-harness) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 
 This `build-harness` is a collection of Makefiles to facilitate building Golang projects, Dockerfiles, Helm charts, and more.
 It's designed to work with CI/CD systems such as Travis CI, CircleCI and Jenkins.
@@ -46,9 +46,8 @@ Here are some real world examples:
 
 
 ## Makefile Targets
-
-```bash
-$ make help
+```
+Available targets:
 
   aws/install                         Install aws cli bundle
   bash/lint                           Lint all bash scripts
@@ -96,18 +95,18 @@ $ make help
   helm/repo/lint                      Lint charts
   helm/repo/update                    Update repo info
   helm/serve/index                    Build index for serve helm charts
-  helm/toolbox/upsert                 Install or upgrade helm tiller
+  helm/toolbox/upsert                 Install or upgrade helm tiller 
   helmfile/install                    Install helmfile
   help                                This help screen
   jenkins/run-job-with-tag            Run a Jenkins Job with $(TAG)
   make/lint                           Lint all makefiles
-  packages/install                    Install packages
+  packages/install                    Install packages 
   packages/install/%                  Install package (e.g. helm, helmfile, kubectl)
   packages/uninstall/%                Uninstall package (e.g. helm, helmfile, kubectl)
   readme                              Alias for readme/build
-  readme/build                        Create README.md by building it from .README.md file
+  readme/build                        Create README.md by building it from README.yaml
   readme/init                         Create basic minimalistic .README.md template file
-  readme/toc-update                   Update table of contents in README.md
+  readme/lint                         Verify the `README.md` is up to date
   semver/export                       Export semver vars
   semver/show                         Show
   stages/export                       Export stages vars
@@ -120,6 +119,7 @@ $ make help
   terraform/validate                  Basic terraform sanity check
   travis/docker-login                 Login into docker hub
   travis/docker-tag-and-push          Tag & Push according Travis environment variables
+
 ```
 
 
