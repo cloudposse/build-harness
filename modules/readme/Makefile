@@ -8,6 +8,9 @@ export README_TEMPLATE_YAML ?= $(BUILD_HARNESS_PATH)/templates/README.yaml
 readme: readme/build
 	@exit 0
 
+readme/deps: packages/install/gomplate
+	@exit 0
+
 ## Create basic minimalistic .README.md template file
 readme/init:
 	@if [ -f $(README_YAML) ]; then \

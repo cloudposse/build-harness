@@ -17,6 +17,7 @@ install:
 - make docker/login
 - make go/deps-build
 - make go/deps-dev
+- make readme/deps
 
 script:
 - make bash/lint
