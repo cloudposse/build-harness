@@ -1,23 +1,23 @@
 export README_FILE ?= README.md
-export README_TEMPLATE_FILE ?= .$(README_FILE)
+export README_YAML ?= README.yaml
+export README_TEMPLATE_FILE ?= $(BUILD_HARNESS_PATH)/templates/README.md
+export README_TEMPLATE_YAML ?= $(BUILD_HARNESS_PATH)/templates/README.yaml
 
 ## Alias for readme/build
 readme: readme/build
 	@exit 0
 
-## Update table of contents in README.md
-readme/toc-update:
-	@doctoc --notitle --github $(README_FILE)
-
 ## Create basic minimalistic .README.md template file
 readme/init:
-	@if [ -s ./$(README_TEMPLATE_FILE) ]; then \
-	  echo "$(README_TEMPLATE_FILE) already exists!"; \
+	@if [ -f $(README_YAML) ]; then \
+	  echo "$(README_YAML) already exists!"; \
 	else \
-	  cp $(BUILD_HARNESS_PATH)/templates/$(README_TEMPLATE_FILE) ./$(README_TEMPLATE_FILE) ; \
-	  echo "$(README_TEMPLATE_FILE) created!"; \
+	  cp $(README_TEMPLATE_YAML) ./$(README_YAML) ; \
+	  echo "$(README_YAML) created!"; \
 	fi;
 
 ## Create README.md by building it from .README.md file
 readme/build:
-	@$(SELF) -s template/build IN=$(README_TEMPLATE_FILE) OUT=$(README_FILE)
+	@mkdir -p docs
+	@gomplate --file $(README_TEMPLATE_FILE) --out $(README_FILE) --datasource config=$(README_YAML) --datasource=docs='file://$(shell pwd)/docs/?type=text/plain'
+	@echo "Generated $(README_FILE) from $(README_TEMPLATE_FILE) using data from $(README_TEMPLATE_YAML)"

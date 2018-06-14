@@ -1,0 +1,76 @@
+---
+name: Cloud Posse Build Harness 
+license: "APACHE2"
+github_repo: cloudposse/build-harness
+badges:
+  - name: "Build Status"
+    image: "https://travis-ci.org/cloudposse/build-harness.svg"
+    href: "https://travis-ci.org/cloudposse/build-harness"
+  - name: "Slack Community"
+    image: "https://slack.cloudposse.com/badge.svg"
+    href: "https://slack.cloudposse.com"
+
+description: |-
+  This `build-harness` is a collection of Makefiles to facilitate building Golang projects, Dockerfiles, Helm charts, and more.
+  It's designed to work with CI/CD systems such as Travis CI, CircleCI and Jenkins.
+
+usage: |-
+  At the top of your `Makefile` add, the following...
+
+  ```make
+  -include $(shell curl -sSL -o .build-harness "https://git.io/build-harness"; echo .build-harness)
+  ```
+
+  This will download a `Makefile` called `.build-harness` and include it at run-time. We recommend adding the `.build-harness` file to your `.gitignore`.
+
+  This automatically exposes many new targets that you can leverage throughout your build & CI/CD process.
+
+  Run `make help` for a list of available targets.
+
+  **NOTE:** the `/` is interchangable with the `:` in target names
+
+examples: |-
+  Here are some real world examples:
+  - [`github-authorized-keys`](https://github.com/cloudposse/github-authorized-keys/) - A Golang project that leverages `docker/%`, `go/%`, `travis/%` targets
+  - [`charts`](https://github.com/cloudposse/charts/) - A collection of Helm Charts that leverages `docker/%` and `helm/%` targets
+  - [`bastion`](https://github.com/cloudposse/bastion/) - A docker image that leverages `docker/%` and `bash/lint` targets
+  - [`terraform-null-label`](https://github.com/cloudposse/terraform-null-label/) - A terraform module that leverages `terraform/%` targets
+
+quickstart: |-
+  Here's how to get started...
+
+  1. `git clone https://github.com/cloudposse/build-harness.git` to pull down the repository
+  2. `make init` to initialize the [`build-harness`](https://github.com/cloudposse/build-harness/)
+
+include:
+  - "targets.md"
+
+contributors:
+  - name: "Erik Osterman"
+    homepage: "https://github.com/osterman"
+    avatar: "http://s.gravatar.com/avatar/88c480d4f73b813904e00a5695a454cb?s=144"
+    github: "osterman"
+  - name: "Igor Rodionov"
+    homepage: "https://github.com/goruha/"
+    avatar: "http://s.gravatar.com/avatar/bc70834d32ed4517568a1feb0b9be7e2?s=144"
+    github: "goruha"
+  - name: "Andriy Knysh"
+    homepage: "https://github.com/aknysh/"
+    avatar: "https://avatars0.githubusercontent.com/u/7356997?v=4&u=ed9ce1c9151d552d985bdf5546772e14ef7ab617&s=144"
+    github: "aknysh"
+  - name: "Konstantin"
+    homepage: "https://github.com/comeanother/"
+    avatar: "https://avatars1.githubusercontent.com/u/11299538?v=4&u=ed9ce1c9151d552d985bdf5546772e14ef7ab617&s=144"
+    github: "comeanother"
+  - name: "Sergey"
+    homepage: "https://github.com/s2504s/"
+    avatar: "https://avatars1.githubusercontent.com/u/1134449?v=4&u=ed9ce1c9151d552d985bdf5546772e14ef7ab617&s=144"
+    github: "s2504s"
+  - name: "Valeriy"
+    homepage: "https://github.com/drama17/"
+    avatar: "https://avatars1.githubusercontent.com/u/10601658?v=4&u=ed9ce1c9151d552d985bdf5546772e14ef7ab617&s=144"
+    github: "drama17"
+  - name: "Vladimir"
+    homepage: "https://github.com/SweetOps/"
+    avatar: "https://avatars1.githubusercontent.com/u/26582191?v=4&u=ed9ce1c9151d552d985bdf5546772e14ef7ab617&s=144"
+    github: "SweetOps"
