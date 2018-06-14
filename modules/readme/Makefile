@@ -1,4 +1,4 @@
-export README_LINT ?= $(TMPDIR)/README.md
+export README_LINT ?= $(TMP)/README.md
 export README_FILE ?= README.md
 export README_YAML ?= README.yaml
 export README_TEMPLATE_FILE ?= $(BUILD_HARNESS_PATH)/templates/README.md
