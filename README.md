@@ -190,7 +190,7 @@ or [hire us][hire] to help build your next cloud-platform.
 
 ### Contributors
 
-|  [![Erik Osterman](osterman_avatar)](osterman_homepage)<br/>[Erik Osterman](osterman_homepage) | [![Igor Rodionov](goruha_avatar)](goruha_homepage)<br/>[Igor Rodionov](goruha_homepage) | [![Andriy Knysh](aknysh_avatar)](aknysh_homepage)<br/>[Andriy Knysh](aknysh_homepage) | [![Konstantin](comeanother_avatar)](comeanother_homepage)<br/>[Konstantin](comeanother_homepage) | [![Sergey](s2504s_avatar)](s2504s_homepage)<br/>[Sergey](s2504s_homepage) | [![Valeriy](drama17_avatar)](drama17_homepage)<br/>[Valeriy](drama17_homepage) | [![Vladimir](SweetOps_avatar)](SweetOps_homepage)<br/>[Vladimir](SweetOps_homepage) |
+|  [![Erik Osterman][osterman_avatar]](osterman_homepage)<br/>[Erik Osterman][osterman_homepage] | [![Igor Rodionov][goruha_avatar]](goruha_homepage)<br/>[Igor Rodionov][goruha_homepage] | [![Andriy Knysh][aknysh_avatar]](aknysh_homepage)<br/>[Andriy Knysh][aknysh_homepage] | [![Konstantin][comeanother_avatar]](comeanother_homepage)<br/>[Konstantin][comeanother_homepage] | [![Sergey][s2504s_avatar]](s2504s_homepage)<br/>[Sergey][s2504s_homepage] | [![Valeriy][drama17_avatar]](drama17_homepage)<br/>[Valeriy][drama17_homepage] | [![Vladimir][SweetOps_avatar]](SweetOps_homepage)<br/>[Vladimir][SweetOps_homepage] |
 |---|---|---|---|---|---|---|
 
   [osterman_homepage]: https://github.com/osterman

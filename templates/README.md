@@ -98,7 +98,7 @@ or [hire us][hire] to help build your next cloud-platform.
 {{ if (datasource "config").contributors }}
 ### Contributors
 
-| {{ range $contributor := (ds "config").contributors }}{{ printf " [![%s](%s_avatar)](%s_homepage)<br/>[%s](%s_homepage) |" $contributor.name $contributor.github $contributor.github $contributor.name $contributor.github}}{{ end }}
+| {{ range $contributor := (ds "config").contributors }}{{ printf " [![%s][%s_avatar]](%s_homepage)<br/>[%s][%s_homepage] |" $contributor.name $contributor.github $contributor.github $contributor.name $contributor.github}}{{ end }}
 |{{- range $contributor := (ds "config").contributors -}}---|{{ end }}
 
 {{ range $contributor := (ds "config").contributors -}}
