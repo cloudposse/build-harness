@@ -13,7 +13,7 @@ readme/init:
 	@if [ -f $(README_YAML) ]; then \
 	  echo "$(README_YAML) already exists!"; \
 	else \
-	  cp $(README_TEMPLATE_YAML) ./$(README_YAML) ; \
+	  cp $(README_TEMPLATE_YAML) $(README_YAML) ; \
 	  echo "$(README_YAML) created!"; \
 	fi;
 
@@ -26,5 +26,8 @@ readme/lint:
 ## Create README.md by building it from README.yaml
 readme/build:
 	@mkdir -p docs
-	@gomplate --file $(README_TEMPLATE_FILE) --out $(README_FILE) --datasource config=$(README_YAML) --datasource=docs='file://$(shell pwd)/docs/?type=text/plain'
+	@gomplate --file $(README_TEMPLATE_FILE) \
+		--out $(README_FILE) \
+		--datasource config=$(README_YAML) \
+		--datasource=docs='file://$(shell pwd)/docs/?type=text/plain'
 	@echo "Generated $(README_FILE) from $(README_TEMPLATE_FILE) using data from $(README_TEMPLATE_YAML)"
