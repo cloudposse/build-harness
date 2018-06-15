@@ -18,10 +18,13 @@ badges:
   - name: "Build Status"
     image: "https://travis-ci.org/cloudposse/build-harness.svg?branch=master"
     href: "https://travis-ci.org/cloudposse/build-harness"
+  - name: "Latest Release"
+    image: "https://img.shields.io/github/release/cloudposse/build-harness.svg"
+    href: "https://github.com/cloudposse/build-harness/releases"
   - name: "Slack Community"
     image: "https://slack.cloudposse.com/badge.svg"
     href: "https://slack.cloudposse.com"
-
+ 
 # Short description of this project
 description: |-
   This `build-harness` is a collection of Makefiles to facilitate building Golang projects, Dockerfiles, Helm charts, and more.
