@@ -5,39 +5,43 @@
 
 # {{(ds "config").name}} {{- range $badge := (ds "config").badges -}}{{ printf " [![%s](%s)](%s)" $badge.name $badge.image $badge.url }}{{ end }}
 
-{{ if (ds "config").logo }}
+{{ if has (ds "config") "logo" }}
 ![{{(ds "config").name}}]({{ (ds "config").logo }})
-{{ end}}
+{{- end -}}
 
+{{ if has (ds "config") "description" }}
 {{(ds "config").description }}
+{{- end -}}
 
 This project is part of our comprehensive ["SweetOps"](https://docs.cloudposse.com) approach towards DevOps. 
 
 {{ if eq (ds "config").license "APACHE2" }}
 It's 100% Open Source and licensed under [APACHE2](LICENSE).
 {{ end }}
-{{ if (ds "config").usage }}
+
+{{ if has (ds "config") "usage" }}
 ## Usage
 
 {{ (ds "config").usage -}}
-{{ end}}
-{{ if (ds "config").quickstart }}
+{{ end }}
+
+{{- if has (ds "config") "quickstart" -}}
 ## Quick Start
 
 {{ (ds "config").quickstart -}}
-{{ end}}
+{{ end }}
 
-{{ if (ds "config").examples }}
+{{ if has (ds "config") "examples" }}
 ## Examples
 
 {{(ds "config").examples }}
-{{ end}}
+{{ end }}
 
 {{ range $file := (datasource "config").include -}}
 {{ (include "includes" $file) }}
 {{- end }}
+{{ if has (ds "config") "related" }}
 
-{{ if (ds "config").related }}
 ## Related Projects
 
 Check out these related projects.
@@ -138,7 +142,7 @@ Check out [our other projects][github], [apply for a job][jobs], or [hire us][hi
   [twitter]: https://twitter.com/cloudposse/
   [email]: mailto:hello@cloudposse.com
 
-{{ if (datasource "config").contributors }}
+{{- if has (datasource "config") "contributors" -}}
 ### Contributors
 
 | {{ range $contributor := (ds "config").contributors }}{{ printf " [![%s][%s_avatar]](%s_homepage)<br/>[%s][%s_homepage] |" $contributor.name $contributor.github $contributor.github $contributor.name $contributor.github}}{{ end }}
@@ -149,4 +153,4 @@ Check out [our other projects][github], [apply for a job][jobs], or [hire us][hi
 {{ printf "  [%s_avatar]: %s" $contributor.github $contributor.avatar }}
 {{ end }}
 
-{{ end }}
+{{- end -}}

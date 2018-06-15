@@ -1,6 +1,14 @@
 export INSTALL_PATH ?= $(BUILD_HARNESS_PATH)/vendor
-export PACKAGES_VERSION ?= 0.1.8
+export PACKAGES_VERSION ?= 0.2.1
 export PACKAGES_PATH ?= $(BUILD_HARNESS_PATH)/vendor/packages
+
+## Delete packages
+packages/delete:
+	rm -rf $(PACKAGES_PATH)
+
+## Reinstall packages
+packages/reinstall: packages/delete packages/install
+	@exit 0
 
 ## Install packages 
 packages/install:

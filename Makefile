@@ -18,12 +18,4 @@ ifndef TRANSLATE_COLON_NOTATION
 endif
 
 
-.PHONY : docs/targets.md
-## Update `docs/targets.md` from `make help`
-docs/targets.md:
-	@( \
-		echo "## Makefile Targets"; \
-		echo '```'; \
-		$(SELF) --no-print-directory --quiet --silent help | sed $$'s,\x1b\\[[0-9;]*[a-zA-Z],,g'; \
-		echo '```'; \
-	) > $@
+

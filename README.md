@@ -6,16 +6,12 @@
 # Build Harness [![Build Status](https://travis-ci.org/cloudposse/build-harness.svg?branch=master)](https://travis-ci.org/cloudposse/build-harness) [![Latest Release](https://img.shields.io/github/release/cloudposse/build-harness.svg)](https://github.com/cloudposse/build-harness/releases) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 
 
-![Build Harness](docs/logo.png)
-
-
 This `build-harness` is a collection of Makefiles to facilitate building Golang projects, Dockerfiles, Helm charts, and more.
-It's designed to work with CI/CD systems such as Travis CI, CircleCI and Jenkins.
-
-This project is part of our comprehensive ["SweetOps"](https://docs.cloudposse.com) approach towards DevOps. 
+It's designed to work with CI/CD systems such as Travis CI, CircleCI and Jenkins.This project is part of our comprehensive ["SweetOps"](https://docs.cloudposse.com) approach towards DevOps. 
 
 
 It's 100% Open Source and licensed under [APACHE2](LICENSE).
+
 
 
 ## Usage
@@ -32,9 +28,7 @@ This automatically exposes many new targets that you can leverage throughout you
 
 Run `make help` for a list of available targets.
 
-**NOTE:** the `/` is interchangable with the `:` in target names
-
-## Quick Start
+**NOTE:** the `/` is interchangable with the `:` in target names## Quick Start
 
 Here's how to get started...
 
@@ -229,10 +223,7 @@ Check out [our other projects][github], [apply for a job][jobs], or [hire us][hi
   [slack]: https://slack.cloudposse.com/
   [linkedin]: https://www.linkedin.com/company/cloudposse
   [twitter]: https://twitter.com/cloudposse/
-  [email]: mailto:hello@cloudposse.com
-
-
-### Contributors
+  [email]: mailto:hello@cloudposse.com### Contributors
 
 |  [![Erik Osterman][osterman_avatar]](osterman_homepage)<br/>[Erik Osterman][osterman_homepage] | [![Igor Rodionov][goruha_avatar]](goruha_homepage)<br/>[Igor Rodionov][goruha_homepage] | [![Andriy Knysh][aknysh_avatar]](aknysh_homepage)<br/>[Andriy Knysh][aknysh_homepage] | [![Konstantin][comeanother_avatar]](comeanother_homepage)<br/>[Konstantin][comeanother_homepage] | [![Sergey][s2504s_avatar]](s2504s_homepage)<br/>[Sergey][s2504s_homepage] | [![Valeriy][drama17_avatar]](drama17_homepage)<br/>[Valeriy][drama17_homepage] | [![Vladimir][SweetOps_avatar]](SweetOps_homepage)<br/>[Vladimir][SweetOps_homepage] |
 |---|---|---|---|---|---|---|
@@ -251,6 +242,3 @@ Check out [our other projects][github], [apply for a job][jobs], or [hire us][hi
   [drama17_avatar]: https://avatars1.githubusercontent.com/u/10601658?v=4&u=ed9ce1c9151d552d985bdf5546772e14ef7ab617&s=144
   [SweetOps_homepage]: https://github.com/SweetOps/
   [SweetOps_avatar]: https://avatars1.githubusercontent.com/u/26582191?v=4&u=ed9ce1c9151d552d985bdf5546772e14ef7ab617&s=144
-
-
-
