@@ -37,7 +37,7 @@ It's 100% Open Source and licensed under [APACHE2](LICENSE).
 
 **Got a question?**
 
-File a GitHub [issue]({{ printf "https://github.com/%s/issues" (ds "config").github_repo}}), send us an [email][email] or join our [Slack Community][slack]).
+File a GitHub [issue]({{ printf "https://github.com/%s/issues" (ds "config").github_repo}}), send us an [email][email] or join our [Slack Community][slack].
 
 ## Commerical Support
 
