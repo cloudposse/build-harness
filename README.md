@@ -8,7 +8,7 @@
 This `build-harness` is a collection of Makefiles to facilitate building Golang projects, Dockerfiles, Helm charts, and more.
 It's designed to work with CI/CD systems such as Travis CI, CircleCI and Jenkins.
 
-This project is part of the comprehensive [Cloud Posse Solution](https://docs.cloudposse.com) towards approaching DevOps. 
+This project is part of our comprehensive ["SweetOps"](https://docs.cloudposse.com) approach towards DevOps. 
 
 
 It's 100% Open Source and licensed under [APACHE2](LICENSE).
