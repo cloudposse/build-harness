@@ -7,6 +7,8 @@
 
 {{(ds "config").description }}
 
+This project is part of the comprehensive [Cloud Posse Solution](https://docs.cloudposse.com). 
+
 {{ if eq (ds "config").license "APACHE2" }}
 It's 100% Open Source and licensed under [APACHE2](LICENSE).
 {{ end }}
@@ -35,7 +37,28 @@ It's 100% Open Source and licensed under [APACHE2](LICENSE).
 
 **Got a question?**
 
-File a GitHub [issue]({{ printf "https://github.com/%s/issues" (ds "config").github_repo}}), send us an [email](mailto:hello@cloudposse.com) or reach out to us on [Slack](https://slack.cloudposse.com).
+File a GitHub [issue]({{ printf "https://github.com/%s/issues" (ds "config").github_repo}}), send us an [email][email] or join our [Slack Community][slack]).
+
+## Commerical Support
+
+Work directly with our team of DevOps experts via email, slack, and video conferencing. 
+
+We provide *commercial support* for all of our [Open Source][github] projects. As a *Dedicated Support* customer, you have access to our team of subject matter experts at a fraction of the cost of a fulltime engineer. 
+
+*We can help with:*
+
+- **Questions.** Use a shared Slack channel so your team gets direct access to our engineers from _your own_ Slack account
+- **Troubleshooting.** Help you figure out why things aren't working
+- **Code Reviews.** Review Pull Requests and provide constructive feedback
+- **Bug Fixes.** Submit PRs against Cloud Posse's projects to fix bugs
+- **Build New Terraform Modules.** Develop original modules to provision infrastructure.
+- **Cloud Architecture.** Assist with your cloud strategy
+- **Implementation.** Provide hands on support to implement our reference architectures. 
+
+## Community Forum
+
+Get access to our [Open Source Community Forum][slack] on Slack. It's *free* to join for everyone! Our "SweetOps" community is where you can talk with others who share a similar vision for how to rollout infrastructure. This is the best place to ask questions, solict feedback, and work together as a community to move the ecosystem forward.
+
 
 ## Contributing
 
@@ -45,7 +68,7 @@ Please use the [issue tracker]({{ printf "https://github.com/%s/issues" (ds "con
 
 ### Developing
 
-If you are interested in being a contributor and want to get involved in developing this project, we would love to hear from you! Shoot us an [email](mailto:hello@cloudposse.com).
+If you are interested in being a contributor and want to get involved in developing this project or [help out](https://github.com/orgs/cloudposse/projects/3) with our other projects, we would love to hear from you! Shoot us an [email](mailto:hello@cloudposse.com).
 
 In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
@@ -72,7 +95,7 @@ See [LICENSE](LICENSE) for full details.
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
 
-      http://www.apache.org/licenses/LICENSE-2.0
+      https://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
@@ -86,14 +109,21 @@ See [LICENSE](LICENSE) for full details.
 
 This project is maintained and funded by [Cloud Posse, LLC][website]. Like it? Please let us know at <hello@cloudposse.com>
 
-We love [Open Source Software](https://github.com/cloudposse/)!
+We're a [DevOps Professional Services][hire] company based in Los Angeles, CA. We love [Open Source Software](https://github.com/cloudposse/)!
 
-See [our other projects][community]
-or [hire us][hire] to help build your next cloud-platform.
+We offer paid support on all of our projects.  
 
-  [website]: http://cloudposse.com/
-  [community]: https://github.com/cloudposse/
-  [hire]: http://cloudposse.com/contact/
+Check out [our other projects][github], [apply for a job][jobs], or [hire us][hire] to help with your cloud strategy and implementation.
+
+  [docs]: https://docs.cloudposse.com/
+  [website]: https://cloudposse.com/
+  [github]: https://github.com/cloudposse/
+  [jobs]: https://cloudposse.com/jobs/
+  [hire]: https://cloudposse.com/contact/
+  [slack]: https://slack.cloudposse.com/
+  [linkedin]: https://www.linkedin.com/company/cloudposse
+  [twitter]: https://twitter.com/cloudposse/
+  [email]: mailto:hello@cloudposse.com
 
 {{ if (datasource "config").contributors }}
 ### Contributors
