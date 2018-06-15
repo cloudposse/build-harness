@@ -3,12 +3,12 @@
 
 [![Cloud Posse](https://cloudposse.com/logo-300x69.png)](https://cloudposse.com)
 
-# Cloud Posse Build Harness [![Build Status](https://travis-ci.org/cloudposse/build-harness.svg?branch=master)](https://travis-ci.org/cloudposse/build-harness) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
+# Build Harness [![Build Status](https://travis-ci.org/cloudposse/build-harness.svg?branch=master)](https://travis-ci.org/cloudposse/build-harness) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 
 This `build-harness` is a collection of Makefiles to facilitate building Golang projects, Dockerfiles, Helm charts, and more.
 It's designed to work with CI/CD systems such as Travis CI, CircleCI and Jenkins.
 
-This project is part of the comprehensive [Cloud Posse Solution](https://docs.cloudposse.com). 
+This project is part of the comprehensive [Cloud Posse Solution](https://docs.cloudposse.com) towards approaching DevOps. 
 
 
 It's 100% Open Source and licensed under [APACHE2](LICENSE).
@@ -137,8 +137,6 @@ Work directly with our team of DevOps experts via email, slack, and video confer
 
 We provide *commercial support* for all of our [Open Source][github] projects. As a *Dedicated Support* customer, you have access to our team of subject matter experts at a fraction of the cost of a fulltime engineer. 
 
-*We can help with:*
-
 - **Questions.** Use a shared Slack channel so your team gets direct access to our engineers from _your own_ Slack account
 - **Troubleshooting.** Help you figure out why things aren't working
 - **Code Reviews.** Review Pull Requests and provide constructive feedback
@@ -149,8 +147,7 @@ We provide *commercial support* for all of our [Open Source][github] projects. A
 
 ## Community Forum
 
-Get access to our [Open Source Community Forum][slack] on Slack. It's *free* to join for everyone! Our "SweetOps" community is where you can talk with others who share a similar vision for how to rollout infrastructure. This is the best place to ask questions, solict feedback, and work together as a community to move the ecosystem forward.
-
+Get access to our [Open Source Community Forum][slack] on Slack. It's **FREE** to join for everyone! Our "SweetOps" community is where you get to talk with others who share a similar vision for how to rollout and manage infrastructure. This is the best place to talk shop, ask questions, solict feedback, and work together as a community to build *sweet* infrastructure.
 
 ## Contributing
 
@@ -168,9 +165,9 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
  2. **Clone** the project to your own machine
  3. **Commit** changes to your own branch
  4. **Push** your work back up to your fork
- 5. Submit a **Pull request** so that we can review your changes
+ 5. Submit a **Pull Request** so that we can review your changes
 
-**NOTE:** Be sure to merge the latest from "upstream" before making a pull request!
+**NOTE:** Be sure to merge the latest changes from "upstream" before making a pull request!
 
 
 ## License
