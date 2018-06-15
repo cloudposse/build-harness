@@ -24,6 +24,6 @@ docs/targets.md:
 	@( \
 		echo "## Makefile Targets"; \
 		echo '```'; \
-		$(SELF) help | sed $$'s,\x1b\\[[0-9;]*[a-zA-Z],,g'; \
+		$(SELF) --no-print-directory --quiet --silent help | sed $$'s,\x1b\\[[0-9;]*[a-zA-Z],,g'; \
 		echo '```'; \
 	) > $@
