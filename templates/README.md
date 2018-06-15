@@ -86,9 +86,9 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 **NOTE:** Be sure to merge the latest changes from "upstream" before making a pull request!
 
 {{ if eq (ds "config").license "APACHE2" }}
-## License [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+## License 
 
-[APACHE 2.0](LICENSE) © 2017-{{ time.Now.Year }} [Cloud Posse, LLC](https://cloudposse.com)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) © 2017-{{ time.Now.Year }} [Cloud Posse, LLC](https://cloudposse.com)
 
 See [LICENSE](LICENSE) for full details.
 
