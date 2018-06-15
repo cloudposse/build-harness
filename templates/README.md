@@ -45,13 +45,13 @@ Work directly with our team of DevOps experts via email, slack, and video confer
 
 We provide *commercial support* for all of our [Open Source][github] projects. As a *Dedicated Support* customer, you have access to our team of subject matter experts at a fraction of the cost of a fulltime engineer. 
 
-- **Questions.** Use a shared Slack channel so your team gets direct access to our engineers from _your own_ Slack account
-- **Troubleshooting.** Help you figure out why things aren't working
-- **Code Reviews.** Review Pull Requests and provide constructive feedback
-- **Bug Fixes.** Submit PRs against Cloud Posse's projects to fix bugs
-- **Build New Terraform Modules.** Develop original modules to provision infrastructure.
-- **Cloud Architecture.** Assist with your cloud strategy
-- **Implementation.** Provide hands on support to implement our reference architectures. 
+- **Questions.** We'll use a Shared Slack channel between your team and ours.
+- **Troubleshooting.** We'll help you triage why things aren't working.
+- **Code Reviews.** We'll review your Pull Requests and provide constructive feedback.
+- **Bug Fixes.** We'll rapidly work to fix any bugs in our projects.
+- **Build New Terraform Modules.** We'll develop original modules to provision infrastructure.
+- **Cloud Architecture.** We'll assist with your cloud strategy and design.
+- **Implementation.** We'll provide hands on support to implement our reference architectures. 
 
 ## Community Forum
 
