@@ -80,7 +80,7 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 {{ if eq (ds "config").license "APACHE2" }}
 ## License
 
-[APACHE 2.0](LICENSE) © 2017 [Cloud Posse, LLC](https://cloudposse.com)
+[APACHE 2.0](LICENSE) © 2017-{{ time.Now.Year }} [Cloud Posse, LLC](https://cloudposse.com)
 
 See [LICENSE](LICENSE) for full details.
 
