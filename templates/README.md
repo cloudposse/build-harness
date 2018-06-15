@@ -55,7 +55,7 @@ We provide *commercial support* for all of our [Open Source][github] projects. A
 
 ## Community Forum
 
-Get access to our [Open Source Community Forum][slack] on Slack. It's **FREE** to join for everyone! Our "SweetOps" community is where you get to talk with others who share a similar vision for how to rollout and manage infrastructure. This is the best place to talk shop, ask questions, solict feedback, and work together as a community to build *sweet* infrastructure.
+Get access to our [Open Source Community Forum][slack] on Slack. It's **FREE** to join for everyone! Our "SweetOps" community is where you get to talk with others who share a similar vision for how to rollout and manage infrastructure. This is the best place to talk shop, ask questions, solicit feedback, and work together as a community to build *sweet* infrastructure.
 
 ## Contributing
 
