@@ -38,7 +38,7 @@ It's 100% Open Source and licensed under [APACHE2](LICENSE).
 
 Check out these related projects.
 {{ range $related := (ds "config").related }}
-{{ printf "- [**%s.**](%s) %s" $related.name $related.url $related.description }}{{ end }}
+{{ printf "- [%s](%s) - %s" $related.name $related.url $related.description }}{{ end }}
 
 {{ end}}
 ## Help

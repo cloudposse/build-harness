@@ -130,8 +130,8 @@ Available targets:
 
 Check out these related projects.
 
-- [**Packages.**](https://github.com/cloudposse/packages) Cloud Posse installer and distribution of native apps
-- [**Dev Harness.**](https://github.com/cloudposse/dev) Cloud Posse Local Development Harness
+- [Packages](https://github.com/cloudposse/packages) - Cloud Posse installer and distribution of native apps
+- [Dev Harness](https://github.com/cloudposse/dev) - Cloud Posse Local Development Harness
 
 
 ## Help
