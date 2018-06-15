@@ -53,8 +53,10 @@ Available targets:
   help                                This help screen
   jenkins/run-job-with-tag            Run a Jenkins Job with $(TAG)
   make/lint                           Lint all makefiles
+  packages/delete                     Delete packages
   packages/install                    Install packages 
   packages/install/%                  Install package (e.g. helm, helmfile, kubectl)
+  packages/reinstall                  Reinstall packages
   packages/uninstall/%                Uninstall package (e.g. helm, helmfile, kubectl)
   readme                              Alias for readme/build
   readme/build                        Create README.md by building it from README.yaml
