@@ -7,7 +7,7 @@
 
 {{(ds "config").description }}
 
-This project is part of the comprehensive [Cloud Posse Solution](https://docs.cloudposse.com) towards approaching DevOps. 
+This project is part of our comprehensive ["SweetOps"](https://docs.cloudposse.com) approach towards DevOps. 
 
 {{ if eq (ds "config").license "APACHE2" }}
 It's 100% Open Source and licensed under [APACHE2](LICENSE).
