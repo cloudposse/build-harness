@@ -5,6 +5,10 @@
 
 # {{(ds "config").name}} {{- range $badge := (ds "config").badges -}}{{ printf " [![%s](%s)](%s)" $badge.name $badge.image $badge.url }}{{ end }}
 
+{{ if (ds "config").logo }}
+![{{(ds "config").name}}]({{ (ds "config").logo }})
+{{ end}}
+
 {{(ds "config").description }}
 
 This project is part of our comprehensive ["SweetOps"](https://docs.cloudposse.com) approach towards DevOps. 

@@ -7,6 +7,8 @@
 # Name of this project
 name: Build Harness 
 
+logo: docs/logo.png
+
 # License of this project
 license: "APACHE2"
 

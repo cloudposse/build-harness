@@ -5,6 +5,10 @@
 
 # Build Harness [![Build Status](https://travis-ci.org/cloudposse/build-harness.svg?branch=master)](https://travis-ci.org/cloudposse/build-harness) [![Latest Release](https://img.shields.io/github/release/cloudposse/build-harness.svg)](https://github.com/cloudposse/build-harness/releases) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 
+
+![Build Harness](docs/logo.png)
+
+
 This `build-harness` is a collection of Makefiles to facilitate building Golang projects, Dockerfiles, Helm charts, and more.
 It's designed to work with CI/CD systems such as Travis CI, CircleCI and Jenkins.
 
