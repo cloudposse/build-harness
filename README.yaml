@@ -17,13 +17,21 @@ github_repo: cloudposse/build-harness
 badges:
   - name: "Build Status"
     image: "https://travis-ci.org/cloudposse/build-harness.svg?branch=master"
-    href: "https://travis-ci.org/cloudposse/build-harness"
+    url: "https://travis-ci.org/cloudposse/build-harness"
   - name: "Latest Release"
     image: "https://img.shields.io/github/release/cloudposse/build-harness.svg"
-    href: "https://github.com/cloudposse/build-harness/releases"
+    url: "https://github.com/cloudposse/build-harness/releases"
   - name: "Slack Community"
     image: "https://slack.cloudposse.com/badge.svg"
-    href: "https://slack.cloudposse.com"
+    url: "https://slack.cloudposse.com"
+
+related:
+  - name: "Packages"
+    description: "Cloud Posse installer and distribution of native apps"
+    url: "https://github.com/cloudposse/packages"
+  - name: "Dev Harness"
+    description: "Cloud Posse Local Development Harness"
+    url: "https://github.com/cloudposse/dev"
  
 # Short description of this project
 description: |-

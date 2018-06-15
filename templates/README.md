@@ -3,7 +3,7 @@
 
 [![Cloud Posse](https://cloudposse.com/logo-300x69.png)](https://cloudposse.com)
 
-# {{(ds "config").name}} {{- range $badge := (ds "config").badges -}}{{ printf " [![%s](%s)](%s)" $badge.name $badge.image $badge.href }}{{ end }}
+# {{(ds "config").name}} {{- range $badge := (ds "config").badges -}}{{ printf " [![%s](%s)](%s)" $badge.name $badge.image $badge.url }}{{ end }}
 
 {{(ds "config").description }}
 
@@ -33,6 +33,14 @@ It's 100% Open Source and licensed under [APACHE2](LICENSE).
 {{ (include "includes" $file) }}
 {{- end }}
 
+{{ if (ds "config").related }}
+## Related Projects
+
+Check out these related projects.
+{{ range $related := (ds "config").related }}
+{{ printf "- [**%s.**](%s) %s" $related.name $related.url $related.description }}{{ end }}
+
+{{ end}}
 ## Help
 
 **Got a question?**
