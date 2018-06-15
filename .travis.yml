@@ -22,7 +22,6 @@ install:
 script:
 - make bash/lint
 - make make/lint
-- make readme/lint
 - make terraform/install
 - make docker/build
 
