@@ -1,5 +1,5 @@
 export GOMPLATE ?= $(BUILD_HARNESS_PATH)/vendor/gomplate
-GOMPLATE_VERSION ?= v2.2.0
+GOMPLATE_VERSION ?= v2.6.0
 GOMPLATE_REPO ?= hairyhenderson/gomplate
 
 ## Install dependencies
