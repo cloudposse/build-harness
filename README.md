@@ -207,6 +207,8 @@ See [LICENSE](LICENSE) for full details.
 
 ## About
 
+[![Cloud Posse](https://cloudposse.com/logo-300x69.png)](https://cloudposse.com)
+
 This project is maintained and funded by [Cloud Posse, LLC][website]. Like it? Please let us know at <hello@cloudposse.com>
 
 We're a [DevOps Professional Services][hire] company based in Los Angeles, CA. We love [Open Source Software](https://github.com/cloudposse/)!
