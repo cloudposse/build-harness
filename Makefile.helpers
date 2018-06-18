@@ -27,6 +27,14 @@ default:: help
 .PHONY : help
 ## This help screen
 help:
+	@$(SELF) help/generate FILES="Makefile Makefile.helpers"
+
+## Display help for all targets
+help/all:
+	@$(SELF) help/generate FILES="$(MAKEFILE_LIST)"
+
+# Generate help output from FILES
+help/generate:
 	@printf "Available targets:\n\n"
 	@awk '/^[a-zA-Z\-\_0-9%:\\\/]+:/ { \
 	  helpMessage = match(lastLine, /^## (.*)/); \
@@ -38,5 +46,5 @@ help:
 	    printf "  \x1b[32;01m%-35s\x1b[0m %s\n", helpCommand, helpMessage; \
 	  } \
 	} \
-	{ lastLine = $$0 }' $(MAKEFILE_LIST) | sort -u
+	{ lastLine = $$0 }' $(FILES) | sort -u
 	@printf "\n"
