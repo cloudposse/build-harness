@@ -31,7 +31,7 @@ It's 100% Open Source and licensed under the [Creative Commons Attribution-NonCo
 {{ (ds "config").usage -}}
 {{ end }}
 
-{{- if has (ds "config") "quickstart" -}}
+{{ if has (ds "config") "quickstart" -}}
 ## Quick Start
 
 {{ (ds "config").quickstart -}}

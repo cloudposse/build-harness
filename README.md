@@ -33,7 +33,9 @@ This automatically exposes many new targets that you can leverage throughout you
 
 Run `make help` for a list of available targets.
 
-**NOTE:** the `/` is interchangable with the `:` in target names## Quick Start
+**NOTE:** the `/` is interchangable with the `:` in target names
+
+## Quick Start
 
 Here's how to get started...
 
