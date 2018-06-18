@@ -6,10 +6,16 @@
 
 
 This `build-harness` is a collection of Makefiles to facilitate building Golang projects, Dockerfiles, Helm charts, and more.
-It's designed to work with CI/CD systems such as Travis CI, CircleCI and Jenkins.This project is part of our comprehensive ["SweetOps"](https://docs.cloudposse.com) approach towards DevOps. 
+It's designed to work with CI/CD systems such as Travis CI, CircleCI and Jenkins.
 
 
-It's 100% Open Source and licensed under [APACHE2](LICENSE).
+---
+
+This project is part of our comprehensive ["SweetOps"](https://docs.cloudposse.com) approach towards DevOps. 
+
+
+It's 100% Open Source and licensed under the [APACHE2](LICENSE).
+
 
 
 
@@ -27,7 +33,9 @@ This automatically exposes many new targets that you can leverage throughout you
 
 Run `make help` for a list of available targets.
 
-**NOTE:** the `/` is interchangable with the `:` in target names## Quick Start
+**NOTE:** the `/` is interchangable with the `:` in target names
+
+## Quick Start
 
 Here's how to get started...
 
@@ -98,6 +106,7 @@ Available targets:
   helm/toolbox/upsert                 Install or upgrade helm tiller 
   helmfile/install                    Install helmfile
   help                                This help screen
+  help/all                            Display help for all targets
   jenkins/run-job-with-tag            Run a Jenkins Job with $(TAG)
   make/lint                           Lint all makefiles
   packages/delete                     Delete packages
@@ -178,12 +187,14 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
 **NOTE:** Be sure to merge the latest changes from "upstream" before making a pull request!
 
+## Copyright
+
+Copyright © 2017-2018 [Cloud Posse, LLC](https://cloudposse.com)
+
 
 ## License 
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) 
-
-Copyright © 2017-2018 [Cloud Posse, LLC](https://cloudposse.com)
 
 See [LICENSE](LICENSE) for full details.
 
@@ -204,6 +215,10 @@ See [LICENSE](LICENSE) for full details.
     specific language governing permissions and limitations
     under the License.
 
+
+## Trademarks
+
+All other trademarks referenced herein are the property of their respective owners.
 
 ## About
 

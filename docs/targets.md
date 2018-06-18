@@ -51,6 +51,7 @@ Available targets:
   helm/toolbox/upsert                 Install or upgrade helm tiller 
   helmfile/install                    Install helmfile
   help                                This help screen
+  help/all                            Display help for all targets
   jenkins/run-job-with-tag            Run a Jenkins Job with $(TAG)
   make/lint                           Lint all makefiles
   packages/delete                     Delete packages

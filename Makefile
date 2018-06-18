@@ -4,8 +4,11 @@ export SELF ?= make
 export PATH := $(BUILD_HARNESS_PATH)/vendor:$(PATH)
 export DOCKER_BUILD_FLAGS ?=
 
+ifeq ($(CURDIR),$(realpath $(BUILD_HARNESS_PATH)))
 # List of targets the `readme` target should call before generating the readme
 export README_DEPS ?= docs/targets.md
+export DEFAULT_HELP_TARGET = help/all
+endif
 
 # Import Makefiles into current context
 include $(BUILD_HARNESS_PATH)/Makefile.*

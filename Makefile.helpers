@@ -6,6 +6,8 @@ EDITOR ?= vim
 
 SHELL = /bin/bash
 
+DEFAULT_HELP_TARGET ?= help
+
 green = $(shell echo -e '\x1b[32;01m$1\x1b[0m')
 yellow = $(shell echo -e '\x1b[33;01m$1\x1b[0m')
 red = $(shell echo -e '\x1b[33;31m$1\x1b[0m')
@@ -21,12 +23,20 @@ define assert-unset
   @[ -z "$($1)" ] || (echo "$(1) should not be defined in $(@)"; exit 1)
 endef
 
-default:: help
+default:: $(DEFAULT_HELP_TARGET)
 	@exit 0
 
 .PHONY : help
 ## This help screen
 help:
+	@$(SELF) help/generate MAKEFILE_LIST="Makefile $(BUILD_HARNESS_PATH)/Makefile.helpers"
+
+## Display help for all targets
+help/all:
+	@$(SELF) help/generate MAKEFILE_LIST="$(MAKEFILE_LIST)"
+
+# Generate help output from MAKEFILE_LIST
+help/generate:
 	@printf "Available targets:\n\n"
 	@awk '/^[a-zA-Z\-\_0-9%:\\\/]+:/ { \
 	  helpMessage = match(lastLine, /^## (.*)/); \
