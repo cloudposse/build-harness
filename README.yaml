@@ -1,6 +1,6 @@
 ---
 # 
-# This is the configuration for the `README.md`
+# This is the canonical configuration for the `README.md`
 # Run `make readme` to rebuild the `README.md`
 #
 
@@ -13,7 +13,7 @@ name: Build Harness
 # License of this project
 license: "APACHE2"
 
-# Cannonical GitHub repo 
+# Canonical GitHub repo 
 github_repo: cloudposse/build-harness
 
 # Badges to display
