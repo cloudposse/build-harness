@@ -25,9 +25,9 @@ helm/toolbox/upsert:
 
 ## Delete all releases in a `NAMEPSACE` as well as the namespace
 helm/delete/namespace:
-	@helm list --namespace $(NAMESPACE) --short | xargs helm delete --purge
+	@helm list --namespace $(NAMESPACE) --short | xargs -r helm delete --purge
 	@kubectl delete namespace $(NAMESPACE) --ignore-not-found
 
 ## Delete all failed releases in a `NAMESPACE` subject to `FILTER`
 helm/delete/failed:
-	@helm list --namespace $(NAMESPACE) --failed --short $(FILTER) 2>/dev/null | xargs helm delete --purge
+	@helm list --namespace $(NAMESPACE) --failed --short $(FILTER) 2>/dev/null | xargs -r helm delete --purge
