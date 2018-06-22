@@ -30,9 +30,10 @@ function retry() {
   local attempt=0
 	local limit=$1
 	local command=${@:2}
-  until [ "$($command > $STDOUT)" -o $attempt -ge $limit ]
+  until [[ $attempt -ge $limit ]]
   do
 		info "Perform attempt - $[$attempt+1]"
+		$command && break
     attempt=$[$attempt+1]
     sleep $TIMEOUT
   done
