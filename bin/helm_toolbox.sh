@@ -3,6 +3,8 @@
 export TIMEOUT=3
 export STDOUT=${STDOUT:-/dev/null}
 
+RETRIES=5
+
 # helper functions
 function info() { 
 	echo -e "\e[32mINFO:\e[0m $1"; 
@@ -17,19 +19,6 @@ function check() {
 	command -v "$1" >/dev/null 2>&1 || err "$1 not installed!"; 
 }
 
-# wait for helm to become operational
-wait_for_helm() {
-	info "Waiting for helm tiller..."
-	while true; do
-		status=$(echo $(kubectl get pods -l app=helm -l name=tiller --show-all=false -o=custom-columns=STATUS:.status.phase --no-headers=true -nkube-system))
-		info "Helm status: $status"
-		if [ "$status" = "Running" ]; then
-			break;
-		fi
-		sleep $TIMEOUT
-	done
-}
-
 function set_context() {
   if [ -n "$KUBE_CONTEXT" ]; then
 	info "Using ${KUBE_CONTEXT} kube context"
@@ -37,20 +26,25 @@ function set_context() {
   fi
 }
 
+function retry() {
+  attempt=1
+  until [[ $n -ge $2 ]]
+  do
+	info "Perform attempt - $attempt"
+    $1 && break
+    n=$[$attempt]
+    sleep 15
+  done
+}
+
 function upsert() {
 	helm_version=$(helm version --client --short | grep -Eo "v[0-9]\.[0-9]\.[0-9]")
 	tiller_version=$(timeout $TIMEOUT helm version --server --short | grep -Eo "v[0-9]\.[0-9]\.[0-9]")
 
-    if [ -z "$tiller_version" ]; then
-      err "Unable to connect to helm server"
-    fi
-
 	if [ "$helm_version" != "$tiller_version" ]; then
-		info "Helm version: $helm_version, differs with tiller version: $tiller_version"
+		info "Helm version: $helm_version, differs with tiller version: ${tiller_version:-'not installed'}"
 		info "Upgrarding tiller to $helm_version"
-		helm init --upgrade --force-upgrade > $STDOUT
-		wait_for_helm
-		sleep 3
+		helm init --upgrade --force-upgrade --wait > $STDOUT
 		info "Helm version"
 		helm version --short | sed 's/^/  - /'
 	else
@@ -65,7 +59,7 @@ if [ "$1" == "upsert" ]; then
 	check helm
 	check timeout
 	set_context
-	upsert
+	retry upsert $RETRIES
 else
 	err "Unknown commmand"
 fi
