@@ -3,7 +3,7 @@
 export TIMEOUT=3
 export STDOUT=${STDOUT:-/dev/null}
 
-RETRIES=5
+RETRIES=${RETRIES:-5}
 
 # helper functions
 function info() { 
@@ -27,20 +27,20 @@ function set_context() {
 }
 
 function retry() {
-  attempt=0
-  until [[ $attempt -ge $2 ]]
+  local attempt=0
+	local limit=$1
+	local command=${@:2}
+  until [ "$($command > $STDOUT)" -o $attempt -ge $limit ]
   do
-	info "Perform attempt - $attempt"
-    $1 && break
+		info "Perform attempt - $[$attempt+1]"
     attempt=$[$attempt+1]
-    sleep 15
+    sleep $TIMEOUT
   done
 }
 
 function upsert() {
 	helm_version=$(helm version --client --short | grep -Eo "v[0-9]\.[0-9]\.[0-9]")
 	tiller_version=$(timeout $TIMEOUT helm version --server --short | grep -Eo "v[0-9]\.[0-9]\.[0-9]")
-
 	if [ "$helm_version" != "$tiller_version" ]; then
 		info "Helm version: $helm_version, differs with tiller version: ${tiller_version:-'not installed'}"
 		info "Upgrarding tiller to $helm_version"
@@ -57,9 +57,9 @@ function upsert() {
 if [ "$1" == "upsert" ]; then
 	check kubectl
 	check helm
-	check timeout
+	# check timeout
 	set_context
-	retry upsert $RETRIES
+	retry $RETRIES upsert
 else
 	err "Unknown commmand"
 fi
