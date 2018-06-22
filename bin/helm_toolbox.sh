@@ -27,12 +27,12 @@ function set_context() {
 }
 
 function retry() {
-  attempt=1
-  until [[ $n -ge $2 ]]
+  attempt=0
+  until [[ $attempt -ge $2 ]]
   do
 	info "Perform attempt - $attempt"
     $1 && break
-    n=$[$attempt]
+    attempt=$[$attempt+1]
     sleep 15
   done
 }
