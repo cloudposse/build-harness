@@ -1,5 +1,5 @@
 CURL ?= curl
-export HELM_VERSION ?= 2.9.0
+export HELM_VERSION ?= 2.9.1
 HELM_PLATFORM ?= $(OS)-amd64
 HELM ?= helm
 HELM_HOME ?= $(HOME)/.helm
@@ -23,7 +23,11 @@ helm/serve/index:
 helm/toolbox/upsert:
 	@$(BUILD_HARNESS_PATH)/bin/helm_toolbox.sh upsert
 
-## Delete all releases in a namespace as well as the namespace
+## Delete all releases in a `NAMEPSACE` as well as the namespace
 helm/delete/namespace:
-	@helm list --namespace $(NAMESPACE) --short | xargs helm delete --purge
+	@helm list --namespace $(NAMESPACE) --short | xargs -r helm delete --purge
 	@kubectl delete namespace $(NAMESPACE) --ignore-not-found
+
+## Delete all failed releases in a `NAMESPACE` subject to `FILTER`
+helm/delete/failed:
+	@helm list --namespace $(NAMESPACE) --failed --short $(FILTER) 2>/dev/null | xargs -r helm delete --purge
