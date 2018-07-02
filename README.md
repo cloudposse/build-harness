@@ -251,24 +251,17 @@ Check out [our other projects][github], [apply for a job][jobs], or [hire us][hi
 
   [osterman_homepage]: https://github.com/osterman
   [osterman_avatar]: https://github.com/osterman.png?size=150
-
   [goruha_homepage]: https://github.com/goruha
   [goruha_avatar]: https://github.com/goruha.png?size=150
-
   [aknysh_homepage]: https://github.com/aknysh
   [aknysh_avatar]: https://github.com/aknysh.png?size=150
-
   [comeanother_homepage]: https://github.com/comeanother
   [comeanother_avatar]: https://github.com/comeanother.png?size=150
-
   [s2504s_homepage]: https://github.com/s2504s
   [s2504s_avatar]: https://github.com/s2504s.png?size=150
-
   [drama17_homepage]: https://github.com/drama17
   [drama17_avatar]: https://github.com/drama17.png?size=150
-
   [SweetOps_homepage]: https://github.com/SweetOps
   [SweetOps_avatar]: https://github.com/SweetOps.png?size=150
-
 
 
