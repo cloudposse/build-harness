@@ -183,7 +183,10 @@ Check out [our other projects][github], [apply for a job][jobs], or [hire us][hi
 |{{- range $contributor := (ds "config").contributors -}}---|{{ end }}
 
 {{ range $contributor := (ds "config").contributors -}}
-{{ printf "  [%s_homepage]: %s" $contributor.github $contributor.homepage }}
+{{ if has $contributor "homepage" }}{{ printf "  [%s_homepage]: %s" $contributor.github $contributor.homepage }}
+{{ else -}}
+{{ printf "  [%s_homepage]: https://github.com/%s" $contributor.github $contributor.github }}
+{{ end -}}
 {{ if has $contributor "avatar" }}{{ printf "  [%s_avatar]: %s" $contributor.github $contributor.avatar }}
 {{ else -}}
 {{ printf "  [%s_avatar]: https://github.com/%s.png?size=150" $contributor.github $contributor.github }}
