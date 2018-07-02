@@ -36,7 +36,8 @@ Available targets:
   helm/chart/starter/fetch            Fetch starter
   helm/chart/starter/remove           Remove starter
   helm/chart/starter/update           Update starter
-  helm/delete/namespace               Delete all releases in a namespace as well as the namespace
+  helm/delete/failed                  Delete all failed releases in a `NAMESPACE` subject to `FILTER`
+  helm/delete/namespace               Delete all releases in a `NAMEPSACE` as well as the namespace
   helm/install                        Install helm
   helm/repo/add                       Add $REPO_NAME from $REPO_ENDPOINT
   helm/repo/add-current               Add helm remote dev repos

@@ -184,6 +184,9 @@ Check out [our other projects][github], [apply for a job][jobs], or [hire us][hi
 
 {{ range $contributor := (ds "config").contributors -}}
 {{ printf "  [%s_homepage]: %s" $contributor.github $contributor.homepage }}
-{{ printf "  [%s_avatar]: %s" $contributor.github $contributor.avatar }}
+{{ if has $contributor "avatar" }}{{ printf "  [%s_avatar]: %s" $contributor.github $contributor.avatar }}
+{{ else -}}
+{{ printf "  [%s_avatar]: https://github.com/%s.png?size=150" $contributor.github $contributor.github }}
+{{ end }}
 {{ end }}
 {{ end }}
