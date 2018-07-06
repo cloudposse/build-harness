@@ -123,8 +123,9 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
 ## Copyrights
 
-{{ range $copyright := (ds "config").copyrights }}
-{{ printf "Copyright © %s-%d [%s](%s)" $copyright.year time.Now.Year $copyright.name $copyright.url }}{{ end }}
+{{ range $copyright := (ds "config").copyrights -}}
+{{ printf "Copyright © %s-%d [%s](%s)\n" $copyright.year time.Now.Year $copyright.name $copyright.url }}
+{{ end }}
 {{ else }}
 ## Copyright
 
