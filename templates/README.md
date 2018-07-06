@@ -29,7 +29,7 @@ It's 100% Open Source and licensed under the [Creative Commons Attribution-NonCo
 ## Screenshots
 
 {{ range $screenshot := (ds "config").screenshots }}
-{{ printf "<img title=\"%s\" src=\"%s\"/>\n*%s*" $screenshot.name $screenshot.url $screenshot.description }}{{ end }}
+{{ printf "![%s](%s)\n*%s*" $screenshot.name $screenshot.url $screenshot.description }}{{ end }}
 {{ end }}
 {{ if has (ds "config") "usage" }}
 ## Usage
