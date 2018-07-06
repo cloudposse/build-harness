@@ -52,7 +52,7 @@ references:
 screenshots:
   - name: "demo"
     description: "Example of using the `build-harness` to build a docker image"
-    url: "docs/demo.svg"
+    url: "https://cdn.rawgit.com/cloudposse/build-harness/add-readme-sections/docs/demo.svg"
  
 # Short description of this project
 description: |-
