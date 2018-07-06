@@ -69,7 +69,7 @@ Check out these related projects.
 
 For additional context, refer to some of these links. 
 {{ range $reference := (ds "config").references }}
-{{ printf "- [%s](%s) - %s\n  <%s>" $reference.name $reference.url $reference.description $reference.url }}{{ end }}
+{{ printf "- [%s](%s) - %s" $reference.name $reference.url $reference.description }}{{ end }}
 
 {{ end}}
 ## Help

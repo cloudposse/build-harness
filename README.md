@@ -158,7 +158,6 @@ Check out these related projects.
 For additional context, refer to some of these links. 
 
 - [Wikipedia - Test Harness](https://en.wikipedia.org/wiki/Test_harness) - The `build-harness` is similar in concept to a "Test Harness"
-  <https://en.wikipedia.org/wiki/Test_harness>
 
 
 ## Help
