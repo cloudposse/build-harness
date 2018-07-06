@@ -22,7 +22,7 @@ It's 100% Open Source and licensed under the [APACHE2](LICENSE).
 ## Screenshots
 
 
-![demo](docs/demo.svg)
+<img title="demo" src="docs/demo.svg"/>
 *Example of using the `build-harness` to build a docker image*
 
 
