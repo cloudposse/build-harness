@@ -25,6 +25,12 @@ It's 100% Open Source and licensed under the [Creative Commons Attribution-NonCo
 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img title="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License" src="static/images/cc-by-nc-sa.png" width="150" /></a>
 {{ end }}
 
+{{ if has (ds "config") "screenshots" }}
+## Screenshots
+
+{{ range $screenshot := (ds "config").screenshots }}
+{{ printf "![%s](%s)\n*%s*" $screenshot.name $screenshot.url $screenshot.description }}{{ end }}
+{{ end }}
 {{ if has (ds "config") "usage" }}
 ## Usage
 

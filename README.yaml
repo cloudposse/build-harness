@@ -13,6 +13,12 @@ name: Build Harness
 # License of this project
 license: "APACHE2"
 
+# Copyrights
+copyright:
+  year: "2016"
+  holders:
+    - "Cloud Posse, LLC"
+
 # Canonical GitHub repo 
 github_repo: cloudposse/build-harness
 
@@ -35,6 +41,18 @@ related:
   - name: "Dev Harness"
     description: "Cloud Posse Local Development Harness"
     url: "https://github.com/cloudposse/dev"
+
+# References
+references:
+  - name: "Wikipedia"
+    description: The `build-harness` is similar in concept to a "Test Harness"
+    url: "https://en.wikipedia.org/wiki/Test_harness"
+
+# Screenshots
+screenshots:
+  - name: "demo"
+    description: "Example of using the `build-harness` to build a docker image"
+    url: "docs/demo.svg"
  
 # Short description of this project
 description: |-
