@@ -19,6 +19,13 @@ It's 100% Open Source and licensed under the [APACHE2](LICENSE).
 
 
 
+## Screenshots
+
+
+![demo](https://cdn.rawgit.com/cloudposse/build-harness/master/docs/demo.svg)
+*Example of using the `build-harness` to build a docker image*
+
+
 ## Usage
 
 At the top of your `Makefile` add, the following...
@@ -144,6 +151,15 @@ Check out these related projects.
 - [Dev Harness](https://github.com/cloudposse/dev) - Cloud Posse Local Development Harness
 
 
+
+
+## References
+
+For additional context, refer to some of these links. 
+
+- [Wikipedia - Test Harness](https://en.wikipedia.org/wiki/Test_harness) - The `build-harness` is similar in concept to a "Test Harness"
+
+
 ## Help
 
 **Got a question?**
@@ -191,9 +207,14 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
 **NOTE:** Be sure to merge the latest changes from "upstream" before making a pull request!
 
-## Copyright
 
-Copyright © 2017-2018 [Cloud Posse, LLC](https://cloudposse.com)
+
+## Copyrights
+
+Copyright © 2016-2018 [Cloud Posse, LLC](https://cloudposse.com)
+
+
+
 
 
 ## License 
