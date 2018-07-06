@@ -119,9 +119,17 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
 **NOTE:** Be sure to merge the latest changes from "upstream" before making a pull request!
 
+{{ if has (ds "config") "copyrights" }}
+
+## Copyrights
+
+{{ range $copyright := (ds "config").copyrights }}
+{{ printf "Copyright © %s-%d [%s](%s)" $copyright.year time.Now.Year $copyright.name $copyright.url }}{{ end }}
+{{ else }}
 ## Copyright
 
 Copyright © 2017-{{ time.Now.Year }} [Cloud Posse, LLC](https://cloudposse.com)
+{{ end}}
 
 {{ if eq (ds "config").license "APACHE2" }}
 ## License 

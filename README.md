@@ -207,9 +207,14 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
 **NOTE:** Be sure to merge the latest changes from "upstream" before making a pull request!
 
-## Copyright
 
-Copyright © 2017-2018 [Cloud Posse, LLC](https://cloudposse.com)
+
+## Copyrights
+
+
+Copyright © 2016-2018 [Cloud Posse, LLC](https://cloudposse.com)
+Copyright © 2016-2018 [Test](https://cloudposse.com)
+
 
 
 ## License 
