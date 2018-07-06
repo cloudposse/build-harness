@@ -63,6 +63,15 @@ Check out these related projects.
 {{ printf "- [%s](%s) - %s" $related.name $related.url $related.description }}{{ end }}
 
 {{ end}}
+{{ if has (ds "config") "references" }}
+
+## References
+
+For additional context, refer to some of these links. 
+{{ range $reference := (ds "config").references }}
+{{ printf "- [%s](%s) - %s\n  <%s>" $reference.name $reference.url $reference.description $reference.url }}{{ end }}
+
+{{ end}}
 ## Help
 
 **Got a question?**

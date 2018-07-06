@@ -44,15 +44,15 @@ related:
 
 # References
 references:
-  - name: "Wikipedia"
-    description: The `build-harness` is similar in concept to a "Test Harness"
+  - name: "Wikipedia - Test Harness"
+    description: 'The `build-harness` is similar in concept to a "Test Harness"'
     url: "https://en.wikipedia.org/wiki/Test_harness"
 
 # Screenshots
 screenshots:
   - name: "demo"
     description: "Example of using the `build-harness` to build a docker image"
-    url: "https://cdn.rawgit.com/cloudposse/build-harness/add-readme-sections/docs/demo.svg"
+    url: "https://cdn.rawgit.com/cloudposse/build-harness/master/docs/demo.svg"
  
 # Short description of this project
 description: |-
