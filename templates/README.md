@@ -22,9 +22,15 @@ It's 100% Open Source and licensed under the [APACHE2](LICENSE).
 {{ if eq (ds "config").license "CC-BY-NC-SA-4.0" }}
 It's 100% Open Source and licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](LICENSE).
 
-<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img title="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License" src="static/images/cc-by-nc-sa.png" width="150" /></a>
+<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img title="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License" src="static/images/cc-by-nc-sa.png" width="150" /></a>
 {{ end }}
 
+{{ if has (ds "config") "screenshots" }}
+## Screenshots
+
+{{ range $screenshot := (ds "config").screenshots }}
+{{ printf "![%s](%s)\n*%s*" $screenshot.name $screenshot.url $screenshot.description }}{{ end }}
+{{ end }}
 {{ if has (ds "config") "usage" }}
 ## Usage
 
@@ -55,6 +61,15 @@ It's 100% Open Source and licensed under the [Creative Commons Attribution-NonCo
 Check out these related projects.
 {{ range $related := (ds "config").related }}
 {{ printf "- [%s](%s) - %s" $related.name $related.url $related.description }}{{ end }}
+
+{{ end}}
+{{ if has (ds "config") "references" }}
+
+## References
+
+For additional context, refer to some of these links. 
+{{ range $reference := (ds "config").references }}
+{{ printf "- [%s](%s) - %s" $reference.name $reference.url $reference.description }}{{ end }}
 
 {{ end}}
 ## Help
@@ -104,9 +119,18 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
 **NOTE:** Be sure to merge the latest changes from "upstream" before making a pull request!
 
+{{ if has (ds "config") "copyrights" }}
+
+## Copyrights
+
+{{ range $copyright := (ds "config").copyrights -}}
+{{ printf "Copyright © %s-%d [%s](%s)\n" $copyright.year time.Now.Year $copyright.name $copyright.url }}
+{{ end }}
+{{ else }}
 ## Copyright
 
 Copyright © 2017-{{ time.Now.Year }} [Cloud Posse, LLC](https://cloudposse.com)
+{{ end}}
 
 {{ if eq (ds "config").license "APACHE2" }}
 ## License 
@@ -139,7 +163,7 @@ See [LICENSE](LICENSE) for full details.
 
 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img title="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License" src="https://docs.cloudposse.com/images/cc-by-nc-sa.png" width="150" /></a>
 
-This material may only be distributed subject to the terms and conditions set forth in the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License or later with the restrictions noted below (the latest version of the license is presently available at <http://creativecommons.org/licenses/by-nc-sa/4.0/>).
+This material may only be distributed subject to the terms and conditions set forth in the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License or later with the restrictions noted below (the latest version of the license is presently available at <https://creativecommons.org/licenses/by-nc-sa/4.0/>).
 
 **Attribution** You must attribute the work in the manner specified by the author or licensor.
 
