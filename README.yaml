@@ -29,7 +29,7 @@ badges:
     url: "https://travis-ci.org/cloudposse/build-harness"
   - name: "Latest Release"
     image: "https://img.shields.io/github/release/cloudposse/build-harness.svg"
-    url: "https://github.com/cloudposse/build-harness/releases"
+    url: "https://github.com/cloudposse/build-harness/releases/latest"
   - name: "Slack Community"
     image: "https://slack.cloudposse.com/badge.svg"
     url: "https://slack.cloudposse.com"
