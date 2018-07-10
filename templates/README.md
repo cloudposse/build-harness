@@ -24,6 +24,16 @@ It's 100% Open Source and licensed under the [Creative Commons Attribution-NonCo
 
 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img title="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License" src="static/images/cc-by-nc-sa.png" width="150" /></a>
 {{ end }}
+{{ if eq (ds "config").license "MIT" }}
+It's 100% Open Source and licensed under the [MIT](LICENSE).
+{{ end }}
+{{ if eq (ds "config").license "ISC" }}
+It's 100% Open Source and licensed under the [Internet Systems Consortium](LICENSE).
+{{ end }}
+{{ if eq (ds "config").license "GPL3" }}
+It's 100% Open Source and licensed under the [GNU General Public License](LICENSE).
+{{ end }}
+
 
 {{ if has (ds "config") "screenshots" }}
 ## Screenshots
@@ -180,9 +190,10 @@ Distribution of the work or derivative of the work in any standard (paper) book 
 
 {{ if eq (ds "config").license "MIT" }}
 ## License 
-The MIT License (MIT)
 
-Copyright (c) <2018> <Cloud Posse, LLC>
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+The MIT License (MIT)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -202,23 +213,28 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-Source: http://opensource.org/licenses/MIT
+Source: <https://opensource.org/licenses/MIT>
 {{ end }}
 
 {{ if eq (ds "config").license "ISC" }}
 ## License 
-Copyright (c) 2018, Cloud Posse, LLC
+
+ISC License (ISC)
 
 Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
 
 THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-Source: http://opensource.org/licenses/ISC
+Source: <https://opensource.org/licenses/ISC>
 {{ end }}
 
 {{ if eq (ds "config").license "GPL3" }}
 ## License 
-Copyright (C) 2018, Cloud Posse, LLC
+
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
+GNU GENERAL PUBLIC LICENSE <br/>
+Version 3, 29 June 2007
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -231,7 +247,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {{ end }}
 
 ## Trademarks
