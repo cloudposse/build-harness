@@ -219,6 +219,8 @@ Source: <https://opensource.org/licenses/MIT>
 {{ if eq (ds "config").license "ISC" }}
 ## License 
 
+[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
+
 ISC License (ISC)
 
 Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
@@ -233,7 +235,7 @@ Source: <https://opensource.org/licenses/ISC>
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-GNU GENERAL PUBLIC LICENSE <br/>
+GNU GENERAL PUBLIC LICENSE  
 Version 3, 29 June 2007
 
 This program is free software: you can redistribute it and/or modify
