@@ -70,19 +70,37 @@ Here are some real world examples:
 Available targets:
 
   aws/install                         Install aws cli bundle
+  aws/shell                           Authorize on aws and run any commands with
   bash/lint                           Lint all bash scripts
   chamber/install                     Install chamber
+  chamber/shell                       Open secrets and run any commands with
   codefresh/trigger/webhook           Trigger a CodeFresh WebHook
+  completion/install/bash             Install completion script for bash
+  compose/build                       Build local dev environment
+  compose/down                        Stop local dev environment
+  compose/monitor                     Show containers resource usage
+  compose/monitor/follow              Monitor in time containers resource usage
+  compose/purge                       Purge local dev environment
+  compose/rebuild                     Rebuild custom containers for local dev environment
+  compose/restart                     Restart local dev environment
+  compose/top                         Show top for containers
+  compose/up                          Start local dev environment
   docker/build                        Build docker image
+  docker/cleanup                      Cleanup docker.                     WARNING!!! IT WILL DELETE ALL UNUSED RESOURCES
+  docker/cleanup/containers           Cleanup docker containers.          WARNING!!! IT WILL DELETE ALL UNUSED CONTAINERS
+  docker/cleanup/images               Cleanup docker images.              WARNING!!! IT WILL DELETE ALL UNUSED IMAGES
+  docker/cleanup/images/all           Cleanup docker images all.          WARNING!!! IT WILL DELETE ALL IMAGES
+  docker/cleanup/networks             Cleanup docker networks.            WARNING!!! IT WILL DELETE ALL UNUSED NETWORKS
+  docker/cleanup/volumes              Cleanup docker volumes.             WARNING!!! IT WILL DELETE ALL UNUSED VOLUMES
   docker/login                        Login into docker hub
   docs/copyright-add                  Add copyright headers to source code
   geodesic/deploy                     Run a Jenkins Job to Deploy $(APP) with $(CANONICAL_TAG)
   git/aliases-update                  Update git aliases
   git/export                          Export git vars
-  git/show                            Show vars
-  git/submodules-update               Update submodules
   github/download-private-release     Download release from github
   github/download-public-release      Download release from github
+  git/show                            Show vars
+  git/submodules-update               Update submodules
   go/build                            Build binary
   go/build-all                        Build binary for all platforms
   go/clean                            Clean compiled binary
@@ -105,6 +123,7 @@ Available targets:
   helm/chart/starter/update           Update starter
   helm/delete/failed                  Delete all failed releases in a `NAMESPACE` subject to `FILTER`
   helm/delete/namespace               Delete all releases in a `NAMEPSACE` as well as the namespace
+  helmfile/install                    Install helmfile
   helm/install                        Install helm
   helm/repo/add                       Add $REPO_NAME from $REPO_ENDPOINT
   helm/repo/add-current               Add helm remote dev repos
@@ -117,14 +136,13 @@ Available targets:
   helm/repo/update                    Update repo info
   helm/serve/index                    Build index for serve helm charts
   helm/toolbox/upsert                 Install or upgrade helm tiller 
-  helmfile/install                    Install helmfile
-  help                                This help screen
   help/all                            Display help for all targets
+  help/short                          This minimal help screen
   jenkins/run-job-with-tag            Run a Jenkins Job with $(TAG)
   make/lint                           Lint all makefiles
   packages/delete                     Delete packages
-  packages/install                    Install packages 
   packages/install/%                  Install package (e.g. helm, helmfile, kubectl)
+  packages/install                    Install packages 
   packages/reinstall                  Reinstall packages
   packages/uninstall/%                Uninstall package (e.g. helm, helmfile, kubectl)
   readme                              Alias for readme/build

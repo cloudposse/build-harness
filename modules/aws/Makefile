@@ -8,7 +8,7 @@ aws/install:
 
 ## Authorize on aws and run any commands with
 aws/shell: aws/check-shell
-	$(call assert-unset,IN_AWS_MODE)
+	$(call assert-unset,AWS_VAULT)
 	@$(WITH_AWS) bash --rcfile $(BUILD_HARNESS_PATH)/modules/aws/aws.bash.rc
 
 aws/check-shell:

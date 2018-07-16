@@ -29,16 +29,16 @@ default:: $(DEFAULT_HELP_TARGET)
 .PHONY : help/short
 ## This minimal help screen
 help/short:
+	@printf "Available targets:\n\n"
 	@$(SELF) -s help/generate MAKEFILE_LIST="Makefile $(BUILD_HARNESS_PATH)/Makefile.helpers"
 
 ## Display help for all targets
 help/all:
+	@printf "Available targets:\n\n"
 	@$(SELF) -s help/generate
-	@exit 0
 
 # Generate help output from MAKEFILE_LIST
 help/generate:
-	@printf "Available targets:\n\n"
 	@awk '/^[a-zA-Z\-\_0-9%:\\\/]+:/ { \
 	  helpMessage = match(lastLine, /^## (.*)/); \
 	  if (helpMessage) { \
