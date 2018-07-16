@@ -33,7 +33,8 @@ help/short:
 
 ## Display help for all targets
 help/all:
-	@$(SELF) -s help/generate MAKEFILE_LIST="$(MAKEFILE_LIST)"
+	@$(SELF) -s help/generate
+	@exit 0
 
 # Generate help output from MAKEFILE_LIST
 help/generate:
