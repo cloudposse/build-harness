@@ -41,6 +41,11 @@ It's 100% Open Source and licensed under the [GNU General Public License](LICENS
 {{ range $screenshot := (ds "config").screenshots }}
 {{ printf "![%s](%s)\n*%s*" $screenshot.name $screenshot.url $screenshot.description }}{{ end }}
 {{ end }}
+{{ if has (ds "config") "introduction" }}
+## Introduction
+
+{{ (ds "config").introduction -}}
+{{ end }}
 {{ if has (ds "config") "usage" }}
 ## Usage
 
