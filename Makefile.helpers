@@ -6,7 +6,7 @@ EDITOR ?= vim
 
 SHELL = /bin/bash
 
-DEFAULT_HELP_TARGET ?= help
+DEFAULT_HELP_TARGET ?= help/short
 
 green = $(shell echo -e '\x1b[32;01m$1\x1b[0m')
 yellow = $(shell echo -e '\x1b[33;01m$1\x1b[0m')
@@ -26,14 +26,14 @@ endef
 default:: $(DEFAULT_HELP_TARGET)
 	@exit 0
 
-.PHONY : help
-## This help screen
-help:
-	@$(SELF) help/generate MAKEFILE_LIST="Makefile $(BUILD_HARNESS_PATH)/Makefile.helpers"
+.PHONY : help/short
+## This minimal help screen
+help/short:
+	@$(SELF) -s help/generate MAKEFILE_LIST="Makefile $(BUILD_HARNESS_PATH)/Makefile.helpers"
 
 ## Display help for all targets
 help/all:
-	@$(SELF) help/generate MAKEFILE_LIST="$(MAKEFILE_LIST)"
+	@$(SELF) -s help/generate MAKEFILE_LIST="$(MAKEFILE_LIST)"
 
 # Generate help output from MAKEFILE_LIST
 help/generate:

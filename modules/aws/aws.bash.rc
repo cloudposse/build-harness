@@ -1,0 +1,3 @@
+source ~/.bashrc
+PS1=${PS1}"(aws mode)$ "
+export IN_AWS_MODE=true

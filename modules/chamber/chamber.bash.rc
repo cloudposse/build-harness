@@ -1,0 +1,4 @@
+source ~/.bashrc
+PS1=${PS1}"(chamber mode)$ "
+export IN_CHAMBER_MODE=true
+export IN_AWS_MODE=true
