@@ -7,9 +7,7 @@ DOCKER_CMD ?= docker run -i --rm --network=$(DOCKER_NETWORK)
 SSH_EXEC ?= docker exec -it
 CONTAINER_SHELL ?= sh
 
-AUTH ?=
-
-DOCKER_COMPOSE ?= $(AUTH) docker-compose
+DOCKER_COMPOSE ?= docker-compose
 
 ## Start local dev environment
 compose/up:

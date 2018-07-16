@@ -1,4 +1,4 @@
-export SHELL ?= /bin/bash
+export SHELL = /bin/bash
 export BUILD_HARNESS_ORG ?= cloudposse
 export BUILD_HARNESS_PROJECT ?= build-harness
 export BUILD_HARNESS_BRANCH ?= master
