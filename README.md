@@ -19,11 +19,16 @@ It's 100% Open Source and licensed under the [APACHE2](LICENSE).
 
 
 
+
+
+
+
 ## Screenshots
 
 
 ![demo](https://cdn.rawgit.com/cloudposse/build-harness/master/docs/demo.svg)
 *Example of using the `build-harness` to build a docker image*
+
 
 
 ## Usage
@@ -239,6 +244,13 @@ See [LICENSE](LICENSE) for full details.
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
+
+
+
+
+
+
+
 
 
 ## Trademarks
