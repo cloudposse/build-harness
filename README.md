@@ -30,9 +30,6 @@ It's 100% Open Source and licensed under the [APACHE2](LICENSE).
 *Example of using the `build-harness` to build a docker image*
 
 
-## Introduction
-
-This is an introduction.
 
 ## Usage
 
