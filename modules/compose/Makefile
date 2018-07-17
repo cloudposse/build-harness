@@ -2,11 +2,6 @@ DOCKER_NETWORK ?= $(COMPOSE_PROJECT_NAME)_default
 
 DOCKER_MONITOR_TABLE ?= 'table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.NetIO}}\t{{.BlockIO}}'
 
-DOCKER_CMD ?= docker run -i --rm --network=$(DOCKER_NETWORK)
-
-SSH_EXEC ?= docker exec -it
-CONTAINER_SHELL ?= sh
-
 DOCKER_COMPOSE ?= docker-compose
 
 ## Start local dev environment

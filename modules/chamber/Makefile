@@ -19,10 +19,10 @@ chamber/install: packages/install/chamber
 
 ## Open secrets and run any commands with
 chamber/shell: chamber/check-shell
-	@if [[ -z "${IN_CHAMBER_MODE}" ]]; then \
-		bash --rcfile $(BUILD_HARNESS_PATH)/modules/chamber/chamber.bash.rc ; \
-	else \
+	@if [ -z "${IN_CHAMBER_MODE}" ]; then \
 		$(WITH_CHAMBER) bash --rcfile $(BUILD_HARNESS_PATH)/modules/chamber/chamber.bash.rc ; \
+	else \
+		bash --rcfile $(BUILD_HARNESS_PATH)/modules/chamber/chamber.bash.rc ; \
 	fi;
 
 # Ensure that variables required for chamber are set
