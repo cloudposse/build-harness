@@ -4,7 +4,7 @@ DOCKER_MONITOR_TABLE ?= 'table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.NetIO}
 
 DOCKER_COMPOSE ?= docker-compose
 
-## Start local dev environment
+## Start local dev environment (daemonized)
 compose/up:
 	@$(DOCKER_COMPOSE) up -d
 

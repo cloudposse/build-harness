@@ -17,7 +17,7 @@ INJECT_CHAMBER ?= $(foreach var, IN_CHAMBER_MODE=true $(shell $(CHAMBER_EXPORT))
 chamber/install: packages/install/chamber
 	@exit 0
 
-## Open secrets and run any commands with
+## Start a chamber shell with secrets exported to the environment
 chamber/shell: chamber/check-shell
 	@if [ -z "${IN_CHAMBER_MODE}" ]; then \
 		$(WITH_CHAMBER) bash --rcfile $(BUILD_HARNESS_PATH)/modules/chamber/chamber.bash.rc ; \
