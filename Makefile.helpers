@@ -6,7 +6,7 @@ EDITOR ?= vim
 
 SHELL = /bin/bash
 
-DEFAULT_HELP_TARGET ?= help/short
+HELP_FILTER ?= deps|help|init
 
 green = $(shell echo -e '\x1b[32;01m$1\x1b[0m')
 yellow = $(shell echo -e '\x1b[33;01m$1\x1b[0m')
@@ -23,14 +23,14 @@ define assert-unset
   @[ -z "$($1)" ] || (echo "$(1) should not be defined in $(@)"; exit 1)
 endef
 
-default:: $(DEFAULT_HELP_TARGET)
+default:: help
 	@exit 0
 
-.PHONY : help/short
-## This minimal help screen
-help/short:
+## Help screen
+help:
 	@printf "Available targets:\n\n"
-	@$(SELF) -s help/generate MAKEFILE_LIST="Makefile $(BUILD_HARNESS_PATH)/Makefile.helpers"
+	@$(SELF) -s help/generate | grep -E "\w($(HELP_FILTER))"
+
 
 ## Display help for all targets
 help/all:

@@ -1,2 +1,2 @@
 source ~/.bashrc
-PS1=${PS1}"(aws mode)$ "
+PS1=${PS1}"(${AWS_PROFILE} aws mode)$ "

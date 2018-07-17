@@ -25,5 +25,6 @@ chamber/shell: chamber/check-shell
 		$(WITH_CHAMBER) bash --rcfile $(BUILD_HARNESS_PATH)/modules/chamber/chamber.bash.rc ; \
 	fi;
 
+# Ensure that variables required for chamber are set
 chamber/check-shell: aws/check-shell
 	$(call assert-set,CHAMBER_SERVICES)
