@@ -185,7 +185,7 @@ We provide [*commercial support*][commercial_support] for all of our [Open Sourc
 - **Bug Fixes.** We'll rapidly work to fix any bugs in our projects.
 - **Build New Terraform Modules.** We'll develop original modules to provision infrastructure.
 - **Cloud Architecture.** We'll assist with your cloud strategy and design.
-- **Implementation.** We'll provide hands on support to implement our reference architectures. 
+- **Implementation.** We'll provide hands-on support to implement our reference architectures. 
 
 
 ## Community Forum
