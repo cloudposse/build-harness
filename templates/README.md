@@ -97,7 +97,7 @@ File a GitHub [issue]({{ printf "https://github.com/%s/issues" (ds "config").git
 
 Work directly with our team of DevOps experts via email, slack, and video conferencing. 
 
-We provide *commercial support* for all of our [Open Source][github] projects. As a *Dedicated Support* customer, you have access to our team of subject matter experts at a fraction of the cost of a fulltime engineer. 
+We provide [*commercial support*][commercial_support] for all of our [Open Source][github] projects. As a *Dedicated Support* customer, you have access to our team of subject matter experts at a fraction of the cost of a full-time engineer. 
 
 [![E-Mail](https://img.shields.io/badge/email-hello@cloudposse.com-blue.svg)](mailto:hello@cloudposse.com)
 
@@ -276,6 +276,7 @@ Check out [our other projects][github], [apply for a job][jobs], or [hire us][hi
   [docs]: https://docs.cloudposse.com/
   [website]: https://cloudposse.com/
   [github]: https://github.com/cloudposse/
+  [commercial_support]: https://github.com/orgs/cloudposse/projects
   [jobs]: https://cloudposse.com/jobs/
   [hire]: https://cloudposse.com/contact/
   [slack]: https://slack.cloudposse.com/
