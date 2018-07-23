@@ -9,9 +9,6 @@ else
 endif
 
 WITH_CHAMBER = $(CHAMBER_AUTH) chamber exec $(CHAMBER_SERVICES) --
-CHAMBER_EXPORT = $(CHAMBER_AUTH) chamber export -f dotenv $(CHAMBER_SERVICES) | xargs -I{} echo " {}" | tr '\n' ' '
-
-INJECT_CHAMBER ?= $(foreach var, IN_CHAMBER_MODE=true $(shell $(CHAMBER_EXPORT)), $(eval export $(var)))
 
 ## Install chamber
 chamber/install: packages/install/chamber

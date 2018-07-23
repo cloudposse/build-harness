@@ -6,7 +6,7 @@ EDITOR ?= vim
 
 SHELL = /bin/bash
 
-HELP_FILTER ?= deps|help|init
+HELP_FILTER ?= .*
 
 green = $(shell echo -e '\x1b[32;01m$1\x1b[0m')
 yellow = $(shell echo -e '\x1b[33;01m$1\x1b[0m')
