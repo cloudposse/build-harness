@@ -16,11 +16,8 @@ chamber/install: packages/install/chamber
 
 ## Start a chamber shell with secrets exported to the environment
 chamber/shell: chamber/check-shell
-	@if [ -z "${IN_CHAMBER_MODE}" ]; then \
-		$(WITH_CHAMBER) bash --rcfile $(BUILD_HARNESS_PATH)/modules/chamber/chamber.bash.rc ; \
-	else \
-		bash --rcfile $(BUILD_HARNESS_PATH)/modules/chamber/chamber.bash.rc ; \
-	fi;
+	$(call assert-unset,IN_CHAMBER_MODE)
+	$(WITH_CHAMBER) bash --rcfile $(BUILD_HARNESS_PATH)/modules/chamber/chamber.bash.rc
 
 # Ensure that variables required for chamber are set
 chamber/check-shell: aws/check-shell
