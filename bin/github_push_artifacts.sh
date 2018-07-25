@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# PREREQUISITES
+#
+# ghr
+
+TAG=$1
+ARTIFACTS=$2
+GITGUB_TOKEN=$3
+
+ghr -t $GITGUB_TOKEN $TAG $ARTIFACTS 

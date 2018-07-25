@@ -19,3 +19,9 @@ github/download-public-release:
 	$(call assert-set,VERSION)
 	$(call assert-set,OUTPUT)
 	$(BUILD_HARNESS_PATH)/bin/github_download_public_release.sh $(VERSION) $(OUTPUT)
+
+github/push-artifacts:
+	$(call assert-set,GIT_TAG)
+	$(call assert-set,ARTIFACTS)
+	$(call assert-set,GITGUB_TOKEN)
+	$(BUILD_HARNESS_PATH)/bin/github_push_artifacts.sh $(GIT_TAG) $(ARTIFACTS) $(GITGUB_TOKEN)
