@@ -3,10 +3,10 @@
 Available targets:
 
   aws/install                         Install aws cli bundle
-  aws/shell                           Authorize on aws and run any commands with
+  aws/shell                           Start a aws-vault shell with access to aws api
   bash/lint                           Lint all bash scripts
   chamber/install                     Install chamber
-  chamber/shell                       Open secrets and run any commands with
+  chamber/shell                       Start a chamber shell with secrets exported to the environment
   codefresh/trigger/webhook           Trigger a CodeFresh WebHook
   completion/install/bash             Install completion script for bash
   compose/build                       Build local dev environment
@@ -17,14 +17,14 @@ Available targets:
   compose/rebuild                     Rebuild custom containers for local dev environment
   compose/restart                     Restart local dev environment
   compose/top                         Show top for containers
-  compose/up                          Start local dev environment
+  compose/up                          Start local dev environment (daemonized)
   docker/build                        Build docker image
-  docker/cleanup                      Cleanup docker.                     WARNING!!! IT WILL DELETE ALL UNUSED RESOURCES
-  docker/cleanup/containers           Cleanup docker containers.          WARNING!!! IT WILL DELETE ALL UNUSED CONTAINERS
-  docker/cleanup/images               Cleanup docker images.              WARNING!!! IT WILL DELETE ALL UNUSED IMAGES
-  docker/cleanup/images/all           Cleanup docker images all.          WARNING!!! IT WILL DELETE ALL IMAGES
-  docker/cleanup/networks             Cleanup docker networks.            WARNING!!! IT WILL DELETE ALL UNUSED NETWORKS
-  docker/cleanup/volumes              Cleanup docker volumes.             WARNING!!! IT WILL DELETE ALL UNUSED VOLUMES
+  docker/clean                        Cleanup docker.                     WARNING!!! IT WILL DELETE ALL UNUSED RESOURCES
+  docker/clean/containers             Cleanup docker containers.          WARNING!!! IT WILL DELETE ALL UNUSED CONTAINERS
+  docker/clean/images                 Cleanup docker images.              WARNING!!! IT WILL DELETE ALL UNUSED IMAGES
+  docker/clean/images/all             Cleanup docker images all.          WARNING!!! IT WILL DELETE ALL IMAGES
+  docker/clean/networks               Cleanup docker networks.            WARNING!!! IT WILL DELETE ALL UNUSED NETWORKS
+  docker/clean/volumes                Cleanup docker volumes.             WARNING!!! IT WILL DELETE ALL UNUSED VOLUMES
   docker/login                        Login into docker hub
   docs/copyright-add                  Add copyright headers to source code
   geodesic/deploy                     Run a Jenkins Job to Deploy $(APP) with $(CANONICAL_TAG)
@@ -69,8 +69,9 @@ Available targets:
   helm/repo/update                    Update repo info
   helm/serve/index                    Build index for serve helm charts
   helm/toolbox/upsert                 Install or upgrade helm tiller 
+  help                                Help screen
   help/all                            Display help for all targets
-  help/short                          This minimal help screen
+  help/short                          This help short screen
   jenkins/run-job-with-tag            Run a Jenkins Job with $(TAG)
   make/lint                           Lint all makefiles
   packages/delete                     Delete packages
