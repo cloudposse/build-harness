@@ -23,51 +23,9 @@ helm/chart/starter/update: helm/chart/starter/remove helm/chart/starter/fetch
 
 ## Create chart $CHART from starter scaffold
 helm/chart/create:
-	$(call assert-set,CHART)
-	@$(HELM) create $(CHART) -p $(CLOUDPOSSE_HELM_STARTER_NAME)
-	@chmod -R 777 $(CHART)
-
-## Build chart $CHART_NAME from $CHART_TPL
-helm/chart/build:
 	$(call assert-set,CHART_NAME)
 	$(call assert-set,CHART_TPL)
-	@rm -rf $(HELM_PACKAGE_PATH)$(CHART_NAME)
-	@mkdir -p $(HELM_PACKAGE_PATH)$(CHART_NAME)
-	@cp -R $(CHART_TPL)/* $(HELM_PACKAGE_PATH)$(CHART_NAME)
-	@echo "Pinning chart version and image.tag to $(SEMVERSION)"
-	@set -o pipefail; yq write --inplace $(HELM_PACKAGE_PATH)$(CHART_NAME)/Chart.yaml version $(SEMVERSION) | head -1
-	@set -o pipefail; yq write --inplace $(HELM_PACKAGE_PATH)$(CHART_NAME)/values.yaml image.tag $(SEMVERSION) | head -1
-	@echo "Fetch dependencies"
-	@$(HELM) dependency build --debug $(HELM_PACKAGE_PATH)$(CHART_NAME)
-	@echo "Create package"
-	@$(HELM) package --save=false --debug $(HELM_PACKAGE_PATH)$(CHART_NAME)
-	@find . -maxdepth 1 -mindepth 1 -type f -name '$(CHART_NAME)*.tgz' | xargs -I '{}' mv {} $(HELM_PACKAGE_PATH)
-	@echo "Cleaning up"
-	@rm -rf $(HELM_PACKAGE_PATH)$(CHART_NAME)
+	@$(HELM) create $(CHART_NAME) -p $(CLOUDPOSSE_HELM_STARTER_NAME)
+	@chmod -R 777 $(CHART_NAME)
+	@mv $(CHART_NAME) $(CHART_TPL)
 
-## Build chart $CHART_NAME from $CHART_TPL for all available $SEMVERSIONS
-helm/chart/build-all:
-	$(call assert-set,CHART_NAME)
-	$(call assert-set,CHART_TPL)
-	@for version in $(SEMVERSIONS) ; do \
-		echo "Build chart $(CHART_NAME) version $$version"; \
-		$(SELF) -s helm/chart/build \
-			CHART_NAME=$(CHART_NAME) \
-			CHART_TPL=$(CHART_TPL) \
-			SEMVERSION=$$version; \
-	done
-
-## Publish chart $CHART_NAME to $REPO_GATEWAY_ENDPOINT
-helm/chart/publish:
-	$(call assert-set,CHART_NAME)
-	$(call assert-set,REPO_GATEWAY_ENDPOINT)
-	@for package in $(shell find ${HELM_PACKAGE_PATH} -maxdepth 1 -mindepth 1 -type f -name '${CHART_NAME}*.tgz') ; do \
-		echo "Publish package $$package"; \
-		curl --insecure --data-binary "@$$package" $(REPO_GATEWAY_ENDPOINT)/api/charts; \
-		echo "" ; \
-	done
-
-## Clean chart packages
-helm/chart/clean:
-	@rm -rf $(HELM_PACKAGE_PATH)
-	@echo "Remove packages from $(HELM_PACKAGE_PATH)"

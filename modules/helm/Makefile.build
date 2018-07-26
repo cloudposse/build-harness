@@ -1,0 +1,110 @@
+## Build chart $CHART_NAME from $CHART_TPL
+helm/chart/build: helm/chart/build/prepare helm/chart/build/deps helm/chart/build/package
+	@$(SELF) -s helm/chart/build/clean
+
+## Build chart $CHART_NAME from $CHART_TPL for all available $SEMVERSIONS
+helm/chart/build/all: helm/chart/build/prepare helm/chart/build/deps
+	@for version in $(SEMVERSIONS) ; do \
+		echo "Build chart $(CHART_NAME) version $$version"; \
+		$(SELF) -s helm/chart/build/package SEMVERSION=$$version; \
+	done
+	@$(SELF) -s helm/chart/build/clean
+
+## Alias for helm/chart/build/all. Depricated.
+helm/chart/build-all: helm/chart/build/all
+	@exit 0
+
+## Promote $CHART_FILE to $SEMVERSION
+helm/chart/promote/local: helm/chart/promote/local/prepare helm/chart/build/package
+	@$(SELF) -s helm/chart/build/clean
+
+## Promote $CHART from $CURRENT_VERSION to $SEMVERSION. ($REPO_ENDPOINT required)
+helm/chart/promote/remote: helm/chart/promote/remote/prepare helm/chart/build/package
+	@$(SELF) -s helm/chart/build/clean
+
+## Alias for helm/chart/publish/all. WARNING: Eventually will became functional equal to helm/chart/publish/one
+helm/chart/publish: helm/chart/publish/all
+
+## Publish chart $CHART_NAME to $REPO_GATEWAY_ENDPOINT
+helm/chart/publish/all:
+	$(call assert-set,CHART_NAME)
+	$(call assert-set,REPO_GATEWAY_ENDPOINT)
+	@for package in $(shell find ${HELM_PACKAGE_PATH} -maxdepth 1 -mindepth 1 -type f -name '${CHART_NAME}*.tgz') ; do \
+		$(SELF) -s helm/chart/publish/one CHART_FILE=$$package; \
+	done
+
+## Publish chart $CHART_FILE to $REPO_GATEWAY_ENDPOINT
+helm/chart/publish/one:
+	$(call assert-set,CHART_FILE)
+	$(call assert-set,REPO_GATEWAY_ENDPOINT)
+	echo "Publish package $(CHART_FILE)"
+	curl --insecure --data-binary "@$(CHART_FILE)" $(REPO_GATEWAY_ENDPOINT)/api/charts
+
+## Clean chart packages
+helm/chart/clean:
+	@rm -rf $(HELM_PACKAGE_PATH)
+	@echo "Remove packages from $(HELM_PACKAGE_PATH)"
+
+#### Helpers --------------------------------------------------------------------------------------------
+
+
+# Copy $CHART_TPL directory to $HELM_PACKAGE_PATH and rename it $CHART_NAME
+helm/chart/build/prepare: helm/chart/build/clean
+	$(call assert-set,CHART_NAME)
+	$(call assert-set,CHART_TPL)
+	$(call assert-set,HELM_PACKAGE_PATH)
+	@echo "Create $(HELM_PACKAGE_PATH)$(CHART_NAME) from $(CHART_TPL)"
+	@mkdir -p $(HELM_PACKAGE_PATH)
+	@cp -R $(CHART_TPL) $(HELM_PACKAGE_PATH)$(CHART_NAME)
+
+
+# Clean temporary chart $CHART_NAME directory in $HELM_PACKAGE_PATH
+helm/chart/build/clean:
+	$(call assert-set,CHART_NAME)
+	$(call assert-set,HELM_PACKAGE_PATH)
+	@echo "Cleaning up $(HELM_PACKAGE_PATH)$(CHART_NAME)"
+	@rm -rf $(HELM_PACKAGE_PATH)$(CHART_NAME)
+
+# Build
+helm/chart/build/deps:
+	$(call assert-set,CHART_NAME)
+	$(call assert-set,HELM_PACKAGE_PATH)
+	@echo "Fetch dependencies for $(HELM_PACKAGE_PATH)$(CHART_NAME)"
+	@$(HELM) dependency build --debug $(HELM_PACKAGE_PATH)$(CHART_NAME)
+
+# Package
+helm/chart/build/package:
+	$(call assert-set,CHART_NAME)
+	$(call assert-set,CHART_TPL)
+	$(call assert-set,SEMVERSION)
+	$(call assert-set,HELM_PACKAGE_PATH)
+	@echo "Pack $(CHART_NAME) with version $(SEMVERSION)"
+	@$(HELM) package  \
+		--version $(SEMVERSION) \
+		--app-version $(SEMVERSION) \
+		--save=false \
+		--debug \
+		--destination $(HELM_PACKAGE_PATH) \
+		$(HELM_PACKAGE_PATH)$(CHART_NAME)
+
+# Unpack $CHART_FILE tar gz to $HELM_PACKAGE_PATH
+helm/chart/promote/local/prepare: helm/chart/build/clean
+	$(call assert-set,CHART_FILE)
+	$(call assert-set,HELM_PACKAGE_PATH)
+	@echo "Create $(HELM_PACKAGE_PATH)$(CHART_NAME) from $(CHART_FILE)"
+	@mkdir -p $(HELM_PACKAGE_PATH)
+	@tar -zxvf $(CHART_FILE) -C $(HELM_PACKAGE_PATH)
+
+# Unpack $CHART_FILE tar gz to $HELM_PACKAGE_PATH
+helm/chart/promote/remote/prepare: helm/chart/build/clean
+	$(call assert-set,CHART_NAME)
+	$(call assert-set,CURRENT_VERSION)
+	$(call assert-set,HELM_PACKAGE_PATH)
+	$(call assert-set,REPO_ENDPOINT)
+	@echo "Create $(HELM_PACKAGE_PATH)$(CHART_NAME) from $REPO_ENDPOINT/$(CHART_NAME)-$(CURRENT_VERSION)"
+	@mkdir -p $(HELM_PACKAGE_PATH)
+	@$(HELM) fetch --untar --untardir $(HELM_PACKAGE_PATH) \
+		--repo $(REPO_ENDPOINT)\
+		--version $(CURRENT_VERSION) \
+		$(CHART_NAME)
+
