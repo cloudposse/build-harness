@@ -20,7 +20,8 @@ github/download-public-release:
 	$(call assert-set,OUTPUT)
 	$(BUILD_HARNESS_PATH)/bin/github_download_public_release.sh $(VERSION) $(OUTPUT)
 
-github/push-artifacts:
+## Push all release artifacts to GitHub
+github/push-artifacts: packages/install/ghr
 	$(call assert-set,GIT_TAG)
 	$(call assert-set,ARTIFACTS)
 	$(call assert-set,GITHUB_TOKEN)
