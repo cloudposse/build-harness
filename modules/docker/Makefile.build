@@ -16,3 +16,21 @@ endif
 	done`; \
 	echo "Building $(DOCKER_IMAGE_NAME) from $(DOCKER_FILE) with [$(DOCKER_BUILD_FLAGS)] build args..."; \
 	$(DOCKER) build $(DOCKER_BUILD_FLAGS) $$BUILD_ARGS -t $(DOCKER_IMAGE_NAME) -f $(DOCKER_FILE) $(DOCKER_BUILD_PATH)
+
+
+## Promote $IMAGE to $TARGET_IMAGE
+docker/image/promote/local:
+	$(call assert-set,DOCKER)
+	$(call assert-set,IMAGE)
+	$(call assert-set,TARGET_IMAGE)
+	@$(DOCKER) tag $(IMAGE) $(TARGET_IMAGE)
+
+## Pull $IMAGE and promote to $TARGET_IMAGE
+docker/image/promote/remote:
+	@$(DOCKER) pull $(IMAGE)
+	@$(SELF) -s docker/image/promote/local
+
+## Push $IMAGE
+docker/image/push:
+	$(call assert-set,IMAGE)
+	@$(DOCKER) push $(IMAGE)

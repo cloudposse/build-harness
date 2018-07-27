@@ -47,7 +47,6 @@ helm/chart/clean:
 
 #### Helpers --------------------------------------------------------------------------------------------
 
-
 # Copy $CHART_TPL directory to $HELM_PACKAGE_PATH and rename it $CHART_NAME
 helm/chart/build/prepare: helm/chart/build/clean
 	$(call assert-set,CHART_NAME)
