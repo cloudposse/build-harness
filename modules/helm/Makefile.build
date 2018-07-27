@@ -78,6 +78,8 @@ helm/chart/build/package:
 	$(call assert-set,CHART_TPL)
 	$(call assert-set,SEMVERSION)
 	$(call assert-set,HELM_PACKAGE_PATH)
+	@echo "For back compatibility pinning image.tag to $(SEMVERSION)"
+	@set -o pipefail; yq write --inplace $(HELM_PACKAGE_PATH)$(CHART_NAME)/values.yaml image.tag $(SEMVERSION) | head -1
 	@echo "Pack $(CHART_NAME) with version $(SEMVERSION)"
 	@$(HELM) package  \
 		--version $(SEMVERSION) \
