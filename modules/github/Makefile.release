@@ -21,8 +21,9 @@ github/download-public-release:
 	$(BUILD_HARNESS_PATH)/bin/github_download_public_release.sh $(VERSION) $(OUTPUT)
 
 ## Push all release artifacts to GitHub
-github/push-artifacts: packages/install/ghr
+## To use ghr, you need a GitHub API token.
+## Please set it via `GITHUB_TOKEN` env var
+github/push-artifacts: packages/install/ghr-linux
 	$(call assert-set,GIT_TAG)
 	$(call assert-set,ARTIFACTS)
-	$(call assert-set,GITHUB_TOKEN)
-	@ghr -t $(GITHUB_TOKEN) $(GIT_TAG) $(ARTIFACTS)
+	@ghr $(GIT_TAG) $(ARTIFACTS)
