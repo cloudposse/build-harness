@@ -1,6 +1,6 @@
-export DEBUG ?= false
+export DEBUG ?= disabled
 
-ifeq ($(DEBUG),true)
+ifeq ($(DEBUG),enabled)
 ifeq ($(wildcard .git),)
   $(warning disabling git bootstrapping)
 else

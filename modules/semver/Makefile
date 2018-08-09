@@ -1,4 +1,4 @@
-export DEBUG ?= false
+export DEBUG ?= disabled
 
 ifneq ($(wildcard .git),)
 ## Array of all possible versions based on this git commit
@@ -56,7 +56,7 @@ semver/export:
 	@echo "SEMVERSION_BRANCH_COMMIT=$(SEMVERSION_BRANCH_COMMIT)"
 	@echo "SEMVERSION_TAG=$(SEMVERSION_TAG)"
 
-else ifeq ($(DEBUG),true)
+else ifeq ($(DEBUG),enabled)
   $(warning disabled semver processing)
 endif
 
