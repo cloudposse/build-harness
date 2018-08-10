@@ -12,6 +12,6 @@ codefresh/trigger/webhook:
 	 --data-binary \
 		'{"serviceId":"$(CF_TRIGGER_SERVICE_ID)","type":"$(CF_TRIGGER_TYPE)","repoOwner":"$(CF_TRIGGER_REPO_OWNER)","branch":"$(CF_TRIGGER_BRANCH)","repoName":"$(CF_TRIGGER_REPO_NAME)"}'
 
-
+## Export codefresh additional envvars
 codefresh/export:
 	@echo "CF_BUILD_UNIX_TIMESTAMP=$(shell expr $(CF_BUILD_TIMESTAMP) / 1000)"
