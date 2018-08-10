@@ -14,4 +14,5 @@ codefresh/trigger/webhook:
 
 ## Export codefresh additional envvars
 codefresh/export:
+	$(call assert-set,CF_BUILD_TIMESTAMP)
 	@echo "CF_BUILD_UNIX_TIMESTAMP=$(shell expr $(CF_BUILD_TIMESTAMP) / 1000)"
