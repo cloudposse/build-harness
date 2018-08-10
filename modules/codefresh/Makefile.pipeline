@@ -1,0 +1,72 @@
+## To get GIT_* env variables reference https://github.com/cloudposse/build-harness/blob/master/modules/git/bootstrap.Makefile
+
+# Extract ticket number from branch name (e.g. feature/ch37684/add-codefresh)
+FEATURE ?= $(echo "$(GIT_BRANCH)" | cut -s -d'/' -f2 | tr '[:upper:]' '[:lower:]')
+
+PIPELINE_ACTION = pass
+
+## Pre-production deploys only released versions
+ifeq ($(PIPELINE_ENV),pre-production)
+  $(call assert-set,PROJECT)
+  $(call assert-set,BASE_HOST)
+  $(call assert-set,APP_NAME)
+
+  NAMESPACE ?= $(PROJECT)-pre-prod
+  APP_HOST ?= $(APP_NAME).pre-prod.$(BASE_HOST)
+  RELEASE_NAME ?= $(NAMESPACE)-$(APP_NAME)
+
+  ifeq ($(GIT_IS_TAG),1)
+  	PIPELINE_ACTION = deploy
+  endif
+endif
+
+## Staging deploys all commits (working branch should be set on codefresh pipeline trigger config)
+ifeq ($(PIPELINE_ENV),staging)
+	$(call assert-set,PROJECT)
+	$(call assert-set,BASE_HOST)
+	$(call assert-set,APP_NAME)
+
+  	NAMESPACE ?= $(PROJECT)-stage
+	APP_HOST ?= $(APP_NAME).stage.$(BASE_HOST)
+	RELEASE_NAME ?= $(NAMESPACE)-$(APP_NAME)
+    PIPELINE_ACTION = deploy
+endif
+
+## Integration deploys on each PR create/update. On PR close - cleanup
+ifeq ($(PIPELINE_ENV),integration)
+	$(call assert-set,PROJECT)
+	$(call assert-set,FEATURE)
+	$(call assert-set,CF_PULL_REQUEST_ACTION)
+	$(call assert-set,BASE_HOST)
+	$(call assert-set,APP_NAME)
+
+	NAMESPACE ?= $(PROJECT)-$(FEATURE)
+	APP_HOST ?= $(APP_NAME).$(NAMESPACE).$(BASE_HOST)
+	RELEASE_NAME ?= $(NAMESPACE)-$(APP_NAME)
+
+	ifeq ($(CF_PULL_REQUEST_ACTION),opened)
+		PIPELINE_ACTION = deploy
+	endif
+
+	ifeq ($(CF_PULL_REQUEST_ACTION),synchronize)
+		PIPELINE_ACTION = deploy
+	endif
+
+	ifeq ($(CF_PULL_REQUEST_ACTION),closed)
+		PIPELINE_ACTION = destroy
+	endif
+
+endif
+
+## Export pipeline vars
+codefresh/pipeline/export:
+	$(call assert-set,PROJECT)
+	$(call assert-set,FEATURE)
+	$(call assert-set,PIPELINE_ACTION)
+	$(call assert-set,APP_HOST)
+	$(call assert-set,RELEASE_NAME)
+	@echo "PROJECT=$(PROJECT)"
+	@echo "NAMESPACE=$(NAMESPACE)"
+	@echo "PIPELINE_ACTION=$(PIPELINE_ACTION)"
+	@echo "APP_HOST=$(APP_HOST)"
+	@echo "RELEASE_NAME=$(RELEASE_NAME)"
