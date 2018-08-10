@@ -2,7 +2,7 @@ ifneq ($(wildcard .git),)
 ## Array of all possible versions based on this git commit
 SEMVERSIONS :=
 
-## Version based on short commit. ex.: 0.3.1-sha.80b9f6f
+## Version based on short commit. ex.: 0.0.0-sha.80b9f6f
 SEMVERSION_COMMIT_SHORT = 0.0.0-sha.$(GIT_COMMIT_SHORT)
 SEMVERSIONS += $(SEMVERSION_COMMIT_SHORT)
 
@@ -23,16 +23,16 @@ SEMVERSION_BRANCH=
 SEMVERSION_BRANCH_COMMIT_SHORT=
 SEMVERSION_BRANCH_COMMIT=
 ifeq ($(GIT_IS_BRANCH),1)
-  ## Version based on branch. ex.: 0.3.1-master
-  SEMVERSION_BRANCH = $(subst /,-,$(GIT_LATEST_TAG)-$(GIT_BRANCH))
+  ## Version based on branch. ex.: 0.0.0-master
+  SEMVERSION_BRANCH = 0.0.0-$(GIT_BRANCH)
   SEMVERSIONS += $(SEMVERSION_BRANCH)
 
-  ## Version based on branch and short commit. ex.: 0.3.1-master.sha.80b9f6f
-  SEMVERSION_BRANCH_COMMIT_SHORT = $(subst /,-,$(GIT_LATEST_TAG)-$(GIT_BRANCH)).sha.$(GIT_COMMIT_SHORT)
+  ## Version based on branch and short commit. ex.: 0.0.0-master.sha.80b9f6f
+  SEMVERSION_BRANCH_COMMIT_SHORT = 0.0.0-$(GIT_BRANCH).sha.$(GIT_COMMIT_SHORT)
   SEMVERSIONS += $(SEMVERSION_BRANCH_COMMIT_SHORT)
 
-  ## Version based on branch and long commit. ex.: 0.3.1-master.sha.80b9f6f5b965555e406b9db066a8e16cb1075e5f
-  SEMVERSION_BRANCH_COMMIT = $(subst /,-,$(GIT_LATEST_TAG)-$(GIT_BRANCH)).sha.$(GIT_COMMIT)
+  ## Version based on branch and long commit. ex.: 0.0.0-master.sha.80b9f6f5b965555e406b9db066a8e16cb1075e5f
+  SEMVERSION_BRANCH_COMMIT = 0.0.0-$(GIT_BRANCH).sha.$(GIT_COMMIT)
   SEMVERSIONS += $(SEMVERSION_BRANCH_COMMIT)
 endif
 
