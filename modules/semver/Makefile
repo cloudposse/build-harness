@@ -6,7 +6,7 @@ SEMVERSIONS :=
 SEMVERSION_COMMIT_SHORT = 0.0.0-sha.$(GIT_COMMIT_SHORT)
 SEMVERSIONS += $(SEMVERSION_COMMIT_SHORT)
 
-## Version based on long commit. ex.: 0.3.1-sha.80b9f6f5b965555e406b9db066a8e16cb1075e5f
+## Version based on long commit. ex.: 0.0.0-sha.80b9f6f5b965555e406b9db066a8e16cb1075e5f
 SEMVERSION_COMMIT = 0.0.0-sha.$(GIT_COMMIT)
 SEMVERSIONS += $(SEMVERSION_COMMIT)
 
@@ -14,7 +14,7 @@ SEMVERSIONS += $(SEMVERSION_COMMIT)
 SEMVERSION_TAG =
 ifeq ($(GIT_IS_TAG),1)
   ## Version based on tag. ex.: 0.3.1
-  SEMVERSION_TAG = $(subst /,-,$(GIT_LATEST_TAG))
+  SEMVERSION_TAG = $(subst /,-,$(GIT_TAG))
   SEMVERSIONS += $(SEMVERSION_TAG)
 endif
 

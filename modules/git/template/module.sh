@@ -12,7 +12,7 @@ cat << EOF > $GIT_FILE
   commit: ${GIT_COMMIT}
   commit_short: ${GIT_COMMIT_SHORT}
   branch: ${GIT_BRANCH}
-  latest_tag: ${LATEST_TAG}
+  tag: ${GIT_TAG}
   is_tag: ${GIT_IS_TAG}
   is_branch: ${GIT_IS_BRANCH}
 EOF
