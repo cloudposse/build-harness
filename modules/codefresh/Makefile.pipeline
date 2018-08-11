@@ -63,6 +63,7 @@ codefresh/pipeline/export:
 	$(call assert-set,PROJECT)
 	$(call assert-set,FEATURE)
 	$(call assert-set,PIPELINE_ACTION)
+	$(call assert-set,NAMESPACE)
 	$(call assert-set,APP_HOST)
 	$(call assert-set,RELEASE_NAME)
 	@echo "PROJECT=$(PROJECT)"
