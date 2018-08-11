@@ -22,39 +22,39 @@ endif
 
 ## Staging deploys all commits (working branch should be set on codefresh pipeline trigger config)
 ifeq ($(PIPELINE_ENV),staging)
-	$(call assert-set,PROJECT)
-	$(call assert-set,BASE_HOST)
-	$(call assert-set,APP_NAME)
+  $(call assert-set,PROJECT)
+  $(call assert-set,BASE_HOST)
+  $(call assert-set,APP_NAME)
 
-  	NAMESPACE ?= $(PROJECT)-stage
-	APP_HOST ?= $(APP_NAME).stage.$(BASE_HOST)
-	RELEASE_NAME ?= $(NAMESPACE)-$(APP_NAME)
-    PIPELINE_ACTION = deploy
+  NAMESPACE ?= $(PROJECT)-stage
+  APP_HOST ?= $(APP_NAME).stage.$(BASE_HOST)
+  RELEASE_NAME ?= $(NAMESPACE)-$(APP_NAME)
+  PIPELINE_ACTION = deploy
 endif
 
 ## Integration deploys on each PR create/update. On PR close - cleanup
 ifeq ($(PIPELINE_ENV),integration)
-	$(call assert-set,PROJECT)
-	$(call assert-set,FEATURE)
-	$(call assert-set,CF_PULL_REQUEST_ACTION)
-	$(call assert-set,BASE_HOST)
-	$(call assert-set,APP_NAME)
+  $(call assert-set,PROJECT)
+  $(call assert-set,FEATURE)
+  $(call assert-set,CF_PULL_REQUEST_ACTION)
+  $(call assert-set,BASE_HOST)
+  $(call assert-set,APP_NAME)
 
-	NAMESPACE ?= $(PROJECT)-$(FEATURE)
-	APP_HOST ?= $(APP_NAME).$(NAMESPACE).$(BASE_HOST)
-	RELEASE_NAME ?= $(NAMESPACE)-$(APP_NAME)
+  NAMESPACE ?= $(PROJECT)-$(FEATURE)
+  APP_HOST ?= $(APP_NAME).$(NAMESPACE).$(BASE_HOST)
+  RELEASE_NAME ?= $(NAMESPACE)-$(APP_NAME)
 
-	ifeq ($(CF_PULL_REQUEST_ACTION),opened)
-		PIPELINE_ACTION = deploy
-	endif
+  ifeq ($(CF_PULL_REQUEST_ACTION),opened)
+    PIPELINE_ACTION = deploy
+  endif
 
-	ifeq ($(CF_PULL_REQUEST_ACTION),synchronize)
-		PIPELINE_ACTION = deploy
-	endif
+  ifeq ($(CF_PULL_REQUEST_ACTION),synchronize)
+    PIPELINE_ACTION = deploy
+  endif
 
-	ifeq ($(CF_PULL_REQUEST_ACTION),closed)
-		PIPELINE_ACTION = destroy
-	endif
+  ifeq ($(CF_PULL_REQUEST_ACTION),closed)
+    PIPELINE_ACTION = destroy
+  endif
 
 endif
 
