@@ -7,9 +7,6 @@ PIPELINE_ACTION = pass
 
 ## Pre-production deploys only released versions
 ifeq ($(PIPELINE_ENV),pre-production)
-  $(call assert-set,PROJECT)
-  $(call assert-set,BASE_HOST)
-  $(call assert-set,APP_NAME)
 
   NAMESPACE ?= $(PROJECT)-pre-prod
   APP_HOST ?= $(APP_NAME).pre-prod.$(BASE_HOST)
@@ -22,9 +19,6 @@ endif
 
 ## Staging deploys all commits (working branch should be set on codefresh pipeline trigger config)
 ifeq ($(PIPELINE_ENV),staging)
-  $(call assert-set,PROJECT)
-  $(call assert-set,BASE_HOST)
-  $(call assert-set,APP_NAME)
 
   NAMESPACE ?= $(PROJECT)-stage
   APP_HOST ?= $(APP_NAME).stage.$(BASE_HOST)
@@ -34,11 +28,6 @@ endif
 
 ## Integration deploys on each PR create/update. On PR close - cleanup
 ifeq ($(PIPELINE_ENV),integration)
-  $(call assert-set,PROJECT)
-  $(call assert-set,FEATURE)
-  $(call assert-set,CF_PULL_REQUEST_ACTION)
-  $(call assert-set,BASE_HOST)
-  $(call assert-set,APP_NAME)
 
   NAMESPACE ?= $(PROJECT)-$(FEATURE)
   APP_HOST ?= $(APP_NAME).$(NAMESPACE).$(BASE_HOST)
@@ -61,11 +50,12 @@ endif
 ## Export pipeline vars
 codefresh/pipeline/export:
 	$(call assert-set,PROJECT)
-	$(call assert-set,FEATURE)
 	$(call assert-set,PIPELINE_ACTION)
 	$(call assert-set,NAMESPACE)
 	$(call assert-set,APP_HOST)
 	$(call assert-set,RELEASE_NAME)
+	$(call assert-set,BASE_HOST)
+	$(call assert-set,APP_NAME)
 	@echo "PROJECT=$(PROJECT)"
 	@echo "NAMESPACE=$(NAMESPACE)"
 	@echo "PIPELINE_ACTION=$(PIPELINE_ACTION)"
