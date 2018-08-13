@@ -26,7 +26,7 @@ SEMVERSION_BRANCH_COMMIT=
 
 ifeq ($(GIT_IS_BRANCH),1)
   ## Version based on branch. ex.: 0.0.0-master
-  SEMVERSION_BRANCH = 0.0.0-$(GIT_BRANCH)
+  SEMVERSION_BRANCH = 0.0.0-$(subst /,-,$(GIT_BRANCH))
   SEMVERSIONS += $(SEMVERSION_BRANCH)
 
   ## Version based on branch and short commit. ex.: 0.0.0-master.sha.80b9f6f
