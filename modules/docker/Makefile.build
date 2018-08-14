@@ -18,23 +18,29 @@ endif
 	$(DOCKER) build $(DOCKER_BUILD_FLAGS) $$BUILD_ARGS -t $(DOCKER_IMAGE_NAME) -f $(DOCKER_FILE) $(DOCKER_BUILD_PATH)
 
 
-## Promote $IMAGE to $TARGET_IMAGE
+## Promote $SOURCE_DOCKER_REGISTRY/$IMAGE_NAME:$SOURCE_VERSION to $TARGET_DOCKER_REGISTRY/$IMAGE_NAME:$TARGET_VERSION
 docker/image/promote/local:
 	$(call assert-set,DOCKER)
-	$(call assert-set,IMAGE)
-	$(call assert-set,TARGET_IMAGE)
-	@$(DOCKER) tag $(IMAGE) $(TARGET_IMAGE)
+	$(call assert-set,IMAGE_NAME)
+	$(call assert-set,SOURCE_DOCKER_REGISTRY)
+	$(call assert-set,SOURCE_VERSION)
+	$(call assert-set,TARGET_DOCKER_REGISTRY)
+	$(call assert-set,TARGET_VERSION)
+	@$(DOCKER) tag $(SOURCE_DOCKER_REGISTRY)/$(IMAGE_NAME):$(SOURCE_VERSION) $(TARGET_DOCKER_REGISTRY)/$(IMAGE_NAME):$(TARGET_VERSION)
 
-## Pull $IMAGE and promote to $TARGET_IMAGE
+## Pull $SOURCE_DOCKER_REGISTRY/$IMAGE_NAME:$SOURCE_VERSION and promote to $TARGET_DOCKER_REGISTRY/$IMAGE_NAME:$TARGET_VERSION
 docker/image/promote/remote:
 	$(call assert-set,DOCKER)
-	$(call assert-set,IMAGE)
-	@$(DOCKER) pull $(IMAGE)
+	$(call assert-set,IMAGE_NAME)
+	$(call assert-set,SOURCE_DOCKER_REGISTRY)
+	$(call assert-set,SOURCE_VERSION)
+	@$(DOCKER) pull $(SOURCE_DOCKER_REGISTRY)/$(IMAGE_NAME):$(SOURCE_VERSION)
 	@$(SELF) -s docker/image/promote/local
 
-## Push $IMAGE
+## Push $TARGET_DOCKER_REGISTRY/$IMAGE_NAME:$TARGET_VERSION
 docker/image/push:
 	$(call assert-set,DOCKER)
-	$(call assert-set,IMAGE)
-	$(call assert-set,IMAGE)
-	@$(DOCKER) push $(IMAGE)
+	$(call assert-set,IMAGE_NAME)
+	$(call assert-set,TARGET_DOCKER_REGISTRY)
+	$(call assert-set,TARGET_VERSION)
+	$(DOCKER) push $(TARGET_DOCKER_REGISTRY)/$(IMAGE_NAME):$(TARGET_VERSION)

@@ -1,12 +1,12 @@
-## Build chart $CHART_NAME from $CHART_TPL
+## Build chart $CHART_NAME from $SOURCE_CHART_TPL
 helm/chart/build: helm/chart/build/prepare helm/chart/build/deps helm/chart/build/package
 	@$(SELF) -s helm/chart/build/clean
 
-## Build chart $CHART_NAME from $CHART_TPL for all available $SEMVERSIONS
+## Build chart $CHART_NAME from $SOURCE_CHART_TPL for all available $SEMVERSIONS
 helm/chart/build/all: helm/chart/build/prepare helm/chart/build/deps
 	@for version in $(SEMVERSIONS) ; do \
 		echo "Build chart $(CHART_NAME) version $$version"; \
-		$(SELF) -s helm/chart/build/package SEMVERSION=$$version; \
+		$(SELF) -s helm/chart/build/package TARGET_VERSION=$$version; \
 	done
 	@$(SELF) -s helm/chart/build/clean
 
@@ -14,21 +14,21 @@ helm/chart/build/all: helm/chart/build/prepare helm/chart/build/deps
 helm/chart/build-all: helm/chart/build/all
 	@exit 0
 
-## Promote $CHART_FILE to $SEMVERSION
+## Promote $SOURCE_CHART_FILE to $TARGET_VERSION
 helm/chart/promote/local: helm/chart/promote/local/prepare helm/chart/build/package
 	@$(SELF) -s helm/chart/build/clean
 
-## Promote $CHART from $CURRENT_VERSION to $SEMVERSION. ($REPO_ENDPOINT required)
+## Promote $CHART_NAME from $SOURCE_VERSION to $TARGET_VERSION. ($SOURCE_CHART_REPO_ENDPOINT required)
 helm/chart/promote/remote: helm/chart/promote/remote/prepare helm/chart/build/package
 	@$(SELF) -s helm/chart/build/clean
 
 ## Alias for helm/chart/publish/all. WARNING: Eventually will became functional equal to helm/chart/publish/one
 helm/chart/publish: helm/chart/publish/all
 
-## Publish chart $CHART_NAME to $REPO_GATEWAY_ENDPOINT
+## Publish chart $CHART_NAME to $TARGET_CHART_REPO_ENDPOINT
 helm/chart/publish/all:
 	$(call assert-set,CHART_NAME)
-	$(call assert-set,REPO_GATEWAY_ENDPOINT)
+	$(call assert-set,TARGET_CHART_REPO_ENDPOINT)
 	@for package in $(shell find ${HELM_PACKAGE_PATH} -maxdepth 1 -mindepth 1 -type f -name '${CHART_NAME}*.tgz') ; do \
 		$(SELF) -s helm/chart/publish/one CHART_FILE=$$package; \
 	done
@@ -36,9 +36,9 @@ helm/chart/publish/all:
 ## Publish chart $CHART_FILE to $REPO_GATEWAY_ENDPOINT
 helm/chart/publish/one:
 	$(call assert-set,CHART_FILE)
-	$(call assert-set,REPO_GATEWAY_ENDPOINT)
+	$(call assert-set,TARGET_CHART_REPO_ENDPOINT)
 	echo "Publish package $(CHART_FILE)"
-	curl --insecure --data-binary "@$(CHART_FILE)" $(REPO_GATEWAY_ENDPOINT)/api/charts
+	curl --insecure --data-binary "@$(CHART_FILE)" $(TARGET_CHART_REPO_ENDPOINT)/api/charts
 
 ## Clean chart packages
 helm/chart/clean:
@@ -47,14 +47,14 @@ helm/chart/clean:
 
 #### Helpers --------------------------------------------------------------------------------------------
 
-# Copy $CHART_TPL directory to $HELM_PACKAGE_PATH and rename it $CHART_NAME
+# Copy $SOURCE_CHART_TPL directory to $HELM_PACKAGE_PATH and rename it $CHART_NAME
 helm/chart/build/prepare: helm/chart/build/clean
 	$(call assert-set,CHART_NAME)
-	$(call assert-set,CHART_TPL)
+	$(call assert-set,SOURCE_CHART_TPL)
 	$(call assert-set,HELM_PACKAGE_PATH)
-	@echo "Create $(HELM_PACKAGE_PATH)$(CHART_NAME) from $(CHART_TPL)"
+	@echo "Create $(HELM_PACKAGE_PATH)$(CHART_NAME) from $(SOURCE_CHART_TPL)"
 	@mkdir -p $(HELM_PACKAGE_PATH)
-	@cp -R $(CHART_TPL) $(HELM_PACKAGE_PATH)$(CHART_NAME)
+	@cp -R $(SOURCE_CHART_TPL) $(HELM_PACKAGE_PATH)$(CHART_NAME)
 
 
 # Clean temporary chart $CHART_NAME directory in $HELM_PACKAGE_PATH
@@ -74,15 +74,14 @@ helm/chart/build/deps:
 # Package
 helm/chart/build/package:
 	$(call assert-set,CHART_NAME)
-	$(call assert-set,CHART_TPL)
-	$(call assert-set,SEMVERSION)
+	$(call assert-set,TARGET_VERSION)
 	$(call assert-set,HELM_PACKAGE_PATH)
-	@echo "For back compatibility pinning image.tag to $(SEMVERSION)"
-	@set -o pipefail; yq write --inplace $(HELM_PACKAGE_PATH)$(CHART_NAME)/values.yaml image.tag $(SEMVERSION) | head -1
-	@echo "Pack $(CHART_NAME) with version $(SEMVERSION)"
+	@echo "For back compatibility pinning image.tag to $(TARGET_VERSION)"
+	@set -o pipefail; yq write --inplace $(HELM_PACKAGE_PATH)$(CHART_NAME)/values.yaml image.tag $(TARGET_VERSION) | head -1
+	@echo "Pack $(CHART_NAME) with version $(TARGET_VERSION)"
 	@$(HELM) package  \
-		--version $(SEMVERSION) \
-		--app-version $(SEMVERSION) \
+		--version $(TARGET_VERSION) \
+		--app-version $(TARGET_VERSION) \
 		--save=false \
 		--debug \
 		--destination $(HELM_PACKAGE_PATH) \
@@ -90,22 +89,22 @@ helm/chart/build/package:
 
 # Unpack $CHART_FILE tar gz to $HELM_PACKAGE_PATH
 helm/chart/promote/local/prepare: helm/chart/build/clean
-	$(call assert-set,CHART_FILE)
+	$(call assert-set,SOURCE_CHART_FILE)
 	$(call assert-set,HELM_PACKAGE_PATH)
-	@echo "Create $(HELM_PACKAGE_PATH)$(CHART_NAME) from $(CHART_FILE)"
+	@echo "Create chart from $(SOURCE_CHART_FILE)"
 	@mkdir -p $(HELM_PACKAGE_PATH)
-	@tar -zxvf $(CHART_FILE) -C $(HELM_PACKAGE_PATH)
+	@tar -zxvf $(SOURCE_CHART_FILE) -C $(HELM_PACKAGE_PATH)
 
 # Unpack $CHART_FILE tar gz to $HELM_PACKAGE_PATH
 helm/chart/promote/remote/prepare: helm/chart/build/clean
 	$(call assert-set,CHART_NAME)
-	$(call assert-set,CURRENT_VERSION)
+	$(call assert-set,SOURCE_VERSION)
 	$(call assert-set,HELM_PACKAGE_PATH)
-	$(call assert-set,REPO_ENDPOINT)
-	@echo "Create $(HELM_PACKAGE_PATH)$(CHART_NAME) from $REPO_ENDPOINT/$(CHART_NAME)-$(CURRENT_VERSION)"
+	$(call assert-set,SOURCE_CHART_REPO_ENDPOINT)
+	@echo "Create $(HELM_PACKAGE_PATH)$(CHART_NAME) from {SOURCE_CHART_REPO_ENDPOINT}/$(CHART_NAME)-$(SOURCE_VERSION)"
 	@mkdir -p $(HELM_PACKAGE_PATH)
 	@$(HELM) fetch --untar --untardir $(HELM_PACKAGE_PATH) \
-		--repo $(REPO_ENDPOINT)\
-		--version $(CURRENT_VERSION) \
+		--repo $(SOURCE_CHART_REPO_ENDPOINT)\
+		--version $(SOURCE_VERSION) \
 		$(CHART_NAME)
 
