@@ -6,7 +6,8 @@ EDITOR ?= vim
 
 SHELL = /bin/bash
 
-DEFAULT_HELP_TARGET ?= help
+DEFAULT_HELP_TARGET ?= help/short
+HELP_FILTER ?= .*
 
 green = $(shell echo -e '\x1b[32;01m$1\x1b[0m')
 yellow = $(shell echo -e '\x1b[33;01m$1\x1b[0m')
@@ -26,18 +27,23 @@ endef
 default:: $(DEFAULT_HELP_TARGET)
 	@exit 0
 
-.PHONY : help
-## This help screen
+## Help screen
 help:
-	@$(SELF) help/generate MAKEFILE_LIST="Makefile $(BUILD_HARNESS_PATH)/Makefile.helpers"
+	@printf "Available targets:\n\n"
+	@$(SELF) -s help/generate | grep -E "\w($(HELP_FILTER))"
 
 ## Display help for all targets
 help/all:
-	@$(SELF) help/generate MAKEFILE_LIST="$(MAKEFILE_LIST)"
+	@printf "Available targets:\n\n"
+	@$(SELF) -s help/generate
+
+## This help short screen
+help/short:
+	@printf "Available targets:\n\n"
+	@$(SELF) help/generate MAKEFILE_LIST="Makefile $(BUILD_HARNESS_PATH)/Makefile.helpers"
 
 # Generate help output from MAKEFILE_LIST
 help/generate:
-	@printf "Available targets:\n\n"
 	@awk '/^[a-zA-Z\-\_0-9%:\\\/]+:/ { \
 	  helpMessage = match(lastLine, /^## (.*)/); \
 	  if (helpMessage) { \
