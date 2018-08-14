@@ -1,0 +1,39 @@
+## Cleanup docker volumes.             WARNING!!! IT WILL DELETE ALL UNUSED VOLUMES
+docker/clean/volumes:
+	@echo "Cleanup volumes"
+	@docker volume prune
+	@echo "Done"
+
+## Cleanup docker networks.            WARNING!!! IT WILL DELETE ALL UNUSED NETWORKS
+docker/clean/networks:
+	@echo "Cleanup networks"
+	@docker network prune
+	@echo "Done"
+
+## Cleanup docker images.              WARNING!!! IT WILL DELETE ALL UNUSED IMAGES
+docker/clean/images:
+	@echo "Cleanup images"
+	@docker images prune
+	@echo "Done"
+
+## Cleanup docker images all.          WARNING!!! IT WILL DELETE ALL IMAGES
+docker/clean/images/all:
+	@echo "Cleanup ALL images"
+	@docker images -q --no-trunc | xargs -I{} docker rmi {}
+	@echo "Done"
+
+
+## Cleanup docker containers.          WARNING!!! IT WILL DELETE ALL UNUSED CONTAINERS
+docker/clean/containers:
+	@echo "Cleanup containers"
+	@docker container prune
+	@echo "Done"
+
+## Cleanup docker.                     WARNING!!! IT WILL DELETE ALL UNUSED RESOURCES
+docker/clean:
+	@echo "---Cleanup docker---"
+	@make -s docker/clean/containers || true
+	@make -s docker/clean/images || true
+	@make -s docker/clean/volumes || true
+	@make -s docker/clean/networks || true
+	@echo "---Done---"
