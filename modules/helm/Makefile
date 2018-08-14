@@ -30,7 +30,7 @@ helm/delete/namespace:
 	@kubectl delete namespace $(NAMESPACE) --ignore-not-found
 
 ## Delete `NAMEPSACE` if there are no releases in it
-helm/delete/namespace/safety:
+helm/delete/namespace/empty:
 	$(call assert-set,NAMESPACE)
 	@[ "$(shell $(HELM) list --namespace $(NAMESPACE) --short --all)" ] || kubectl delete namespace $(NAMESPACE) --ignore-not-found
 

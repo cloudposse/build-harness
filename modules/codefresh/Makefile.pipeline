@@ -30,7 +30,7 @@ endif
 ifeq ($(PIPELINE_ENV),integration)
 
   NAMESPACE ?= $(PROJECT)-$(FEATURE)
-  APP_HOST ?= $(APP_NAME).$(NAMESPACE).$(BASE_HOST)
+  APP_HOST ?= $(APP_NAME).$(FEATURE).$(BASE_HOST)
   RELEASE_NAME ?= $(NAMESPACE)-$(APP_NAME)
 
   ifeq ($(CF_PULL_REQUEST_ACTION),opened)
