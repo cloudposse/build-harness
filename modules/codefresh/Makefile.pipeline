@@ -7,11 +7,7 @@ PIPELINE_ACTION = pass
 
 ## Pre-production deploys only released versions
 ifeq ($(PIPELINE_ENV),pre-production)
-
-  NAMESPACE ?= $(PROJECT)-pre-prod
-  APP_HOST ?= $(APP_NAME).pre-prod.$(BASE_HOST)
-  RELEASE_NAME ?= $(NAMESPACE)-$(APP_NAME)
-
+  STAGE ?= pre-prod
   ifeq ($(GIT_IS_TAG),1)
   	PIPELINE_ACTION = deploy
   endif
@@ -19,19 +15,13 @@ endif
 
 ## Staging deploys all commits (working branch should be set on codefresh pipeline trigger config)
 ifeq ($(PIPELINE_ENV),staging)
-
-  NAMESPACE ?= $(PROJECT)-stage
-  APP_HOST ?= $(APP_NAME).stage.$(BASE_HOST)
-  RELEASE_NAME ?= $(NAMESPACE)-$(APP_NAME)
+  STAGE ?= stage
   PIPELINE_ACTION = deploy
 endif
 
 ## Integration deploys on each PR create/update. On PR close - cleanup
 ifeq ($(PIPELINE_ENV),integration)
-
-  NAMESPACE ?= $(PROJECT)-$(FEATURE)
-  APP_HOST ?= $(APP_NAME).$(FEATURE).$(BASE_HOST)
-  RELEASE_NAME ?= $(NAMESPACE)-$(APP_NAME)
+  STAGE ?= $(FEATURE)
 
   ifeq ($(CF_PULL_REQUEST_ACTION),opened)
     PIPELINE_ACTION = deploy
@@ -46,6 +36,11 @@ ifeq ($(PIPELINE_ENV),integration)
   endif
 
 endif
+
+NAMESPACE ?= $(PROJECT)-$(STAGE)
+APP_HOST ?= $(APP_NAME).$(STAGE).$(BASE_HOST)
+RELEASE_NAME ?= $(NAMESPACE)-$(APP_NAME)
+
 
 ## Export pipeline vars
 codefresh/pipeline/export:

@@ -30,15 +30,15 @@ helm/chart/publish/all:
 	$(call assert-set,CHART_NAME)
 	$(call assert-set,TARGET_CHART_REPO_ENDPOINT)
 	@for package in $(shell find ${HELM_PACKAGE_PATH} -maxdepth 1 -mindepth 1 -type f -name '${CHART_NAME}*.tgz') ; do \
-		$(SELF) -s helm/chart/publish/one CHART_FILE=$$package; \
+		$(SELF) -s helm/chart/publish/package SOURCE_CHART_FILE=$$package; \
 	done
 
-## Publish chart $CHART_FILE to $REPO_GATEWAY_ENDPOINT
-helm/chart/publish/one:
-	$(call assert-set,CHART_FILE)
+## Publish chart $SOURCE_CHART_FILE to $REPO_GATEWAY_ENDPOINT
+helm/chart/publish/package:
+	$(call assert-set,SOURCE_CHART_FILE)
 	$(call assert-set,TARGET_CHART_REPO_ENDPOINT)
-	echo "Publish package $(CHART_FILE)"
-	curl --insecure --data-binary "@$(CHART_FILE)" $(TARGET_CHART_REPO_ENDPOINT)/api/charts
+	echo "Publish package $(SOURCE_CHART_FILE)"
+	curl --insecure --data-binary "@$(SOURCE_CHART_FILE)" $(TARGET_CHART_REPO_ENDPOINT)/api/charts
 
 ## Clean chart packages
 helm/chart/clean:
@@ -64,14 +64,14 @@ helm/chart/build/clean:
 	@echo "Cleaning up $(HELM_PACKAGE_PATH)$(CHART_NAME)"
 	@rm -rf $(HELM_PACKAGE_PATH)$(CHART_NAME)
 
-# Build
+# Get dependencies for chart named CHART_NAME that stored in HELM_PACKAGE_PATH
 helm/chart/build/deps:
 	$(call assert-set,CHART_NAME)
 	$(call assert-set,HELM_PACKAGE_PATH)
 	@echo "Fetch dependencies for $(HELM_PACKAGE_PATH)$(CHART_NAME)"
 	@$(HELM) dependency build --debug $(HELM_PACKAGE_PATH)$(CHART_NAME)
 
-# Package
+# Create a helm package called CHART_NAME and store it in HELM_PACKAGE_PATH
 helm/chart/build/package:
 	$(call assert-set,CHART_NAME)
 	$(call assert-set,TARGET_VERSION)
@@ -87,7 +87,7 @@ helm/chart/build/package:
 		--destination $(HELM_PACKAGE_PATH) \
 		$(HELM_PACKAGE_PATH)$(CHART_NAME)
 
-# Unpack $CHART_FILE tar gz to $HELM_PACKAGE_PATH
+# Unpack $SOURCE_CHART_FILE tarball to $HELM_PACKAGE_PATH
 helm/chart/promote/local/prepare: helm/chart/build/clean
 	$(call assert-set,SOURCE_CHART_FILE)
 	$(call assert-set,HELM_PACKAGE_PATH)
@@ -95,7 +95,7 @@ helm/chart/promote/local/prepare: helm/chart/build/clean
 	@mkdir -p $(HELM_PACKAGE_PATH)
 	@tar -zxvf $(SOURCE_CHART_FILE) -C $(HELM_PACKAGE_PATH)
 
-# Unpack $CHART_FILE tar gz to $HELM_PACKAGE_PATH
+# Unpack $SOURCE_CHART_REPO_ENDPOINT/$CHART_NAME-$SOURCE_VERSION tarball to $HELM_PACKAGE_PATH
 helm/chart/promote/remote/prepare: helm/chart/build/clean
 	$(call assert-set,CHART_NAME)
 	$(call assert-set,SOURCE_VERSION)
