@@ -1,8 +1,9 @@
 export DEBUG ?= false
 
-ifeq ($(DEBUG),true)
 ifeq ($(wildcard .git),)
-  $(warning disabling git bootstrapping)
+  ifeq ($(DEBUG),true)
+    $(warning disabling git bootstrapping)
+  endif
 else
 GIT ?= $(shell which git)
 
@@ -29,5 +30,4 @@ else
   export GIT_IS_TAG := 1
 endif
 
-endif
 endif
