@@ -1,5 +1,6 @@
 HELM_REPO_NAMES ?= stable incubator demo
 HELM_REPO_PREFIX ?= cloudposse
+export DEBUG ?= disabled
 
 REPO_URL?=https://charts.cloudposse.com
 
@@ -11,7 +12,7 @@ else ifneq ($(TRAVIS_TAG),)
   BRANCH=$(TRAVIS_TAG)
 else ifneq ($(wildcard .git),)
   BRANCH=$(shell git rev-parse --abbrev-ref HEAD)
-else ifneq (,$(findstring d,$(MAKEFLAGS)))
+else ifeq ($(DEBUG),enabled)
   $(warning unable to extrapolate current BRANCH)
 endif
 

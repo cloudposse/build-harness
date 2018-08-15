@@ -1,4 +1,6 @@
-ifneq (,$(findstring d,$(MAKEFLAGS)))
+export DEBUG ?= disabled
+
+ifeq ($(DEBUG),enabled)
 ifeq ($(wildcard .git),)
   $(warning disabling git bootstrapping)
 else
