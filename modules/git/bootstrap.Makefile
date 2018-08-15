@@ -1,7 +1,6 @@
+ifneq (,$(findstring d,$(MAKEFLAGS)))
 ifeq ($(wildcard .git),)
-  ifneq (,$(findstring d,$(MAKEFLAGS)))
-    $(warning disabling git bootstrapping)
-  endif
+  $(warning disabling git bootstrapping)
 else
 GIT ?= $(shell which git)
 
@@ -28,4 +27,5 @@ else
   export GIT_IS_TAG := 1
 endif
 
+endif
 endif
