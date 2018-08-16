@@ -37,10 +37,11 @@ ifeq ($(PIPELINE_ENV),integration)
 
 endif
 
-NAMESPACE ?= $(PROJECT)-$(STAGE)
-APP_HOST ?= $(APP_NAME).$(STAGE).$(BASE_HOST)
-RELEASE_NAME ?= $(NAMESPACE)-$(APP_NAME)
-
+ifneq ($(PIPELINE_ENV),)
+  NAMESPACE ?= $(PROJECT)-$(STAGE)
+  APP_HOST ?= $(APP_NAME).$(STAGE).$(BASE_HOST)
+  RELEASE_NAME ?= $(NAMESPACE)-$(APP_NAME)
+endif
 
 ## Export pipeline vars
 codefresh/pipeline/export:

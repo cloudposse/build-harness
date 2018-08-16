@@ -29,10 +29,10 @@ helm/delete/namespace:
 	@$(HELM) list --namespace $(NAMESPACE) --short | xargs -r $(HELM) delete --purge
 	@kubectl delete namespace $(NAMESPACE) --ignore-not-found
 
-## Delete `NAMEPSACE` if there are no releases in it
+## Delete `NAMESPACE` if there are no releases in it
 helm/delete/namespace/empty:
 	$(call assert-set,NAMESPACE)
-	@[ "$(shell $(HELM) list --namespace $(NAMESPACE) --short --all)" ] || kubectl delete namespace $(NAMESPACE) --ignore-not-found
+	@[ -n "$$($(HELM) list --namespace $(NAMESPACE) --short --all)" ] || kubectl delete namespace $(NAMESPACE) --ignore-not-found
 
 ## Delete all failed releases in a `NAMESPACE` subject to `FILTER`
 helm/delete/failed:
