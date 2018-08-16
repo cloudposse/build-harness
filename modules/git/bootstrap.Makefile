@@ -1,5 +1,9 @@
+export DEBUG ?= false
+
 ifeq ($(wildcard .git),)
-  $(warning disabling git bootstrapping)
+  ifeq ($(DEBUG),true)
+    $(warning disabling git bootstrapping)
+  endif
 else
 GIT ?= $(shell which git)
 
