@@ -1,9 +1,0 @@
----
-  help: |-
-      ## Makefile Targets
-
-      ```bash
-      $ make help
-
-        {{ (datasource "make_data").help }}
-      ```
