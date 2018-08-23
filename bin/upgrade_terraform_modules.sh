@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 function github_latest_release() {
   local org=$1
   local repo=$2
