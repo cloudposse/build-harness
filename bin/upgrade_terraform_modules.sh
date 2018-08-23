@@ -3,7 +3,13 @@
 function github_latest_release() {
   local org=$1
   local repo=$2
-  local ref=$(curl -sSL https://api.github.com/repos/$org/$repo/releases/latest | jq .tag_name -r)
+  local header=""
+  
+  if [ -n "$GITHUB_TOKEN" ] ; then
+    header="Authorization: token $GITHUB_TOKEN"
+  fi
+  
+  local ref=$(curl -sSL -H "$header" https://api.github.com/repos/$org/$repo/releases/latest | jq .tag_name -r)
   if [ $? -eq 0 ]; then
     echo $ref
   fi
