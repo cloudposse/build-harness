@@ -30,3 +30,7 @@ terraform/validate:
 terraform/lint:
 	@FAIL=`$(TERRAFORM) fmt -write=false | xargs --no-run-if-empty -n 1 printf '\t- %s\n'`; \
 	[ -z "$$FAIL" ] || (echo "Terraform configuration needs linting. Run '$(TERRAFORM) fmt'"; echo $$FAIL; exit 1)
+
+## Upgrade all terraform module sources
+terraform/upgrade-modules:
+	@$(BUILD_HARNESS_PATH)/bin/upgrade_terraform_modules.sh all
