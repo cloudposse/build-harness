@@ -74,6 +74,8 @@ Available targets:
   bash/lint                           Lint all bash scripts
   chamber/install                     Install chamber
   chamber/shell                       Start a chamber shell with secrets exported to the environment
+  codefresh/export                    Export codefresh additional envvars
+  codefresh/pipeline/export           Export pipeline vars
   codefresh/trigger/webhook           Trigger a CodeFresh WebHook
   completion/install/bash             Install completion script for bash
   compose/build                       Build local dev environment
@@ -92,15 +94,18 @@ Available targets:
   docker/clean/images/all             Cleanup docker images all.          WARNING!!! IT WILL DELETE ALL IMAGES
   docker/clean/networks               Cleanup docker networks.            WARNING!!! IT WILL DELETE ALL UNUSED NETWORKS
   docker/clean/volumes                Cleanup docker volumes.             WARNING!!! IT WILL DELETE ALL UNUSED VOLUMES
+  docker/image/promote/local          Promote $SOURCE_DOCKER_REGISTRY/$IMAGE_NAME:$SOURCE_VERSION to $TARGET_DOCKER_REGISTRY/$IMAGE_NAME:$TARGET_VERSION
+  docker/image/promote/remote         Pull $SOURCE_DOCKER_REGISTRY/$IMAGE_NAME:$SOURCE_VERSION and promote to $TARGET_DOCKER_REGISTRY/$IMAGE_NAME:$TARGET_VERSION
+  docker/image/push                   Push $TARGET_DOCKER_REGISTRY/$IMAGE_NAME:$TARGET_VERSION
   docker/login                        Login into docker hub
   docs/copyright-add                  Add copyright headers to source code
   geodesic/deploy                     Run a Jenkins Job to Deploy $(APP) with $(CANONICAL_TAG)
   git/aliases-update                  Update git aliases
   git/export                          Export git vars
+  git/submodules-update               Update submodules
   github/download-private-release     Download release from github
   github/download-public-release      Download release from github
-  git/show                            Show vars
-  git/submodules-update               Update submodules
+  github/push-artifacts               Push all release artifacts to GitHub (Required: `GITHUB_TOKEN`)
   go/build                            Build binary
   go/build-all                        Build binary for all platforms
   go/clean                            Clean compiled binary
@@ -113,17 +118,22 @@ Available targets:
   go/lint                             Lint code
   go/test                             Run tests
   go/vet                              Vet code
-  helm/chart/build                    Build chart $CHART_NAME from $CHART_TPL
-  helm/chart/build-all                Build chart $CHART_NAME from $CHART_TPL for all available $SEMVERSIONS
+  helm/chart/build                    Build chart $CHART_NAME from $SOURCE_CHART_TPL
+  helm/chart/build-all                Alias for helm/chart/build/all. Depricated.
+  helm/chart/build/all                Build chart $CHART_NAME from $SOURCE_CHART_TPL for all available $SEMVERSIONS
   helm/chart/clean                    Clean chart packages
   helm/chart/create                   Create chart $CHART from starter scaffold
-  helm/chart/publish                  Publish chart $CHART_NAME to $REPO_GATEWAY_ENDPOINT
+  helm/chart/promote/local            Promote $SOURCE_CHART_FILE to $TARGET_VERSION
+  helm/chart/promote/remote           Promote $CHART_NAME from $SOURCE_VERSION to $TARGET_VERSION. ($SOURCE_CHART_REPO_ENDPOINT required)
+  helm/chart/publish                  Alias for helm/chart/publish/all. WARNING: Eventually will became functional equal to helm/chart/publish/one
+  helm/chart/publish/all              Publish chart $CHART_NAME to $TARGET_CHART_REPO_ENDPOINT
+  helm/chart/publish/package          Publish chart $SOURCE_CHART_FILE to $REPO_GATEWAY_ENDPOINT
   helm/chart/starter/fetch            Fetch starter
   helm/chart/starter/remove           Remove starter
   helm/chart/starter/update           Update starter
   helm/delete/failed                  Delete all failed releases in a `NAMESPACE` subject to `FILTER`
   helm/delete/namespace               Delete all releases in a `NAMEPSACE` as well as the namespace
-  helmfile/install                    Install helmfile
+  helm/delete/namespace/empty         Delete `NAMESPACE` if there are no releases in it
   helm/install                        Install helm
   helm/repo/add                       Add $REPO_NAME from $REPO_ENDPOINT
   helm/repo/add-current               Add helm remote dev repos
@@ -136,14 +146,15 @@ Available targets:
   helm/repo/update                    Update repo info
   helm/serve/index                    Build index for serve helm charts
   helm/toolbox/upsert                 Install or upgrade helm tiller 
+  helmfile/install                    Install helmfile
   help                                Help screen
   help/all                            Display help for all targets
   help/short                          This help short screen
   jenkins/run-job-with-tag            Run a Jenkins Job with $(TAG)
   make/lint                           Lint all makefiles
   packages/delete                     Delete packages
-  packages/install/%                  Install package (e.g. helm, helmfile, kubectl)
   packages/install                    Install packages 
+  packages/install/%                  Install package (e.g. helm, helmfile, kubectl)
   packages/reinstall                  Reinstall packages
   packages/uninstall/%                Uninstall package (e.g. helm, helmfile, kubectl)
   readme                              Alias for readme/build
@@ -151,8 +162,6 @@ Available targets:
   readme/init                         Create basic minimalistic .README.md template file
   readme/lint                         Verify the `README.md` is up to date
   semver/export                       Export semver vars
-  semver/show                         Show
-  stages/export                       Export stages vars
   template/build                      Create $OUT file by building it from $IN template file
   template/deps                       Install dependencies
   terraform/get-modules               Ensure all modules can be fetched
