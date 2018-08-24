@@ -1,4 +1,4 @@
-GLIDE	:= $(shell which glide)
+GLIDE	:= $(shell which glide 2>/dev/null)
 INSTALL_DIR ?= /usr/local/sbin
 RELEASE_DIR ?= release
 APP ?= $(shell basename `pwd`)
