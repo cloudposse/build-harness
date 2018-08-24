@@ -17,11 +17,20 @@ packages/install:
 	  rm -rf $(PACKAGES_PATH); \
 	  git clone -c advice.detachedHead=false --depth=1 -b $(PACKAGES_VERSION) https://github.com/cloudposse/packages.git $(PACKAGES_PATH); \
 	  rm -rf $(PACKAGES_PATH)/.git; \
-	fi
+	fi 
 
 ## Install package (e.g. helm, helmfile, kubectl)
 packages/install/%: packages/install
-	@make -C $(PACKAGES_PATH)/install $(subst packages/install/,,$@)
+	$(eval $@_package=$(subst packages/install/,,$@)) 
+	@if [ ! $(shell type $(INSTALL_PATH)/$($@_package) &>/dev/null && echo $?) ]; then \
+		make -C $(PACKAGES_PATH)/install $($@_package); \
+	else \
+		echo "Package $($@_package) already installed"; \
+	fi;
+
+## Reinstall package (e.g. helm, helmfile, kubectl)
+packages/reinstall/%: packages/install
+	@make -C $(PACKAGES_PATH)/install $(subst packages/reinstall/,,$@)
 
 ## Uninstall package (e.g. helm, helmfile, kubectl)
 packages/uninstall/%: packages/install
