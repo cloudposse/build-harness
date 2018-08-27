@@ -21,11 +21,10 @@ packages/install:
 
 ## Install package (e.g. helm, helmfile, kubectl)
 packages/install/%: packages/install
-	$(eval $@_package=$(subst packages/install/,,$@)) 
-	@if [ ! $(shell type $(INSTALL_PATH)/$($@_package) &>/dev/null && echo $?) ]; then \
-		make -C $(PACKAGES_PATH)/install $($@_package); \
+	@if [ ! -x $(INSTALL_PATH)/$(subst packages/install/,,$@) ]; then \
+		make -C $(PACKAGES_PATH)/install $(subst packages/install/,,$@); \
 	else \
-		echo "Package $($@_package) already installed"; \
+		echo "Package $(subst packages/install/,,$@) already installed"; \
 	fi;
 
 ## Reinstall package (e.g. helm, helmfile, kubectl)
