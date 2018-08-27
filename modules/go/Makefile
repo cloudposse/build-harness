@@ -1,1 +1,1 @@
-GO:= $(shell which go)
+GO:= $(shell which go 2>/dev/null)
