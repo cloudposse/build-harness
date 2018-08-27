@@ -156,6 +156,7 @@ Available targets:
   packages/install                    Install packages 
   packages/install/%                  Install package (e.g. helm, helmfile, kubectl)
   packages/reinstall                  Reinstall packages
+  packages/reinstall/%                Reinstall package (e.g. helm, helmfile, kubectl)
   packages/uninstall/%                Uninstall package (e.g. helm, helmfile, kubectl)
   readme                              Alias for readme/build
   readme/build                        Create README.md by building it from README.yaml
