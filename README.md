@@ -169,6 +169,7 @@ Available targets:
   terraform/get-plugins               Ensure all plugins can be fetched
   terraform/install                   Install terraform
   terraform/lint                      Lint check Terraform
+  terraform/upgrade-modules           Upgrade all terraform module sources
   terraform/validate                  Basic terraform sanity check
   travis/docker-login                 Login into docker hub
   travis/docker-tag-and-push          Tag & Push according Travis environment variables
