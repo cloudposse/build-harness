@@ -1,5 +1,5 @@
 export INSTALL_PATH ?= $(BUILD_HARNESS_PATH)/vendor
-export PACKAGES_VERSION ?= 0.8.0
+export PACKAGES_VERSION ?= 0.24.0
 export PACKAGES_PATH ?= $(BUILD_HARNESS_PATH)/vendor/packages
 
 ## Delete packages
