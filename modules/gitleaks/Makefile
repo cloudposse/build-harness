@@ -4,6 +4,7 @@ GITLEAKS ?= gitleaks
 
 ## Install gitleaks
 gitleaks/install: packages/install/gitleaks
+	@exit 0
 
 ## Scan current repository
 gitleaks/scan:
