@@ -1,5 +1,5 @@
 CURL ?= curl
-export HELM_VERSION ?= 2.9.1
+export HELM_VERSION ?= 2.10.0
 HELM_PLATFORM ?= $(OS)-amd64
 HELM ?= helm
 HELM_HOME ?= $(HOME)/.helm
