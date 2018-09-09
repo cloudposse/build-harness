@@ -2,8 +2,10 @@ export README_LINT ?= $(TMP)/README.md
 export README_FILE ?= README.md
 export README_YAML ?= README.yaml
 export README_TEMPLATE_FILE ?= $(BUILD_HARNESS_PATH)/templates/README.md
-export README_TEMPLATE_YAML ?= $(if $(datasource),$(datasource),$(BUILD_HARNESS_PATH)/templates/README.yaml)
-export DATASOURCE := $(if $(datasource),$(datasource)?type=application/yaml,$(README_YAML))
+export README_TEMPLATE_YAML ?= $(BUILD_HARNESS_PATH)/templates/README.yaml
+export USED_DATASOURCE ?= $(if $(datasource),$(datasource),$(shell pwd)/$(README_YAML))
+export DATASOURCE ?= $(if $(datasource),$(datasource),$(README_YAML))
+export INCLUDES ?= $(file://$(shell pwd)/?type=text/plain)
 
 ## Alias for readme/build
 readme: readme/build
@@ -30,7 +32,5 @@ readme/lint:
 ## Create README.md by building it from README.yaml
 readme/build: $(README_DEPS)
 	@gomplate --file $(README_TEMPLATE_FILE) \
-		--out $(README_FILE) \
-		-d config=$(DATASOURCE) \
-		--datasource includes='file://$(shell pwd)/?type=text/plain'
-	@echo "Generated $(README_FILE) from $(README_TEMPLATE_FILE) using data from $(README_TEMPLATE_YAML)"
+		--out $(README_FILE) 
+	@echo "Generated $(README_FILE) from $(README_TEMPLATE_FILE) using data from $(USED_DATASOURCE)"
