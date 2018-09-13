@@ -33,4 +33,5 @@ readme/lint:
 readme/build: $(README_DEPS)
 	@gomplate --file $(README_TEMPLATE_FILE) \
 		--out $(README_FILE) 
+	@sed -Ei '' '/(config|includes)=.*/d' $(README_FILE)
 	@echo "Generated $(README_FILE) from $(README_TEMPLATE_FILE) using data from $(USED_DATASOURCE)"
