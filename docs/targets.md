@@ -39,6 +39,8 @@ Available targets:
   github/download-private-release     Download release from github
   github/download-public-release      Download release from github
   github/push-artifacts               Push all release artifacts to GitHub (Required: `GITHUB_TOKEN`)
+  gitleaks/install                    Install gitleaks
+  gitleaks/scan                       Scan current repository
   go/build                            Build binary
   go/build-all                        Build binary for all platforms
   go/clean                            Clean compiled binary
