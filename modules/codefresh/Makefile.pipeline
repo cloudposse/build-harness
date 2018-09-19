@@ -23,7 +23,13 @@ endif
 ifeq ($(PIPELINE_ENV),integration)
   STAGE ?= $(FEATURE)
 
+  ## GitHub integration support
+
   ifeq ($(CF_PULL_REQUEST_ACTION),opened)
+    PIPELINE_ACTION = deploy
+  endif
+
+  ifeq ($(CF_PULL_REQUEST_ACTION),reopened)
     PIPELINE_ACTION = deploy
   endif
 
@@ -32,6 +38,27 @@ ifeq ($(PIPELINE_ENV),integration)
   endif
 
   ifeq ($(CF_PULL_REQUEST_ACTION),closed)
+    PIPELINE_ACTION = destroy
+  endif
+
+  ## GitLab integration support
+  ifeq ($(CF_PULL_REQUEST_ACTION),open)
+    PIPELINE_ACTION = deploy
+  endif
+
+  ifeq ($(CF_PULL_REQUEST_ACTION),reopen)
+    PIPELINE_ACTION = deploy
+  endif
+
+  ifeq ($(CF_PULL_REQUEST_ACTION),update)
+    PIPELINE_ACTION = deploy
+  endif
+
+  ifeq ($(CF_PULL_REQUEST_ACTION),close)
+    PIPELINE_ACTION = destroy
+  endif
+
+  ifeq ($(CF_PULL_REQUEST_ACTION),merge)
     PIPELINE_ACTION = destroy
   endif
 
