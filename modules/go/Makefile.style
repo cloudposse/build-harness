@@ -6,7 +6,7 @@ go/lint: $(GO) go/vet
 ## Vet code
 go/vet: $(GO)
 	$(call assert-set,GO)
-	$(GO) tool vet -v $(CURDIR)
+	find . ! -path "*/vendor/*" ! -path "*/.glide/*" -type f -name '*.go' | xargs $(GO) tool vet -v
 
 ## Format code according to Golang convention
 go/fmt: $(GO)
