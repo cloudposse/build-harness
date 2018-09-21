@@ -4,7 +4,6 @@ export README_YAML ?= README.yaml
 export README_TEMPLATE_FILE ?= $(BUILD_HARNESS_PATH)/templates/README.md
 export README_TEMPLATE_YAML ?= $(BUILD_HARNESS_PATH)/templates/README.yaml
 export USED_DATASOURCE ?= $(if $(datasource),$(datasource),$(shell pwd)/$(README_YAML))
-export DATASOURCE ?= $(if $(datasource),$(datasource),$(README_YAML))
 export INCLUDES ?= $(file://$(shell pwd)/?type=text/plain)
 
 ## Alias for readme/build
