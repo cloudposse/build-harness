@@ -40,8 +40,8 @@ function retry() {
 }
 
 function upsert() {
-    helm_version=$(helm version --client --short | grep -Eo "v[0-9]\.[0-9]\.[0-9]")
-    tiller_version=$(timeout $TIMEOUT helm version --server --short | grep -Eo "v[0-9]\.[0-9]\.[0-9]")
+    local helm_version=$(helm version --client --short | grep -Eo "v[0-9]+\.[0-9]+\..+")
+    local tiller_version=$(helm version --server --short --tiller-connection-timeout $TIMEOUT 2> /dev/null | grep -Eo "v[0-9]+\.[0-9]+\..+")
     if [ "$helm_version" != "$tiller_version" ]; then
         info "Helm version: $helm_version, differs with tiller version: ${tiller_version:-'not installed'}"
         info "Upgrarding tiller to $helm_version"
