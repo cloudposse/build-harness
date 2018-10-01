@@ -39,6 +39,8 @@ Available targets:
   github/download-private-release     Download release from github
   github/download-public-release      Download release from github
   github/push-artifacts               Push all release artifacts to GitHub (Required: `GITHUB_TOKEN`)
+  gitleaks/install                    Install gitleaks
+  gitleaks/scan                       Scan current repository
   go/build                            Build binary
   go/build-all                        Build binary for all platforms
   go/clean                            Clean compiled binary
@@ -102,6 +104,7 @@ Available targets:
   terraform/get-plugins               Ensure all plugins can be fetched
   terraform/install                   Install terraform
   terraform/lint                      Lint check Terraform
+  terraform/upgrade-modules           Upgrade all terraform module sources
   terraform/validate                  Basic terraform sanity check
   travis/docker-login                 Login into docker hub
   travis/docker-tag-and-push          Tag & Push according Travis environment variables
