@@ -49,10 +49,10 @@ function upsert() {
         local tiller_serviceaccount_exists=$(kubectl get serviceaccount -n kube-system --ignore-not-found=true --request-timeout=${TIMEOUT}s -o name $tiller_serviceaccount 2> /dev/null)
         local tiller_clusterrolebinding_exists=$(kubectl get clusterrolebinding --ignore-not-found=true --request-timeout=${TIMEOUT}s -o name tiller-cluster-rule 2> /dev/null)
         if [ -z "$tiller_serviceaccount_exists" ]; then
-      	    kubectl create serviceaccount --namespace kube-system $tiller_serviceaccount > $STDOUT
+            kubectl create serviceaccount --namespace kube-system $tiller_serviceaccount > $STDOUT
         fi
         if [ -z $tiller_clusterrolebinding_exists ]; then
-        	kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:$tiller_serviceaccount > $STDOUT
+            kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:$tiller_serviceaccount > $STDOUT
         fi
         helm init --service-account $tiller_serviceaccount --upgrade --force-upgrade --wait > $STDOUT
         info "Helm version"
