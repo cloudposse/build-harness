@@ -12,7 +12,7 @@ export GIT_COMMIT ?= $(shell $(GIT) rev-parse --verify HEAD)
 export GIT_COMMIT_SHORT ?= $(shell $(GIT) rev-parse --verify --short HEAD)
 export GIT_BRANCH ?= $(shell $(GIT) rev-parse --abbrev-ref HEAD)
 export GIT_TAG ?= $(shell $(GIT) tag -l --sort -taggerdate --points-at HEAD | head -n 1)
-export GIT_COMMIT_URL ?= $( shell $(GIT) config --get remote.origin.url | sed 's/\.git//g' | sed 's/\:/\//g' | sed 's/git@/https:\/\//g' )/commit/$(GIT_COMMIT_SHORT)
+export GIT_COMMIT_URL ?= $(shell $(GIT) config --get remote.origin.url | sed 's/\.git//g' | sed 's/\:/\//g' | sed 's/git@/https:\/\//g' )/commit/$(GIT_COMMIT_SHORT)
 
 export GIT_COMMIT_MESSAGE ?= $(shell $(GIT) show -s --format=%s%b)
 export GIT_COMMIT_AUTHOR ?= $(shell $(GIT) show -s --format=%aN)
