@@ -20,7 +20,6 @@ slack/notify: packages/install/slack-notifier
 slack/notify/build:
 	$(call assert-set,ACTION)
 	$(call assert-set,NAME)
-	$(call assert-set,ARTIFACT)
 	$(call assert-set,BUILD_URL)
 	$(call assert-set,BUILD_TIMESTAMP)
 	$(call assert-set,BUILD_TRIGGER)
