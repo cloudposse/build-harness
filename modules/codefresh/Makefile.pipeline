@@ -5,6 +5,14 @@ FEATURE ?= $(shell echo "$(GIT_BRANCH)" | cut -s -d'/' -f2 | tr '[:upper:]' '[:l
 
 PIPELINE_ACTION = pass
 
+## Production deploys only released versions
+ifeq ($(PIPELINE_ENV),production)
+  STAGE ?= prod
+  ifeq ($(GIT_IS_TAG),1)
+  	PIPELINE_ACTION = deploy
+  endif
+endif
+
 ## Pre-production deploys only released versions
 ifeq ($(PIPELINE_ENV),pre-production)
   STAGE ?= pre-prod

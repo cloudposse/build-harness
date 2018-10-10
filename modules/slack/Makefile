@@ -21,14 +21,14 @@ slack/notify/build:
 	$(call assert-set,NAME)
 	$(call assert-set,ARTIFACT)
 	$(call assert-set,BUILD_URL)
-	$(call assert-set,BUILD_TIMESTAMP)  # <!date^$(BUILD_UNIX_TIMESTAMP)^{date_num} {time_secs}|Time format failed!!!>
+	$(call assert-set,BUILD_TIMESTAMP)
 	$(call assert-set,BUILD_TRIGGER)
 	$(call assert-set,REPO_OWNER)
 	$(call assert-set,REPO_NAME)
-	$(call assert-set,COMMIT) # <$(COMMIT_URL)|$(GIT_COMMIT_SHORT)>
+	$(call assert-set,COMMIT)
 	$(call assert-set,GIT_COMMIT_MESSAGE)
 	$(call assert-set,GIT_COMMIT_AUTHOR)
-	$(call assert-set,COMMIT_TIMESTAMP)  # <!date^$(GIT_COMMIT_TIMESTAMP)^{date_num} {time_secs}|Time format failed!!!>
+	$(call assert-set,COMMIT_TIMESTAMP)
 	$(call assert-set,GIT_BRANCH)
 	$(call assert-set,GIT_TAG)
 
@@ -42,14 +42,14 @@ slack/notify/deploy:
 	$(call assert-set,NAMESPACE)
 	$(call assert-set,RELEASE_NAME)
 	$(call assert-set,BUILD_URL)
-	$(call assert-set,BUILD_TIMESTAMP)  # <!date^$(BUILD_UNIX_TIMESTAMP)^{date_num} {time_secs}|Time format failed!!!>
+	$(call assert-set,BUILD_TIMESTAMP)
 	$(call assert-set,BUILD_TRIGGER)
 	$(call assert-set,REPO_OWNER)
 	$(call assert-set,REPO_NAME)
-	$(call assert-set,COMMIT) # <$(COMMIT_URL)|$(GIT_COMMIT_SHORT)>
+	$(call assert-set,COMMIT)
 	$(call assert-set,GIT_COMMIT_MESSAGE)
 	$(call assert-set,GIT_COMMIT_AUTHOR)
-	$(call assert-set,COMMIT_TIMESTAMP)  # <!date^$(GIT_COMMIT_TIMESTAMP)^{date_num} {time_secs}|Time format failed!!!>
+	$(call assert-set,COMMIT_TIMESTAMP)
 	$(call assert-set,GIT_BRANCH)
 	$(call assert-set,GIT_TAG)
 
