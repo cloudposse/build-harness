@@ -4,7 +4,7 @@ codefresh/notify/slack/build:
 	$(call assert-set,CF_BUILD_URL)
 	$(call assert-set,CF_REPO_OWNER)
 	$(call assert-set,CF_REPO_NAME)
-	$(call assert-set,CF_COMMIT_URL)
+	$(call assert-set,COMMIT)
 	$(call assert-set,CF_BUILD_UNIX_TIMESTAMP)
 	$(call assert-set,CF_BUILD_TRIGGER)
 
@@ -25,7 +25,7 @@ codefresh/notify/slack/deploy:
 	$(call assert-set,CF_BUILD_URL)
 	$(call assert-set,CF_REPO_OWNER)
 	$(call assert-set,CF_REPO_NAME)
-	$(call assert-set,CF_COMMIT_URL)
+	$(call assert-set,COMMIT)
 	$(call assert-set,CF_BUILD_UNIX_TIMESTAMP)
 	$(call assert-set,CF_BUILD_TRIGGER)
 

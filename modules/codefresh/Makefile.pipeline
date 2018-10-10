@@ -97,15 +97,21 @@ endif
 codefresh/pipeline/export:
 	$(call assert-set,PROJECT)
 	$(call assert-set,PIPELINE_ACTION)
+	@echo "PROJECT=$(PROJECT)"
+	@echo "PIPELINE_ACTION=$(PIPELINE_ACTION)"
+
+ifneq ($(PIPELINE_ENV),)
+  ifneq ($(PIPELINE_ENV),production-build)
 	$(call assert-set,NAMESPACE)
 	$(call assert-set,APP_HOST)
 	$(call assert-set,RELEASE_NAME)
 	$(call assert-set,BASE_HOST)
 	$(call assert-set,APP_NAME)
-	@echo "PROJECT=$(PROJECT)"
 	@echo "NAMESPACE=$(NAMESPACE)"
-	@echo "PIPELINE_ACTION=$(PIPELINE_ACTION)"
 	@echo "APP_HOST=$(APP_HOST)"
 	@echo "RELEASE_NAME=$(RELEASE_NAME)"
+  endif
+endif
+
 
 
