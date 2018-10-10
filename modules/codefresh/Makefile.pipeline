@@ -9,20 +9,12 @@ ifeq ($(PIPELINE_ENV),production)
   ifeq ($(GIT_IS_TAG),1)
   	PIPELINE_ACTION = deploy
   endif
-
-  ifeq ($(CF_BUILD_TRIGGER),build)
-    PIPELINE_ACTION = deploy
-  endif
 endif
 
 ## Production build only released versions
 ifeq ($(PIPELINE_ENV),production-build)
   ifeq ($(GIT_IS_TAG),1)
   	PIPELINE_ACTION = build
-  endif
-
-  ifeq ($(CF_BUILD_TRIGGER),build)
-    PIPELINE_ACTION = build
   endif
 endif
 
@@ -31,10 +23,6 @@ ifeq ($(PIPELINE_ENV),pre-production)
   STAGE ?= pre-prod
   ifeq ($(GIT_IS_TAG),1)
   	PIPELINE_ACTION = deploy
-  endif
-
-  ifeq ($(CF_BUILD_TRIGGER),build)
-    PIPELINE_ACTION = deploy
   endif
 endif
 
