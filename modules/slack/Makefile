@@ -1,15 +1,15 @@
-SLACK_NOTIFIER ?= slack-notifier
+export SLACK_NOTIFIER ?= slack-notifier
 
-SLACK_USER_NAME ?= CodeFresh
-SLACK_ICON_EMOJI ?= ":rocket:"
-SLACK_COLOR ?= good
-SLACK_AUTHOR_NAME ?= Auto Deploy Robot
-SLACK_AUTHOR_LINK ?= https://cloudposse.com/
-SLACK_AUTHOR_ICON ?= https://cloudposse.com/wp-content/uploads/sites/29/2018/02/small-cute-robot-square.png
-SLACK_THUMB_URL ?= https://cloudposse.com/wp-content/uploads/sites/29/2018/02/SquareLogo2.png
-SLACK_FOOTER ?= Helm Deployment
-SLACK_FOOTER_ICON ?= https://cloudposse.com/wp-content/uploads/sites/29/2018/02/kubernetes.png
-SLACK_TEXT ?= "\n"
+export SLACK_USER_NAME ?= CodeFresh
+export SLACK_ICON_EMOJI ?= ":rocket:"
+export SLACK_COLOR ?= good
+export SLACK_AUTHOR_NAME ?= Auto Deploy Robot
+export SLACK_AUTHOR_LINK ?= https://cloudposse.com/
+export SLACK_AUTHOR_ICON ?= https://cloudposse.com/wp-content/uploads/sites/29/2018/02/small-cute-robot-square.png
+export SLACK_THUMB_URL ?= https://cloudposse.com/wp-content/uploads/sites/29/2018/02/SquareLogo2.png
+export SLACK_FOOTER ?= Helm Deployment
+export SLACK_FOOTER_ICON ?= https://cloudposse.com/wp-content/uploads/sites/29/2018/02/kubernetes.png
+export SLACK_TEXT ?= "\n"
 
 slack/notify: packages/install/slack-notifier
 	$(call assert-set,SLACK_WEBHOOK_URL)
