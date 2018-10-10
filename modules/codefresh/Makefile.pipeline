@@ -13,6 +13,14 @@ ifeq ($(PIPELINE_ENV),production)
   endif
 endif
 
+## Production build only released versions
+ifeq ($(PIPELINE_ENV),production-build)
+  STAGE ?= prod
+  ifeq ($(GIT_IS_TAG),1)
+  	PIPELINE_ACTION = build
+  endif
+endif
+
 ## Pre-production deploys only released versions
 ifeq ($(PIPELINE_ENV),pre-production)
   STAGE ?= pre-prod
