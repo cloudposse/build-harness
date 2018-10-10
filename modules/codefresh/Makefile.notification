@@ -1,3 +1,4 @@
+## Send notification from codefresh to slack using "build" template
 codefresh/notify/slack/build:
 	$(call assert-set,PIPELINE_ACTION)
 	$(call assert-set,CHART_NAME)
@@ -16,6 +17,7 @@ codefresh/notify/slack/build:
 		BUILD_TIMESTAMP=$(shell expr $(CF_BUILD_TIMESTAMP) / 1000) \
 		BUILD_TRIGGER=$(CF_BUILD_TRIGGER)
 
+## Send notification from codefresh to slack using "deploy" template
 codefresh/notify/slack/deploy:
 	$(call assert-set,PIPELINE_ENV)
 	$(call assert-set,PIPELINE_ACTION)
@@ -36,9 +38,8 @@ codefresh/notify/slack/deploy:
 		BUILD_TIMESTAMP=$(shell expr $(CF_BUILD_TIMESTAMP) / 1000) \
 		BUILD_TRIGGER=$(CF_BUILD_TRIGGER)
 
+## Send notification from codefresh to slack using "deploy" template with exposed endpoint
 codefresh/notify/slack/deploy/exposed:
 	$(call assert-set,APP_HOST)
 	@$(MAKE) codefresh/notify/slack/deploy \
 		SLACK_TEXT=":point_right: $(APP_HOST)"
-
-

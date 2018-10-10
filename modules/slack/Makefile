@@ -11,12 +11,14 @@ export SLACK_FOOTER ?= Helm Deployment
 export SLACK_FOOTER_ICON ?= https://cloudposse.com/wp-content/uploads/sites/29/2018/02/kubernetes.png
 export SLACK_TEXT ?=
 
+## Send webhook notification to slack
 slack/notify: packages/install/slack-notifier
 	$(call assert-set,SLACK_WEBHOOK_URL)
 	$(call assert-set,SLACK_NOTIFIER_TEMPLATE)
 	$(call assert-set,SLACK_NOTIFIER)
-	$(BUILD_HARNESS_PATH)/bin/slack-notify.sh
+	@$(BUILD_HARNESS_PATH)/bin/slack-notify.sh
 
+## Send notification to slack using "build" template
 slack/notify/build:
 	$(call assert-set,ACTION)
 	$(call assert-set,NAME)
@@ -33,9 +35,10 @@ slack/notify/build:
 	$(call assert-set,GIT_BRANCH)
 	$(call assert-set,GIT_TAG)
 
-	$(MAKE) slack/notify \
+	@$(MAKE) slack/notify \
 		SLACK_NOTIFIER_TEMPLATE=$(BUILD_HARNESS_PATH)/templates/slack-notifier.build.template.env
 
+## Send notification to slack using "deploy" template
 slack/notify/deploy:
 	$(call assert-set,ACTION)
 	$(call assert-set,NAME)
@@ -55,5 +58,5 @@ slack/notify/deploy:
 	$(call assert-set,GIT_BRANCH)
 	$(call assert-set,GIT_TAG)
 
-	$(MAKE) slack/notify \
+	@$(MAKE) slack/notify \
 		SLACK_NOTIFIER_TEMPLATE=$(BUILD_HARNESS_PATH)/templates/slack-notifier.deploy.template.env
