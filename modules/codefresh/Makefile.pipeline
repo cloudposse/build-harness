@@ -15,7 +15,6 @@ endif
 
 ## Production build only released versions
 ifeq ($(PIPELINE_ENV),production-build)
-  STAGE ?= prod
   ifeq ($(GIT_IS_TAG),1)
   	PIPELINE_ACTION = build
   endif
@@ -81,9 +80,11 @@ ifeq ($(PIPELINE_ENV),integration)
 endif
 
 ifneq ($(PIPELINE_ENV),)
-  NAMESPACE ?= $(PROJECT)-$(STAGE)
-  APP_HOST ?= $(APP_NAME).$(STAGE).$(BASE_HOST)
-  RELEASE_NAME ?= $(NAMESPACE)-$(APP_NAME)
+  ifneq ($(PIPELINE_ENV),production-build)
+    NAMESPACE ?= $(PROJECT)-$(STAGE)
+    APP_HOST ?= $(APP_NAME).$(STAGE).$(BASE_HOST)
+    RELEASE_NAME ?= $(NAMESPACE)-$(APP_NAME)
+  endif
 endif
 
 ## Export pipeline vars
