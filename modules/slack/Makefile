@@ -9,7 +9,7 @@ export SLACK_AUTHOR_ICON ?= https://cloudposse.com/wp-content/uploads/sites/29/2
 export SLACK_THUMB_URL ?= https://cloudposse.com/wp-content/uploads/sites/29/2018/02/SquareLogo2.png
 export SLACK_FOOTER ?= Helm Deployment
 export SLACK_FOOTER_ICON ?= https://cloudposse.com/wp-content/uploads/sites/29/2018/02/kubernetes.png
-export SLACK_TEXT ?= 
+export SLACK_TEXT ?=
 
 slack/notify: packages/install/slack-notifier
 	$(call assert-set,SLACK_WEBHOOK_URL)
@@ -25,10 +25,11 @@ slack/notify/build:
 	$(call assert-set,BUILD_TRIGGER)
 	$(call assert-set,REPO_OWNER)
 	$(call assert-set,REPO_NAME)
-	$(call assert-set,COMMIT)
+	$(call assert-set,GIT_COMMIT_SHORT)
+	$(call assert-set,GIT_COMMIT_URL)
 	$(call assert-set,GIT_COMMIT_MESSAGE)
 	$(call assert-set,GIT_COMMIT_AUTHOR)
-	$(call assert-set,COMMIT_TIMESTAMP)
+	$(call assert-set,GIT_COMMIT_TIMESTAMP)
 	$(call assert-set,GIT_BRANCH)
 	$(call assert-set,GIT_TAG)
 
@@ -46,10 +47,11 @@ slack/notify/deploy:
 	$(call assert-set,BUILD_TRIGGER)
 	$(call assert-set,REPO_OWNER)
 	$(call assert-set,REPO_NAME)
-	$(call assert-set,COMMIT)
+	$(call assert-set,GIT_COMMIT_SHORT)
+	$(call assert-set,GIT_COMMIT_URL)
 	$(call assert-set,GIT_COMMIT_MESSAGE)
 	$(call assert-set,GIT_COMMIT_AUTHOR)
-	$(call assert-set,COMMIT_TIMESTAMP)
+	$(call assert-set,GIT_COMMIT_TIMESTAMP)
 	$(call assert-set,GIT_BRANCH)
 	$(call assert-set,GIT_TAG)
 

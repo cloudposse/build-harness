@@ -4,8 +4,7 @@ codefresh/notify/slack/build:
 	$(call assert-set,CF_BUILD_URL)
 	$(call assert-set,CF_REPO_OWNER)
 	$(call assert-set,CF_REPO_NAME)
-	$(call assert-set,COMMIT)
-	$(call assert-set,CF_BUILD_UNIX_TIMESTAMP)
+	$(call assert-set,CF_BUILD_TIMESTAMP)
 	$(call assert-set,CF_BUILD_TRIGGER)
 
 	@$(MAKE) slack/notify/build \
@@ -14,19 +13,17 @@ codefresh/notify/slack/build:
 		BUILD_URL=$(CF_BUILD_URL) \
 		REPO_OWNER=$(CF_REPO_OWNER) \
 		REPO_NAME=$(CF_REPO_NAME) \
-		COMMIT_URL=$(CF_COMMIT_URL) \
-		BUILD_UNIX_TIMESTAMP=$(CF_BUILD_UNIX_TIMESTAMP) \
+		BUILD_TIMESTAMP=$(shell expr $(CF_BUILD_TIMESTAMP) / 1000) \
 		BUILD_TRIGGER=$(CF_BUILD_TRIGGER)
 
 codefresh/notify/slack/deploy:
-	$(call assert-set,PIPELINE_ACTION)
 	$(call assert-set,PIPELINE_ENV)
+	$(call assert-set,PIPELINE_ACTION)
 	$(call assert-set,CHART_NAME)
 	$(call assert-set,CF_BUILD_URL)
 	$(call assert-set,CF_REPO_OWNER)
 	$(call assert-set,CF_REPO_NAME)
-	$(call assert-set,COMMIT)
-	$(call assert-set,CF_BUILD_UNIX_TIMESTAMP)
+	$(call assert-set,CF_BUILD_TIMESTAMP)
 	$(call assert-set,CF_BUILD_TRIGGER)
 
 	@$(MAKE) slack/notify/deploy \
@@ -36,8 +33,7 @@ codefresh/notify/slack/deploy:
 		BUILD_URL=$(CF_BUILD_URL) \
 		REPO_OWNER=$(CF_REPO_OWNER) \
 		REPO_NAME=$(CF_REPO_NAME) \
-		COMMIT_URL=$(CF_COMMIT_URL) \
-		BUILD_UNIX_TIMESTAMP=$(CF_BUILD_UNIX_TIMESTAMP) \
+		BUILD_TIMESTAMP=$(shell expr $(CF_BUILD_TIMESTAMP) / 1000) \
 		BUILD_TRIGGER=$(CF_BUILD_TRIGGER)
 
 codefresh/notify/slack/deploy/exposed:
