@@ -35,7 +35,7 @@ slack/notify/build:
 	$(MAKE) slack/notify \
 		SLACK_NOTIFIER_TEMPLATE=slack-notifier.build.template.env
 
-slack/notify/deploy: packages/install/slack-notifier
+slack/notify/deploy:
 	$(call assert-set,ACTION)
 	$(call assert-set,NAME)
 	$(call assert-set,ENVIRONMENT)
