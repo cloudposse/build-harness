@@ -1,7 +1,7 @@
 export SLACK_NOTIFIER ?= slack-notifier
 
 export SLACK_USER_NAME ?= CodeFresh
-export SLACK_ICON_EMOJI ?= ":rocket:"
+export SLACK_ICON_EMOJI ?= :rocket:
 export SLACK_COLOR ?= good
 export SLACK_AUTHOR_NAME ?= Auto Deploy Robot
 export SLACK_AUTHOR_LINK ?= https://cloudposse.com/
