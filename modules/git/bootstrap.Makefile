@@ -13,6 +13,11 @@ export GIT_COMMIT_SHORT ?= $(shell $(GIT) rev-parse --verify --short HEAD)
 export GIT_BRANCH ?= $(shell $(GIT) rev-parse --abbrev-ref HEAD)
 export GIT_TAG ?= $(shell $(GIT) tag -l --sort -taggerdate --points-at HEAD | head -n 1)
 
+export GIT_COMMIT_MESSAGE ?= $(shell $(GIT) show -s --format=%s%b)
+export GIT_COMMIT_AUTHOR ?= $(shell $(GIT) show -s --format=%aN)
+export GIT_COMMIT_TIMESTAMP ?= $(shell $(GIT) log -1 --format=%ct 2>/dev/null)
+
+## GIT_TIMESTAMP is depricated. Use GIT_COMMIT_TIMESTAMP instead
 export GIT_TIMESTAMP ?= $(shell $(GIT) log -1 --format=%ct 2>/dev/null)
 
 ifeq ($(GIT_TAG),)

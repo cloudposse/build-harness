@@ -1,0 +1,28 @@
+codefresh/notify/slack/build:
+	@$(MAKE) slack/notify/build \
+		NAME=$(CHART_NAME) \
+		BUILD_URL=$(CF_BUILD_URL) \
+		REPO_OWNER=$(CF_REPO_OWNER) \
+		REPO_NAME=$(CF_REPO_NAME) \
+		COMMIT_URL=$(CF_COMMIT_URL) \
+		BUILD_UNIX_TIMESTAMP=$(CF_BUILD_UNIX_TIMESTAMP) \
+		BUILD_TRIGGER=$(CF_BUILD_TRIGGER)
+
+codefresh/notify/slack/deploy:
+	@$(MAKE) slack/notify/deploy \
+		ACTION=$(PIPELINE_ACTION) \
+		NAME=$(CHART_NAME) \
+		ENVIRONMENT=$(PIPELINE_ENV) \
+		BUILD_URL=$(CF_BUILD_URL) \
+		REPO_OWNER=$(CF_REPO_OWNER) \
+		REPO_NAME=$(CF_REPO_NAME) \
+		COMMIT_URL=$(CF_COMMIT_URL) \
+		BUILD_UNIX_TIMESTAMP=$(CF_BUILD_UNIX_TIMESTAMP) \
+		BUILD_TRIGGER=$(CF_BUILD_TRIGGER)
+
+codefresh/notify/slack/deploy/exposed:
+	$(call assert-set,APP_HOST)
+	@$(MAKE) codefresh/notify/slack/deploy \
+		SLACK_TEXT=":point_right: $(APP_HOST)"
+
+
