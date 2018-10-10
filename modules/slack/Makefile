@@ -33,7 +33,7 @@ slack/notify/build:
 	$(call assert-set,GIT_TAG)
 
 	$(MAKE) slack/notify \
-		SLACK_NOTIFIER_TEMPLATE=slack-notifier.build.template.env
+		SLACK_NOTIFIER_TEMPLATE=$(BUILD_HARNESS_PATH)/templates/slack-notifier.build.template.env
 
 slack/notify/deploy:
 	$(call assert-set,ACTION)
@@ -54,4 +54,4 @@ slack/notify/deploy:
 	$(call assert-set,GIT_TAG)
 
 	$(MAKE) slack/notify \
-		SLACK_NOTIFIER_TEMPLATE=slack-notifier.deploy.template.env
+		SLACK_NOTIFIER_TEMPLATE=$(BUILD_HARNESS_PATH)/templates/slack-notifier.deploy.template.env
