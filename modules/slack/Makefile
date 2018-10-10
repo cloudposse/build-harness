@@ -18,6 +18,7 @@ slack/notify: packages/install/slack-notifier
 	$(BUILD_HARNESS_PATH)/bin/slack-notify.sh
 
 slack/notify/build:
+	$(call assert-set,ACTION)
 	$(call assert-set,NAME)
 	$(call assert-set,ARTIFACT)
 	$(call assert-set,BUILD_URL)
