@@ -32,8 +32,7 @@ slack/notify/build:
 	$(call assert-set,GIT_COMMIT_MESSAGE)
 	$(call assert-set,GIT_COMMIT_AUTHOR)
 	$(call assert-set,GIT_COMMIT_TIMESTAMP)
-	$(call assert-set,GIT_BRANCH)
-	$(call assert-set,GIT_TAG)
+	$(call assert-set,GIT_BRANCH_TAG)
 
 	@$(MAKE) slack/notify \
 		SLACK_NOTIFIER_TEMPLATE=$(BUILD_HARNESS_PATH)/templates/slack-notifier.build.template.env
@@ -55,8 +54,7 @@ slack/notify/deploy:
 	$(call assert-set,GIT_COMMIT_MESSAGE)
 	$(call assert-set,GIT_COMMIT_AUTHOR)
 	$(call assert-set,GIT_COMMIT_TIMESTAMP)
-	$(call assert-set,GIT_BRANCH)
-	$(call assert-set,GIT_TAG)
+	$(call assert-set,GIT_BRANCH_TAG)
 
 	@$(MAKE) slack/notify \
 		SLACK_NOTIFIER_TEMPLATE=$(BUILD_HARNESS_PATH)/templates/slack-notifier.deploy.template.env

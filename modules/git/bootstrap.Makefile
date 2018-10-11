@@ -18,13 +18,16 @@ export GIT_COMMIT_MESSAGE ?= $(shell $(GIT) show -s --format=%s%b)
 export GIT_COMMIT_AUTHOR ?= $(shell $(GIT) show -s --format=%aN)
 export GIT_COMMIT_TIMESTAMP ?= $(shell $(GIT) log -1 --format=%ct 2>/dev/null)
 
+
 ## GIT_TIMESTAMP is depricated. Use GIT_COMMIT_TIMESTAMP instead
 export GIT_TIMESTAMP ?= $(shell $(GIT) log -1 --format=%ct 2>/dev/null)
 
 ifeq ($(GIT_TAG),)
   export GIT_IS_TAG := 0
+  export GIT_BRANCH_TAG ?= $(GIT_BRANCH)
 else
   export GIT_IS_TAG := 1
+  export GIT_BRANCH_TAG ?= $(GIT_TAG)
 endif
 
 ifeq ($(GIT_BRANCH),)
