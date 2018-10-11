@@ -27,3 +27,9 @@ github/push-artifacts: packages/install/ghr-linux
 	$(call assert-set,GIT_TAG)
 	$(call assert-set,ARTIFACTS)
 	@ghr $(GIT_TAG) $(ARTIFACTS)
+
+.PHONY : github/latest-release
+## Fetch the latest release tag from the GitHub API
+github/latest-release:
+	@$(BUILD_HARNESS_PATH)/bin/github_repo_metadata.sh '$(GIT_ORG)' '$(GIT_REPO)' 'releases/latest' '.tag_name'
+
