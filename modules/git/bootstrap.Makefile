@@ -27,4 +27,7 @@ else
   export GIT_IS_BRANCH := 1
 endif
 
+export GIT_REPO ?= $(shell basename $$(git remote get-url origin) .git)
+export GIT_ORG ?= $(shell dirname $$(git remote get-url origin) | cut -d: -f2)
+
 endif
