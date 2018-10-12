@@ -1,7 +1,7 @@
 ifeq ($(PIPELINE_ACTION),destroy)
-	export CODEFRESH_SLACK_WEBAPP_TEXT_ICON ?= ":boom"
+	export CODEFRESH_SLACK_WEBAPP_TEXT_ICON ?= :boom:
 else
-	export CODEFRESH_SLACK_WEBAPP_TEXT_ICON ?= ":point_right:"
+	export CODEFRESH_SLACK_WEBAPP_TEXT_ICON ?= :point_right:
 endif
 
 
