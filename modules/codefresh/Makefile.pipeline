@@ -3,7 +3,20 @@
 # Extract ticket number from branch name (e.g. feature/ch37684/add-codefresh)
 FEATURE ?= $(shell echo "$(GIT_BRANCH)" | cut -s -d'/' -f2 | tr '[:upper:]' '[:lower:]')
 
-PIPELINE_ACTION = pass
+## Production deploys only released versions
+ifeq ($(PIPELINE_ENV),production)
+  STAGE ?= prod
+  ifeq ($(GIT_IS_TAG),1)
+  	PIPELINE_ACTION = deploy
+  endif
+endif
+
+## Production build only released versions
+ifeq ($(PIPELINE_ENV),production-build)
+  ifeq ($(GIT_IS_TAG),1)
+  	PIPELINE_ACTION = build
+  endif
+endif
 
 ## Pre-production deploys only released versions
 ifeq ($(PIPELINE_ENV),pre-production)
@@ -22,6 +35,12 @@ endif
 ## Integration deploys on each PR create/update. On PR close - cleanup
 ifeq ($(PIPELINE_ENV),integration)
   STAGE ?= $(FEATURE)
+
+  ## If triggered manually
+
+  ifeq ($(CF_BUILD_TRIGGER),build)
+    PIPELINE_ACTION ?= deploy
+  endif
 
   ## GitHub integration support
 
@@ -64,25 +83,35 @@ ifeq ($(PIPELINE_ENV),integration)
 
 endif
 
+PIPELINE_ACTION ?= pass
+
 ifneq ($(PIPELINE_ENV),)
-  NAMESPACE ?= $(PROJECT)-$(STAGE)
-  APP_HOST ?= $(APP_NAME).$(STAGE).$(BASE_HOST)
-  RELEASE_NAME ?= $(NAMESPACE)-$(APP_NAME)
+  ifneq ($(PIPELINE_ENV),production-build)
+    NAMESPACE ?= $(PROJECT)-$(STAGE)
+    APP_HOST ?= $(APP_NAME).$(STAGE).$(BASE_HOST)
+    RELEASE_NAME ?= $(NAMESPACE)-$(APP_NAME)
+  endif
 endif
 
 ## Export pipeline vars
 codefresh/pipeline/export:
 	$(call assert-set,PROJECT)
 	$(call assert-set,PIPELINE_ACTION)
+	@echo "PROJECT=$(PROJECT)"
+	@echo "PIPELINE_ACTION=$(PIPELINE_ACTION)"
+
+ifneq ($(PIPELINE_ENV),)
+  ifneq ($(PIPELINE_ENV),production-build)
 	$(call assert-set,NAMESPACE)
 	$(call assert-set,APP_HOST)
 	$(call assert-set,RELEASE_NAME)
 	$(call assert-set,BASE_HOST)
 	$(call assert-set,APP_NAME)
-	@echo "PROJECT=$(PROJECT)"
 	@echo "NAMESPACE=$(NAMESPACE)"
-	@echo "PIPELINE_ACTION=$(PIPELINE_ACTION)"
 	@echo "APP_HOST=$(APP_HOST)"
 	@echo "RELEASE_NAME=$(RELEASE_NAME)"
+  endif
+endif
+
 
 
