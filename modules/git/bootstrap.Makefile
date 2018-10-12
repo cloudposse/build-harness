@@ -19,7 +19,7 @@ export GIT_COMMIT_AUTHOR ?= $(shell $(GIT) show -s --format=%aN)
 export GIT_COMMIT_TIMESTAMP ?= $(shell $(GIT) log -1 --format=%ct 2>/dev/null)
 
 
-## GIT_TIMESTAMP is depricated. Use GIT_COMMIT_TIMESTAMP instead
+## GIT_TIMESTAMP is deprecated. Use GIT_COMMIT_TIMESTAMP instead
 export GIT_TIMESTAMP ?= $(shell $(GIT) log -1 --format=%ct 2>/dev/null)
 
 ifeq ($(GIT_TAG),)
