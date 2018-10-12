@@ -3,6 +3,7 @@ export SLACK_NOTIFIER ?= slack-notifier
 export SLACK_USER_NAME ?= CodeFresh
 export SLACK_ICON_EMOJI ?= :rocket:
 export SLACK_COLOR ?= good
+export SLACK_COLOR_DESTROY ?= #000000
 export SLACK_AUTHOR_NAME ?= Auto Deploy Robot
 export SLACK_AUTHOR_LINK ?= https://cloudposse.com/
 export SLACK_AUTHOR_ICON ?= https://cloudposse.com/wp-content/uploads/sites/29/2018/02/small-cute-robot-square.png
@@ -10,6 +11,7 @@ export SLACK_THUMB_URL ?= https://cloudposse.com/wp-content/uploads/sites/29/201
 export SLACK_FOOTER ?= Helm Deployment
 export SLACK_FOOTER_ICON ?= https://cloudposse.com/wp-content/uploads/sites/29/2018/02/kubernetes.png
 export SLACK_TEXT ?=
+
 
 ## Send webhook notification to slack
 slack/notify: packages/install/slack-notifier
@@ -35,7 +37,7 @@ slack/notify/build:
 	$(call assert-set,GIT_BRANCH_TAG)
 
 	@$(MAKE) slack/notify \
-		SLACK_NOTIFIER_TEMPLATE=$(BUILD_HARNESS_PATH)/templates/slack-notifier.build.template.env
+		SLACK_NOTIFIER_TEMPLATE=$(BUILD_HARNESS_PATH)/templates/slack-notifier/build.env
 
 ## Send notification to slack using "deploy" template
 slack/notify/deploy:
@@ -57,4 +59,4 @@ slack/notify/deploy:
 	$(call assert-set,GIT_BRANCH_TAG)
 
 	@$(MAKE) slack/notify \
-		SLACK_NOTIFIER_TEMPLATE=$(BUILD_HARNESS_PATH)/templates/slack-notifier.deploy.template.env
+		SLACK_NOTIFIER_TEMPLATE=$(BUILD_HARNESS_PATH)/templates/slack-notifier/deploy.env

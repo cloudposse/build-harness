@@ -1,3 +1,10 @@
+ifeq ($(PIPELINE_ACTION),destroy)
+	export CODEFRESH_SLACK_WEBAPP_TEXT_ICON ?= ":boom"
+else
+	export CODEFRESH_SLACK_WEBAPP_TEXT_ICON ?= ":point_right:"
+endif
+
+
 ## Send notification from codefresh to slack using "build" template
 codefresh/notify/slack/build:
 	$(call assert-set,PIPELINE_ACTION)
@@ -39,7 +46,7 @@ codefresh/notify/slack/deploy:
 		BUILD_TRIGGER=$(CF_BUILD_TRIGGER)
 
 ## Send notification from codefresh to slack using "deploy" template with exposed endpoint
-codefresh/notify/slack/deploy/exposed:
+codefresh/notify/slack/deploy/webapp:
 	$(call assert-set,APP_HOST)
 	@$(MAKE) codefresh/notify/slack/deploy \
-		SLACK_TEXT=":point_right: $(APP_HOST)"
+		SLACK_TEXT="$(CODEFRESH_SLACK_WEBAPP_TEXT_ICON) $(APP_HOST)"

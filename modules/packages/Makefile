@@ -1,5 +1,5 @@
 export INSTALL_PATH ?= $(BUILD_HARNESS_PATH)/vendor
-export PACKAGES_VERSION ?= install-slack-notifier
+export PACKAGES_VERSION ?= 0.38.0
 export PACKAGES_PATH ?= $(BUILD_HARNESS_PATH)/vendor/packages
 
 ## Delete packages
