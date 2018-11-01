@@ -7,7 +7,10 @@ Available targets:
   bash/lint                           Lint all bash scripts
   chamber/install                     Install chamber
   chamber/shell                       Start a chamber shell with secrets exported to the environment
-  codefresh/export                    Export codefresh additional envvars
+  codefresh/export                    DEPRECATED!!! Export codefresh additional envvars
+  codefresh/notify/slack/build        Send notification from codefresh to slack using "build" template
+  codefresh/notify/slack/deploy       Send notification from codefresh to slack using "deploy" template
+  codefresh/notify/slack/deploy/webapp Send notification from codefresh to slack using "deploy" template with exposed endpoint
   codefresh/pipeline/export           Export pipeline vars
   codefresh/trigger/webhook           Trigger a CodeFresh WebHook
   completion/install/bash             Install completion script for bash
@@ -35,12 +38,13 @@ Available targets:
   geodesic/deploy                     Run a Jenkins Job to Deploy $(APP) with $(CANONICAL_TAG)
   git/aliases-update                  Update git aliases
   git/export                          Export git vars
-  git/submodules-update               Update submodules
   github/download-private-release     Download release from github
   github/download-public-release      Download release from github
+  github/latest-release               Fetch the latest release tag from the GitHub API
   github/push-artifacts               Push all release artifacts to GitHub (Required: `GITHUB_TOKEN`)
   gitleaks/install                    Install gitleaks
   gitleaks/scan                       Scan current repository
+  git/submodules-update               Update submodules
   go/build                            Build binary
   go/build-all                        Build binary for all platforms
   go/clean                            Clean compiled binary
@@ -69,6 +73,7 @@ Available targets:
   helm/delete/failed                  Delete all failed releases in a `NAMESPACE` subject to `FILTER`
   helm/delete/namespace               Delete all releases in a `NAMEPSACE` as well as the namespace
   helm/delete/namespace/empty         Delete `NAMESPACE` if there are no releases in it
+  helmfile/install                    Install helmfile
   helm/install                        Install helm
   helm/repo/add                       Add $REPO_NAME from $REPO_ENDPOINT
   helm/repo/add-current               Add helm remote dev repos
@@ -81,23 +86,25 @@ Available targets:
   helm/repo/update                    Update repo info
   helm/serve/index                    Build index for serve helm charts
   helm/toolbox/upsert                 Install or upgrade helm tiller 
-  helmfile/install                    Install helmfile
   help                                Help screen
   help/all                            Display help for all targets
   help/short                          This help short screen
   jenkins/run-job-with-tag            Run a Jenkins Job with $(TAG)
   make/lint                           Lint all makefiles
   packages/delete                     Delete packages
-  packages/install                    Install packages 
   packages/install/%                  Install package (e.g. helm, helmfile, kubectl)
-  packages/reinstall                  Reinstall packages
+  packages/install                    Install packages 
   packages/reinstall/%                Reinstall package (e.g. helm, helmfile, kubectl)
+  packages/reinstall                  Reinstall packages
   packages/uninstall/%                Uninstall package (e.g. helm, helmfile, kubectl)
   readme                              Alias for readme/build
   readme/build                        Create README.md by building it from README.yaml
   readme/init                         Create basic minimalistic .README.md template file
   readme/lint                         Verify the `README.md` is up to date
   semver/export                       Export semver vars
+  slack/notify                        Send webhook notification to slack
+  slack/notify/build                  Send notification to slack using "build" template
+  slack/notify/deploy                 Send notification to slack using "deploy" template
   template/build                      Create $OUT file by building it from $IN template file
   template/deps                       Install dependencies
   terraform/get-modules               Ensure all modules can be fetched
