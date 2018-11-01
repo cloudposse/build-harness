@@ -4,6 +4,13 @@ else
 	export CODEFRESH_SLACK_WEBAPP_TEXT_ICON ?= :point_right:
 endif
 
+ifeq ($(PIPELINE_ACTION),destroy)
+	export CODEFRESH_SLACK_TEXT_ICON ?= :boom:
+else
+	export CODEFRESH_SLACK_TEXT_ICON ?= :heavy_check_mark:
+endif
+
+
 
 ## Send notification from codefresh to slack using "build" template
 codefresh/notify/slack/build:
@@ -43,7 +50,8 @@ codefresh/notify/slack/deploy:
 		REPO_OWNER=$(CF_REPO_OWNER) \
 		REPO_NAME=$(CF_REPO_NAME) \
 		BUILD_TIMESTAMP=$(shell expr $(CF_BUILD_TIMESTAMP) / 1000) \
-		BUILD_TRIGGER=$(CF_BUILD_TRIGGER)
+		BUILD_TRIGGER=$(CF_BUILD_TRIGGER) \
+		SLACK_TEXT="$(CODEFRESH_SLACK_TEXT_ICON) Done"
 
 ## Send notification from codefresh to slack using "deploy" template with exposed endpoint
 codefresh/notify/slack/deploy/webapp:
