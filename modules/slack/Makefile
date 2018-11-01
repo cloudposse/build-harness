@@ -10,7 +10,7 @@ export SLACK_AUTHOR_ICON ?= https://cloudposse.com/wp-content/uploads/sites/29/2
 export SLACK_THUMB_URL ?= https://cloudposse.com/wp-content/uploads/sites/29/2018/02/SquareLogo2.png
 export SLACK_FOOTER ?= Helm Deployment
 export SLACK_FOOTER_ICON ?= https://cloudposse.com/wp-content/uploads/sites/29/2018/02/kubernetes.png
-export SLACK_TEXT ?= :heavy_check_mark: Done
+export SLACK_TEXT ?= 
 
 
 ## Send webhook notification to slack
