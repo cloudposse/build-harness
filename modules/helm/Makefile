@@ -26,6 +26,7 @@ helm/toolbox/upsert:
 ## Delete all releases in a `NAMEPSACE` as well as the namespace
 helm/delete/namespace:
 	$(call assert-set,NAMESPACE)
+	@echo "Purging all helm releases in the $(NAMESPACE) namespace"
 	@$(HELM) list --namespace $(NAMESPACE) --short | xargs -r $(HELM) delete --purge
 	@kubectl delete namespace $(NAMESPACE) --ignore-not-found
 
