@@ -4,7 +4,7 @@ export TIMEOUT=3
 export STDOUT=${STDOUT:-/dev/null}
 
 RETRIES=${RETRIES:-5}
-TILLER_REPLICA_COUNT=${TILLER_REPLICA_COUNT:-1}
+TILLER_REPLICA_COUNT=${TILLER_REPLICA_COUNT:-2}
 
 # helper functions
 function info() {
