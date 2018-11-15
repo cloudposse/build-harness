@@ -4,6 +4,7 @@ export TIMEOUT=3
 export STDOUT=${STDOUT:-/dev/null}
 
 RETRIES=${RETRIES:-5}
+HELM_TILLER_REPLICA_COUNT=${HELM_TILLER_REPLICA_COUNT:-2}
 
 # helper functions
 function info() {
@@ -44,7 +45,7 @@ function upsert() {
     local tiller_version=$(helm version --server --short --tiller-connection-timeout $TIMEOUT 2> /dev/null | grep -Eo "v[0-9]+\.[0-9]+\..+")
     if [ "$helm_version" != "$tiller_version" ]; then
         info "Helm version: $helm_version, differs with tiller version: ${tiller_version:-'not installed'}"
-        info "Upgrarding tiller to $helm_version"        
+        info "Upgrarding tiller to $helm_version"
         if [ $RBAC_ENABLED ]; then
             local tiller_serviceaccount=tiller
             local tiller_serviceaccount_exists=$(kubectl get serviceaccount -n kube-system --ignore-not-found=true --request-timeout=${TIMEOUT}s -o name $tiller_serviceaccount 2> /dev/null)
@@ -55,9 +56,9 @@ function upsert() {
             if [ -z $tiller_clusterrolebinding_exists ]; then
                 kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:$tiller_serviceaccount > $STDOUT
             fi
-            helm init --service-account $tiller_serviceaccount --upgrade --force-upgrade --wait > $STDOUT
+            helm init --service-account $tiller_serviceaccount --upgrade --force-upgrade --wait --replicas $HELM_TILLER_REPLICA_COUNT > $STDOUT
         else
-            helm init --upgrade --force-upgrade --wait > $STDOUT
+            helm init --upgrade --force-upgrade --wait --replicas $HELM_TILLER_REPLICA_COUNT > $STDOUT
         fi
         info "Helm version"
         helm version --short | sed 's/^/  - /'
@@ -75,5 +76,5 @@ if [ "$1" == "upsert" ]; then
     set_context
     retry $RETRIES upsert
 else
-    err "Unknown commmand"
+    err "Unknown command"
 fi
