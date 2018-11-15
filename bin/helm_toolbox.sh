@@ -4,7 +4,7 @@ export TIMEOUT=3
 export STDOUT=${STDOUT:-/dev/null}
 
 RETRIES=${RETRIES:-5}
-TILLER_REPLICA_COUNT=${TILLER_REPLICA_COUNT:-2}
+HELM_TILLER_REPLICA_COUNT=${HELM_TILLER_REPLICA_COUNT:-2}
 
 # helper functions
 function info() {
@@ -56,9 +56,9 @@ function upsert() {
             if [ -z $tiller_clusterrolebinding_exists ]; then
                 kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:$tiller_serviceaccount > $STDOUT
             fi
-            helm init --service-account $tiller_serviceaccount --upgrade --force-upgrade --wait --replicas $TILLER_REPLICA_COUNT > $STDOUT
+            helm init --service-account $tiller_serviceaccount --upgrade --force-upgrade --wait --replicas $HELM_TILLER_REPLICA_COUNT > $STDOUT
         else
-            helm init --upgrade --force-upgrade --wait --replicas $TILLER_REPLICA_COUNT > $STDOUT
+            helm init --upgrade --force-upgrade --wait --replicas $HELM_TILLER_REPLICA_COUNT > $STDOUT
         fi
         info "Helm version"
         helm version --short | sed 's/^/  - /'
@@ -76,5 +76,5 @@ if [ "$1" == "upsert" ]; then
     set_context
     retry $RETRIES upsert
 else
-    err "Unknown commmand"
+    err "Unknown command"
 fi
