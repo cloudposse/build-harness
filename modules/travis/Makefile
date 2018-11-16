@@ -1,5 +1,3 @@
-export DEBUG ?= false
-
 # Generate the canonical tag
 ifneq ($(TRAVIS_PULL_REQUEST_BRANCH),)
   CANONICAL_TAG ?= pr-$(TRAVIS_PULL_REQUEST_BRANCH)-$(TRAVIS_BUILD_NUMBER)
