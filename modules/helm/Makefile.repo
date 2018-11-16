@@ -1,6 +1,5 @@
 HELM_REPO_NAMES ?= stable incubator demo
 HELM_REPO_PREFIX ?= cloudposse
-export DEBUG ?= false
 
 REPO_URL?=https://charts.cloudposse.com
 

@@ -1,5 +1,3 @@
-export DEBUG ?= false
-
 ifneq ($(wildcard .git),)
 ## Array of all possible versions based on this git commit
 SEMVERSIONS :=
