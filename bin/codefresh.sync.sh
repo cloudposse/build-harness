@@ -69,7 +69,7 @@ else
 	if [[ "${APPLY}" == "true" ]]; then
 	then
 
-		if [[ "${PIPELINE_IS_NEW}" == "1" ]]
+		if [[ "${PIPELINE_IS_NEW}" == "1" ]]; then
 		then
 			## Create pipeline
 			${CODEFRESH_CLI} create -f  ${CODEFRESH_CLI_SHARED_DIR}/${PIPELINE_TO_APPLY}
