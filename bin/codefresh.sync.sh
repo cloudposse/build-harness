@@ -66,7 +66,7 @@ if [[ "${CODEFRESH_SYNC_PIPELINE_DIFF_IS_EMPTY}" == "0" ]]; then
 then
 	echo "${MESSAGE_NO_CHANGES_REQUIRED}"
 else
-	if [[ "${APPLY}" == "true" ]]
+	if [[ "${APPLY}" == "true" ]]; then
 	then
 
 		if [[ "${PIPELINE_IS_NEW}" == "1" ]]
