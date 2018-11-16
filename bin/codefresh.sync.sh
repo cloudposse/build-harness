@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ## Messages templates
-MESSAGE_SEPARATOR="_______________________________________________________________________________________________";
+MESSAGE_SEPARATOR="$(printf -- '_%.0s' {1..80})";
 
 MESSAGE_NO_CHANGES_REQUIRED=">>>>>>>> Processing ${PIPELINE} pipeline ... No changes required";
 
@@ -9,7 +9,7 @@ MESSAGE_CHANGES_REQUIRED=">>>>>>>> Processing ${PIPELINE} pipeline ... Changes f
 ${MESSAGE_SEPARATOR}
 This changes would be applied if you run the same command with environment variables APPLY=true
 or
-make codefresh/sync REPOSITORIES=${REPOSITORY} ACCOUNTS=${ENVIRONMENT} PIPELINES=${PIPELINE} APPLY=true
+make codefresh/sync REPOSITORIES=${REPOSITORY} ACCOUNTS=${ACCOUNT} PIPELINES=${PIPELINE} APPLY=true
 ${MESSAGE_SEPARATOR}";
 
 MESSAGE_APPLING_CHANGES=">>>>>>>> Processing ${PIPELINE} pipeline ... Changes applied
@@ -37,7 +37,7 @@ PIPELINE_IS_NEW=$?
 
 
 ## Generate pipeline from template
-gomplate -f templates/${ENVIRONMENT}/${PIPELINE}.yaml -d repository=env:REPOSITORY > ${PIPELINE_NEW}
+gomplate -f templates/${ACCOUNT}/${PIPELINE}.yaml -d repository=env:REPOSITORY > ${PIPELINE_NEW}
 
 if [[ "${PIPELINE_IS_NEW}" == "1" ]]
 then

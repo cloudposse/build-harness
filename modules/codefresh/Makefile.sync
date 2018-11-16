@@ -5,7 +5,7 @@ CODEFRESH_CLI_VERSION ?= latest
 export CODEFRESH_CLI ?= $(DOCKER_RUN) -v$(HOME)/.cfconfig:/root -v$(shell pwd):$(CODEFRESH_CLI_SHARED_DIR) $(CODEFRESH_CLI_IMAGE):$(CODEFRESH_CLI_VERSION)
 export CODEFRESH_CLI_SHARED_DIR ?= /data
 
-PIPELINES ?= $(call pipelines,$(ENVIRONMENT))
+PIPELINES ?= $(call pipelines,$(ACCOUNT))
 
 define pipelines
 	$(value $(shell echo $(1)_PIPELINES | tr 'a-z' 'A-Z'))
@@ -32,15 +32,15 @@ codefresh/sync: codefresh/sync/deps
 	@for repo in $(REPOSITORIES) ; do \
 		echo ">>>> Processing $${repo} repo"; \
 		for acc in $(ACCOUNTS) ; do \
-			$(MAKE) -s codefresh/sync/apply ENVIRONMENT=$$acc REPOSITORY=$$repo; \
+			$(MAKE) -s codefresh/sync/apply ACCOUNT=$$acc REPOSITORY=$$repo; \
 		done; \
 		echo "============================================================================================================" ; \
 	done
 
 codefresh/sync/apply:
 	$(call assert-set,REPOSITORY)
-	$(call assert-set,ENVIRONMENT)
-	$(call codefresh-use-context,$(ENVIRONMENT))
+	$(call assert-set,ACCOUNT)
+	$(call codefresh-use-context,$(ACCOUNT))
 	@for pipeline in $(PIPELINES); do \
 		PIPELINE=$$pipeline $(BUILD_HARNESS_PATH)/bin/codefresh.sync.sh; \
 	done
