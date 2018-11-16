@@ -1,18 +1,19 @@
 CODEFRESH_CLI_IMAGE ?= codefresh/cli
 CODEFRESH_CLI_VERSION ?= latest
 
-export CODEFRESH_CLI_SHARED_DIR ?= /data
+
 export CODEFRESH_CLI ?= $(DOCKER_RUN) -v$(HOME)/.cfconfig:/root -v$(shell pwd):$(CODEFRESH_CLI_SHARED_DIR) $(CODEFRESH_CLI_IMAGE):$(CODEFRESH_CLI_VERSION)
+export CODEFRESH_CLI_SHARED_DIR ?= /data
+
+PIPELINES ?= $(call pipelines,$(ENVIRONMENT))
 
 define pipelines
 	$(value $(shell echo $(1)_PIPELINES | tr 'a-z' 'A-Z'))
 endef
 
 define codefresh-use-context
-	$(CODEFRESH_CLI) auth use-context $(PROJECT)-$(1)
+	@$(CODEFRESH_CLI) auth use-context $(PROJECT)-$(1)
 endef
-
-PIPELINES ?= $(call pipelines,$(ENVIRONMENT))
 
 ## Authentificate on codefresh account
 codefresh/sync/auth/%:
@@ -31,13 +32,15 @@ codefresh/sync: codefresh/sync/deps
 	@for repo in $(REPOSITORIES) ; do \
 		echo ">>>> Processing $${repo} repo"; \
 		for acc in $(ACCOUNTS) ; do \
-			$(call codefresh-use-context,$$acc); \
-			for pipeline in $(PIPELINES); do \
-				PIPELINE=$$pipeline \
-				ENVIRONMENT=$$acc \
-				REPOSITORY=$$repo \
-				$(BUILD_HARNESS_PATH)/bin/codefresh.sync.sh; \
-			done; \
+			$(MAKE) -s codefresh/sync/apply ENVIRONMENT=$$acc REPOSITORY=$$repo; \
 		done; \
 		echo "============================================================================================================" ; \
+	done
+
+codefresh/sync/apply:
+	$(call assert-set,REPOSITORY)
+	$(call assert-set,ENVIRONMENT)
+	$(call codefresh-use-context,$(ENVIRONMENT))
+	@for pipeline in $(PIPELINES); do \
+		PIPELINE=$$pipeline $(BUILD_HARNESS_PATH)/bin/codefresh.sync.sh; \
 	done
