@@ -42,5 +42,5 @@ codefresh/sync/apply:
 	$(call assert-set,ACCOUNT)
 	$(call codefresh-use-context,$(ACCOUNT))
 	@for pipeline in $(PIPELINES); do \
-		PIPELINE=$$pipeline $(BUILD_HARNESS_PATH)/bin/codefresh.sync.sh; \
+		PIPELINE=$$pipeline $(BUILD_HARNESS_PATH)/bin/codefresh-sync.sh; \
 	done
