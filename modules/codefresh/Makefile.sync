@@ -1,0 +1,43 @@
+CODEFRESH_CLI_IMAGE ?= codefresh/cli
+CODEFRESH_CLI_VERSION ?= latest
+
+export CODEFRESH_CLI_SHARED_DIR ?= /data
+export CODEFRESH_CLI ?= $(DOCKER_RUN) -v$(HOME)/.cfconfig:/root -v$(shell pwd):$(CODEFRESH_CLI_SHARED_DIR) $(CODEFRESH_CLI_IMAGE):$(CODEFRESH_CLI_VERSION)
+
+define pipelines
+	$(value $(shell echo $(1)_PIPELINES | tr 'a-z' 'A-Z'))
+endef
+
+define codefresh-use-context
+	$(CODEFRESH_CLI) auth use-context $(PROJECT)-$(1)
+endef
+
+PIPELINES ?= $(call pipelines,$(ENVIRONMENT))
+
+## Authentificate on codefresh account
+codefresh/sync/auth/%:
+	$(call assert-set,CF_API_KEY)
+	$(call assert-set,PROJECT)
+	@$(CODEFRESH_CLI) auth create-context $(PROJECT)-$(subst codefresh/sync/auth/,,$@) --api-key $(CF_API_KEY)
+
+
+## Install dependencies for codefresh sync
+codefresh/sync/deps: packages/install/gomplate packages/install/yq
+	@exit 0
+
+## Sync all
+codefresh/sync: codefresh/sync/deps
+	$(call assert-set,REPOSITORIES)
+	@for repo in $(REPOSITORIES) ; do \
+		echo ">>>> Processing $${repo} repo"; \
+		for acc in $(ACCOUNTS) ; do \
+			$(call codefresh-use-context,$$acc); \
+			for pipeline in $(PIPELINES); do \
+				PIPELINE=$$pipeline \
+				ENVIRONMENT=$$acc \
+				REPOSITORY=$$repo \
+				$(BUILD_HARNESS_PATH)/bin/codefresh.sync.sh; \
+			done; \
+		done; \
+		echo "============================================================================================================" ; \
+	done
