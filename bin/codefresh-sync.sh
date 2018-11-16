@@ -39,8 +39,7 @@ PIPELINE_IS_NEW=$?
 ## Generate pipeline from template
 gomplate -f templates/${ACCOUNT}/${PIPELINE}.yaml -d repository=env:REPOSITORY > ${PIPELINE_NEW}
 
-if [[ "${PIPELINE_IS_NEW}" == "1" ]]
-then
+if [[ "${PIPELINE_IS_NEW}" == "1" ]]; then
 	## Current pipeline is empty
 	touch ${PIPELINE_CURRENT}
 	## New pipeline can be applied without any changes
@@ -63,14 +62,10 @@ CODEFRESH_SYNC_PIPELINE_DIFF=$(diff -u -s --suppress-common-lines ${PIPELINE_CUR
 CODEFRESH_SYNC_PIPELINE_DIFF_IS_EMPTY=$?
 
 if [[ "${CODEFRESH_SYNC_PIPELINE_DIFF_IS_EMPTY}" == "0" ]]; then
-then
 	echo "${MESSAGE_NO_CHANGES_REQUIRED}"
 else
 	if [[ "${APPLY}" == "true" ]]; then
-	then
-
 		if [[ "${PIPELINE_IS_NEW}" == "1" ]]; then
-		then
 			## Create pipeline
 			${CODEFRESH_CLI} create -f  ${CODEFRESH_CLI_SHARED_DIR}/${PIPELINE_TO_APPLY}
 		else
