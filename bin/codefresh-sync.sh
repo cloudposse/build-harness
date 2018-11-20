@@ -49,8 +49,8 @@ else
 	## Get current pipeline
 	${CODEFRESH_CLI} get pipelines ${PIPELINE_FULLNAME} -o yaml > ${PIPELINE_CURRENT}
 
-	## New pipeline should be extended with id and timestamp to apply
-	yq m -x ${PIPELINE_CURRENT} ${PIPELINE_NEW} > ${PIPELINE_TO_APPLY}
+	## Create a copy of pipelines to apply
+  cp ${PIPELINE_NEW} ${PIPELINE_TO_APPLY}
 
 	## Compare masked pipelines to be indifferent to timestamps and ids
 	yq m -x -i ${PIPELINE_CURRENT} ${PIPELINE_MACK}
