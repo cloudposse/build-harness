@@ -23,7 +23,7 @@ codefresh/sync/auth/%:
 
 
 ## Install dependencies for codefresh sync
-codefresh/sync/deps: packages/install/gomplate packages/install/yq
+codefresh/sync/deps: packages/install/gomplate packages/install/yq packages/install/codefresh
 	@exit 0
 
 ## Sync all

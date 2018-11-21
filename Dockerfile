@@ -21,7 +21,7 @@ ENV INSTALL_PATH /usr/local/bin
 
 WORKDIR /build-harness
 
-RUN make -s chamber/install helm/install helmfile/install template/deps aws/install
+RUN make -s chamber/install helm/install helmfile/install template/deps aws/install codefresh/sync/deps
 
 ENTRYPOINT ["/bin/bash"]
 
