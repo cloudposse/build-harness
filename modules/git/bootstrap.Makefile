@@ -6,14 +6,14 @@ else
 
 GIT ?= $(shell which git)
 
-export GIT_COMMIT ?= $(shell $(GIT) rev-parse --verify HEAD 2>/dev/null)
-export GIT_COMMIT_SHORT ?= $(shell $(GIT) rev-parse --verify --short HEAD 2>/dev/null)
-export GIT_BRANCH ?= $(shell $(GIT) rev-parse --abbrev-ref HEAD 2>/dev/null)
-export GIT_TAG ?= $(shell $(GIT) tag -l --sort -taggerdate --points-at HEAD 2>/dev/null | head -n 1)
-export GIT_COMMIT_URL ?= $(shell $(GIT) config --get remote.origin.url 2>/dev/null | sed 's/\.git$$//g' | sed 's/git@\(.*\):/https:\/\/\1\//g')/commit/$(GIT_COMMIT_SHORT)
+export GIT_COMMIT ?= $(shell $(GIT) rev-parse --verify HEAD)
+export GIT_COMMIT_SHORT ?= $(shell $(GIT) rev-parse --verify --short HEAD)
+export GIT_BRANCH ?= $(shell $(GIT) rev-parse --abbrev-ref HEAD)
+export GIT_TAG ?= $(shell $(GIT) tag -l --sort -taggerdate --points-at HEAD | head -n 1)
+export GIT_COMMIT_URL ?= $(shell $(GIT) config --get remote.origin.url | sed 's/\.git$$//g' | sed 's/git@\(.*\):/https:\/\/\1\//g' )/commit/$(GIT_COMMIT_SHORT)
 
-export GIT_COMMIT_MESSAGE ?= $(shell $(GIT) show -s --format=%s%b 2>/dev/null)
-export GIT_COMMIT_AUTHOR ?= $(shell $(GIT) show -s --format=%aN 2>/dev/null)
+export GIT_COMMIT_MESSAGE ?= $(shell $(GIT) show -s --format=%s%b)
+export GIT_COMMIT_AUTHOR ?= $(shell $(GIT) show -s --format=%aN)
 export GIT_COMMIT_TIMESTAMP ?= $(shell $(GIT) log -1 --format=%ct 2>/dev/null)
 
 

@@ -11,7 +11,8 @@ endif
 WITH_CHAMBER = $(CHAMBER_AUTH) chamber exec $(CHAMBER_SERVICES) --
 
 ## Install chamber
-chamber/install: packages/install/chamber
+chamber/install:
+	@$(MAKE) -s packages/install/chamber
 	@exit 0
 
 ## Start a chamber shell with secrets exported to the environment

@@ -3,7 +3,8 @@ export GITLEAKS_VERSION ?= 1.2.0
 GITLEAKS ?= gitleaks
 
 ## Install gitleaks
-gitleaks/install: packages/install/gitleaks
+gitleaks/install:
+	@$(MAKE) -s packages/install/gitleaks
 	@exit 0
 
 ## Scan current repository
