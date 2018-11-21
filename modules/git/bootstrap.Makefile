@@ -35,7 +35,7 @@ else
 endif
 
 export GIT_URL ?= $(shell git remote get-url origin 2>/dev/null)
-export GIT_REPO ?= $(shell basename $(GIT_URL) .git)
-export GIT_ORG ?= $(shell basename $$(dirname $(GIT_URL) | cut -d: -f2))
+export GIT_REPO ?= $(shell basename "$(GIT_URL)" .git)
+export GIT_ORG ?= $(shell basename $$(dirname "$(GIT_URL)" | cut -d: -f2))
 
 endif
