@@ -26,18 +26,25 @@ codefresh/sync/auth/%:
 codefresh/sync/deps: packages/install/gomplate packages/install/yq packages/install/codefresh
 	@exit 0
 
-## Sync all
+## Show changes
+codefresh/sync/diff: codefresh/sync
+	@exit 0;
+
+## Show apply the changes
+codefresh/sync/apply:
+	$(MAKE) -s codefresh/sync APPLY=true
+
 codefresh/sync: codefresh/sync/deps
 	$(call assert-set,REPOSITORIES)
 	@for repo in $(REPOSITORIES) ; do \
 		echo ">>>> Processing $${repo} repo"; \
 		for acc in $(ACCOUNTS) ; do \
-			$(MAKE) -s codefresh/sync/apply ACCOUNT=$$acc REPOSITORY=$$repo; \
+			$(MAKE) -s codefresh/sync/pipelines ACCOUNT=$$acc REPOSITORY=$$repo; \
 		done; \
 		echo "============================================================================================================" ; \
 	done
 
-codefresh/sync/apply:
+codefresh/sync/pipelines:
 	$(call assert-set,REPOSITORY)
 	$(call assert-set,ACCOUNT)
 	$(call codefresh-use-context,$(ACCOUNT))
