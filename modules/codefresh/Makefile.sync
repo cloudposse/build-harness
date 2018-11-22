@@ -15,7 +15,7 @@ endef
 codefresh/sync/auth/%:
 	$(call assert-set,CF_API_KEY)
 	$(call assert-set,PROJECT)
-	@$(CODEFRESH_CLI) auth create-context $(PROJECT)-$(subst codefresh/sync/auth/,,$@) --api-key $(CF_API_KEY)
+	$(CODEFRESH_CLI) auth create-context $(PROJECT)-$(subst codefresh/sync/auth/,,$@) --api-key $(CF_API_KEY)
 
 
 ## Install dependencies for codefresh sync
