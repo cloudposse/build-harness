@@ -21,7 +21,6 @@ RUN apk --update --no-cache add \
       chamber \
       helm \
       helmfile \
-      aws \
       codefresh
 
 ADD ./ /build-harness/
@@ -30,7 +29,7 @@ ENV INSTALL_PATH /usr/local/bin
 
 WORKDIR /build-harness
 
-RUN make -s template/deps
+RUN make -s template/deps aws/install
 
 ENTRYPOINT ["/bin/bash"]
 
