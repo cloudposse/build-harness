@@ -1,8 +1,4 @@
-CODEFRESH_CLI_IMAGE ?= codefresh/cli
-CODEFRESH_CLI_VERSION ?= latest
-
-
-export CODEFRESH_CLI ?= $(DOCKER_RUN) -v$(HOME)/.cfconfig:/root -v$(shell pwd):$(CODEFRESH_CLI_SHARED_DIR) $(CODEFRESH_CLI_IMAGE):$(CODEFRESH_CLI_VERSION)
+export CODEFRESH_CLI ?= codefresh
 export CODEFRESH_CLI_SHARED_DIR ?= /data
 
 PIPELINES ?= $(call pipelines,$(ACCOUNT))
@@ -24,9 +20,9 @@ codefresh/sync/auth/%:
 
 ## Install dependencies for codefresh sync
 codefresh/sync/deps:
-	$(MAKE) -s packages/install/gomplate
-	$(MAKE) -s packages/install/yq
-	$(MAKE) -s packages/install/codefresh
+	@$(MAKE) -s packages/install/gomplate
+	@$(MAKE) -s packages/install/yq
+	@$(MAKE) -s packages/install/codefresh
 	@exit 0
 
 ## Show changes
@@ -35,7 +31,7 @@ codefresh/sync/diff: codefresh/sync
 
 ## Show apply the changes
 codefresh/sync/apply:
-	$(MAKE) -s codefresh/sync APPLY=true
+	@$(MAKE) -s codefresh/sync APPLY=true
 
 codefresh/sync: codefresh/sync/deps
 	$(call assert-set,REPOSITORIES)

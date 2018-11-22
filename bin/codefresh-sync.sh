@@ -67,10 +67,10 @@ else
 	if [[ "${APPLY}" == "true" ]]; then
 		if [[ "${PIPELINE_IS_NEW}" == "1" ]]; then
 			## Create pipeline
-			${CODEFRESH_CLI} create -f  ${CODEFRESH_CLI_SHARED_DIR}/${PIPELINE_TO_APPLY}
+			${CODEFRESH_CLI} create -f  ${PIPELINE_TO_APPLY}
 		else
 			## Update pipeline
-			${CODEFRESH_CLI} replace -f ${CODEFRESH_CLI_SHARED_DIR}/${PIPELINE_TO_APPLY}
+			${CODEFRESH_CLI} replace -f ${PIPELINE_TO_APPLY}
 		fi
 
 		echo "${MESSAGE_APPLING_CHANGES}"
