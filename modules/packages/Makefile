@@ -1,5 +1,6 @@
 export INSTALL_PATH ?= $(BUILD_HARNESS_PATH)/vendor
-export PACKAGES_VERSION ?= 0.44.1
+#export PACKAGES_VERSION ?= 0.44.1
+export PACKAGES_VERSION ?= support-busybox
 export PACKAGES_PATH ?= $(BUILD_HARNESS_PATH)/vendor/packages
 
 ## Delete packages
