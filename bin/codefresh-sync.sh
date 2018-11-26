@@ -35,12 +35,8 @@ PIPELINE_FULLNAME=${REPOSITORY}/${PIPELINE}
 ${CODEFRESH_CLI} get pipelines ${PIPELINE_FULLNAME} > /dev/null 2>&1
 PIPELINE_IS_NEW=$?
 
-gomplate --help
-
 ## Generate pipeline from template
 gomplate -f templates/${ACCOUNT}/${PIPELINE}.yaml -d repository=env:REPOSITORY -o ${PIPELINE_NEW}
-
-cat ${PIPELINE_NEW} > /dev/null
 
 if [[ "${PIPELINE_IS_NEW}" == "1" ]]; then
 	## Current pipeline is empty
