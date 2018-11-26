@@ -58,7 +58,7 @@ else
 fi
 
 ## Get diff between current and new pipelines
-CODEFRESH_SYNC_PIPELINE_DIFF=$(diff -u -s --suppress-common-lines ${PIPELINE_CURRENT} ${PIPELINE_NEW})
+CODEFRESH_SYNC_PIPELINE_DIFF=$(diff -u -s ${PIPELINE_CURRENT} ${PIPELINE_NEW})
 CODEFRESH_SYNC_PIPELINE_DIFF_IS_EMPTY=$?
 
 if [[ "${CODEFRESH_SYNC_PIPELINE_DIFF_IS_EMPTY}" == "0" ]]; then
