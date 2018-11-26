@@ -38,8 +38,6 @@ PIPELINE_IS_NEW=$?
 ## Generate pipeline from template
 gomplate -f templates/${ACCOUNT}/${PIPELINE}.yaml -d repository=env:REPOSITORY > ${PIPELINE_NEW}
 
-cat ${PIPELINE_NEW}
-
 if [[ "${PIPELINE_IS_NEW}" == "1" ]]; then
 	## Current pipeline is empty
 	touch ${PIPELINE_CURRENT}
