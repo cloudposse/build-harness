@@ -9,7 +9,7 @@ MESSAGE_CHANGES_REQUIRED=">>>>>>>> Processing ${PIPELINE} pipeline ... Changes f
 ${MESSAGE_SEPARATOR}
 This changes would be applied if you run the same command with environment variables APPLY=true
 or
-make codefresh/sync REPOSITORIES=${REPOSITORY} ACCOUNTS=${ACCOUNT} PIPELINES=${PIPELINE} APPLY=true
+make codefresh/sync/apply REPOSITORIES=${REPOSITORY} ACCOUNTS=${ACCOUNT} PIPELINES=${PIPELINE}
 ${MESSAGE_SEPARATOR}";
 
 MESSAGE_APPLING_CHANGES=">>>>>>>> Processing ${PIPELINE} pipeline ... Changes applied
