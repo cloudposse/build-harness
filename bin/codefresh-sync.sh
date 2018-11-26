@@ -35,6 +35,8 @@ PIPELINE_FULLNAME=${REPOSITORY}/${PIPELINE}
 ${CODEFRESH_CLI} get pipelines ${PIPELINE_FULLNAME} > /dev/null 2>&1
 PIPELINE_IS_NEW=$?
 
+ls -l ./
+echo "gomplate -f templates/${ACCOUNT}/${PIPELINE}.yaml -d repository=env:REPOSITORY > ${PIPELINE_NEW}"
 
 ## Generate pipeline from template
 gomplate -f templates/${ACCOUNT}/${PIPELINE}.yaml -d repository=env:REPOSITORY > ${PIPELINE_NEW}
