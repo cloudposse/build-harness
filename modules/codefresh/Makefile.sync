@@ -15,14 +15,14 @@ endef
 codefresh/sync/auth/%:
 	$(call assert-set,CF_API_KEY)
 	$(call assert-set,PROJECT)
-	$(CODEFRESH_CLI) auth create-context $(PROJECT)-$(subst codefresh/sync/auth/,,$@) --api-key $(CF_API_KEY)
+	@$(CODEFRESH_CLI) auth create-context $(PROJECT)-$(subst codefresh/sync/auth/,,$@) --api-key $(CF_API_KEY)
 
 
 ## Install dependencies for codefresh sync
 codefresh/sync/deps:
-	@$(MAKE) -s packages/install/gomplate
-	@$(MAKE) -s packages/install/yq
-	@$(MAKE) -s packages/install/codefresh
+	$(MAKE) -s packages/install/gomplate
+	$(MAKE) -s packages/install/yq
+	$(MAKE) -s packages/install/codefresh
 	@exit 0
 
 ## Show changes
