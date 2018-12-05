@@ -12,7 +12,7 @@ or
 make codefresh/sync/apply REPOSITORIES=${REPOSITORY} ACCOUNTS=${ACCOUNT} PIPELINES=${PIPELINE}
 ${MESSAGE_SEPARATOR}";
 
-MESSAGE_APPLING_CHANGES=">>>>>>>> Processing ${PIPELINE} pipeline ... Changes applied
+MESSAGE_APPLING_CHANGES=">>>>>>>> Processing ${PIPELINE} pipeline... Changes applied
 ${MESSAGE_SEPARATOR}";
 
 
