@@ -7,7 +7,7 @@ MESSAGE_NO_CHANGES_REQUIRED=">>>>>>>> Processing ${PIPELINE} pipeline ... No cha
 
 MESSAGE_CHANGES_REQUIRED=">>>>>>>> Processing ${PIPELINE} pipeline ... Changes found
 ${MESSAGE_SEPARATOR}
-This changes would be applied if you run the same command with environment variables APPLY=true
+These changes will be applied if you run the same command with the environment variable APPLY=true
 or
 make codefresh/sync/apply REPOSITORIES=${REPOSITORY} ACCOUNTS=${ACCOUNT} PIPELINES=${PIPELINE}
 ${MESSAGE_SEPARATOR}";
