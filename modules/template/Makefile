@@ -3,13 +3,7 @@ GOMPLATE_VERSION ?= v2.6.0
 GOMPLATE_REPO ?= hairyhenderson/gomplate
 
 ## Install dependencies
-template/deps:
-	@[ -f $(GOMPLATE) ] || $(SELF) github/download-public-release \
-		REPO=$(GOMPLATE_REPO) \
-		FILE=gomplate_$(OS)-amd64 \
-		VERSION=$(GOMPLATE_VERSION) \
-		OUTPUT=$(GOMPLATE) > /dev/null
-	@chmod +x $(GOMPLATE)
+template/deps: packages/install/gomplate
 
 ## Create $OUT file by building it from $IN template file
 template/build: template/deps
