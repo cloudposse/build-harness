@@ -13,6 +13,7 @@ services:
 - docker
 
 install:
+- make packages/reinstall
 - make docker/login
 - make go/deps-build
 - make go/deps-dev
