@@ -12,7 +12,7 @@ define codefresh-use-context
 endef
 
 ## Authentificate on codefresh account
-codefresh/sync/auth/%:
+codefresh/sync/auth/%: codefresh/sync/deps
 	$(call assert-set,CF_API_KEY)
 	$(call assert-set,PROJECT)
 	@$(CODEFRESH_CLI) auth create-context $(PROJECT)-$(subst codefresh/sync/auth/,,$@) --api-key $(CF_API_KEY)
