@@ -45,7 +45,7 @@ function upsert() {
     local tiller_version=$(helm version --server --short --tiller-connection-timeout $TIMEOUT 2> /dev/null | grep -Eo "v[0-9]+\.[0-9]+\..+")
     if [ "$helm_version" != "$tiller_version" ]; then
         info "Helm version: $helm_version, differs with tiller version: ${tiller_version:-'not installed'}"
-        info "Upgrarding tiller to $helm_version"
+        info "Upgrading tiller to $helm_version"
         if [ $RBAC_ENABLED ]; then
             local tiller_serviceaccount=tiller
             local tiller_serviceaccount_exists=$(kubectl get serviceaccount -n kube-system --ignore-not-found=true --request-timeout=${TIMEOUT}s -o name $tiller_serviceaccount 2> /dev/null)
