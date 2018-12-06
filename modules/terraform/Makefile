@@ -32,6 +32,5 @@ terraform/lint:
 	[ -z "$$FAIL" ] || (echo "Terraform configuration needs linting. Run '$(TERRAFORM) fmt'"; echo $$FAIL; exit 1)
 
 ## Upgrade all terraform module sources
-terraform/upgrade-modules:
-	@$(MAKE) -s packages/install/json2hcl
+terraform/upgrade-modules: packages/install/json2hcl
 	@$(BUILD_HARNESS_PATH)/bin/upgrade_terraform_modules.sh all

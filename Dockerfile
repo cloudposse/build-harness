@@ -15,21 +15,13 @@ RUN apk update && \
       py-pip && \
     git config --global advice.detachedHead false
 
-RUN curl -sSL https://apk.cloudposse.com/install.sh | bash
-
-RUN apk --update --no-cache add \
-      chamber \
-      helm \
-      helmfile \
-      codefresh
-
 ADD ./ /build-harness/
 
 ENV INSTALL_PATH /usr/local/bin
 
 WORKDIR /build-harness
 
-RUN make -s template/deps aws/install
+RUN make -s chamber/install helm/install helmfile/install template/deps aws/install
 
 ENTRYPOINT ["/bin/bash"]
 

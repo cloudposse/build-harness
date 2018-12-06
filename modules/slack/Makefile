@@ -14,11 +14,10 @@ export SLACK_TEXT ?=
 
 
 ## Send webhook notification to slack
-slack/notify:
+slack/notify: packages/install/slack-notifier
 	$(call assert-set,SLACK_WEBHOOK_URL)
 	$(call assert-set,SLACK_NOTIFIER_TEMPLATE)
 	$(call assert-set,SLACK_NOTIFIER)
-	@$(MAKE) -s packages/install/slack-notifier
 	@$(BUILD_HARNESS_PATH)/bin/slack-notify.sh
 
 ## Send notification to slack using "build" template

@@ -1,5 +1,3 @@
-CF_BUILD_TIMESTAMP ?= 0
-
 ifeq ($(PIPELINE_ACTION),destroy)
 	export CODEFRESH_SLACK_WEBAPP_TEXT_ICON ?= :boom:
 else

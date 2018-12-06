@@ -9,8 +9,7 @@ export README_INCLUDES ?= $(file://$(shell pwd)/?type=text/plain)
 readme: readme/build
 	@exit 0
 
-readme/deps:
-	@$(MAKE) -s packages/install/gomplate
+readme/deps: packages/install/gomplate
 	@exit 0
 
 ## Create basic minimalistic .README.md template file

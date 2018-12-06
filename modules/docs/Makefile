@@ -14,6 +14,5 @@ docs/targets.md: docs/deps
 
 .PHONY : docs/terraform.md
 ## Update `docs/terraform.md` from `terraform-docs`
-docs/terraform.md: docs/deps
-	@$(MAKE) -s packages/install/terraform-docs
+docs/terraform.md: docs/deps packages/install/terraform-docs
 	@terraform-docs md . > $@

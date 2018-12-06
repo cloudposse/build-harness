@@ -19,10 +19,7 @@ codefresh/sync/auth/%:
 
 
 ## Install dependencies for codefresh sync
-codefresh/sync/deps:
-	@$(MAKE) -s packages/install/gomplate
-	@$(MAKE) -s packages/install/yq
-	@$(MAKE) -s packages/install/codefresh
+codefresh/sync/deps: packages/install/gomplate packages/install/yq packages/install/codefresh
 	@exit 0
 
 ## Show changes
@@ -37,10 +34,10 @@ codefresh/sync: codefresh/sync/deps
 	$(call assert-set,REPOSITORIES)
 	@for repo in $(REPOSITORIES) ; do \
 		echo ">>>> Processing $${repo} repo"; \
-		for acc in $(ACCOUNTS) ; do \
-			$(MAKE) -s codefresh/sync/pipelines ACCOUNT=$$acc REPOSITORY=$$repo; \
+		for account in $(ACCOUNTS) ; do \
+			$(MAKE) -s codefresh/sync/pipelines ACCOUNT=$$account REPOSITORY=$$repo; \
 		done; \
-		echo "============================================================================================================" ; \
+		echo $(shell printf == '_%.0s' {1..80}); \
 	done
 
 codefresh/sync/pipelines:

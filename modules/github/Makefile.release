@@ -23,10 +23,9 @@ github/download-public-release:
 # To use ghr, you need a GitHub API token.
 # Please set it via `GITHUB_TOKEN` env var
 ## Push all release artifacts to GitHub (Required: `GITHUB_TOKEN`)
-github/push-artifacts:
+github/push-artifacts: packages/install/ghr-linux
 	$(call assert-set,GIT_TAG)
 	$(call assert-set,ARTIFACTS)
-	@$(MAKE) -s packages/install/ghr-linux
 	@ghr $(GIT_TAG) $(ARTIFACTS)
 
 .PHONY : github/latest-release
