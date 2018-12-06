@@ -37,7 +37,7 @@ codefresh/sync: codefresh/sync/deps
 		for account in $(ACCOUNTS) ; do \
 			$(MAKE) -s codefresh/sync/pipelines ACCOUNT=$$account REPOSITORY=$$repo; \
 		done; \
-		echo $(shell printf == '_%.0s' {1..80}); \
+		echo $(shell printf -- '=%.0s' {1..80}); \
 	done
 
 codefresh/sync/pipelines:
