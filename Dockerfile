@@ -18,13 +18,13 @@ RUN apk update && \
 RUN curl -sSL https://apk.cloudposse.com/install.sh | bash
 
 ## Install as packages
+
+## Codefresh required additional libraries for alpine
+## So can not be curl binary
 RUN apk --update --no-cache add \
-			## Default
       chamber \
       helm \
       helmfile \
-      ## Codefresh required additional libraries for alpine
-      ## So can not be curl binary
       codefresh
 
 ADD ./ /build-harness/
