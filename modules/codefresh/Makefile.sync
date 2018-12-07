@@ -22,11 +22,11 @@ codefresh/sync/auth/%: codefresh/sync/deps
 codefresh/sync/deps: packages/install/gomplate packages/install/yq packages/install/codefresh
 	@exit 0
 
-## Show changes
+## Codefresh pipelines sync - Show changes
 codefresh/sync/diff: codefresh/sync
 	@exit 0;
 
-## Show apply the changes
+## Codefresh pipelines sync - Apply the changes
 codefresh/sync/apply:
 	@$(MAKE) -s codefresh/sync APPLY=true
 
