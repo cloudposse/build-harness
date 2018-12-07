@@ -86,7 +86,7 @@ codefresh/notify/slack/sync:
 	@$(MAKE) slack/notify \
 		SLACK_NOTIFIER_TEMPLATE=$(BUILD_HARNESS_PATH)/templates/slack-notifier/sync.env
 		ACTION=$(PIPELINE_ACTION) \
-		ACCOUNTS=$(ACCOUNTS) \
+		ACCOUNTS="$(ACCOUNTS)" \
 		REPOSITORIES=$(REPOSITORIES) \
 		BUILD_URL=$(CF_BUILD_URL) \
 		REPO_OWNER=$(CF_REPO_OWNER) \
