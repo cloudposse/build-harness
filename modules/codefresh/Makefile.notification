@@ -84,7 +84,7 @@ codefresh/notify/slack/sync:
 	$(call assert-set,ACCOUNTS)
 	$(call assert-set,REPOSITORIES)
 	@$(MAKE) slack/notify \
-		SLACK_NOTIFIER_TEMPLATE=$(BUILD_HARNESS_PATH)/templates/slack-notifier/sync.env
+		SLACK_NOTIFIER_TEMPLATE=$(BUILD_HARNESS_PATH)/templates/slack-notifier/sync.env \
 		ACTION=$(PIPELINE_ACTION) \
 		ACCOUNTS="$(ACCOUNTS)" \
 		REPOSITORIES=$(REPOSITORIES) \
