@@ -31,8 +31,8 @@ export BUILD_HARNESS_BRANCH ?= 0.14.5
 PROJECT ?= project_z
 
 ## Repos to sync pipelines
-REPOSITORIES ?= api \
-				front
+REPOSITORIES ?= api front
+
 ## Codefresh accounts to operate with
 ACCOUNTS ?= account_x account_y
 
