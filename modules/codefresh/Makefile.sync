@@ -1,7 +1,7 @@
 export CODEFRESH_CLI ?= codefresh
 export CODEFRESH_CLI_SHARED_DIR ?= /data
 
-PIPELINES ?= $(call pipelines,$(ACCOUNT))
+export PIPELINES ?= $(call pipelines,$(ACCOUNT))
 
 define pipelines
 	$(value $(shell echo $(1)_PIPELINES | tr 'a-z' 'A-Z'))
