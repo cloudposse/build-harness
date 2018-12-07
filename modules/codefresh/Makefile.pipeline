@@ -123,5 +123,8 @@ ifneq ($(PIPELINE_ENV),)
   endif
 endif
 
-
+## Export sync pipeline vars
+codefresh/sync/pipeline/export:
+	$(call assert-set,PIPELINE_ACTION)
+	@echo "PIPELINE_ACTION=$(PIPELINE_ACTION)"
 
