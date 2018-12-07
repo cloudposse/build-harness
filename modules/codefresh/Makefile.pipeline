@@ -85,7 +85,6 @@ endif
 
 ## Diff codefresh sync - display diff
 ifeq ($(PIPELINE_ENV),codefresh-diff)
-  STAGE ?= $(FEATURE)
   PIPELINE_ACTION ?= diff
 endif
 
