@@ -90,7 +90,13 @@ Available targets:
   codefresh/notify/slack/build        Send notification from codefresh to slack using "build" template
   codefresh/notify/slack/deploy       Send notification from codefresh to slack using "deploy" template
   codefresh/notify/slack/deploy/webapp Send notification from codefresh to slack using "deploy" template with exposed endpoint
+  codefresh/notify/slack/sync         Send notification from codefresh to slack using "codefresh-sync" template
   codefresh/pipeline/export           Export pipeline vars
+  codefresh/sync/apply                Codefresh pipelines sync - Apply the changes
+  codefresh/sync/auth/%               Authentificate on codefresh account
+  codefresh/sync/deps                 Install dependencies for codefresh sync
+  codefresh/sync/diff                 Codefresh pipelines sync - Show changes
+  codefresh/sync/pipeline/export      Export sync pipeline vars
   codefresh/trigger/webhook           Trigger a CodeFresh WebHook
   completion/install/bash             Install completion script for bash
   compose/build                       Build local dev environment
