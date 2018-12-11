@@ -10,7 +10,7 @@ else ifneq ($(TRAVIS_BRANCH),)
 else ifneq ($(TRAVIS_TAG),)
   BRANCH=$(TRAVIS_TAG)
 else ifneq ($(wildcard .git),)
-  BRANCH=$(shell git rev-parse --abbrev-ref HEAD)
+  BRANCH=$(GIT_BRANCH)
 else ifeq ($(DEBUG),true)
   $(warning unable to extrapolate current BRANCH)
 endif

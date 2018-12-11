@@ -3,18 +3,19 @@
 # Extract ticket number from branch name (e.g. feature/ch37684/add-codefresh)
 FEATURE ?= $(shell echo "$(GIT_BRANCH)" | cut -s -d'/' -f2 | tr '[:upper:]' '[:lower:]')
 
-## Production deploys only released versions
-ifeq ($(PIPELINE_ENV),production)
-  STAGE ?= prod
-  ifeq ($(GIT_IS_TAG),1)
-  	PIPELINE_ACTION = deploy
-  endif
-endif
 
 ## Production build only released versions
 ifeq ($(PIPELINE_ENV),production-build)
   ifeq ($(GIT_IS_TAG),1)
   	PIPELINE_ACTION = build
+  endif
+endif
+
+## Production deploys only released versions
+ifeq ($(PIPELINE_ENV),production)
+  STAGE ?= prod
+  ifeq ($(GIT_IS_TAG),1)
+  	PIPELINE_ACTION = deploy
   endif
 endif
 
@@ -43,7 +44,6 @@ ifeq ($(PIPELINE_ENV),integration)
   endif
 
   ## GitHub integration support
-
   ifeq ($(CF_PULL_REQUEST_ACTION),opened)
     PIPELINE_ACTION = deploy
   endif
@@ -83,6 +83,16 @@ ifeq ($(PIPELINE_ENV),integration)
 
 endif
 
+## Diff codefresh sync - display diff
+ifeq ($(PIPELINE_ENV),codefresh-diff)
+  PIPELINE_ACTION ?= diff
+endif
+
+## Apply codefresh sync - apply changes
+ifeq ($(PIPELINE_ENV),codefresh-apply)
+  PIPELINE_ACTION ?= apply
+endif
+
 PIPELINE_ACTION ?= pass
 
 ifneq ($(PIPELINE_ENV),)
@@ -113,5 +123,8 @@ ifneq ($(PIPELINE_ENV),)
   endif
 endif
 
-
+## Export sync pipeline vars
+codefresh/sync/pipeline/export:
+	$(call assert-set,PIPELINE_ACTION)
+	@echo "PIPELINE_ACTION=$(PIPELINE_ACTION)"
 
