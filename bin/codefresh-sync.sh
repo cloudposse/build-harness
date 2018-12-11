@@ -39,21 +39,21 @@ PIPELINE_IS_NEW=$?
 gomplate -f templates/${ACCOUNT}/${PIPELINE}.yaml -d repository=env:REPOSITORY -o ${PIPELINE_NEW}
 
 if [[ "${PIPELINE_IS_NEW}" == "1" ]]; then
-	## Current pipeline is empty
-	touch ${PIPELINE_CURRENT}
-	## New pipeline can be applied without any changes
-	cp  ${PIPELINE_NEW} ${PIPELINE_TO_APPLY}
+  ## Current pipeline is empty
+  touch ${PIPELINE_CURRENT}
+  ## New pipeline can be applied without any changes
+  cp  ${PIPELINE_NEW} ${PIPELINE_TO_APPLY}
 else
 
-	## Get current pipeline
-	${CODEFRESH_CLI} get pipelines ${PIPELINE_FULLNAME} -o yaml > ${PIPELINE_CURRENT}
+  ## Get current pipeline
+  ${CODEFRESH_CLI} get pipelines ${PIPELINE_FULLNAME} -o yaml > ${PIPELINE_CURRENT}
 
-	## Create a copy of pipelines to apply
+  ## Create a copy of pipelines to apply
   cp ${PIPELINE_NEW} ${PIPELINE_TO_APPLY}
 
-	## Compare masked pipelines to be indifferent to timestamps and ids
-	yq m -x -i ${PIPELINE_CURRENT} ${PIPELINE_MACK}
-	yq m -x -i ${PIPELINE_NEW} ${PIPELINE_MACK}
+  ## Compare masked pipelines to be indifferent to timestamps and ids
+  yq m -x -i ${PIPELINE_CURRENT} ${PIPELINE_MACK}
+  yq m -x -i ${PIPELINE_NEW} ${PIPELINE_MACK}
 fi
 
 ## Get diff between current and new pipelines
