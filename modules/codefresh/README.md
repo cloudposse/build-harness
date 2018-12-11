@@ -16,8 +16,9 @@
 │   └── {account_y}                     # Templates for account y
 │        ├── {template_y_x1}.yaml       # Pipeline template {template_y_x1}
 │        └── {template_y_y1}.yaml       # Pipeline template {template_y_y1}
-└── Makefile                             # Makefile
+└── Makefile                            # Makefile
 ```
+
 * Fill templates with [pipelines](https://codefresh-io.github.io/cli/pipelines/spec/). You can use `{{ (ds "repository") }}` as placeholder for repo name
 * Add to the `Makefile` 
 ```
