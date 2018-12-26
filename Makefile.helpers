@@ -40,7 +40,7 @@ help/all:
 ## This help short screen
 help/short:
 	@printf "Available targets:\n\n"
-	@$(SELF) help/generate MAKEFILE_LIST="Makefile $(BUILD_HARNESS_PATH)/Makefile.helpers"
+	@$(SELF) -s help/generate MAKEFILE_LIST="Makefile $(BUILD_HARNESS_PATH)/Makefile.helpers"
 
 # Generate help output from MAKEFILE_LIST
 help/generate:

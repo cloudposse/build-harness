@@ -20,5 +20,5 @@ include $(BUILD_HARNESS_PATH)/modules/*/Makefile*
 
 ifndef TRANSLATE_COLON_NOTATION
 %:
-	@$(SELF) $(subst :,/,$@) TRANSLATE_COLON_NOTATION=false
+	@$(SELF) -s $(subst :,/,$@) TRANSLATE_COLON_NOTATION=false
 endif
