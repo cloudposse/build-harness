@@ -15,6 +15,15 @@ ${MESSAGE_SEPARATOR}";
 MESSAGE_APPLING_CHANGES=">>>>>>>> Processing ${PIPELINE} pipeline... Changes applied
 ${MESSAGE_SEPARATOR}";
 
+MESSAGE_REPO_FOUND=">>>>>>>> Processing ${REPOSITORY} repository... Repo found
+${MESSAGE_SEPARATOR}";
+
+MESSAGE_REPO_NOT_FOUND_CREATING=">>>>>>>> Processing ${REPOSITORY} repository... Repo not found... Creating new repo
+${MESSAGE_SEPARATOR}";
+
+MESSAGE_REPO_NOT_FOUND_SKIP=">>>>>>>> Processing ${REPOSITORY} repository... Repo not found... Set APPLY=true to create or use
+make codefresh/sync/apply REPOSITORIES=${REPOSITORY} ACCOUNTS=${ACCOUNT} PIPELINES=${PIPELINE}
+${MESSAGE_SEPARATOR}";
 
 ## Prepare temporary directory
 TMP_DIR=./tmp
@@ -30,6 +39,20 @@ PIPELINE_TO_APPLY=${TMP_DIR}/apply.yaml
 PIPELINE_MACK=${BUILD_HARNESS_PATH}/templates/codefresh.sync.mask.yaml
 PIPELINE_FULLNAME=${REPOSITORY}/${PIPELINE}
 
+## Check if codefresh repo exists
+${CODEFRESH_CLI} get repo ${REPOSITORY} | grep 'no available resources' > /dev/null 2>&1
+REPO_FOUND=$?
+
+if [[ "${REPO_FOUND}" == "1" ]]; then
+  echo "${MESSAGE_REPO_FOUND}"
+else
+  if [[ "${APPLY}" == "true" ]]; then
+    echo "${MESSAGE_REPO_NOT_FOUND_CREATING}"
+    ${CODEFRESH_CLI} add repo ${REPOSITORY} -c github
+  else
+    echo "${MESSAGE_REPO_NOT_FOUND_SKIP}"
+  fi
+fi
 
 ## Check if pipeline exists on codefresh
 ${CODEFRESH_CLI} get pipelines ${PIPELINE_FULLNAME} > /dev/null 2>&1
@@ -66,9 +89,11 @@ else
 	if [[ "${APPLY}" == "true" ]]; then
 		if [[ "${PIPELINE_IS_NEW}" == "1" ]]; then
 			## Create pipeline
+			echo "Creating pipeline ${PIPELINE_TO_APPLY}"
 			${CODEFRESH_CLI} create -f  ${PIPELINE_TO_APPLY}
 		else
 			## Update pipeline
+			echo "Updating pipeline ${PIPELINE_TO_APPLY}"
 			${CODEFRESH_CLI} replace -f ${PIPELINE_TO_APPLY}
 		fi
 
