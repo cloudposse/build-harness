@@ -71,13 +71,14 @@ helm/chart/build/deps:
 	@echo "Fetch dependencies for $(HELM_PACKAGE_PATH)$(CHART_NAME)"
 	@$(HELM) dependency build --debug $(HELM_PACKAGE_PATH)$(CHART_NAME)
 
-# Create a helm package called CHART_NAME and store it in HELM_PACKAGE_PATH
+# Create a helm package called CHART_NAME and store it in HELM_PACKAGE_PATH optionally pinning it with IMAGE_VERSION
 helm/chart/build/package:
 	$(call assert-set,CHART_NAME)
 	$(call assert-set,TARGET_VERSION)
 	$(call assert-set,HELM_PACKAGE_PATH)
-	@echo "For back compatibility pinning image.tag to $(TARGET_VERSION)"
-	@set -o pipefail; yq write --inplace $(HELM_PACKAGE_PATH)$(CHART_NAME)/values.yaml image.tag $(TARGET_VERSION) | head -1
+	$(eval IMAGE_VERSION ?= $(TARGET_VERSION))
+	@echo "For back compatibility pinning image.tag to $(IMAGE_VERSION)"
+	@set -o pipefail; yq write --inplace $(HELM_PACKAGE_PATH)$(CHART_NAME)/values.yaml image.tag $(IMAGE_VERSION) | head -1
 	@echo "Pack $(CHART_NAME) with version $(TARGET_VERSION)"
 	@$(HELM) package  \
 		--version $(TARGET_VERSION) \
