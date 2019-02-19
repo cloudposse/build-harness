@@ -77,7 +77,7 @@ helm/chart/build/package:
 	$(call assert-set,TARGET_VERSION)
 	$(call assert-set,HELM_PACKAGE_PATH)
 	$(eval IMAGE_VERSION ?= $(TARGET_VERSION))
-	@echo "For back compatibility pinning image.tag to $(IMAGE_VERSION)"
+	@echo "For backward compatibility pinning image.tag to $(IMAGE_VERSION)"
 	@set -o pipefail; yq write --inplace $(HELM_PACKAGE_PATH)$(CHART_NAME)/values.yaml image.tag $(IMAGE_VERSION) | head -1
 	@echo "Pack $(CHART_NAME) with version $(TARGET_VERSION)"
 	@$(HELM) package  \
