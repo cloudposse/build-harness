@@ -1,0 +1,18 @@
+# Build Docker base images
+version: '1.0'
+
+steps:
+  build_ps_buildharness_image:
+    title: Build ps-build-harness
+    type: build
+    description: Build ps-build-harness
+    image_name: ps-build-harness
+    dockerfile: Dockerfile
+    no_cache: true
+
+  push_ps_buildharness_image:
+    title: Push ps-build-harness image
+    type: push
+    candidate: ${{build_ps_buildharness_image}}
+    tags:
+      - "${{PS_BUILD_HARNESS_VERSION}}"
