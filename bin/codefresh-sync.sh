@@ -111,3 +111,5 @@ fi
 
 ## Cleanup tmp directory
 rm -rf ${TMP_DIR}
+## Make sure tmp directory exists for future builds
+mkdir -p ${TMP_DIR}
