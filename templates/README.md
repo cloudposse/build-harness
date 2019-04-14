@@ -67,11 +67,13 @@ We literally have [*hundreds of terraform modules*][terraform_modules] that are 
 {{ if has (ds "config") "usage" }}
 ## Usage
 
+{{ if (file.Exists "main.tf") }}
 **IMPORTANT:** The example shows pinning to the `master` branch. 
 This is a reminder that you need to pin your dependencies for reproducibility and visibility.
 Explicit versioning allows knowing exactly which version of each dependency is used at any time.
 However, in your code do not pin to `master` because there may be breaking changes between releases.
 Instead pin to the release tag (e.g. `?ref=tags/x.y.z`) of one of our [latest releases](https://github.com/cloudposse/{{(ds "config").name}}/releases).
+{{end}}
 
 {{ (ds "config").usage -}}
 {{ end }}
