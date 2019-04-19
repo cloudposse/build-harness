@@ -41,9 +41,6 @@ helm/repo/add-all:
 	@REPO_NAME=kubernetes-charts \
 		REPO_ENDPOINT=http://storage.googleapis.com/kubernetes-charts \
 		$(SELF) -s --no-print-directory helm/repo/add
-	@REPO_NAME=opsgoodness \
-		REPO_ENDPOINT=http://charts.opsgoodness.com \
-		$(SELF) -s --no-print-directory helm/repo/add
 	@REPO_NAME=kubernetes-charts-incubator \
 		REPO_ENDPOINT=https://kubernetes-charts-incubator.storage.googleapis.com \
 		$(SELF) -s --no-print-directory helm/repo/add
