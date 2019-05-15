@@ -104,7 +104,6 @@ else
 		fi
 
 
-
 		echo "${MESSAGE_APPLING_CHANGES}"
 		echo "${CODEFRESH_SYNC_PIPELINE_DIFF}"
 		echo "${MESSAGE_SEPARATOR}"
