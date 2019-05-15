@@ -71,12 +71,17 @@ else
   ## Get current pipeline
   ${CODEFRESH_CLI} get pipelines ${PIPELINE_FULLNAME} -o yaml > ${PIPELINE_CURRENT}
 
+  ## Get triggers for the pipeline
+	echo "---" >> ${PIPELINE_CURRENT}
+	${CODEFRESH_CLI} get triggers --pipeine $(yq r ${PIPELINE_CURRENT} metadata.id) -o yaml | \
+																							yq r -j - | jq 'del(.items[].pipeline)' | yq r - >> ${PIPELINE_CURRENT}
+
   ## Create a copy of pipelines to apply
   cp ${PIPELINE_NEW} ${PIPELINE_TO_APPLY}
 
   ## Compare masked pipelines to be indifferent to timestamps and ids
-  yq m -x -i ${PIPELINE_CURRENT} ${PIPELINE_MACK}
-  yq m -x -i ${PIPELINE_NEW} ${PIPELINE_MACK}
+  yq m -x -d0 -i ${PIPELINE_CURRENT} ${PIPELINE_MACK}
+  yq m -x -d0 -i ${PIPELINE_NEW} ${PIPELINE_MACK}
 fi
 
 ## Get diff between current and new pipelines
@@ -90,12 +95,15 @@ else
 		if [[ "${PIPELINE_IS_NEW}" == "1" ]]; then
 			## Create pipeline
 			echo "Creating pipeline ${PIPELINE_TO_APPLY}"
-			${CODEFRESH_CLI} create -f  ${PIPELINE_TO_APPLY}
+			rq r -d0 ${PIPELINE_TO_APPLY} | ${CODEFRESH_CLI} create -
+
 		else
 			## Update pipeline
 			echo "Updating pipeline ${PIPELINE_TO_APPLY}"
-			${CODEFRESH_CLI} replace -f ${PIPELINE_TO_APPLY}
+			rq r -d0 ${PIPELINE_TO_APPLY} | ${CODEFRESH_CLI} replace -
 		fi
+
+
 
 		echo "${MESSAGE_APPLING_CHANGES}"
 		echo "${CODEFRESH_SYNC_PIPELINE_DIFF}"
