@@ -34,7 +34,8 @@ mkdir -p ${TMP_DIR}
 ## Pipelines file names
 PIPELINE_CURRENT=${TMP_DIR}/current.yaml
 PIPELINE_NEW=${TMP_DIR}/new.yaml
-PIPELINE_TO_APPLY=${TMP_DIR}/apply.yaml
+TRIGGERS_TO_APPLY=${TMP_DIR}/apply-triggers.yaml
+PIPELINE_TO_APPLY=${TMP_DIR}/apply-pipeline.yaml
 
 PIPELINE_MACK=${BUILD_HARNESS_PATH}/templates/codefresh.sync.mask.yaml
 PIPELINE_FULLNAME=${REPOSITORY}/${PIPELINE}
@@ -65,7 +66,8 @@ if [[ "${PIPELINE_IS_NEW}" == "1" ]]; then
   ## Current pipeline is empty
   touch ${PIPELINE_CURRENT}
   ## New pipeline can be applied without any changes
-  cp  ${PIPELINE_NEW} ${PIPELINE_TO_APPLY}
+  yq r -d0 ${PIPELINE_NEW} > ${PIPELINE_TO_APPLY}
+  yq r -d1 ${PIPELINE_NEW} > ${TRIGGERS_TO_APPLY}
 else
 
   ## Get current pipeline
@@ -77,7 +79,8 @@ else
 																							yq r -j - | jq 'del(.items[].pipeline)' | yq r - >> ${PIPELINE_CURRENT}
 
   ## Create a copy of pipelines to apply
-  cp ${PIPELINE_NEW} ${PIPELINE_TO_APPLY}
+  yq r -d0 ${PIPELINE_NEW} > ${PIPELINE_TO_APPLY}
+  yq r -d1 ${PIPELINE_NEW} > ${TRIGGERS_TO_APPLY}
 
   ## Compare masked pipelines to be indifferent to timestamps and ids
   yq m -x -d0 -i ${PIPELINE_CURRENT} ${PIPELINE_MACK}
@@ -94,15 +97,13 @@ else
 	if [[ "${APPLY}" == "true" ]]; then
 		if [[ "${PIPELINE_IS_NEW}" == "1" ]]; then
 			## Create pipeline
-			exit 0
 			echo "Creating pipeline ${PIPELINE_TO_APPLY}"
-			yq r -d0 ${PIPELINE_TO_APPLY} | ${CODEFRESH_CLI} create -
+			${CODEFRESH_CLI} create -f ${PIPELINE_TO_APPLY}
 
 		else
-			exit 0
 			## Update pipeline
 			echo "Updating pipeline ${PIPELINE_TO_APPLY}"
-			yq r -d0 ${PIPELINE_TO_APPLY} | ${CODEFRESH_CLI} replace -
+			${CODEFRESH_CLI} replace -f ${PIPELINE_TO_APPLY}
 		fi
 
 
