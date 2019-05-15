@@ -94,13 +94,15 @@ else
 	if [[ "${APPLY}" == "true" ]]; then
 		if [[ "${PIPELINE_IS_NEW}" == "1" ]]; then
 			## Create pipeline
+			exit 0
 			echo "Creating pipeline ${PIPELINE_TO_APPLY}"
-			rq r -d0 ${PIPELINE_TO_APPLY} | ${CODEFRESH_CLI} create -
+			yq r -d0 ${PIPELINE_TO_APPLY} | ${CODEFRESH_CLI} create -
 
 		else
+			exit 0
 			## Update pipeline
 			echo "Updating pipeline ${PIPELINE_TO_APPLY}"
-			rq r -d0 ${PIPELINE_TO_APPLY} | ${CODEFRESH_CLI} replace -
+			yq r -d0 ${PIPELINE_TO_APPLY} | ${CODEFRESH_CLI} replace -
 		fi
 
 
