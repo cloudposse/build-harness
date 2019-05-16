@@ -105,8 +105,7 @@ else
 			echo "Updating pipeline ${PIPELINE_TO_APPLY}"
 			${CODEFRESH_CLI} replace -f ${PIPELINE_TO_APPLY}
 			exit 0
-			yq r -j ${TRIGGERS_TO_APPLY} | jq -r '. | .[]' | \
-				xargs -I '{}' ${CODEFRESH_CLI} create trigger {} $(${CODEFRESH_CLI} get pipelines ${PIPELINE_FULLNAME} -o yaml | yq r - metadata.id)
+			yq r -j ${TRIGGERS_TO_APPLY} | jq -cr '.items[].event' | xargs -I '{}' ${CODEFRESH_CLI} create trigger "{}:${CF_ACCOUNT}" $(${CODEFRESH_CLI} get pipelines ${PIPELINE_FULLNAME} -o yaml | yq r - metadata.id)
 		fi
 
 
