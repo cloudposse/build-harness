@@ -77,7 +77,7 @@ else
 	echo "---" >> ${PIPELINE_CURRENT}
 	${CODEFRESH_CLI} get triggers --pipeine $(yq r ${PIPELINE_CURRENT} metadata.id) -o yaml | \
 																							yq r -j - | jq 'del(.items[].pipeline)' | yq r - >> ${PIPELINE_CURRENT}
-
+	cat ${PIPELINE_CURRENT}
   ## Create a copy of pipelines to apply
   yq r -d0 ${PIPELINE_NEW} > ${PIPELINE_TO_APPLY}
   yq r -d1 ${PIPELINE_NEW} > ${TRIGGERS_TO_APPLY}
