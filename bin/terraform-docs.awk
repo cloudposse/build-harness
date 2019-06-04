@@ -4,11 +4,11 @@
 # https://github.com/segmentio/terraform-docs/issues/62
 
 {
-  if ( /{/ ) { 
+  if ( /\{/ ) { 
     braceCnt++ 
   }
 
-  if ( /}/ ) { 
+  if ( /\}/ ) { 
     braceCnt-- 
   }
 
