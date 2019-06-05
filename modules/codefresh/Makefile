@@ -16,3 +16,11 @@ codefresh/trigger/webhook:
 codefresh/export:
 	$(call assert-set,CF_BUILD_TIMESTAMP)
 	@echo "CF_BUILD_UNIX_TIMESTAMP=$(shell expr $(CF_BUILD_TIMESTAMP) / 1000)"
+
+## Wait codefresh builds
+codefresh/wait:
+	$(call assert-set,CF_BUILD_ID)
+	$(call assert-set,CF_BRANCH)
+	$(call assert-set,PIPELINES)
+	$(call assert-set,STATUS)
+	$(BUILD_HARNESS_PATH)/bin/codefresh-wait.sh
