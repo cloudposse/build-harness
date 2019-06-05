@@ -11,11 +11,13 @@ function is_not_next() {
 	local branch=$2
 	local piplines_names=($PIPELINES)
 
-	next_id=$(${CODEFRESH_CLI} get builds ${piplines_names[@]/#/--pipeline-name } \
+	next_id=$(${CODEFRESH_CLI} get builds ${piplines_names[@]/#/--pipeline-name=} \
 		--branch ${branch} \
 		--status ${STATUS}\
 		--limit ${LIMIT} \
-		-o id | tail -1)
+		-o id | tac | head -1)
+
+	echo "${next_id} == ${id}"
 
 	if [[ "${next_id}" == "${id}" ]];
 	then
