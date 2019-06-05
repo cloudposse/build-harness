@@ -1,8 +1,8 @@
 #!/bin/bash
 
-CODEFRESH_CLI=${CODEFRESH_CLI:codefresh}
-LIMIT=${LIMIT:1000}
-STATUS=${STATUS:running}
+CODEFRESH_CLI=${CODEFRESH_CLI:-codefresh}
+LIMIT=${LIMIT:-1000}
+STATUS=${STATUS:-running}
 PIPELINES=${PIPELINES:-}
 
 
@@ -17,7 +17,12 @@ function is_not_next() {
 		--limit ${LIMIT} \
 		-o id | tac | head -1)
 
-	return [ ${next_id} -neq ${id} ]
+	if [[ "${next_id}" == "${id}" ]];
+	then
+		return 0
+	else
+		return 1
+	fi
 }
 
 
