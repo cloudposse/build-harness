@@ -18,12 +18,18 @@ function is_not_next() {
 		-o id | tac | head -1)
 
 	echo "${next_id} == ${id}"
-	return [ "${next_id}" == "${id}" ]
+
+	if [ "${next_id}" = "${id}" ];
+	then
+		return 0
+	else
+		return 1
+	fi
 }
 
 
 # Verify if there's more than 1 running builds, if so, wait for the first to finish
-while is_not_next ${CF_BUILD_ID} ${CF_BRANCH};
+while [ $(is_not_next ${CF_BUILD_ID} ${CF_BRANCH}) -eq 1 ];
 do
 	echo "waiting;"
 done
