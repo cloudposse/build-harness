@@ -21,7 +21,9 @@ function is_not_next() {
 
 	if [[ "${next_id}" == "${id}" ]];
 	then
-		return 1
+		return true
+	else
+		return false
 	fi
 }
 
