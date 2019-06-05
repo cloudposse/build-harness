@@ -15,13 +15,13 @@ function is_not_next() {
 		--branch ${branch} \
 		--status ${STATUS}\
 		--limit ${LIMIT} \
-		-o id | tac | head -1)
+		-o id | tail -1)
 
 	if [[ "${next_id}" == "${id}" ]];
 	then
-		return 0
-	else
 		return 1
+	else
+		return 0
 	fi
 }
 
