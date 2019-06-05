@@ -18,13 +18,7 @@ function is_not_next() {
 		-o id | tac | head -1)
 
 	echo "${next_id} == ${id}"
-
-	if [[ "${next_id}" == "${id}" ]];
-	then
-		return true
-	else
-		return false
-	fi
+	return [ "${next_id}" == "${id}" ]
 }
 
 
