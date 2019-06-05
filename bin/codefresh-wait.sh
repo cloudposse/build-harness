@@ -19,7 +19,7 @@ function is_not_next() {
 
 	echo "${next_id} == ${id}"
 
-	if [ "${next_id}" = "${id}" ]
+	if [ "${next_id}" = "${id}" ];
 	then
 		return 0
 	else
