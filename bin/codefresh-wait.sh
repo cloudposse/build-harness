@@ -3,7 +3,7 @@
 CODEFRESH_CLI=${CODEFRESH_CLI:codefresh}
 LIMIT=${LIMIT:1000}
 STATUS=${STATUS:running}
-PIPELINES=${PIPELINES:}
+PIPELINES=${PIPELINES:-}
 
 
 function is_not_next() {
@@ -17,12 +17,12 @@ function is_not_next() {
 		--limit ${LIMIT} \
 		-o id | tac | head -1)
 
-	echo [ ${next_id} -neq ${id} ]
+	return [ ${next_id} -neq ${id} ]
 }
 
 
 # Verify if there's more than 1 running builds, if so, wait for the first to finish
-while [is_not_next ${CF_BUILD_ID} ${CF_BRANCH}];
+while is_not_next ${CF_BUILD_ID} ${CF_BRANCH};
 do
 	echo "waiting;"
 done
