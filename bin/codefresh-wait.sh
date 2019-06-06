@@ -19,7 +19,7 @@ function is_not_next() {
 
 	echo "${next_id} == ${id}"
 
-	if [ "${next_id}" = "${id}" ];
+	if [ "${next_id}" != "${id}" ];
 	then
 		return 0
 	else
@@ -32,5 +32,6 @@ function is_not_next() {
 while is_not_next ${CF_BUILD_ID} ${CF_BRANCH}
 do
 	echo "waiting;"
+	sleep 5;
 done
 
