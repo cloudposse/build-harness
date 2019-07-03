@@ -1,4 +1,6 @@
 export BUILD_HARNESS_PATH ?= $(shell 'pwd')
+export BUILD_HARNESS_EXTENSIONS_PATH ?= $(BUILD_HARNESS_PATH)/../build-harness-extensions
+export BUILD_HARNESS_ARCH ?= $(shell uname -m | sed 's/x86_64/amd64/g')
 export OS ?= $(shell uname -s | tr '[:upper:]' '[:lower:]')
 export SELF ?= $(MAKE)
 export PATH := $(BUILD_HARNESS_PATH)/vendor:$(PATH)
@@ -17,6 +19,7 @@ endif
 include $(BUILD_HARNESS_PATH)/Makefile.*
 include $(BUILD_HARNESS_PATH)/modules/*/bootstrap.Makefile*
 include $(BUILD_HARNESS_PATH)/modules/*/Makefile*
+include $(BUILD_HARNESS_EXTENSIONS_PATH)/modules/*/Makefile*
 
 ifndef TRANSLATE_COLON_NOTATION
 %:
