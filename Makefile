@@ -19,7 +19,8 @@ endif
 include $(BUILD_HARNESS_PATH)/Makefile.*
 include $(BUILD_HARNESS_PATH)/modules/*/bootstrap.Makefile*
 include $(BUILD_HARNESS_PATH)/modules/*/Makefile*
-include $(BUILD_HARNESS_EXTENSIONS_PATH)/modules/*/Makefile*
+# Don't fail if there are no build harness extensions
+-include $(BUILD_HARNESS_EXTENSIONS_PATH)/modules/*/Makefile*
 
 ifndef TRANSLATE_COLON_NOTATION
 %:
