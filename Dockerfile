@@ -1,4 +1,4 @@
-FROM golang:1.11-alpine3.7
+FROM golang:1.11-alpine3.10
 
 RUN apk update && \
     apk --update add \
@@ -22,10 +22,10 @@ RUN curl -sSL https://apk.cloudposse.com/install.sh | bash
 ## Codefresh required additional libraries for alpine
 ## So can not be curl binary
 RUN apk --update --no-cache add \
-      chamber \
-      helm \
-      helmfile \
-      codefresh
+      chamber@cloudposse \
+      helm@cloudposse \
+      helmfile@cloudposse \
+      codefresh@cloudposse
 
 ADD ./ /build-harness/
 
