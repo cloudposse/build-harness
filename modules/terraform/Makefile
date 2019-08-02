@@ -25,8 +25,10 @@ terraform/get-modules:
 ## Basic terraform sanity check
 terraform/validate:
 ifeq ("12","$(word 2, $(subst ., ,$(TERRAFORM_VERSION)))")
+	echo $(TERRAFORM_VERSION)
 	@$(TERRAFORM) validate;
 else
+	echo $(TERRAFORM_VERSION)
 	@$(TERRAFORM) validate -check-variables=false
 endif
 
