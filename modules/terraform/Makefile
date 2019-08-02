@@ -24,7 +24,11 @@ terraform/get-modules:
 
 ## Basic terraform sanity check
 terraform/validate:
+ifeq ("12","$(word 2, $(subst ., ,$(TERRAFORM_VERSION)))")
+	@echo "Terraform 0.12 does not support validate without skipping variables"
+else
 	@$(TERRAFORM) validate -check-variables=false
+endif
 
 ## Lint check Terraform
 terraform/lint:
