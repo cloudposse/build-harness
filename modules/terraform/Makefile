@@ -24,7 +24,11 @@ terraform/get-modules:
 
 ## Basic terraform sanity check
 terraform/validate:
+ifeq ($(word 1, $(subst ., ,$(TERRAFORM_VERSION))),12)
+	@$(TERRAFORM) validate;
+else
 	@$(TERRAFORM) validate -check-variables=false
+endif
 
 ## Lint check Terraform
 terraform/lint:
