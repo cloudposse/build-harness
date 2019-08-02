@@ -24,7 +24,7 @@ terraform/get-modules:
 
 ## Basic terraform sanity check
 terraform/validate:
-ifeq ($(word 2, $(subst ., ,$(TERRAFORM_VERSION))),12)
+ifeq ("12","$(word 2, $(subst ., ,$(TERRAFORM_VERSION)))")
 	@$(TERRAFORM) validate;
 else
 	@$(TERRAFORM) validate -check-variables=false
