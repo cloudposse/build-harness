@@ -2,12 +2,14 @@ name: readme/build
 on: [pull_request]
 jobs:
   build:
+    name: 'Rebuild README.md'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - run: make readme/deps
-    - run: make readme
-    - run: printenv
+    - uses: cloudposse/build-harness@master
+      with:
+        entrypoint: /bin/make
+        args: readme
     - uses: cloudposse/actions/git-push@init
       env:
         GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
