@@ -13,9 +13,9 @@ jobs:
     - run: git config user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
     - run: git remote set-url origin "https://${GITHUB_ACTOR}:${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git"
     - run: git remote -v
-    - run: git add .
-    - run: git commit -m "Updated README"
     - run: git status
     - run: git diff
-    - run: echo git push origin HEAD:${GITHUB_REF} --force
+    - run: git add .
+    - run: git commit -m "Updated README"
+    - run: git push origin HEAD:${GITHUB_REF} --force
 
