@@ -12,6 +12,6 @@ jobs:
     - run: git config user.name "$(git --no-pager log --format=format:'%an' -n 1)"
     - run: git config user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
     #- run: git remote set-url origin "https://${{GITHUB_ACTOR}}:${{GITHUB_TOKEN}}@github.com/${{GITHUB_REPOSITORY}}.git"
-    - run: git remote set-url origin "https://osterman:${{GITHUB_TOKEN}}@github.com/${{GITHUB_REPOSITORY}}.git"
+    - run: git remote set-url origin "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
     - run: git status
     - run: git diff
