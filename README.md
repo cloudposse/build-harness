@@ -7,7 +7,7 @@
 
 
 This `build-harness` is a collection of Makefiles to facilitate building Golang projects, Dockerfiles, Helm charts, and more.
-It's designed to work with CI/CD systems such as Travis CI, CircleCI and Jenkins.
+It's designed to work with CI/CD systems such as GitHub Actions, Codefresh, Travis CI, CircleCI and Jenkins.
 
 
 ---
@@ -60,6 +60,26 @@ This automatically exposes many new targets that you can leverage throughout you
 Run `make help` for a list of available targets.
 
 **NOTE:** the `/` is interchangable with the `:` in target names
+
+## GitHub Actions
+
+The `build-harness` is compatible with [GitHub Actions](https://github.com/features/actions).
+
+Here's an example of running `make readme/lint` 
+
+```
+name: build-harness/readme/lint
+on: [pull_request]
+jobs:
+  build:
+    name: 'Lint README.md'
+    steps:
+    - uses: actions/checkout@master
+    - uses: cloudposse/build-harness@master
+      with:
+        entrypoint: /usr/bin/make
+        args: readme/lint
+ ```
 
 ## Quick Start
 
