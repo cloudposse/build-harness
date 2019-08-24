@@ -11,7 +11,4 @@ jobs:
     - uses: cloudposse/actions/git-push@init
       env:
         GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-#    - run: git remote set-url origin "https://${GITHUB_ACTOR}:${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git"
-#    - run: git remote -v
-#    - run: git status
-#    - run: git diff --exit-code || ( git add . && git commit -m "Updated README" && git push origin HEAD:${GITHUB_HEAD_REF} )
+        GIT_COMMIT_MESSAGE: "Updated README.md"
