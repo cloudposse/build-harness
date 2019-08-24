@@ -7,6 +7,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@master
+    - run: make readme/deps
     - run: make readme
     - run: git status
     - run: git diff
