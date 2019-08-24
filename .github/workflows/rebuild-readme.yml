@@ -14,8 +14,4 @@ jobs:
     - run: git remote set-url origin "https://${GITHUB_ACTOR}:${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git"
     - run: git remote -v
     - run: git status
-    - run: git diff
-    - run: git add .
-    - run: git commit -m "Updated README"
-    - run: git push origin HEAD:add-actions
-
+    - run: git diff --exit-code || ( git add . && git commit -m "Updated README" && git push origin HEAD:add-actions )
