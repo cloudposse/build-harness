@@ -17,5 +17,5 @@ jobs:
     - run: git diff
     - run: git add .
     - run: git commit -m "Updated README"
-    - run: git push origin HEAD:${GITHUB_REF} --force
+    - run: git push origin HEAD:${GITHUB_REF}
 
