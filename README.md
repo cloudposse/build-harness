@@ -73,6 +73,7 @@ on: [pull_request]
 jobs:
   build:
     name: 'Lint README.md'
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
     - uses: cloudposse/build-harness@master

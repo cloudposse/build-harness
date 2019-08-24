@@ -3,6 +3,7 @@ on: [pull_request]
 jobs:
   build:
     name: 'Rebuild README.md'
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
     - uses: cloudposse/build-harness@add-actions
