@@ -8,7 +8,7 @@ jobs:
     - uses: actions/checkout@master
     - uses: cloudposse/build-harness@master
       with:
-        entrypoint: /bin/make
+        entrypoint: /usr/bin/make
         args: readme
     - uses: cloudposse/actions/git-push@init
       env:
