@@ -1,5 +1,5 @@
 name: readme/build
-on: [issue_comment]
+on: [pull_request_review_comment]
 jobs:
   build:
     name: 'Rebuild README.md'
