@@ -5,9 +5,8 @@ jobs:
     name: 'Rebuild README.md'
     runs-on: ubuntu-latest
     steps:
-    - uses: cloudposse/actions/comment-filter@init
-      env:
-        GITHUB_COMMENT: "/build-harness readme"
+    - uses: actions/bin/filter@master 
+      args: "issue_comment update/readme"
     - uses: actions/checkout@master
     - uses: cloudposse/build-harness@add-actions
       with:
