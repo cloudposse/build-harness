@@ -319,21 +319,29 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
 {{ if has (datasource "config") "contributors" }}
 ### Contributors
 
-| {{ range $contributor := (ds "config").contributors }}{{ printf " [![%s][%s_avatar]][%s_homepage]<br/>[%s][%s_homepage] |" $contributor.name $contributor.github $contributor.github $contributor.name $contributor.github}}{{ end }}
-|{{- range $contributor := (ds "config").contributors -}}---|{{ end }}
+{{/* init variables: */}}
+{{- $homepage_link := "" }}
+{{- $avatar_link := "" }}
 
-{{ range $contributor := (ds "config").contributors -}}
+{{- range $contributor := (ds "config").contributors }}
 {{- if has $contributor "homepage" }}
-{{ printf "  [%s_homepage]: %s" $contributor.github $contributor.homepage }}
-{{ else -}}
-{{ printf "  [%s_homepage]: https://github.com/%s" $contributor.github $contributor.github }}
-{{ end -}}
-{{ if has $contributor "avatar" }}{{ printf "  [%s_avatar]: %s" $contributor.github $contributor.avatar }}
-{{ else -}}
-{{ printf "  [%s_avatar]: https://github.com/%s.png?size=150" $contributor.github $contributor.github }}
+{{- $homepage_link = ( printf "%s" $contributor.homepage )  }}
+{{- else }}
+{{- $homepage_link = ( printf "https://github.com/%s" $contributor.github ) }}
 {{- end }}
-{{ end }}
-{{ end }}
+{{- if has $contributor "avatar" }}
+{{- $avatar_link = $contributor.avatar }}
+{{- else }}
+{{- $avatar_link = ( printf "https://github.com/%s.png" $contributor.github ) }}
+{{- end }}
+{{- /* emit one markdown table cell per contributor: */ -}}
+{{- printf "| <a href=\"%s\"><img src=\"%s\" width=150></a><br/>[%s](%s) " $homepage_link $avatar_link $contributor.name $homepage_link }}
+{{- end -}}
+{{- /* close last cell: */ -}}
+{{- printf "|" }}
+|---|---|
+
+{{- end }}
 
 [![README Footer][readme_footer_img]][readme_footer_link]
 [![Beacon][beacon]][website]
