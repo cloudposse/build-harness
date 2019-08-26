@@ -330,7 +330,7 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
 {{ end -}}
 {{ if has $contributor "avatar" }}{{ printf "  [%s_avatar]: %s" $contributor.github $contributor.avatar }}
 {{ else -}}
-{{ printf "  [%s_avatar]: https://github.com/%s.png?size=150" $contributor.github $contributor.github }}
+{{ printf "  [%s_avatar]: https://img.cloudposse.com/150x150/https://github.com/%s.png" $contributor.github $contributor.github }}
 {{- end }}
 {{ end }}
 {{ end }}
