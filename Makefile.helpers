@@ -44,7 +44,7 @@ help/short:
 
 # Generate help output from MAKEFILE_LIST
 help/generate:
-	@awk '/^[a-zA-Z\-\_0-9%:\\\/]+:/ { \
+	@awk '/^[a-zA-Z\_0-9%:\\\/-]+:/ { \
 	  helpMessage = match(lastLine, /^## (.*)/); \
 	  if (helpMessage) { \
 	    helpCommand = $$1; \
