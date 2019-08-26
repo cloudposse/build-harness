@@ -12,7 +12,7 @@ jobs:
       with:
         entrypoint: /usr/bin/make
         args: readme
-    - uses: cloudposse/actions/git-push@init
+    - uses: cloudposse/actions/git-push@0.1.0
       env:
         GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         GIT_COMMIT_MESSAGE: "Updated README.md"
