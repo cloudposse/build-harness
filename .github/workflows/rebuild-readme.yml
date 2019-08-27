@@ -5,13 +5,19 @@ jobs:
     name: 'Rebuild README.md'
     runs-on: ubuntu-latest
     steps:
+    # Wake up on commands
     - uses: actions/bin/filter@master 
-      args: "issue_comment update/readme"
+      args: "issue_comment /readme"
+
+    # Checkout the current branch
     - uses: actions/checkout@master
-    - uses: cloudposse/build-harness@add-actions
+
+    # Rebuild the README.md from the README.yaml
+    - uses: cloudposse/build-harness@master
       with:
-        entrypoint: /usr/bin/make
         args: readme
+
+    # Push changes back to branch, if any
     - uses: cloudposse/actions/git-push@0.1.0
       env:
         GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
