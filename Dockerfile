@@ -35,5 +35,5 @@ WORKDIR /build-harness
 
 RUN make -s template/deps aws/install
 
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["/usr/bin/make"]
 
