@@ -1,4 +1,4 @@
-FROM golang:1.11-alpine3.10
+FROM golang:1.13.1-alpine3.10
 
 RUN apk update && \
     apk --update add \
