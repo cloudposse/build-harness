@@ -45,28 +45,34 @@
         if (blockDefCnt > 0) {
           blockDefCnt = 0
         }
-        print $0
+        if ($blockDefCnt !~ /(string|number|bool)$/) {
+          print $0
+        }
       }
     }
   }
 
   # [PRINT] single line "type"
   if (blockCnt > 0) {
-    if ($0 ~ /^[[:space:]][[:space:]]*type[[:space:]][[:space:]]*=/ ) {
-      # [CLOSE] "default" block
-      if (blockDefCnt > 0) {
-        blockDefCnt = 0
-      }
-      type=$3
-      if (type ~ "object") {
-        print "  type = \"object\""
-      } else {
-          # legacy quoted types: "string", "list", and "map"
-          if ($3 ~ /^[[:space:]]*"(.*?)"[[:space:]]*$/) {
-            print "  type = " $3
+    if (blockDefCnt == 0) {
+      if ($0 ~ /^[[:space:]][[:space:]]*type[[:space:]][[:space:]]*=/ ) {
+        # [CLOSE] "default" block
+        if (blockDefCnt > 0) {
+          blockDefCnt = 0
+        }
+        type=$3
+        if ($blockDefCnt !~ /(string|number|bool)$/) {
+          if (type ~ "object") {
+            print "  type = \"object\""
           } else {
-            print "  type = \"" $3 "\""
+              # legacy quoted types: "string", "list", and "map"
+              if ($3 ~ /^[[:space:]]*"(.*?)"[[:space:]]*$/) {
+                print "  type = " $3
+              } else {
+                print "  type = \"" $3 "\""
+              }
           }
+        }
       }
     }
   }
