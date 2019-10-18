@@ -61,7 +61,7 @@
           blockDefCnt = 0
         }
         type=$3
-        if ($blockDefCnt !~ /(string|number|bool)$/) {
+        if ($blockDefCnt !~ /string$/) {
           if (type ~ "object") {
             print "  type = \"object\""
           } else {
