@@ -307,11 +307,11 @@ We are a [**DevOps Accelerator**][commercial_support]. We'll help you build your
 
 We deliver 10x the value for a fraction of the cost of a full-time engineer. Our track record is not even funny. If you want things done right and you need it done FAST, then we're your best bet.
 
-[![E-Mail](https://img.shields.io/badge/email-hello@cloudposse.com-blue.svg)][email]
+[![Learn More](https://img.shields.io/badge/learn%20more-success.svg?style=for-the-badge)][commercial_support]
 
 - **Implementation.** You'll get everything you need from the ground up built using 100% infrastructure as code.
 - **Training.** You'll receive hands-on training so your team can operate what we build.
-- **Questions.** You'll always have a direct line of communication between your team and ours with a Shared Slack channel.
+- **Questions.** You'll have a direct line of communication between our teams via a Shared Slack channel.
 - **Troubleshooting.** You'll get help to triage when things aren't working.
 - **Code Reviews.** You'll receive constructive feedback on Pull Requests.
 - **Bug Fixes.** We'll rapidly work to fix any bugs in our projects.
