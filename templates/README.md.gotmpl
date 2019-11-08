@@ -40,7 +40,6 @@
   -->
 {{- defineDatasource "config" .Env.README_YAML | regexp.Replace ".*" "" -}}
 {{- defineDatasource "includes" .Env.README_INCLUDES | regexp.Replace ".*" "" }}
-{{- $utm_link := printf "%%s?utm_source=%s&utm_medium=%s&utm_campaign=%s&utm_content=%s" "github" "readme" (ds "config").github_repo "%s" -}}
 [![README Header][readme_header_img]][readme_header_link]
 
 [![Cloud Posse][logo]](https://cpco.io/homepage)
@@ -169,16 +168,16 @@ File a GitHub [issue]({{ printf "https://github.com/%s/issues" (ds "config").git
 
 Work directly with our team of DevOps experts via email, slack, and video conferencing. 
 
-We are a **[DevOps Accelerator*][commercial_support]**. We'll help you build your cloud infrastructure from the ground up so you can own it. Then we'll show you how to operate it and stick around for as long as you need us. 
+We are a [**DevOps Accelerator**][commercial_support]. We'll help you build your cloud infrastructure from the ground up so you can own it. Then we'll show you how to operate it and stick around for as long as you need us. 
 
-We deliver 10x the value for a fraction of the cost of a full-time engineer. Our trackrecord is not even funny. If you want things done right, then we're your best friend.
+We deliver 10x the value for a fraction of the cost of a full-time engineer. Our track record is not even funny. If you want things done right and you need it done FAST, then we're your best bet.
 
 [![E-Mail](https://img.shields.io/badge/email-hello@cloudposse.com-blue.svg)][email]
 
 - **Implementation.** You'll get everything you need from the ground up built using 100% infrastructure as code.
 - **Training.** You'll receive hands-on training so your team can operate what we build.
 - **Questions.** You'll always have a direct line of communication between your team and ours with a Shared Slack channel.
-- **Troubleshooting.** You'll get help triaging why things aren't working.
+- **Troubleshooting.** You'll get help to triage when things aren't working.
 - **Code Reviews.** You'll receive constructive feedback on Pull Requests.
 - **Bug Fixes.** We'll rapidly work to fix any bugs in our projects.
 
@@ -188,13 +187,13 @@ Join our [Open Source Community][slack] on Slack. It's **FREE** for everyone! Ou
 
 ## Newsletter
 
-Signup for [our newsletter][newsletter] that covers everything on our technology radar.  Receive updates on what we're up to on GitHub as well as awesome new projects we discover. 
+Sign up for [our newsletter][newsletter] that covers everything on our technology radar.  Receive updates on what we're up to on GitHub as well as awesome new projects we discover. 
 
 ## Office Hours
 
-[Join us every Wednesday via Zoom](office_hours) for our weekly "Lunch & Learn" sessions. It's **FREE** for everyone! 
+[Join us every Wednesday via Zoom][office_hours] for our weekly "Lunch & Learn" sessions. It's **FREE** for everyone! 
 
-[![zoom](https://img.cloudposse.com/fit-in/200x200/https://cloudposse.com/wp-content/uploads/2019/08/Powered-by-Zoom.png")](office_hours)
+[![zoom](https://img.cloudposse.com/fit-in/200x200/https://cloudposse.com/wp-content/uploads/2019/08/Powered-by-Zoom.png")][office_hours]
 
 ## Contributing
 
@@ -374,6 +373,8 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
 {{- end }}
 {{ end }}
 {{ end }}
+
+{{- $utm_link := printf "%%s?utm_source=%s&utm_medium=%s&utm_campaign=%s&utm_content=%s" "github" "readme" (ds "config").github_repo "%s" -}}
 
 [![README Footer][readme_footer_img]][readme_footer_link]
 [![Beacon][beacon]][website]
