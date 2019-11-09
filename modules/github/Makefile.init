@@ -3,7 +3,27 @@
 	cp templates/$@ $@
 	git add $@
 
-.github/workflows/first-interaction.yml: templates/$@
+.github/workflows/auto-greet.yml: templates/$@
+	mkdir -p $(dir $@)
+	cp templates/$@ $@
+	git add $@
+
+.github/workflows/auto-assign.yml: templates/$@
+	mkdir -p $(dir $@)
+	cp templates/$@ $@
+	git add $@
+
+.github/auto-assign.yml: # do not overwrite config by default
+	mkdir -p $(dir $@)
+	cp templates/$@ $@
+	git add $@
+
+.github/workflows/auto-label.yml: templates/$@
+	mkdir -p $(dir $@)
+	cp templates/$@ $@
+	git add $@
+
+.github/auto-label.yml: # do not overwrite config by default
 	mkdir -p $(dir $@)
 	cp templates/$@ $@
 	git add $@
@@ -35,7 +55,9 @@
 
 github/init: \
 	.github/CODEOWNERS \
-	.github/workflows/first-interaction.yml \
+	.github/workflows/auto-greet.yml \
+	.github/workflows/auto-assign.yml .github/auto-assign.yml \
+	.github/workflows/auto-label.yml .github/auto-label.yml \
 	.github/PULL_REQUEST_TEMPLATE/pull_request_template.md \
 	.github/ISSUE_TEMPLATE/config.yml \
 	.github/ISSUE_TEMPLATE/bug_report.md \
