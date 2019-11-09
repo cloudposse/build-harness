@@ -1,0 +1,41 @@
+.github/CODEOWNERS: templates/$@
+	cp templates/$@ $@
+	git add $@
+
+.github/workflows/first-interaction.yml: templates/$@
+	cp templates/$@ $@
+	git add $@
+
+.github/PULL_REQUEST_TEMPLATE/pull_request_template.md: templates/$@
+	mkdir -p $(dir $@)
+	cp templates/$@ $@
+	git add $@
+
+.github/ISSUE_TEMPLATE/config.yml: templates/$@
+	mkdir -p $(dir $@)
+	cp templates/$@ $@
+	git add $@
+
+.github/ISSUE_TEMPLATE/bug_report.md: templates/$@
+	mkdir -p $(dir $@)
+	cp templates/$@ $@
+	git add $@
+
+.github/ISSUE_TEMPLATE/feature_request.md: templates/$@
+	mkdir -p $(dir $@)
+	cp templates/$@ $@
+	git add $@
+
+.github/ISSUE_TEMPLATE/question.md: templates/$@
+	mkdir -p $(dir $@)
+	cp templates/$@ $@
+	git add $@
+
+github/init: \
+	.github/CODEOWNERS \
+	.github/workflows/first-interaction.yml \
+	.github/PULL_REQUEST_TEMPLATE/pull_request_template.md \
+	.github/ISSUE_TEMPLATE/config.yml \
+	.github/ISSUE_TEMPLATE/bug_report.md \
+	.github/ISSUE_TEMPLATE/feature_request.md \
+	.github/ISSUE_TEMPLATE/question.md
