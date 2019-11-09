@@ -1,8 +1,10 @@
 .github/CODEOWNERS: templates/$@
+	mkdir -p $(dir $@)
 	cp templates/$@ $@
 	git add $@
 
 .github/workflows/first-interaction.yml: templates/$@
+	mkdir -p $(dir $@)
 	cp templates/$@ $@
 	git add $@
 
