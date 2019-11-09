@@ -8,4 +8,4 @@ jobs:
       - uses: cloudposse/actions/github/auto-assign@0.5.0
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          configuration-path: 'auto-assign.yml'
+          config: 'auto-assign.yml'
