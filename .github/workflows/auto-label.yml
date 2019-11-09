@@ -3,21 +3,9 @@ on: [pull_request]
 
 jobs:
   components:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/labeler@v2.1.0
       with:
         repo-token: "${{ secrets.GITHUB_TOKEN }}"
-        configuration-path: '.github/labeler.yml'
-    - uses: actions/checkout@master
-    - run: "make labeler"
-    - uses: cloudposse/actions/github/git-push@0.2.0
-      env:
-        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-        GIT_COMMIT_MESSAGE: "Updated .github/actions.yml labels"
-    - uses: actions/labeler@v2.1.0
-      with:
-        repo-token: "${{ secrets.GITHUB_TOKEN }}"
-        configuration-path: '.github/actions.yml'
+        configuration-path: '.github/auto-label.yml'
