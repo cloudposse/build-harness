@@ -1,8 +1,8 @@
-name: Labeler
+name: auto-label
 on: [pull_request]
 
 jobs:
-  autolabel:
+  components:
 
     runs-on: ubuntu-latest
 

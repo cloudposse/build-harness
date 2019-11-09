@@ -1,4 +1,4 @@
-name: first-interaction
+name: auto-greet
 
 on: [pull_request, issues]
 
