@@ -24,6 +24,10 @@ auto-label:
 		echo "$${module%/}: $${module}**"; \
 	done > .github/$@.yml
 
+# For backwards compatibility to how ever other project works that uses build-harness
+init::
+	exit 0
+
 ifndef TRANSLATE_COLON_NOTATION
 %:
 	@$(SELF) -s $(subst :,/,$@) TRANSLATE_COLON_NOTATION=false
