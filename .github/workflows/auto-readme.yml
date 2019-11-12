@@ -1,24 +1,38 @@
-name: readme/build
-on: [issue_comment]
+name: 'auto-readme'
+
+on:
+  # Open a PR to update README (as necessary)
+  pull_request: 
+    types: [opened, synchronize, reopened]
+
+  # Update README nightly
+  schedule:
+    - cron:  '0 0 * * *'
+
 jobs:
-  build:
-    name: 'Rebuild README.md'
+  update:
     runs-on: ubuntu-latest
     steps:
-    # Wake up on commands
-    - uses: actions/bin/filter@master 
-      args: "issue_comment /readme"
-
-    # Checkout the current branch
-    - uses: actions/checkout@master
-
-    # Rebuild the README.md from the README.yaml
-    - uses: cloudposse/build-harness@master
-      with:
-        args: readme
-
-    # Push changes back to branch, if any
-    - uses: cloudposse/actions/git-push@0.1.0
-      env:
-        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-        GIT_COMMIT_MESSAGE: "Updated README.md"
+      - name: checkout
+        uses: actions/checkout@v1
+      - name: readme/update
+        shell: bash
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_BOT_TOKEN }}"
+        run: |
+          make init
+          make readme/deps
+          make readme
+      - name: Create Pull Request
+        uses: cloudposse/actions/github/create-pull-request@0.4.0
+        with: 
+          labels: automated pr
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_BOT_TOKEN }}
+          COMMIT_MESSAGE: Update README.md
+          PULL_REQUEST_TITLE: Automatic Update of README.md
+          PULL_REQUEST_BODY: |-
+            This is an auto-generated PR which updates the `README.md` from the `README.yaml` 
+            using the [`cloudposse/build-harness`](https://github.com/cloudposse/build-harness).
+          PULL_REQUEST_BRANCH: github-actions/auto-readme
+          BRANCH_SUFFIX: none
