@@ -24,7 +24,7 @@ auto-label:
 		echo "$${module%/}: $${module}**"; \
 	done > .github/$@.yml
 
-# For backwards compatibility to how ever other project works that uses build-harness
+# For backwards compatibility to however other project works that uses build-harness
 init::
 	exit 0
 
