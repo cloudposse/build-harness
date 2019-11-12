@@ -3,9 +3,11 @@ GITHUB_TEMPLATES = \
 	.github/workflows/auto-greet.yml \
 	.github/workflows/auto-assign.yml \
 	.github/workflows/auto-label.yml \
+	.github/workflows/auto-readme.yml \
 	.github/ISSUE_TEMPLATE/config.yml \
 	.github/PULL_REQUEST_TEMPLATE/pull_request_template.md \
 	.github/ISSUE_TEMPLATE/feature_request.md \
+	.github/ISSUE_TEMPLATE/bug_report.md \
 	.github/ISSUE_TEMPLATE/question.md
 
 $(GITHUB_TEMPLATES): $(addprefix templates/, $(GITHUB_TEMPLATES))
