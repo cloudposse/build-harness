@@ -9,7 +9,7 @@ export DEBUG ?=
 
 ifeq ($(CURDIR),$(realpath $(BUILD_HARNESS_PATH)))
 # List of targets the `readme` target should call before generating the readme
-export README_DEPS ?= docs/targets.md
+export README_DEPS ?= docs/targets.md auto-label
 export DEFAULT_HELP_TARGET = help/all
 endif
 
@@ -17,6 +17,16 @@ endif
 include $(BUILD_HARNESS_PATH)/Makefile.*
 include $(BUILD_HARNESS_PATH)/modules/*/bootstrap.Makefile*
 include $(BUILD_HARNESS_PATH)/modules/*/Makefile*
+
+auto-label: MODULES=$(filter %/, $(sort $(wildcard modules/*/)))
+auto-label:
+	for module in $(MODULES); do \
+		echo "$${module%/}: $${module}**"; \
+	done > .github/$@.yml
+
+# For backwards compatibility with all of our other projects that use build-harness
+init::
+	exit 0
 
 ifndef TRANSLATE_COLON_NOTATION
 %:
