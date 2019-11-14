@@ -10,7 +10,7 @@ GITHUB_TEMPLATES = \
 	.github/ISSUE_TEMPLATE/bug_report.md \
 	.github/ISSUE_TEMPLATE/question.md
 
-$(GITHUB_TEMPLATES): $(addprefix templates/, $(GITHUB_TEMPLATES))
+$(GITHUB_TEMPLATES): $(addprefix $(BUILD_HARNESS_PATH)/templates/, $(GITHUB_TEMPLATES))
 	mkdir -p $(dir $@)
 	cp templates/$@ $@
 	git add $@

@@ -185,13 +185,13 @@ Available targets:
   geodesic/deploy                     Run a Jenkins Job to Deploy $(APP) with $(CANONICAL_TAG)
   git/aliases-update                  Update git aliases
   git/export                          Export git vars
-  git/submodules-update               Update submodules
   github/download-private-release     Download release from github
   github/download-public-release      Download release from github
   github/latest-release               Fetch the latest release tag from the GitHub API
   github/push-artifacts               Push all release artifacts to GitHub (Required: `GITHUB_TOKEN`)
   gitleaks/install                    Install gitleaks
   gitleaks/scan                       Scan current repository
+  git/submodules-update               Update submodules
   go/build                            Build binary
   go/build-all                        Build binary for all platforms
   go/clean                            Clean compiled binary
@@ -220,6 +220,7 @@ Available targets:
   helm/delete/failed                  Delete all failed releases in a `NAMESPACE` subject to `FILTER`
   helm/delete/namespace               Delete all releases in a `NAMEPSACE` as well as the namespace
   helm/delete/namespace/empty         Delete `NAMESPACE` if there are no releases in it
+  helmfile/install                    Install helmfile
   helm/install                        Install helm
   helm/repo/add                       Add $REPO_NAME from $REPO_ENDPOINT
   helm/repo/add-current               Add helm remote dev repos
@@ -232,17 +233,16 @@ Available targets:
   helm/repo/update                    Update repo info
   helm/serve/index                    Build index for serve helm charts
   helm/toolbox/upsert                 Install or upgrade helm tiller 
-  helmfile/install                    Install helmfile
   help                                Help screen
   help/all                            Display help for all targets
   help/short                          This help short screen
   jenkins/run-job-with-tag            Run a Jenkins Job with $(TAG)
   make/lint                           Lint all makefiles
   packages/delete                     Delete packages
-  packages/install                    Install packages 
   packages/install/%                  Install package (e.g. helm, helmfile, kubectl)
-  packages/reinstall                  Reinstall packages
+  packages/install                    Install packages 
   packages/reinstall/%                Reinstall package (e.g. helm, helmfile, kubectl)
+  packages/reinstall                  Reinstall packages
   packages/uninstall/%                Uninstall package (e.g. helm, helmfile, kubectl)
   readme                              Alias for readme/build
   readme/build                        Create README.md by building it from README.yaml
@@ -450,6 +450,7 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
   [email]: https://cpco.io/email?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/build-harness&utm_content=email
   [commercial_support]: https://cpco.io/commercial-support?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/build-harness&utm_content=commercial_support
   [we_love_open_source]: https://cpco.io/we-love-open-source?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/build-harness&utm_content=we_love_open_source
+  [terraform_modules]: https://cpco.io/terraform-modules?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/build-harness&utm_content=terraform_modules
   [readme_header_img]: https://cloudposse.com/readme/header/img
   [readme_header_link]: https://cloudposse.com/readme/header/link?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/build-harness&utm_content=readme_header_link
   [readme_footer_img]: https://cloudposse.com/readme/footer/img
