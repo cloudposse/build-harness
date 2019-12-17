@@ -10,19 +10,19 @@ GITHUB_TEMPLATES = \
 	.github/ISSUE_TEMPLATE/bug_report.md \
 	.github/ISSUE_TEMPLATE/question.md
 
-$(GITHUB_TEMPLATES): $(addprefix templates/, $(GITHUB_TEMPLATES))
+$(GITHUB_TEMPLATES): $(addprefix $(BUILD_HARNESS_PATH)/templates/, $(GITHUB_TEMPLATES))
 	mkdir -p $(dir $@)
-	cp templates/$@ $@
-	git add $@
+	cp $(BUILD_HARNESS_PATH)/templates/$@ $@
+	git ls-files --error-unmatch $@ 2>/dev/null || git add $@
 
-.github/auto-assign.yml: # do not overwrite config by default
+.github/auto-assign.yml:: # do not overwrite config by default
 	mkdir -p $(dir $@)
-	cp templates/$@ $@
-	git add $@
+	cp $(BUILD_HARNESS_PATH)/templates/$@ $@
+	git ls-files --error-unmatch $@ 2>/dev/null || git add $@
 
-.github/auto-label.yml: # do not overwrite config by default
+.github/auto-label.yml:: # do not overwrite config by default
 	mkdir -p $(dir $@)
-	cp templates/$@ $@
-	git add $@
+	cp $(BUILD_HARNESS_PATH)/templates/$@ $@
+	git ls-files --error-unmatch $@ 2>/dev/null || git add $@
 
 github/init: $(GITHUB_TEMPLATES) .github/auto-assign.yml .github/auto-label.yml
