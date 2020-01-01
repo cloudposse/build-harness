@@ -359,7 +359,7 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
 ## Copyrights
 
-Copyright © 2016-2019 [Cloud Posse, LLC](https://cloudposse.com)
+Copyright © 2016-2020 [Cloud Posse, LLC](https://cloudposse.com)
 
 
 
