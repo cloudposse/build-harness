@@ -1,4 +1,10 @@
-FROM golang:1.11-alpine3.10
+FROM golang:1.13.4-alpine3.10
+LABEL maintainer="Cloud Posse <hello@cloudposse.com>"
+
+LABEL "com.github.actions.name"="Build Harness"
+LABEL "com.github.actions.description"="Run any build-harness make target"
+LABEL "com.github.actions.icon"="tool"
+LABEL "com.github.actions.color"="blue"
 
 RUN apk update && \
     apk --update add \
@@ -35,5 +41,5 @@ WORKDIR /build-harness
 
 RUN make -s template/deps aws/install
 
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["/usr/bin/make"]
 
