@@ -2,6 +2,13 @@
 version: '1.0'
 
 steps:
+  main_clone:
+    title: Cloning main repository
+    type: git-clone
+    repo: '${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}'
+    revision: '${{CF_REVISION}}'
+    git: github
+
   build_ps_buildharness_image:
     title: Build peerstreet build-harness
     type: build
