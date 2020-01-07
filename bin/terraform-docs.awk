@@ -48,10 +48,12 @@
       blockDefaultCnt += gsub(/\(/, "")
       blockDefaultCnt += gsub(/\[/, "")
       blockDefaultCnt += gsub(/\{/, "")
+      blockDefaultCnt += gsub(/\<\<EOF/, "")
       # Count closing blocks
       blockDefaultCnt -= gsub(/\)/, "")
       blockDefaultCnt -= gsub(/\]/, "")
       blockDefaultCnt -= gsub(/\}/, "")
+      blockDefaultCnt -= gsub(/EOF/, "")
   }
   # [START] multiline "default" statement started
   if (blockCnt > 0 && blockTypeCnt == 0 && blockDefaultCnt == 0) {
@@ -64,10 +66,12 @@
         blockDefaultCnt += gsub(/\(/, "")
         blockDefaultCnt += gsub(/\[/, "")
         blockDefaultCnt += gsub(/\{/, "")
+        blockDefaultCnt += gsub(/\<\<EOF/, "")
         # Count closing blocks
         blockDefaultCnt -= gsub(/\)/, "")
         blockDefaultCnt -= gsub(/\]/, "")
         blockDefaultCnt -= gsub(/\}/, "")
+        blockDefaultCnt -= gsub(/EOF/, "")
       }
     }
   }
@@ -128,10 +132,21 @@
   # ----------------------------------------------------------------------------------------------
   # description = ...
   # ----------------------------------------------------------------------------------------------
-  # [PRINT] single line "description"
+  # [END] multiline "description" continues/ends
+  if (blockCtn > 0 && blockTypeCnt == 0 && blockDefaultCnt == 0) {
+    # Count opening blocks
+    blockDefaultCnt += gsub(/\<\<EOF/, "")
+    # Count closing blocks
+    blockDefaultCnt -= gsub(/EOF/, "")
+  }
+  # [START] multiline "description" statement started
   if (blockCnt > 0 && blockTypeCnt == 0 && blockDefaultCnt == 0) {
     if ($0 ~ /^[[:space:]][[:space:]]*description[[:space:]][[:space:]]*=/) {
       print $0
+      # Count opening blocks
+      blockDefaultCnt += gsub(/\<\<EOF/, "")
+      # Count closing blocks
+      blockDefaultCnt -= gsub(/EOF/, "")
     }
   }
 
