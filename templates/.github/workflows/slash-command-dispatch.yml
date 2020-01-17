@@ -15,6 +15,6 @@ jobs:
           token: ${{ secrets.GITHUB_BOT_TOKEN }}
           reaction-token: ${{ secrets.GITHUB_TOKEN }}
           repository: cloudposse/actions
-          commands: rebuild-readme
+          commands: assign-labels, assign-reviewers, first-interaction-greet, rebuild-readme, terraform-fmt
           permission: none
           issue-type: pull-request
