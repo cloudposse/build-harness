@@ -1,10 +1,8 @@
 GITHUB_TEMPLATES = \
 	.github/CODEOWNERS \
-	.github/assign-labels.yml \
-	.github/assign-reviewers.yml \
+	.github/PULL_REQUEST_TEMPLATE.md \
 	.github/workflows/slash-command-dispatch.yml \
 	.github/ISSUE_TEMPLATE/config.yml \
-	.github/PULL_REQUEST_TEMPLATE.md \
 	.github/ISSUE_TEMPLATE/feature_request.md \
 	.github/ISSUE_TEMPLATE/bug_report.md \
 	.github/ISSUE_TEMPLATE/question.md
