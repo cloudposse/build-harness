@@ -118,6 +118,7 @@ quickstart: |-
 # Other files to include in this README from the project folder
 include:
   - "docs/targets.md"
+  - "docs/extensions.md"
 
 # Contributors to this project
 contributors:

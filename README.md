@@ -264,6 +264,12 @@ Available targets:
   travis/docker-tag-and-push          Tag & Push according Travis environment variables
 
 ```
+## Extending `build-harness` with targets from another repo
+
+It is possible to extend the `build-harness` with targets and entire modules of your own, without having to fork or modify `build-harness` itself.
+This might be useful if, for example, you wanted to maintain some tooling that was specific to your environment that didn't have enough general applicability to be part of the main project.
+This makes it so you don't necessarily need to fork `build-harness` itself - you can place a repo defined by the environment variable `BUILD_HARNESS_EXTENSIONS_PATH` (a filesystem peer of `build-harness` named `build-harness-extensions` by default) and populate it with tools in the same `Makefile` within `module` structure as `build-harness` has.
+Modules will be combined and available with a unified `make` command. 
 
 
 
@@ -359,7 +365,7 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
 ## Copyrights
 
-Copyright © 2016-2019 [Cloud Posse, LLC](https://cloudposse.com)
+Copyright © 2016-2020 [Cloud Posse, LLC](https://cloudposse.com)
 
 
 
@@ -450,6 +456,7 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
   [email]: https://cpco.io/email?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/build-harness&utm_content=email
   [commercial_support]: https://cpco.io/commercial-support?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/build-harness&utm_content=commercial_support
   [we_love_open_source]: https://cpco.io/we-love-open-source?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/build-harness&utm_content=we_love_open_source
+  [terraform_modules]: https://cpco.io/terraform-modules?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/build-harness&utm_content=terraform_modules
   [readme_header_img]: https://cloudposse.com/readme/header/img
   [readme_header_link]: https://cloudposse.com/readme/header/link?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/build-harness&utm_content=readme_header_link
   [readme_footer_img]: https://cloudposse.com/readme/footer/img

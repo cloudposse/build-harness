@@ -1,7 +1,12 @@
 name: 'auto-readme'
 
 on:
-  # Open a PR to update README (as necessary)
+  # Open a PR to update README on merge to master (as necessary)
+  push:
+    branches:
+      - master
+
+  # Open a PR to update README for all PRs (as necessary)
   pull_request: 
     types: [opened, synchronize, reopened]
 
