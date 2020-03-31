@@ -33,6 +33,9 @@ badges:
   - name: "Slack Community"
     image: "https://slack.cloudposse.com/badge.svg"
     url: "https://slack.cloudposse.com"
+  - name: "Discourse Forum"
+    image: "https://img.shields.io/discourse/https/ask.sweetops.com/users.svg"
+    url: "https://ask.sweetops.com/"
 
 related:
   - name: "Packages"
