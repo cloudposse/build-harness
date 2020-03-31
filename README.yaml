@@ -34,7 +34,7 @@ badges:
     image: "https://slack.cloudposse.com/badge.svg"
     url: "https://slack.cloudposse.com"
   - name: "Discourse Forum"
-    image: "https://img.shields.io/discourse/https/ask.sweetops.com/users.svg"
+    image: "https://img.shields.io/discourse/https/ask.sweetops.com/posts.svg"
     url: "https://ask.sweetops.com/"
 
 related:
