@@ -23,9 +23,12 @@ terraform/get-modules:
 	@$(TERRAFORM) init -get -backend=false -input=false >/dev/null
 
 ## Basic terraform sanity check
+## For v0.12.x, we supply a random region to AWS_DEFAULT_REGION so as to fix the
+## "The argument "region" is required" error when validating independent modules.
+## More info: https://github.com/hashicorp/terraform/issues/21408#issuecomment-495746582
 terraform/validate:
 ifeq ("12","$(word 2, $(subst ., ,$(TERRAFORM_VERSION)))")
-	@echo "Terraform 0.12 does not support validate without skipping variables"
+	@AWS_DEFAULT_REGION="us-west-2" $(TERRAFORM) validate
 else
 	@$(TERRAFORM) validate -check-variables=false
 endif
