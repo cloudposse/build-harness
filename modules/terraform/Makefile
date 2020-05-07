@@ -29,7 +29,7 @@ terraform/get-modules:
 terraform/validate: AWS_DEFAULT_REGION=us-west-2
 terraform/validate:
 ifeq ("12","$(word 2, $(subst ., ,$(TERRAFORM_VERSION)))")
-	@AWS_DEFAULT_REGION="us-west-2" $(TERRAFORM) validate
+	@$(TERRAFORM) validate
 else
 	@$(TERRAFORM) validate -check-variables=false
 endif
