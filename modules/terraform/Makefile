@@ -32,8 +32,13 @@ endif
 
 ## Lint check Terraform
 terraform/lint:
+ifeq ($(OS), darwin)
+	@FAIL=`$(TERRAFORM) fmt -write=false | xargs -n 1 printf '\t- %s\n'`; \
+	[ -z "$$FAIL" ] || (echo "Terraform configuration needs linting. Run '$(TERRAFORM) fmt'"; echo $$FAIL; exit 1)
+else
 	@FAIL=`$(TERRAFORM) fmt -write=false | xargs --no-run-if-empty -n 1 printf '\t- %s\n'`; \
 	[ -z "$$FAIL" ] || (echo "Terraform configuration needs linting. Run '$(TERRAFORM) fmt'"; echo $$FAIL; exit 1)
+endif
 
 ## Upgrade all terraform module sources
 terraform/upgrade-modules: packages/install/json2hcl
