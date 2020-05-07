@@ -26,6 +26,7 @@ terraform/get-modules:
 ## For v0.12.x, we supply a random region to AWS_DEFAULT_REGION so as to fix the
 ## "The argument "region" is required" error when validating independent modules.
 ## More info: https://github.com/hashicorp/terraform/issues/21408#issuecomment-495746582
+terraform/validate: AWS_DEFAULT_REGION=us-west-2
 terraform/validate:
 ifeq ("12","$(word 2, $(subst ., ,$(TERRAFORM_VERSION)))")
 	@AWS_DEFAULT_REGION="us-west-2" $(TERRAFORM) validate
