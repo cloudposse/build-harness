@@ -12,9 +12,4 @@ $(GITHUB_TEMPLATES): $(addprefix $(BUILD_HARNESS_PATH)/templates/, $(GITHUB_TEMP
 	cp $(BUILD_HARNESS_PATH)/templates/$@ $@
 	git ls-files --error-unmatch $@ 2>/dev/null || git add $@
 
-.github/workflows/slash-command-dispatch.yml:: # do not overwrite config by default
-	mkdir -p $(dir $@)
-	cp $(BUILD_HARNESS_PATH)/templates/$@ $@
-	git ls-files --error-unmatch $@ 2>/dev/null || git add $@
-
 github/init: $(GITHUB_TEMPLATES)
