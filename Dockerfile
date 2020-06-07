@@ -39,7 +39,8 @@ ENV INSTALL_PATH /usr/local/bin
 
 WORKDIR /build-harness
 
-RUN make -s template/deps aws/install
+RUN make -s bash/lint make/lint
+RUN make -s template/deps aws/install terraform/install go/deps-build go/deps-dev readme/deps 
 
 ENTRYPOINT ["/usr/bin/make"]
 
