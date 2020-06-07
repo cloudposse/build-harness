@@ -7,7 +7,7 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  update:
+  docker:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
