@@ -1,4 +1,4 @@
-name: "docker/build-and-push"
+name: "docker"
 on:
   push:
     branches:
@@ -7,7 +7,7 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  build:
+  build-and-push:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout source code at current commit"

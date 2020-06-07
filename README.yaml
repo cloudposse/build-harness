@@ -25,8 +25,8 @@ github_repo: cloudposse/build-harness
 # Badges to display
 badges:
   - name: "Build Status"
-    image: "https://github.com/cloudposse/build-harness/workflows/docker/build-and-push/badge.svg?branch=master"
-    url: "https://github.com/cloudposse/build-harness/actions?query=workflow%3Adocker%2Fbuild-and-push"
+    image: "https://github.com/cloudposse/build-harness/workflows/docker/badge.svg?branch=master"
+    url: "https://github.com/cloudposse/build-harness/actions?query=workflow%3Adocker"
   - name: "Latest Release"
     image: "https://img.shields.io/github/release/cloudposse/build-harness.svg"
     url: "https://github.com/cloudposse/build-harness/releases/latest"
