@@ -15,7 +15,7 @@ jobs:
 
     # Checkout the code from GitHub
     - name: "Checkout code"
-      uses: actions/checkout@v1
+      uses: actions/checkout@v2
 
     # Initialize the build-harness with make target helpers
     - name: "Initialize build-harness"
@@ -37,7 +37,7 @@ jobs:
 
     # Checkout the code from GitHub
     - name: "Checkout code"
-      uses: actions/checkout@v1
+      uses: actions/checkout@v2
 
     # Initialize the test-harness which has a library of bats tests
     - name: "Initialize test-harness"
@@ -63,7 +63,7 @@ jobs:
 
     # Checkout the code from GitHub
     - name: "Checkout code"
-      uses: actions/checkout@v1
+      uses: actions/checkout@v2
 
     # Initialize the terratest go project
     - name: "Initialize terratest go project"
