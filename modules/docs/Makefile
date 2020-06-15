@@ -15,4 +15,4 @@ docs/targets.md: docs/deps
 .PHONY : docs/terraform.md
 ## Update `docs/terraform.md` from `terraform-docs`
 docs/terraform.md: docs/deps packages/install/terraform-docs
-	@$(BUILD_HARNESS_PATH)/bin/terraform-docs.sh md . > $@
+	@terraform-docs md . > $@
