@@ -5,7 +5,9 @@ on:
       - master
   pull_request: 
     types: [opened, synchronize, reopened]
-
+  release:
+    types:
+      - created
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
