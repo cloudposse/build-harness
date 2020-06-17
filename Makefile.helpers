@@ -13,16 +13,26 @@ green = $(shell echo -e '\x1b[32;01m$1\x1b[0m')
 yellow = $(shell echo -e '\x1b[33;01m$1\x1b[0m')
 red = $(shell echo -e '\x1b[33;31m$1\x1b[0m')
 
-
-# Ensures that a variable is defined
+# Ensures that a variable is defined and non-empty
 define assert-set
-  @[ -n "$($1)" ] || (echo "$(1) not defined in $(@)"; exit 1)
+  @$(if $($(1)),,$(error $(1) not defined in $(@)))
 endef
 
 # Ensures that a variable is undefined
 define assert-unset
-  @[ -z "$($1)" ] || (echo "$(1) should not be defined in $(@)"; exit 1)
+  @$(if $($1),$(error $(1) should not be defined in $(@)),)
 endef
+
+test/assert-set:
+	$(call assert-set,PATH)
+	@echo assert-set PASS
+
+test/assert-unset:
+	$(call assert-unset,JKAHSDKJAHSDJKHASKD)
+	@echo assert-unset PASS
+
+test/assert: test/assert-set test/assert-unset
+	@exit 0
 
 default:: $(DEFAULT_HELP_TARGET)
 	@exit 0
