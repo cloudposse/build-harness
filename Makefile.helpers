@@ -15,12 +15,12 @@ red = $(shell echo -e '\x1b[33;31m$1\x1b[0m')
 
 # Ensures that a variable is defined and non-empty
 define assert-set
-  @[ "$(if $($(1)),set,unset)" == "set" ] || (echo "$(1) not defined in $(@)"; exit 1)
+  @$(if $($(1)),,$(error $(1) not defined in $(@)))
 endef
 
 # Ensures that a variable is undefined
 define assert-unset
-  @[ "$(if $($1),set,unset)" == "unset" ] || (echo "$(1) should not be defined in $(@)"; exit 1)
+  @$(if $($1),$(error $(1) should not be defined in $(@)),)
 endef
 
 test/assert-set:
