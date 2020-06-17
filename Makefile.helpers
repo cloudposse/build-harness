@@ -14,7 +14,7 @@ yellow = $(shell echo -e '\x1b[33;01m$1\x1b[0m')
 red = $(shell echo -e '\x1b[33;31m$1\x1b[0m')
 
 
-# Ensures that a variable is defined
+# Ensures that a variable is defined and non-empty
 define assert-set
   @[ -n "$${$1}" ] || (echo "$(1) not defined in $(@)"; exit 1)
 endef
