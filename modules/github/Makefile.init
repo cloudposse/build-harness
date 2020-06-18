@@ -16,4 +16,8 @@ $(GITHUB_TEMPLATES): $(addprefix $(BUILD_HARNESS_PATH)/templates/, $(GITHUB_TEMP
 	cp $(BUILD_HARNESS_PATH)/templates/$@ $@
 	git ls-files --error-unmatch $@ 2>/dev/null || git add $@
 
-github/init: $(GITHUB_TEMPLATES)
+github_removals:
+	rm -f .github/workflows/slash-command-dispatch.yml
+	rm -rf codefresh/
+
+github/init: $(GITHUB_TEMPLATES) github_removals
