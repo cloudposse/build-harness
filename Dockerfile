@@ -1,4 +1,4 @@
-FROM golang:1.13.4-alpine3.10
+FROM golang:1.14.4-alpine3.11
 LABEL maintainer="Cloud Posse <hello@cloudposse.com>"
 
 LABEL "com.github.actions.name"="Build Harness"
@@ -31,7 +31,8 @@ RUN apk --update --no-cache add \
       chamber@cloudposse \
       helm@cloudposse \
       helmfile@cloudposse \
-      codefresh@cloudposse
+      codefresh@cloudposse && \
+    sed -i /PATH=/d /etc/profile
 
 ADD ./ /build-harness/
 
@@ -39,7 +40,8 @@ ENV INSTALL_PATH /usr/local/bin
 
 WORKDIR /build-harness
 
-RUN make -s template/deps aws/install
+RUN make -s bash/lint make/lint
+RUN make -s template/deps aws/install terraform/install readme/deps
+RUN make -s go/deps-build go/deps-dev
 
 ENTRYPOINT ["/usr/bin/make"]
-
