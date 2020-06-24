@@ -31,7 +31,8 @@ RUN apk --update --no-cache add \
       chamber@cloudposse \
       helm@cloudposse \
       helmfile@cloudposse \
-      codefresh@cloudposse && \
+      codefresh@cloudposse \
+      yq@cloudposse && \
     sed -i /PATH=/d /etc/profile
 
 ADD ./ /build-harness/
