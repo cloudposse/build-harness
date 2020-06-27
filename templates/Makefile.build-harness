@@ -19,7 +19,6 @@ endif
 
 ifneq ($(wildcard $(BUILD_HARNESS_PATH)),)
 # We deliberately use the conditional above to avoid triggering `%` target when include not found
-$(warning $(BUILD_HARNESS_PATH)/Makefile overrides BUILD_HARNESS_DOCKER_ENABLED=true)
 -include $(BUILD_HARNESS_PATH)/Makefile
 endif
 
