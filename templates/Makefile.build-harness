@@ -41,6 +41,7 @@ clean::
 	   echo rm -rf $(BUILD_HARNESS_PATH)
 else
 # If we're using docker, then pass all targets to docker
+.DEFAULT_GOAL : init
 .PHONY : init
 ## Init build-harness
 init::
