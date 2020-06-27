@@ -1,14 +1,35 @@
+#
+# This is a shim installed automatically by the build-harness
+# https://github.com/cloudposse/build-harness
+#
+
 export SHELL = /bin/bash
+export BUILD_HARNESS_ORIGIN ?= https://raw.githubusercontent.com
 export BUILD_HARNESS_ORG ?= cloudposse
 export BUILD_HARNESS_PROJECT ?= build-harness
 export BUILD_HARNESS_BRANCH ?= master
 export BUILD_HARNESS_PATH ?= $(shell until [ -d "$(BUILD_HARNESS_PROJECT)" ] || [ "`pwd`" == '/' ]; do cd ..; done; pwd)/$(BUILD_HARNESS_PROJECT)
--include $(BUILD_HARNESS_PATH)/Makefile
+export BUILD_HARNESS_DOCKER_ENABLED ?= false
+export BUILD_HARNESS_DOCKER_TAG ?= latest
 
+ifneq ($(wildcard .makeenv),)
+# We deliberately use the conditional above to avoid triggering `%` target when include not found
+-include .makeenv
+endif
+
+ifneq ($(wildcard $(BUILD_HARNESS_PATH)),)
+# We deliberately use the conditional above to avoid triggering `%` target when include not found
+$(warning $(BUILD_HARNESS_PATH)/Makefile overrides BUILD_HARNESS_DOCKER_ENABLED=true)
+-include $(BUILD_HARNESS_PATH)/Makefile
+endif
+
+ifneq ($(BUILD_HARNESS_DOCKER_ENABLED),true)
+
+.DEFAULT_GOAL : init
 .PHONY : init
 ## Init build-harness
 init::
-	@curl --retry 5 --fail --silent --retry-delay 1 https://raw.githubusercontent.com/$(BUILD_HARNESS_ORG)/$(BUILD_HARNESS_PROJECT)/$(BUILD_HARNESS_BRANCH)/bin/install.sh | \
+	@curl --retry 5 --fail --silent --retry-delay 1 $(BUILD_HARNESS_ORIGIN)/$(BUILD_HARNESS_ORG)/$(BUILD_HARNESS_PROJECT)/$(BUILD_HARNESS_BRANCH)/bin/install.sh | \
 		bash -s "$(BUILD_HARNESS_ORG)" "$(BUILD_HARNESS_PROJECT)" "$(BUILD_HARNESS_BRANCH)"
 
 .PHONY : clean
@@ -16,4 +37,27 @@ init::
 clean::
 	@[ "$(BUILD_HARNESS_PATH)" == '/' ] || \
 	 [ "$(BUILD_HARNESS_PATH)" == '.' ] || \
+	 [ "$(BUILD_HARNESS_PATH)" == '//$(BUILD_HARNESS_PROJECT)' ] || \
 	   echo rm -rf $(BUILD_HARNESS_PATH)
+else
+# If we're using docker, then pass all targets to docker
+.PHONY : init
+## Init build-harness
+init::
+	@docker pull $(BUILD_HARNESS_ORG)/$(BUILD_HARNESS_PROJECT):$(BUILD_HARNESS_DOCKER_TAG)
+	@exit 0
+
+## Pass all targets through the `build-harness` (and envs so we can run inside of build-harness)
+%:
+	$(info $@: Running inside of $(BUILD_HARNESS_ORG)/$(BUILD_HARNESS_PROJECT):$(BUILD_HARNESS_DOCKER_TAG))
+	@docker run --workdir /opt \
+	              --name build-harness \
+	              --rm \
+	              -e BUILD_HARNESS_DOCKER_ENABLED=false \
+	              -e BUILD_HARNESS_PATH=/build-harness \
+	              -e AWS_ACCESS_KEY_ID \
+	              -e AWS_SECRET_ACCESS_KEY \
+	              -e AWS_SESSION_TOKEN \
+	              -v $(CURDIR):/opt \
+	              $(BUILD_HARNESS_ORG)/$(BUILD_HARNESS_PROJECT):$(BUILD_HARNESS_DOCKER_TAG) $(@)
+endif
