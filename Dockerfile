@@ -38,6 +38,7 @@ RUN apk --update --no-cache add \
 ADD ./ /build-harness/
 
 ENV INSTALL_PATH /usr/local/bin
+ENV BUILD_HARNESS_PATH /build-harness
 
 WORKDIR /build-harness
 

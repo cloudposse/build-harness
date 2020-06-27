@@ -54,7 +54,6 @@ init::
 	              --name build-harness \
 	              --rm \
 	              -e BUILD_HARNESS_DOCKER_ENABLED=false \
-	              -e BUILD_HARNESS_PATH=/build-harness \
 	              -e AWS_ACCESS_KEY_ID \
 	              -e AWS_SECRET_ACCESS_KEY \
 	              -e AWS_SESSION_TOKEN \
