@@ -16,8 +16,12 @@ $(GITHUB_TEMPLATES): $(addprefix $(BUILD_HARNESS_PATH)/templates/, $(GITHUB_TEMP
 	cp $(BUILD_HARNESS_PATH)/templates/$@ $@
 	git ls-files --error-unmatch $@ 2>/dev/null || git add $@
 
-github_removals:
-	rm -f .github/workflows/slash-command-dispatch.yml
-	rm -rf codefresh/
+github-removals:
+	[ ! -d codefresh/ ] || git rm -rf codefresh
+	[ ! -f .github/workflows/slash-command-dispatch.yml ] || git rm -f .github/workflows/slash-command-dispatch.yml
 
-github/init: $(GITHUB_TEMPLATES) github_removals
+drop-codefresh-badge: packages/install/yq
+	( yq r README.yaml badges[0].image | grep codefresh && \
+		yq d -i README.yaml badges[0] ) || true
+
+github/init: $(GITHUB_TEMPLATES) github-removals drop-codefresh-badge
