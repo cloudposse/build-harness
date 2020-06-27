@@ -43,3 +43,6 @@ endif
 ## Upgrade all terraform module sources
 terraform/upgrade-modules: packages/install/json2hcl
 	@$(BUILD_HARNESS_PATH)/bin/upgrade_terraform_modules.sh all
+
+terraform/oh-dot-thirteen-upgrade:
+	[ ! -f versions.tf ] || sed -i '' 's/~> 0.12.0/>= 0.12.0, < 0.14.0/' versions.tf
