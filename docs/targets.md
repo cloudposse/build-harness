@@ -1,6 +1,7 @@
 <!-- markdownlint-disable-file MD041 -->
 ## Makefile Targets
-```
+<!-- markdownlint-enable-file MD041 -->
+```text
 Available targets:
 
   aws/install                         Install aws cli bundle

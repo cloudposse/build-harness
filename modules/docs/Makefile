@@ -8,6 +8,7 @@ docs/targets.md: docs/deps
 	@( \
 		echo "<!-- markdownlint-disable-file MD041 -->"; \
 		echo "## Makefile Targets"; \
+		echo "<!-- markdownlint-enable-file MD041 -->"; \
 		echo '```text'; \
 		$(SELF) --no-print-directory --quiet --silent $(DEFAULT_HELP_TARGET) | sed $$'s,\x1b\\[[0-9;]*[a-zA-Z],,g'; \
 		echo '```'; \
