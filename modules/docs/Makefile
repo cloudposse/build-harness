@@ -1,6 +1,8 @@
 .PHONY : docs
+## MarkDown files in docs are embedded in README.md and they won't pass linting that's why we ignore them
 docs/deps::
 	@mkdir -p docs
+	@echo "*.md" > docs/.markdownlintignore
 
 .PHONY : docs/targets.md
 ## Update `docs/targets.md` from `make help`
