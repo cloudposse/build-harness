@@ -41,6 +41,7 @@ Available targets:
   docker/image/push                   Push $TARGET_DOCKER_REGISTRY/$IMAGE_NAME:$TARGET_VERSION
   docker/login                        Login into docker hub
   docs/copyright-add                  Add copyright headers to source code
+  docs/deps                           MarkDown files in docs are embedded in README.md and they won't pass linting that's why we ignore them
   geodesic/deploy                     Run a Jenkins Job to Deploy $(APP) with $(CANONICAL_TAG)
   git/aliases-update                  Update git aliases
   git/export                          Export git vars
