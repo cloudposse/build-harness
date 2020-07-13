@@ -1,5 +1,5 @@
 ## Makefile Targets
-```
+```text
 Available targets:
 
   aws/install                         Install aws cli bundle
