@@ -162,6 +162,7 @@ Available targets:
   docker/image/push                   Push $TARGET_DOCKER_REGISTRY/$IMAGE_NAME:$TARGET_VERSION
   docker/login                        Login into docker hub
   docs/copyright-add                  Add copyright headers to source code
+  docs/deps                           Ensure docs directories and markdownlintignore file is present
   geodesic/deploy                     Run a Jenkins Job to Deploy $(APP) with $(CANONICAL_TAG)
   git/aliases-update                  Update git aliases
   git/export                          Export git vars

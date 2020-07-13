@@ -1,5 +1,5 @@
 .PHONY : docs
-## MarkDown files in docs are embedded in README.md and they won't pass linting that's why we ignore them
+## Ensure docs directories and markdownlintignore file is present
 docs/deps::
 	@mkdir -p docs
 	@echo "*.md" > docs/.markdownlintignore
