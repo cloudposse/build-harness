@@ -1,4 +1,4 @@
-## Extending `build-harness` with targets from another repo
+# Extending `build-harness` with targets from another repo
 
 It is possible to extend the `build-harness` with targets and entire modules of your own, without having to fork or modify `build-harness` itself.
 This might be useful if, for example, you wanted to maintain some tooling that was specific to your environment that didn't have enough general applicability to be part of the main project.
