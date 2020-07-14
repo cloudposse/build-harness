@@ -1,6 +1,5 @@
 <!-- markdownlint-disable-file MD041 -->
 ## Makefile Targets
-<!-- markdownlint-enable-file MD041 -->
 ```text
 Available targets:
 
@@ -125,3 +124,4 @@ Available targets:
   travis/docker-tag-and-push          Tag & Push according Travis environment variables
 
 ```
+<!-- markdownlint-enable-file MD041 -->

@@ -121,7 +121,6 @@ Here are some real world examples:
 
 <!-- markdownlint-disable-file MD041 -->
 ## Makefile Targets
-<!-- markdownlint-enable-file MD041 -->
 ```text
 Available targets:
 
@@ -246,6 +245,7 @@ Available targets:
   travis/docker-tag-and-push          Tag & Push according Travis environment variables
 
 ```
+<!-- markdownlint-enable-file MD041 -->
 <!-- markdownlint-disable-file MD041 -->
 ## Extending `build-harness` with targets from another repo
 <!-- markdownlint-enable-file MD041 -->
