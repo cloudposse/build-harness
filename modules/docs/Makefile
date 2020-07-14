@@ -6,12 +6,12 @@ docs/deps::
 ## Update `docs/targets.md` from `make help`
 docs/targets.md: docs/deps
 	@( \
-		echo "<!-- markdownlint-disable-file MD041 -->"; \
+		echo "<!-- markdownlint-disable -->"; \
 		echo "## Makefile Targets"; \
 		echo '```text'; \
 		$(SELF) --no-print-directory --quiet --silent $(DEFAULT_HELP_TARGET) | sed $$'s,\x1b\\[[0-9;]*[a-zA-Z],,g'; \
 		echo '```'; \
-		echo "<!-- markdownlint-enable-file MD041 -->"; \
+		echo "<!-- markdownlint-restore -->"; \
 	) > $@
 
 .PHONY : docs/terraform.md
