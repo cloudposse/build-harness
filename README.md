@@ -86,7 +86,7 @@ The `build-harness` is compatible with [GitHub Actions](https://github.com/featu
 
 Here's an example of running `make readme/lint` 
 
-```
+```yaml
 name: build-harness/readme/lint
 on: [pull_request]
 jobs:
