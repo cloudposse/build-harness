@@ -1,11 +1,11 @@
 ---
-# 
+#
 # This is the canonical configuration for the `README.md`
 # Run `make readme` to rebuild the `README.md`
 #
 
 # Name of this project
-name: Build Harness 
+name: Build Harness
 
 # Logo for this project
 #logo: docs/logo.png
@@ -19,7 +19,7 @@ copyrights:
     url: "https://cloudposse.com"
     year: "2016"
 
-# Canonical GitHub repo 
+# Canonical GitHub repo
 github_repo: cloudposse/build-harness
 
 # Badges to display
@@ -56,7 +56,7 @@ screenshots:
   - name: "demo"
     description: "Example of using the `build-harness` to build a docker image"
     url: "https://cdn.rawgit.com/cloudposse/build-harness/master/docs/demo.svg"
- 
+
 # Short description of this project
 description: |-
   This `build-harness` is a collection of Makefiles to facilitate building Golang projects, Dockerfiles, Helm charts, and more.
@@ -83,10 +83,10 @@ usage: |-
   **NOTE:** the `/` is interchangable with the `:` in target names
 
   ## GitHub Actions
-  
+ 
   The `build-harness` is compatible with [GitHub Actions](https://github.com/features/actions).
 
-  Here's an example of running `make readme/lint` 
+  Here's an example of running `make readme/lint`
 
   ```yaml
   name: build-harness/readme/lint
@@ -137,3 +137,5 @@ contributors:
     github: "alebabai"
   - name: "Jon Boulle"
     github: "jonboulle"
+  - name: "Marcin Brański"
+    github: "3h4x"
