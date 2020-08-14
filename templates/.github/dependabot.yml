@@ -1,0 +1,44 @@
+# Dependabot configuration
+# https://docs.github.com/en/github/administering-a-repository/configuration-options-for-dependency-updates
+version: 2
+updates:
+
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: "github-actions"
+    rebase-strategy: "auto"
+    open-pull-requests-limit: 5
+    directory: "/"
+    schedule:
+      interval: "daily"
+    labels:
+      - "github-actions"
+
+  # Maintain dependencies for Terraform modules
+  - package-ecosystem: "terraform"
+    rebase-strategy: "auto"
+    open-pull-requests-limit: 5
+    directory: "/"
+    schedule:
+      interval: "daily"
+    labels:
+      - "terraform"
+
+  # Maintain dependencies for Terraform Submodules
+  - package-ecosystem: "terraform"
+    rebase-strategy: "auto"
+    open-pull-requests-limit: 5
+    directory: "/modules/"
+    schedule:
+      interval: "daily"
+    labels:
+      - "terraform-submodules"
+
+  # Maintain dependencies for Terraform Examples
+  - package-ecosystem: "terraform"
+    rebase-strategy: "auto"
+    open-pull-requests-limit: 5
+    directory: "/examples/complete/"
+    schedule:
+      interval: "daily"
+    labels:
+      - "examples-complete"
