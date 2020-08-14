@@ -1,8 +1,6 @@
 name-template: 'v$RESOLVED_VERSION'
 tag-template: '$RESOLVED_VERSION'
 version-template: '$MAJOR.$MINOR.$PATCH'
-publish: true
-prerelease: false
 version-resolver:
   major:
     labels:
@@ -28,6 +26,4 @@ categories:
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
 
 template: |
-  ## Related Pull Requests
-
   $CHANGES
