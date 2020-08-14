@@ -15,7 +15,8 @@ version-resolver:
 
 categories:
   - title: '🚀 Enhancements'
-    label: 'enhancement'
+    labels:
+      - 'enhancement'
   - title: '🐛 Bug Fixes'
     labels:
       - 'fix'
