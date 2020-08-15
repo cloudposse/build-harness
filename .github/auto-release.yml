@@ -16,7 +16,7 @@ version-resolver:
       - 'bugfix'
       - 'bug'
       - 'hotfix'
-  default: patch
+  default: 'minor'
 
 categories:
   - title: '🚀 Enhancements'
@@ -29,7 +29,12 @@ categories:
       - 'bug'
       - 'hotfix'
 
-change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+change-template: |
+  <details>
+    <summary>$TITLE @$AUTHOR (#$NUMBER)</summary>
+
+    $BODY
+  </details>
 
 template: |
   $CHANGES
