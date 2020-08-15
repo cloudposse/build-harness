@@ -29,7 +29,10 @@ categories:
       - 'bug'
       - 'hotfix'
 
-change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+change-template: |
+  ## $TITLE @$AUTHOR (#$NUMBER)
+
+  $BODY
 
 template: |
   $CHANGES
