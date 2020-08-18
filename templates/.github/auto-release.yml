@@ -8,14 +8,20 @@ version-resolver:
   minor:
     labels:
       - 'minor'
+      - 'enhancement'
   patch:
     labels:
       - 'patch'
-  default: patch
+      - 'fix'
+      - 'bugfix'
+      - 'bug'
+      - 'hotfix'
+  default: 'minor'
 
 categories:
   - title: '🚀 Enhancements'
-    label: 'enhancement'
+    labels:
+      - 'enhancement'
   - title: '🐛 Bug Fixes'
     labels:
       - 'fix'
@@ -23,7 +29,12 @@ categories:
       - 'bug'
       - 'hotfix'
 
-change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+change-template: |
+  <details>
+    <summary>$TITLE @$AUTHOR (#$NUMBER)</summary>
+
+    $BODY
+  </details>
 
 template: |
   $CHANGES
