@@ -4,7 +4,9 @@ GITHUB_TEMPLATES = \
 	.github/ISSUE_TEMPLATE/config.yml \
 	.github/ISSUE_TEMPLATE/feature_request.md \
 	.github/ISSUE_TEMPLATE/bug_report.md \
-	.github/ISSUE_TEMPLATE/question.md
+	.github/ISSUE_TEMPLATE/question.md \
+	.github/auto-release.yml \
+	.github/workflows/auto-release.yml
 
 ifneq ($(wildcard *.tf),)
 # Install test workflow for terraform projects
