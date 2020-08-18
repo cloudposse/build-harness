@@ -18,7 +18,7 @@ function github_latest_release() {
 function upgrade_modules() {
   local file=$1
   echo "Processing $file..."
-  for source in $(json2hcl -reverse < $file | jq -r '.module | .[][] | first | .source' 2>/dev/null); do
+  for source in $(grep -Po '^\s*source\s*=\s*"(.*?)"' -r .|cut -d'"' -f2|sort -u); do
     if [[ $source =~ github.com/ ]]; then
       echo "[GITHUB]: $source"
       if [[ $source =~ github.com/(.*?)/(.*?)\.git ]]; then
