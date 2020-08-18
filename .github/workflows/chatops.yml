@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: "Handle common commands"
-        uses: cloudposse/actions/github/slash-command-dispatch@0.15.0
+        uses: cloudposse/actions/github/slash-command-dispatch@0.16.0
         with:
           token: ${{ secrets.PUBLIC_REPO_ACCESS_TOKEN }}
           reaction-token: ${{ secrets.GITHUB_TOKEN }}
@@ -33,5 +33,4 @@ jobs:
           permission: triage
           issue-type: pull-request
           reactions: false
-
 
