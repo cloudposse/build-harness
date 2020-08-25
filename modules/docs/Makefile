@@ -17,4 +17,6 @@ docs/targets.md: docs/deps
 .PHONY : docs/terraform.md
 ## Update `docs/terraform.md` from `terraform-docs`
 docs/terraform.md: docs/deps packages/install/terraform-docs
-	@terraform-docs md . > $@
+	@echo "<!-- markdownlint-disable -->" > $@
+	@terraform-docs md . >> $@
+	@echo "<!-- markdownlint-restore -->" >> $@
