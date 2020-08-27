@@ -1,0 +1,30 @@
+name: __NAME__
+
+github:
+  # https://docs.github.com/en/github/searching-for-information-on-github/searching-for-repositories
+  #    all modules
+  #    repo_search: "org:cloudposse"
+  #    terraform modules
+  repository_search: "repo:cloudposse/terraform-aws-sns-topic"
+
+  branch: auto-__NAME__
+  commit_message: auto-__NAME__
+  pr:
+    enabled: true
+    body:
+      what:
+        - what
+      why:
+        - why
+    reviewer: 3h4x
+    # cloudposse/engineering
+
+    labels:
+      - auto-merge
+      # - auto-release
+
+tests: true
+
+migrations:
+  - make
+  - make readme

@@ -1,0 +1,40 @@
+{{ defineDatasource "config" "workflow.yaml" | regexp.Replace ".*" "" -}}
+WORKFLOW_TEMPLATE_DIR ?= $(BUILD_HARNESS_PATH)/templates/github-automated-workflow/
+
+mp-init:
+	@mp init --repo-search "{{ (ds "config").github.repository_search }}" > log/mp_init.log
+	@mp clone >> log/mp_clone.log
+
+mp-plan:
+	@mp plan -b {{ (ds "config").github.branch }} -m '{{ (ds "config").github.commit_message }}' -- sh -c $$PWD/migration.sh > log/mp_plan.log
+
+{{ if eq (ds "config").github.pr.enabled true -}}
+mp-push:
+	echo Create PR
+	@mp push -b pr-body.md -a {{ (ds "config").github.pr.reviewer }} > log/mp_push.log
+
+	{{- if ne (len (ds "config").github.pr.labels) 0 }}
+	echo Label PR
+	@echo '{"labels":["{{ join (ds "config").github.pr.labels "\",\"" }}"]}' > labels.json
+	echo 'LABELS_JSON=`cat labels.json`; cd {}; PR_NUMBER=`gh pr create 2>&1 | tail -n1 | sed "s#.*pull/##"`; echo $$LABELS_JSON | gh api -X PATCH repos/:owner/:repo/issues/$$PR_NUMBER --input -'
+	@find . -name 'planned' -maxdepth 4 -type d -exec sh -c 'LABELS_JSON=`cat labels.json`; cd {}; PR_NUMBER=`gh pr create 2>&1 | tail -n1 | sed "s#.*pull/##"`; echo $$LABELS_JSON | gh api -X PATCH repos/:owner/:repo/issues/$$PR_NUMBER --input -' \; >> log/mp_push.log
+	@rm labels.json
+	{{- end }}
+
+	echo Add PR reviewers TODO
+	# https://developer.github.com/v3/pulls/review_requests/#request-reviewers-for-a-pull-request
+
+	{{ if eq (ds "config").tests true }}
+	echo Run tests
+	@find . -name 'planned' -maxdepth 4 -type d -exec sh -c 'cd {}; gh pr review --comment -b "/test all"' \;
+	{{ end -}}
+
+{{ end }}
+status:
+	@mp status
+
+{{ if eq (ds "config").tests true -}}
+# Run tests with `gh` command in planned repositories
+tests:
+	@find . -name 'planned' -maxdepth 4 -type d -exec sh -c 'cd {}; gh pr review --comment -b "/test all"' \;
+{{ end -}}

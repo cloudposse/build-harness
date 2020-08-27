@@ -1,0 +1,10 @@
+{{ defineDatasource "config" "workflow.yaml" | regexp.Replace ".*" "" -}}
+## what
+{{- range $element := (ds "config").github.pr.body.what }}
+- {{ $element }}
+{{- end }}
+
+## why
+{{- range $element := (ds "config").github.pr.body.why }}
+- {{ $element }}
+{{- end }}
