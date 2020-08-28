@@ -16,8 +16,11 @@ github:
         - what
       why:
         - why
-    reviewer: 3h4x
-    # cloudposse/engineering
+
+    reviewers:
+    - cloudpossebot
+    team_reviewers:
+    - terraform
 
     labels:
       - auto-merge

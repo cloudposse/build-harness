@@ -11,22 +11,23 @@ mp-plan:
 {{ if eq (ds "config").github.pr.enabled true -}}
 mp-push:
 	echo Create PR
-	@mp push -b pr-body.md -a {{ (ds "config").github.pr.reviewer }} > log/mp_push.log
+	@mp push -b pr-body.md -a {{ index (ds "config").github.pr.reviewers 0 }} > log/mp_push.log
 
 	{{- if ne (len (ds "config").github.pr.labels) 0 }}
 	echo Label PR
 	@echo '{"labels":["{{ join (ds "config").github.pr.labels "\",\"" }}"]}' > labels.json
-	echo 'LABELS_JSON=`cat labels.json`; cd {}; PR_NUMBER=`gh pr create 2>&1 | tail -n1 | sed "s#.*pull/##"`; echo $$LABELS_JSON | gh api -X PATCH repos/:owner/:repo/issues/$$PR_NUMBER --input -'
 	@find . -name 'planned' -maxdepth 4 -type d -exec sh -c 'LABELS_JSON=`cat labels.json`; cd {}; PR_NUMBER=`gh pr create 2>&1 | tail -n1 | sed "s#.*pull/##"`; echo $$LABELS_JSON | gh api -X PATCH repos/:owner/:repo/issues/$$PR_NUMBER --input -' \; >> log/mp_push.log
 	@rm labels.json
 	{{- end }}
 
-	echo Add PR reviewers TODO
-	# https://developer.github.com/v3/pulls/review_requests/#request-reviewers-for-a-pull-request
+	echo Add PR reviewers
+	@echo '{"reviewers":["{{ join (ds "config").github.pr.reviewers "\",\"" }}"], "team_reviewers":["{{ join (ds "config").github.pr.team_reviewers "\",\"" }}"]}' > reviewers.json
+	@find . -name 'planned' -maxdepth 4 -type d -exec sh -c 'REVIEWERS_JSON=`cat reviewers.json`; cd {}; PR_NUMBER=`gh pr create 2>&1 | tail -n1 | sed "s#.*pull/##"`; echo $$REVIEWERS_JSON | gh api -X POST repos/:owner/:repo/pulls/$$PR_NUMBER/requested_reviewers --input -' \; >> log/mp_push.log
+	@rm reviewers.json
 
 	{{ if eq (ds "config").tests true }}
 	echo Run tests
-	@find . -name 'planned' -maxdepth 4 -type d -exec sh -c 'cd {}; gh pr review --comment -b "/test all"' \;
+	@find . -name 'planned' -maxdepth 4 -type d -exec sh -c 'cd {}; PR_NUMBER=`gh pr create 2>&1 | tail -n1 | sed "s#.*pull/##"`; gh api -X POST repos/:owner/:repo/issues/$$PR_NUMBER/comments -f body="/test all"' \; >> log/mp_push.log
 	{{ end -}}
 
 {{ end }}
@@ -36,5 +37,5 @@ status:
 {{ if eq (ds "config").tests true -}}
 # Run tests with `gh` command in planned repositories
 tests:
-	@find . -name 'planned' -maxdepth 4 -type d -exec sh -c 'cd {}; gh pr review --comment -b "/test all"' \;
+	@find . -name 'planned' -maxdepth 4 -type d -exec sh -c 'cd {}; PR_NUMBER=`gh pr create 2>&1 | tail -n1 | sed "s#.*pull/##"`; gh api -X POST repos/:owner/:repo/issues/$$PR_NUMBER/comments -f body="/test all"' \; >> log/mp_push.log
 {{ end -}}
