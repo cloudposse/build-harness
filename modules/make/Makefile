@@ -3,7 +3,6 @@ make/lint:
 	@LINT=true \
 	 find . -type f -name '*Makefile*' \
 	  		-type f '!' -name '*.example' \
-	  		-type f '!' -name '*.gotmpl' \
 	  		-type f '!' -path './modules/packages/*' \
 	  		-type f '!' -path './vendor/*' \
 	  		-type f '!' -path './templates/Makefile.build-harness' \
