@@ -11,6 +11,8 @@ import yaml
 
 log = logging.getLogger("github-automated-workflow")
 log.setLevel(logging.DEBUG)
+
+log.addHandler(logging.FileHandler("log/github-automated-workflow.log"))
 log.addHandler(logging.StreamHandler(sys.stdout))
 
 try:
@@ -32,40 +34,24 @@ def mp():
 @main.command()
 def approve():
     log.info('Approving PRs')
-    for directory in os.listdir('mp'):
-        if not os.path.isdir(os.path.join('mp', directory)):
+    for repo in os.listdir('mp'):
+        repo_path = os.path.join('mp', repo, 'plan', 'planned')
+        if not os.path.isdir(os.path.join('mp', repo)):
             continue
 
-        repo_path = os.path.join('mp', directory, 'plan', 'planned')
-
-        subprocess.check_call(
-            f'gh pr review -a',
-            cwd=repo_path,
-            shell=True
-        )
-        log.info(f'Approved PR for {directory}.')
+        pr_approve(repo, repo_path)
 
 
 @main.command(help='')
 def tests():
     log.info('Running tests')
-    for directory in os.listdir('mp'):
-        if not os.path.isdir(os.path.join('mp', directory)):
+    for repo in os.listdir('mp'):
+        repo_path = os.path.join('mp', repo, 'plan', 'planned')
+        if not os.path.isdir(os.path.join('mp', repo)):
             continue
 
-        repo_path = os.path.join('mp', directory, 'plan', 'planned')
-
-        pr_number = subprocess.check_output(
-            'gh pr create 2>&1 | tail -n1 | sed "s#.*pull/##"',
-            cwd=repo_path,
-            shell=True
-        ).decode('utf8').strip()
-        subprocess.check_call(
-            f'gh api -X POST repos/:owner/:repo/issues/{pr_number}/comments -f body="/test all"',
-            cwd=repo_path,
-            shell=True
-        )
-        log.info(f'Running tests in {directory}.')
+        pr_number = get_pr_number(repo_path)
+        pr_run_tests(repo, pr_number, repo_path)
 
 
 @mp.command(help='')
@@ -107,41 +93,65 @@ def push():
         'team_reviewers': workflow_data['github']['pr']['team_reviewers']
     }
 
-    for directory in os.listdir('mp'):
-        if not os.path.isdir(os.path.join('mp', directory)):
+    for repo in os.listdir('mp'):
+        repo_path = os.path.join('mp', repo, 'plan', 'planned')
+        if not os.path.isdir(os.path.join('mp', repo)):
             continue
 
-        repo_path = os.path.join('mp', directory, 'plan', 'planned')
 
-        pr_number = subprocess.check_output(
-            'gh pr create 2>&1 | tail -n1 | sed "s#.*pull/##"',
-            cwd=repo_path,
-            shell=True
-        ).decode('utf8').strip()
-        log.info(f'Repo {directory} has PR {pr_number} created.')
+        pr_number = get_pr_number(repo_path)
 
-        log.info('Adding labels to PR')
-        subprocess.check_call(
-            f'''echo '{json.dumps(labels)}' | gh api -X PATCH repos/:owner/:repo/issues/{pr_number} --input -''',
-            cwd=repo_path,
-            shell=True
-        )
-
-        log.info('Adding reviewers to PR')
-        subprocess.check_call(
-            f'''echo '{json.dumps(reviewers)}' | gh api -X POST repos/:owner/:repo/pulls/{pr_number}/requested_reviewers --input -''',
-            cwd=repo_path,
-            shell=True,
-        )
-
+        pr_add_labels(labels, pr_number, repo_path)
+        pr_add_reviewers(pr_number, repo_path, reviewers)
         if workflow_data['tests']:
-            log.info('Running tests in PR')
-            subprocess.check_call(
-                f'gh api -X POST repos/:owner/:repo/issues/{pr_number}/comments -f body="/test all"',
-                cwd=repo_path,
-                shell=True
-            )
-    log.info('Finished')
+            pr_run_tests(repo, pr_number, repo_path)
+
+
+# Helpers
+def pr_add_reviewers(pr_number, repo_path, reviewers):
+    log.info('Adding reviewers to PR')
+    subprocess.check_call(
+        f'''echo '{json.dumps(reviewers)}' | gh api -X POST repos/:owner/:repo/pulls/{pr_number}/requested_reviewers --input -''',
+        cwd=repo_path,
+        shell=True,
+    )
+
+
+def pr_add_labels(labels, pr_number, repo_path):
+    log.info('Adding labels to PR')
+    subprocess.check_call(
+        f'''echo '{json.dumps(labels)}' | gh api -X PATCH repos/:owner/:repo/issues/{pr_number} --input -''',
+        cwd=repo_path,
+        shell=True
+    )
+
+
+def pr_run_tests(repo, pr_number, repo_path):
+    log.info(f'Running tests in {repo}.')
+    subprocess.check_call(
+        f'gh api -X POST repos/:owner/:repo/issues/{pr_number}/comments -f body="/test all"',
+        cwd=repo_path,
+        shell=True
+    )
+
+
+def get_pr_number(repo_path):
+    pr_number = subprocess.check_output(
+        'gh pr create 2>&1 | tail -n1 | sed "s#.*pull/##"',
+        cwd=repo_path,
+        shell=True
+    ).decode('utf8').strip()
+    log.info(f'{repo_path} has PR {pr_number} on current branch.')
+    return pr_number
+
+
+def pr_approve(repo, repo_path):
+    log.info(f'Approved PR for {repo}.')
+    subprocess.check_call(
+        f'gh pr review -a',
+        cwd=repo_path,
+        shell=True
+    )
 
 
 if __name__ == '__main__':
