@@ -21,17 +21,17 @@ except Exception:
     log.exception('Failed to load workflow.yaml')
 
 
-@click.group(help='Single point of entry')
+@click.group(help='Automation for github repositories')
 def main():
     pass
 
 
-@main.group()
+@main.group(help='Commands that will be run with microplane which automates operations on multiple github repositories')
 def mp():
     pass
 
 
-@main.command()
+@main.command(help='Automatically approve all PRs opened with microplane')
 def approve():
     log.info('Approving PRs')
     for repo in os.listdir('mp'):
@@ -42,7 +42,7 @@ def approve():
         pr_approve(repo, repo_path)
 
 
-@main.command(help='')
+@main.command(help='Run tests (add comment /tests all) in all PRs opened with microplane')
 def tests():
     log.info('Running tests')
     for repo in os.listdir('mp'):
@@ -54,7 +54,7 @@ def tests():
         pr_run_tests(repo_path, repo, pr_number)
 
 
-@mp.command(help='')
+@mp.command(help='Initialize microplane configuration and clone repositories matching "repository_search" variable')
 def init():
     log.info('Running init')
     repository_search = workflow_data["github"]["repository_search"]
@@ -65,14 +65,14 @@ def init():
     subprocess.check_call('mp clone', shell=True)
 
 
-@mp.command(help='')
+@mp.command(help='Create branch, run migration.sh and commit changes')
 def plan():
     branch = workflow_data["github"]["branch"]
     commit_message = workflow_data["github"]["commit_message"]
     subprocess.check_call(f'mp plan -b {branch} -m "{commit_message}" -- sh -c $PWD/migration.sh', shell=True)
 
 
-@mp.command(help='')
+@mp.command(help='Create PR, add labels, reviewers, eventually run tests')
 def push():
     if not os.path.exists('pr-body.md'):
         raise Exception('pr-body.md doesnt exist')
