@@ -16,8 +16,8 @@ github-automated-workflow/configure:
 	@if [ -z $(name) ]; then echo -e "Required argument "name" not present\n"; exit 1; fi
 	@$(eval WORKFLOW_NAME := $(shell echo "$(name)"))
 	@if [ ! -d $(WORKFLOW_NAME) ]; then echo "Workflow named $(WORKFLOW_NAME) does not exists"; exit 1; fi
+	@cd $(name) && ln -fs $(BUILD_HARNESS_PATH)/bin/github-automated-workflow.py .
 	@cd $(name) && gomplate --file $(WORKFLOW_TEMPLATE_DIR)/migration.sh.gotmpl --out migration.sh
-	@cd $(name) && gomplate --file $(WORKFLOW_TEMPLATE_DIR)/Makefile.gotmpl --out Makefile
 	@cd $(name) && gomplate --file $(WORKFLOW_TEMPLATE_DIR)/pr-body.md.gotmpl --out pr-body.md
 	@cd $(name) && chmod a+x migration.sh
 	@mkdir -p $(name)/log
