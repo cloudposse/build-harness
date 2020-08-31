@@ -51,7 +51,7 @@ def tests():
             continue
 
         pr_number = get_pr_number(repo_path)
-        pr_run_tests(repo, pr_number, repo_path)
+        pr_run_tests(repo_path, repo, pr_number)
 
 
 @mp.command(help='')
@@ -98,26 +98,26 @@ def push():
         if not os.path.isdir(os.path.join('mp', repo)):
             continue
 
-
         pr_number = get_pr_number(repo_path)
 
-        pr_add_labels(labels, pr_number, repo_path)
-        pr_add_reviewers(pr_number, repo_path, reviewers)
+        pr_add_labels(repo_path, pr_number, labels)
+        pr_add_reviewers(repo_path, pr_number, reviewers)
         if workflow_data['tests']:
-            pr_run_tests(repo, pr_number, repo_path)
+            pr_run_tests(repo_path, repo, pr_number)
 
 
 # Helpers
-def pr_add_reviewers(pr_number, repo_path, reviewers):
+def pr_add_reviewers(repo_path, pr_number, reviewers):
     log.info('Adding reviewers to PR')
     subprocess.check_call(
-        f'''echo '{json.dumps(reviewers)}' | gh api -X POST repos/:owner/:repo/pulls/{pr_number}/requested_reviewers --input -''',
+        f'''echo '{json.dumps(reviewers)}' | \
+        gh api -X POST repos/:owner/:repo/pulls/{pr_number}/requested_reviewers --input -''',
         cwd=repo_path,
         shell=True,
     )
 
 
-def pr_add_labels(labels, pr_number, repo_path):
+def pr_add_labels(repo_path, pr_number, labels):
     log.info('Adding labels to PR')
     subprocess.check_call(
         f'''echo '{json.dumps(labels)}' | gh api -X PATCH repos/:owner/:repo/issues/{pr_number} --input -''',
@@ -126,7 +126,7 @@ def pr_add_labels(labels, pr_number, repo_path):
     )
 
 
-def pr_run_tests(repo, pr_number, repo_path):
+def pr_run_tests(repo_path, repo, pr_number):
     log.info(f'Running tests in {repo}.')
     subprocess.check_call(
         f'gh api -X POST repos/:owner/:repo/issues/{pr_number}/comments -f body="/test all"',
@@ -148,7 +148,7 @@ def get_pr_number(repo_path):
 def pr_approve(repo, repo_path):
     log.info(f'Approved PR for {repo}.')
     subprocess.check_call(
-        f'gh pr review -a',
+        'gh pr review -a',
         cwd=repo_path,
         shell=True
     )
@@ -158,5 +158,5 @@ if __name__ == '__main__':
     os.makedirs('log', exist_ok=True)
     try:
         main()
-    except Exception as ex:
+    except Exception:
         log.exception('\n\nFailed execution, got exception:')
