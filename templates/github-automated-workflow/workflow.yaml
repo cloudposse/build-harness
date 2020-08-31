@@ -10,21 +10,19 @@ github:
   branch: auto-__NAME__
   commit_message: auto-__NAME__
   pr:
-    enabled: true
-    body:
-      what:
-        - what
-      why:
-        - why
-
+    body: |
+      ## what
+      - what
+      ## why:
+      - why
     reviewers:
     - cloudpossebot
     team_reviewers:
     - terraform
 
     labels:
+      - auto-approve
       - auto-merge
-      # - auto-release
 
 tests: true
 

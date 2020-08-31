@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: cloudposse/actions/github/auto-merge@0.18.0
+        if: |
+          # Require to not run for forks
+          github.event.pull_request.head.repo.full_name == github.repository
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MERGE_LABELS: auto-merge,!wip

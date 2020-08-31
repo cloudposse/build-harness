@@ -7,6 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: cloudposse/actions/github/auto-approve@0.18.0
-        if: contains(github.event.pull_request.labels.*.name, 'auto-approve')
+        if: |
+          # Require auto-approve tag
+          contains(github.event.pull_request.labels.*.name, 'auto-approve') &&
+          # Require to not run for forks
+          github.event.pull_request.head.repo.full_name == github.repository
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
