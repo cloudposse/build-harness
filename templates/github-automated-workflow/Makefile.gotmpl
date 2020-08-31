@@ -34,6 +34,9 @@ mp-push:
 status:
 	@mp status
 
+approve:
+	@find . -name 'planned' -maxdepth 4 -type d -exec sh -c 'cd {}; echo {}; gh pr review -a' \; >> log/pr_approve.log 2>&1
+
 {{ if eq (ds "config").tests true -}}
 # Run tests with `gh` command in planned repositories
 tests:
