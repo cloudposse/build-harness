@@ -29,5 +29,5 @@ github:
 tests: true
 
 migrations:
-  - make
+  - make init
   - make readme
