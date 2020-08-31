@@ -1,0 +1,12 @@
+name: Auto approve
+
+on: pull_request
+
+jobs:
+  auto-approve:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cloudposse/actions/github/auto-approve@0.18.0
+        if: contains(github.event.pull_request.labels.*.name, 'auto-approve')
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
