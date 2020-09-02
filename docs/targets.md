@@ -46,6 +46,7 @@ Available targets:
   git/aliases-update                  Update git aliases
   git/export                          Export git vars
   git/submodules-update               Update submodules
+  github-automated-workflow/init      Create new workflow
   github/download-private-release     Download release from github
   github/download-public-release      Download release from github
   github/latest-release               Fetch the latest release tag from the GitHub API

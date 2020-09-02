@@ -1,0 +1,2 @@
+{{ defineDatasource "config" "workflow.yaml" | regexp.Replace ".*" "" -}}
+{{ (ds "config").github.pr.body }}

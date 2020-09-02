@@ -8,6 +8,7 @@ modules/docker: modules/docker/**
 modules/docs: modules/docs/**
 modules/geodesic: modules/geodesic/**
 modules/git: modules/git/**
+modules/github-automated-workflow: modules/github-automated-workflow/**
 modules/github: modules/github/**
 modules/gitleaks: modules/gitleaks/**
 modules/go: modules/go/**
