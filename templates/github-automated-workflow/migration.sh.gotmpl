@@ -1,8 +1,7 @@
 #!/bin/bash -e
 # This script was automatically generated from workflow.yaml
 {{ defineDatasource "config" "workflow.yaml" | regexp.Replace ".*" "" -}}
-(
+
 {{- range $migration := (ds "config").migrations }}
 {{ $migration }}
 {{- end }}
-)>> migration.log

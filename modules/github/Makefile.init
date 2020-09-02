@@ -6,8 +6,6 @@ GITHUB_TEMPLATES = \
 	.github/ISSUE_TEMPLATE/bug_report.md \
 	.github/ISSUE_TEMPLATE/question.md \
 	.github/auto-release.yml \
-	.github/workflows/auto-approve.yml \
-	.github/workflows/auto-merge.yml \
 	.github/workflows/auto-release.yml
 
 ifneq ($(wildcard *.tf),)
