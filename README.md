@@ -62,21 +62,6 @@ It's 100% Open Source and licensed under the [APACHE2](LICENSE).
 
 
 
-## Compliance
-| Benchmark | Description |
-|--------|---------------|
-| [![Infrastructure Security](https://www.bridgecrew.cloud/badges/github/cloudposse/Build Harness/general)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=cloudposse%!F(string=Build Harness)%!s(MISSING)&benchmark=INFRASTRUCTURE+SECURITY) | Infrastructure Security Compliance |
-| [![CIS KUBERNETES](https://www.bridgecrew.cloud/badges/github/cloudposse/Build Harness/cis_kubernetes)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=cloudposse%!F(string=Build Harness)%!s(MISSING)&benchmark=CIS+KUBERNETES+V1.5) | Center for Internet Security, KUBERNETES Compliance |
-| [![CIS AWS](https://www.bridgecrew.cloud/badges/github/cloudposse/Build Harness/cis_aws)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=cloudposse%!F(string=Build Harness)%!s(MISSING)&benchmark=CIS+AWS+V1.2) | Center for Internet Security, AWS Compliance |
-| [![CIS AZURE](https://www.bridgecrew.cloud/badges/github/cloudposse/Build Harness/cis_azure)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=cloudposse%!F(string=Build Harness)%!s(MISSING)&benchmark=CIS+AZURE+V1.1) | Center for Internet Security, AZURE Compliance |
-| [![PCI-DSS](https://www.bridgecrew.cloud/badges/github/cloudposse/Build Harness/pci)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=cloudposse%!F(string=Build Harness)%!s(MISSING)&benchmark=PCI-DSS+V3.2) | Payment Card Industry Data Security Standards Compliance |
-| [![NIST-800-53](https://www.bridgecrew.cloud/badges/github/cloudposse/Build Harness/nist)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=cloudposse%!F(string=Build Harness)%!s(MISSING)&benchmark=NIST-800-53) | National Institute of Standards and Technology Compliance |
-| [![ISO27001](https://www.bridgecrew.cloud/badges/github/cloudposse/Build Harness/iso)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=cloudposse%!F(string=Build Harness)%!s(MISSING)&benchmark=ISO27001) | Information Security Management System, ISO/IEC 27001 Compliance |
-| [![SOC2](https://www.bridgecrew.cloud/badges/github/cloudposse/Build Harness/soc2)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=cloudposse%!F(string=Build Harness)%!s(MISSING)&benchmark=SOC2)| Service Organization Control 2 Compliance |
-| [![CIS GCP](https://www.bridgecrew.cloud/badges/github/cloudposse/Build Harness/cis_gcp)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=cloudposse%!F(string=Build Harness)%!s(MISSING)&benchmark=CIS+GCP+V1.1) | Center for Internet Security, GCP Compliance |
-| [![HIPAA](https://www.bridgecrew.cloud/badges/github/cloudposse/Build Harness/hipaa)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=cloudposse%!F(string=Build Harness)%!s(MISSING)&benchmark=HIPAA) | Health Insurance Portability and Accountability Compliance |
-
-
 ## Usage
 
 
@@ -99,9 +84,9 @@ Run `make help` for a list of available targets.
 
 The `build-harness` is compatible with [GitHub Actions](https://github.com/features/actions).
 
-Here's an example of running `make readme/lint` 
+Here's an example of running `make readme/lint`
 
-```
+```yaml
 name: build-harness/readme/lint
 on: [pull_request]
 jobs:
@@ -134,7 +119,7 @@ Here are some real world examples:
 
 
 
-<!-- markdownlint-disable-file MD041 -->
+<!-- markdownlint-disable -->
 ## Makefile Targets
 ```text
 Available targets:
@@ -182,7 +167,6 @@ Available targets:
   git/aliases-update                  Update git aliases
   git/export                          Export git vars
   git/submodules-update               Update submodules
-  github-automated-workflow/init      Create new workflow
   github/download-private-release     Download release from github
   github/download-public-release      Download release from github
   github/latest-release               Fetch the latest release tag from the GitHub API
@@ -262,12 +246,15 @@ Available targets:
   travis/docker-tag-and-push          Tag & Push according Travis environment variables
 
 ```
-# Extending `build-harness` with targets from another repo
+<!-- markdownlint-restore -->
+<!-- markdownlint-disable -->
+## Extending `build-harness` with targets from another repo
 
 It is possible to extend the `build-harness` with targets and entire modules of your own, without having to fork or modify `build-harness` itself.
 This might be useful if, for example, you wanted to maintain some tooling that was specific to your environment that didn't have enough general applicability to be part of the main project.
 This makes it so you don't necessarily need to fork `build-harness` itself - you can place a repo defined by the environment variable `BUILD_HARNESS_EXTENSIONS_PATH` (a filesystem peer of `build-harness` named `build-harness-extensions` by default) and populate it with tools in the same `Makefile` within `module` structure as `build-harness` has.
 Modules will be combined and available with a unified `make` command. 
+<!-- markdownlint-restore -->
 
 
 
@@ -357,35 +344,11 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
  1. **Fork** the repo on GitHub
  2. **Clone** the project to your own machine
- 3. [**Setup pre-commit**](####) to verify code style
- 4. **Commit** changes to your own branch
- 5. **Push** your work back up to your fork
- 6. Submit a **Pull Request** so that we can review your changes
+ 3. **Commit** changes to your own branch
+ 4. **Push** your work back up to your fork
+ 5. Submit a **Pull Request** so that we can review your changes
 
 **NOTE:** Be sure to merge the latest changes from "upstream" before making a pull request!
-
-#### Setup
-
-Before commit please setup [pre-commit](https://pre-commit.com/) following
-
-##### MacOs
-  ```
-  brew install pre-commit
-  pre-commit install --install-hooks
-  ```
-
-##### Linux
-  ```
-  pip install pre-commit
-  pre-commit install --install-hooks
-  ```
-
-##### Windows
-  ```
-  pip install pre-commit
-  pre-commit install --install-hooks
-  ```
-
 
 
 
@@ -403,6 +366,7 @@ Copyright © 2016-2020 [Cloud Posse, LLC](https://cloudposse.com)
 
 See [LICENSE](LICENSE) for full details.
 
+```text
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
 distributed with this work for additional information
@@ -411,7 +375,7 @@ to you under the Apache License, Version 2.0 (the
 "License"); you may not use this file except in compliance
 with the License.  You may obtain a copy of the License at
 
-  [https://www.apache.org/licenses/LICENSE-2.0](https://www.apache.org/licenses/LICENSE-2.0)
+  https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing,
 software distributed under the License is distributed on an
@@ -419,6 +383,7 @@ software distributed under the License is distributed on an
 KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
+```
 
 
 
@@ -448,8 +413,10 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
 
 ### Contributors
 
-|  [![Erik Osterman][osterman_avatar]][osterman_homepage]<br/>[Erik Osterman][osterman_homepage] | [![Igor Rodionov][goruha_avatar]][goruha_homepage]<br/>[Igor Rodionov][goruha_homepage] | [![Andriy Knysh][aknysh_avatar]][aknysh_homepage]<br/>[Andriy Knysh][aknysh_homepage] | [![Sarkis][sarkis_avatar]][sarkis_homepage]<br/>[Sarkis][sarkis_homepage] | [![Alexander Babai][alebabai_avatar]][alebabai_homepage]<br/>[Alexander Babai][alebabai_homepage] | [![Jon Boulle][jonboulle_avatar]][jonboulle_homepage]<br/>[Jon Boulle][jonboulle_homepage] |
-|---|---|---|---|---|---|
+<!-- markdownlint-disable -->
+|  [![Erik Osterman][osterman_avatar]][osterman_homepage]<br/>[Erik Osterman][osterman_homepage] | [![Igor Rodionov][goruha_avatar]][goruha_homepage]<br/>[Igor Rodionov][goruha_homepage] | [![Andriy Knysh][aknysh_avatar]][aknysh_homepage]<br/>[Andriy Knysh][aknysh_homepage] | [![Sarkis][sarkis_avatar]][sarkis_homepage]<br/>[Sarkis][sarkis_homepage] | [![Alexander Babai][alebabai_avatar]][alebabai_homepage]<br/>[Alexander Babai][alebabai_homepage] | [![Jon Boulle][jonboulle_avatar]][jonboulle_homepage]<br/>[Jon Boulle][jonboulle_homepage] | [![Marcin Brański][3h4x_avatar]][3h4x_homepage]<br/>[Marcin Brański][3h4x_homepage] |
+|---|---|---|---|---|---|---|
+<!-- markdownlint-restore -->
 
   [osterman_homepage]: https://github.com/osterman
   [osterman_avatar]: https://img.cloudposse.com/150x150/https://github.com/osterman.png
@@ -463,6 +430,8 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
   [alebabai_avatar]: https://img.cloudposse.com/150x150/https://github.com/alebabai.png
   [jonboulle_homepage]: https://github.com/jonboulle
   [jonboulle_avatar]: https://img.cloudposse.com/150x150/https://github.com/jonboulle.png
+  [3h4x_homepage]: https://github.com/3h4x
+  [3h4x_avatar]: https://img.cloudposse.com/150x150/https://github.com/3h4x.png
 
 [![README Footer][readme_footer_img]][readme_footer_link]
 [![Beacon][beacon]][website]
