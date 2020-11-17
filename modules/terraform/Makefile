@@ -48,3 +48,4 @@ terraform/upgrade-modules:
 terraform/rewrite-module-source:
 	@sed -i -E 's,"git::https://github.com/(.*?).git\?ref=tags/(.*?)","\1"\n  version     = "\2",g' $$(find . -type f -name '*.tf')
 	@$(TERRAFORM) fmt .
+	@$(TERRAFORM) fmt examples/complete
