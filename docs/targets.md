@@ -119,6 +119,7 @@ Available targets:
   terraform/get-plugins               Ensure all plugins can be fetched
   terraform/install                   Install terraform
   terraform/lint                      Lint check Terraform
+  terraform/rewrite-module-source     Rewrite the *.tf files to use registry notation for modules sources
   terraform/upgrade-modules           Upgrade all terraform module sources
   terraform/validate                  Basic terraform sanity check
   travis/docker-login                 Login into docker hub
