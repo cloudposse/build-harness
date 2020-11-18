@@ -45,5 +45,5 @@ else
 endif
 
 ## Upgrade all terraform module sources
-terraform/upgrade-modules: packages/install/json2hcl
+terraform/upgrade-modules:
 	@$(BUILD_HARNESS_PATH)/bin/upgrade_terraform_modules.sh all
