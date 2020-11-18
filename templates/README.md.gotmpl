@@ -1,6 +1,9 @@
 {{- defineDatasource "config" .Env.README_YAML | regexp.Replace ".*" "" -}}
 {{- defineDatasource "includes" .Env.README_INCLUDES | regexp.Replace ".*" "" -}}
+
+<!-- markdownlint-disable MD013 -->
 # {{(ds "config").name}}{{ if gt (len (ds "config").name) 34 }}{{ print "\n\n" }}{{ end }}{{ if has (ds "config") "badges" }}{{- range $badge := (ds "config").badges -}}{{ printf " [![%s](%s)](%s)" $badge.name $badge.image $badge.url }}{{ end }}{{ end }}
+<!-- markdownlint-enable MD013 -->
 
 [![README Header][readme_header_img]][readme_header_link]
 
@@ -416,10 +419,10 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
 {{ if has (datasource "config") "contributors" }}
 ### Contributors
 
-<!-- markdownlint-disable -->
+<!-- markdownlint-disable MD013 -->
 | {{ range $contributor := (ds "config").contributors }}{{ printf " [![%s][%s_avatar]][%s_homepage]<br/>[%s][%s_homepage] |" $contributor.name $contributor.github $contributor.github $contributor.name $contributor.github}}{{ end }}
 |{{- range $contributor := (ds "config").contributors -}}---|{{ end }}
-<!-- markdownlint-enable -->
+<!-- markdownlint-enable MD013 -->
 
 {{ range $contributor := (ds "config").contributors -}}
 {{- if has $contributor "homepage" }}
