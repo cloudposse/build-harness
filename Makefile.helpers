@@ -4,8 +4,6 @@
 
 EDITOR ?= vim
 
-SHELL = /bin/bash
-
 DEFAULT_HELP_TARGET ?= help/short
 HELP_FILTER ?= .*
 
