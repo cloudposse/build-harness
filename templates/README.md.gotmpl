@@ -196,18 +196,29 @@ If you are interested in being a contributor and want to get involved in develop
 
 In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
+{{ $precommit_config_exists := file.Exists ".pre-commit-config.yaml" }}
+
+{{ if $precommit_config_exists }}
  1. **Fork** the repo on GitHub
  2. **Clone** the project to your own machine
- 3. [**Setup pre-commit**](####) to verify code style
+ 3. [**Setup pre-commit**](#developer-setup) to verify code style (optional, but recommended)
  4. **Commit** changes to your own branch
  5. **Push** your work back up to your fork
  6. Submit a **Pull Request** so that we can review your changes
+{{ else }}
+ 1. **Fork** the repo on GitHub
+ 2. **Clone** the project to your own machine
+ 3. **Commit** changes to your own branch
+ 4. **Push** your work back up to your fork
+ 5. Submit a **Pull Request** so that we can review your changes
+{{ end }}
 
 **NOTE:** Be sure to merge the latest changes from "upstream" before making a pull request!
 
-#### Setup
+{{ if $precommit_config_exists }}
+#### Developer Setup
 
-Before commit please setup [pre-commit](https://pre-commit.com/) following
+Before commiting & pushing your changes, we recommend using [`pre-commit`](https://pre-commit.com/) hooks.
 
 ##### MacOs
   ```
@@ -226,7 +237,33 @@ Before commit please setup [pre-commit](https://pre-commit.com/) following
   pip install pre-commit
   pre-commit install --install-hooks
   ```
+{{ end }}
 
+{{ if ( file.IsDir "/test/src" ) }}
+
+### Testing
+
+This module supports automated tests using `terratest`. There are a few ways to run them.
+
+#### Running Tests in Docker
+
+For docker tests, we assume you have `docker` already installed. Then export your AWS credentials
+(e.g. `AWS_SECRET_KEY` and `AWS_ACCESS_KEY`) before running the following command:
+
+```
+make -C test/src docker/test
+```
+
+### Running Natively
+
+The following command will run `terratests` locally on your workstation, but assumes that you have working go 1.12+
+environment already setup. If you don't have that, consider using the Docker testing.
+Make sure you have exported your credentials to the environment (E.g `AWS_SECRET_KEY`, AWS_ACCESS_KEY_ID`) before
+running the commands.
+
+`make -C test/src all`
+
+{{ end }}
 
 {{ if has (ds "config") "copyrights" }}
 
