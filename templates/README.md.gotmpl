@@ -224,19 +224,19 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 Before commiting & pushing your changes, we recommend using [`pre-commit`](https://pre-commit.com/) hooks.
 
 ##### MacOs
-  ```
+  ```bash
   brew install pre-commit
   pre-commit install --install-hooks
   ```
 
 ##### Linux
-  ```
+  ```bash
   pip install pre-commit
   pre-commit install --install-hooks
   ```
 
 ##### Windows
-  ```
+  ```bash
   pip install pre-commit
   pre-commit install --install-hooks
   ```
@@ -253,7 +253,7 @@ This module supports automated tests using `terratest`. There are a few ways to 
 For docker tests, we assume you have `docker` already installed. Then export your AWS credentials
 (e.g. `AWS_SECRET_KEY` and `AWS_ACCESS_KEY`) before running the following command:
 
-```
+```bash
 make -C test/src docker/test
 ```
 

@@ -362,19 +362,19 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 Before commiting & pushing your changes, we recommend using [`pre-commit`](https://pre-commit.com/) hooks.
 
 ##### MacOs
-  ```
+  ```bash
   brew install pre-commit
   pre-commit install --install-hooks
   ```
 
 ##### Linux
-  ```
+  ```bash
   pip install pre-commit
   pre-commit install --install-hooks
   ```
 
 ##### Windows
-  ```
+  ```bash
   pip install pre-commit
   pre-commit install --install-hooks
   ```
