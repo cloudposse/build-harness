@@ -7,3 +7,8 @@ repos:
   rev: v1.31.0
   hooks:
     - id: terraform_fmt
+- repo: https://github.com/cloudposse/pre-commit-makefile
+  rev: v0.2.0
+  hooks:
+    - id: makefile-doc
+      files: modules/init-scripts/docker-compose/Makefile
