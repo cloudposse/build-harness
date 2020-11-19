@@ -342,10 +342,6 @@ Please use the [issue tracker](https://github.com/cloudposse/build-harness/issue
 If you are interested in being a contributor and want to get involved in developing this project or [help out](https://cpco.io/help-out) with our other projects, we would love to hear from you! Shoot us an [email][email].
 
 In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
-
-
-
-
  1. **Fork** the repo on GitHub
  2. **Clone** the project to your own machine
  3. [**Setup pre-commit**](#developer-setup) to verify code style (optional, but recommended)
@@ -353,10 +349,7 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
  5. **Push** your work back up to your fork
  6. Submit a **Pull Request** so that we can review your changes
 
-
 **NOTE:** Be sure to merge the latest changes from "upstream" before making a pull request!
-
-
 #### Developer Setup
 
 Before commiting & pushing your changes, we recommend using [`pre-commit`](https://pre-commit.com/) hooks.
@@ -378,11 +371,6 @@ Before commiting & pushing your changes, we recommend using [`pre-commit`](https
   pip install pre-commit
   pre-commit install --install-hooks
   ```
-
-
-
-
-
 
 ## Copyrights
 
