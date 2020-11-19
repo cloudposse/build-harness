@@ -3,7 +3,20 @@ repos:
   rev: v2.3.0
   hooks:
     - id: check-yaml
+    - id: check-merge-conflict
+    - id: check-symlinks
+    - id: check-yaml
+    # - id: detect-aws-credentials
+    - id: detect-private-key
+    - id: end-of-file-fixer
+    - id: forbid-new-submodules
+    - id: no-commit-to-branch
+      args: [ --branch, master ]
 - repo: git://github.com/antonbabenko/pre-commit-terraform
   rev: v1.31.0
   hooks:
     - id: terraform_fmt
+    - id: terraform_validate
+    # - id: terraform_tflint
+    # - id: terraform_tfsec
+    # - id: checkov
