@@ -46,6 +46,6 @@ terraform/upgrade-modules:
 
 ## Rewrite the *.tf files to use registry notation for modules sources
 terraform/rewrite-module-source:
-	@sed -i -E 's,"git::https://github.com/(.*?).git\?ref=tags/(.*?)","\1"\n  version     = "\2",g' $$(find . -type f -name '*.tf')
+	@sed -i -E 's,"git::https://github.com/(.*?)/terraform-([^-]*?)-(.*?).git\?ref=tags/(.*?)","\1/\3/\2"\n  version     = "\4",g' $$(find . -type f -name '*.tf')
 	@$(TERRAFORM) fmt .
 	@$(TERRAFORM) fmt examples/complete
