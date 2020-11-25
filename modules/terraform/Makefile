@@ -43,3 +43,9 @@ endif
 ## Upgrade all terraform module sources
 terraform/upgrade-modules:
 	@$(BUILD_HARNESS_PATH)/bin/upgrade_terraform_modules.sh all
+
+## Rewrite the *.tf files to use registry notation for modules sources
+terraform/rewrite-module-source:
+	@sed -i -E 's,"git::https://github.com/(.*?)/terraform-([^-]*?)-(.*?).git\?ref=tags/(.*?)","\1/\3/\2"\n  version     = "\4",g' $$(find . -type f -name '*.tf')
+	@$(TERRAFORM) fmt .
+	@$(TERRAFORM) fmt examples/complete
