@@ -49,3 +49,9 @@ terraform/rewrite-module-source:
 	@sed -i -E 's,"git::https://github.com/(.*?)/terraform-([^-]*?)-(.*?).git\?ref=tags/(.*?)","\1/\3/\2"\n  version     = "\4",g' $$(find . -type f -name '*.tf')
 	@$(TERRAFORM) fmt .
 	@$(TERRAFORM) fmt examples/complete
+
+## Rewrite versions.tf to remove upper bound for terraform core version constraint (like this ">= 0.12.0, < 0.14.0")
+terraform/remove-upper-bound:
+	@sed -i -E 's,required_version\s*\=\s*\"(.*?)(\,\s*<.*)",required_version = "\1",g' $$(find . -type f -name 'versions.tf')
+	@$(TERRAFORM) fmt .
+	@$(TERRAFORM) fmt examples/complete
