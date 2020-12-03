@@ -118,6 +118,7 @@ Available targets:
   terraform/get-plugins               Ensure all plugins can be fetched
   terraform/install                   Install terraform
   terraform/lint                      Lint check Terraform
+  terraform/remove-upper-bound        Rewrite versions.tf to remove upper bound for terraform core version constraint (like this ">= 0.12.0, < 0.14.0")
   terraform/rewrite-module-source     Rewrite the *.tf files to use registry notation for modules sources
   terraform/upgrade-modules           Upgrade all terraform module sources
   terraform/validate                  Basic terraform sanity check
