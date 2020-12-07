@@ -74,8 +74,6 @@ terraform/rewrite-required-providers:
 	@$(TERRAFORM) fmt .
 	@$(TERRAFORM) fmt examples/complete
 
-# terraform-0.13 0.13upgrade -yes examples/complete
-
 terraform/v14-rewrite: TERRAFORM = terraform-0.13
 terraform/v14-rewrite: terraform/remove-upper-bound terraform/rewrite-module-source terraform/rewrite-readme-source terraform/bump-tf-12-min-version terraform/rewrite-required-providers
 	git diff --no-patch --exit-code README.yaml || $(MAKE) readme
