@@ -235,11 +235,13 @@ Available targets:
   slack/notify/deploy                 Send notification to slack using "deploy" template
   template/build                      Create $OUT file by building it from $IN template file
   template/deps                       Install dependencies
+  terraform/bump-tf-12-min-version    Rewrite versions.tf to bump modules with minimum core version of '0.12.x' to '>= 0.12.26'
   terraform/get-modules               Ensure all modules can be fetched
   terraform/get-plugins               Ensure all plugins can be fetched
   terraform/install                   Install terraform
   terraform/lint                      Lint check Terraform
   terraform/rewrite-module-source     Rewrite the *.tf files to use registry notation for modules sources
+  terraform/rewrite-required-providers Rewrite versions.tf to update existing configuration to add an explicit source attribute for each provider
   terraform/upgrade-modules           Upgrade all terraform module sources
   terraform/validate                  Basic terraform sanity check
   travis/docker-login                 Login into docker hub
