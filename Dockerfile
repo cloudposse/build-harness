@@ -23,6 +23,11 @@ RUN apk update && \
 
 RUN curl -sSL https://apk.cloudposse.com/install.sh | bash
 
+## Install terraform-config-inspect (required for bats tests)
+ENV GO111MODULE="on"
+RUN go get github.com/hashicorp/terraform-config-inspect && \
+    mv $(go env GOPATH)/bin/terraform-config-inspect /usr/local/bin/
+
 ## Install as packages
 
 ## Codefresh required additional libraries for alpine
@@ -32,8 +37,16 @@ RUN apk --update --no-cache add \
       helm@cloudposse \
       helmfile@cloudposse \
       codefresh@cloudposse \
+      vert@cloudposse \
       yq@cloudposse && \
     sed -i /PATH=/d /etc/profile
+
+# Install terraform 0.11 for backwards compatibility
+RUN apk add terraform@cloudposse      \
+            terraform-0.11@cloudposse \
+            terraform-0.12@cloudposse \
+            terraform-0.13@cloudposse \
+            terraform-0.14@cloudposse
 
 ADD ./ /build-harness/
 
