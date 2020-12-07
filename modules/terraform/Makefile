@@ -46,12 +46,19 @@ terraform/upgrade-modules:
 
 ## Rewrite the *.tf files to use registry notation for modules sources
 terraform/rewrite-module-source:
-	@sed -i -E 's,"git::https://github.com/(.*?)/terraform-([^-]*?)-(.*?).git\?ref=tags/(.*?)","\1/\3/\2"\n  version     = "\4",g' $$(find . -type f -name '*.tf')
+	@sed -i -E 's,\s*source\s+=\s+"git::https://github.com/(.*?)/terraform-([^-]*?)-(.*?).git\?ref=(tags/)?(.*?)",  source = "\1/\3/\2"\n  version     = "\5",g' $$(find . -type f -not -name context.tf -name '*.tf')
 	@$(TERRAFORM) fmt .
 	@$(TERRAFORM) fmt examples/complete
+
+terraform/rewrite-readme-source:
+	@sed -i -E 's,^(\s*)source\s+=\s+"git::https://github.com/(.*?)/terraform-([^-]*?)-(.*?).git\?ref=(tags/)?master",\1source = "\2/\4/\2"\n\1# Cloud Posse recommends pinning module to a specific version\n\1# version     = "x.x.x",g' README.yaml
 
 ## Rewrite versions.tf to remove upper bound for terraform core version constraint (like this ">= 0.12.0, < 0.14.0")
 terraform/remove-upper-bound:
 	@sed -i -E 's,required_version\s*\=\s*\"(.*?)(\,\s*<.*)",required_version = "\1",g' $$(find . -type f -name 'versions.tf')
 	@$(TERRAFORM) fmt .
 	@$(TERRAFORM) fmt examples/complete
+
+terraform/v14-rewrite: TERRAFORM = terraform-0.13
+terraform/v14-rewrite: terraform/remove-upper-bound terraform/rewrite-module-source terraform/rewrite-readme-source
+	git diff --no-patch --exit-code README.yaml || $(MAKE) readme
