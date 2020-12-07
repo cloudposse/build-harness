@@ -59,6 +59,23 @@ terraform/remove-upper-bound:
 	@$(TERRAFORM) fmt .
 	@$(TERRAFORM) fmt examples/complete
 
+## Rewrite versions.tf to bump modules with minimum core version of '0.12.x' to '>= 0.12.26'
+terraform/bump-tf-12-min-version:
+	@sed -i -E 's,required_version\s*\=\s*\"(\~>|>\=)\s?(0\.12\.0)\",required_version = ">= 0.12.26",g' $$(find . -type f -name 'versions.tf')
+	@$(TERRAFORM) fmt .
+	@$(TERRAFORM) fmt examples/complete
+
+## Rewrite versions.tf to update existing configuration to add an explicit source attribute for each provider
+terraform/rewrite-required-providers:
+	@KEEP_VERSION=$(grep -Eo 'required_version\s*=\s*"(.*)"' versions.tf | cut -d '"' -f2)
+	@terraform-0.13 0.13upgrade -yes ./
+	@terraform-0.13 0.13upgrade -yes examples/complete
+	@sed -i -E 's,(required_version\s*\=\s*\")(.*)(\"),\1'"$KEEP_VERSION"'\3,g' $$(find . -type f -name 'versions.tf')
+	@$(TERRAFORM) fmt .
+	@$(TERRAFORM) fmt examples/complete
+
+# terraform-0.13 0.13upgrade -yes examples/complete
+
 terraform/v14-rewrite: TERRAFORM = terraform-0.13
-terraform/v14-rewrite: terraform/remove-upper-bound terraform/rewrite-module-source terraform/rewrite-readme-source
+terraform/v14-rewrite: terraform/remove-upper-bound terraform/rewrite-module-source terraform/rewrite-readme-source terraform/bump-tf-12-min-version terraform/rewrite-required-providers
 	git diff --no-patch --exit-code README.yaml || $(MAKE) readme
