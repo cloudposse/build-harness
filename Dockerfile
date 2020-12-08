@@ -7,7 +7,7 @@ LABEL "com.github.actions.icon"="tool"
 LABEL "com.github.actions.color"="blue"
 
 RUN apk update && \
-    apk --update add \
+    apk --no-cache add \
       bash \
       ca-certificates \
       coreutils \
@@ -19,9 +19,9 @@ RUN apk update && \
       libc6-compat \
       make \
       py-pip && \
-    rm -rf /var/cache/apk/* && \
     git config --global advice.detachedHead false
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN curl -sSL https://apk.cloudposse.com/install.sh | bash
 
 ## Install as packages
@@ -38,7 +38,7 @@ RUN apk --update --no-cache add \
       yq@cloudposse && \
     sed -i /PATH=/d /etc/profile
 
-ADD ./ /build-harness/
+COPY ./ /build-harness/
 
 ENV INSTALL_PATH /usr/local/bin
 
