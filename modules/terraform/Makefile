@@ -51,7 +51,7 @@ terraform/rewrite-module-source:
 	@$(TERRAFORM) fmt examples/complete
 
 terraform/rewrite-readme-source:
-	@sed -i -E 's,^(\s*)source\s+=\s+"git::https://github.com/(.*?)/terraform-([^-]*?)-(.*?).git\?ref=(tags/)?master",\1source = "\2/\4/\3"\n\1# Cloud Posse recommends pinning module to a specific version\n\1# version     = "x.x.x",g' README.yaml
+	@sed -i -E 's,^(\s*)source\s+=\s+"git::https://github.com/(.*?)/terraform-([^-]*?)-(.*?).git\?ref=(tags/)?master",\1source = "\2/\4/\3"\n\1# Cloud Posse recommends pinning every module to a specific version\n\1# version     = "x.x.x",g' README.yaml
 
 ## Rewrite versions.tf to remove upper bound for terraform core version constraint (like this ">= 0.12.0, < 0.14.0")
 terraform/remove-upper-bound:
@@ -61,16 +61,21 @@ terraform/remove-upper-bound:
 
 ## Rewrite versions.tf to bump modules with minimum core version of '0.12.x' to '>= 0.12.26'
 terraform/bump-tf-12-min-version:
-	@sed -i -E 's,required_version\s*\=\s*\"(\~>|>\=)\s?(0\.12\.0)\",required_version = ">= 0.12.26",g' $$(find . -type f -name 'versions.tf')
-	@$(TERRAFORM) fmt .
-	@$(TERRAFORM) fmt examples/complete
+	@PIN="$$(terraform-config-inspect --json . | jq -r '.required_core[]')" ; \
+	if vert "$$PIN" 0.12.26 >/dev/null; then \
+		echo Module already pinned to "$$PIN" ; \
+	else \
+		sed -i -E 's,required_version\s*\=\s*\"(\~>|>\=)\s?(0\.12(\.\d+)?)\",required_version = ">= 0.12.26",g' $$(find . -type f -name 'versions.tf') ; \
+		$(TERRAFORM) fmt . ; \
+		$(TERRAFORM) fmt examples/complete ; \
+	fi
 
 ## Rewrite versions.tf to update existing configuration to add an explicit source attribute for each provider
 terraform/rewrite-required-providers:
-	@KEEP_VERSION=$(grep -Eo 'required_version\s*=\s*"(.*)"' versions.tf | cut -d '"' -f2)
-	@terraform-0.13 0.13upgrade -yes ./
-	@terraform-0.13 0.13upgrade -yes examples/complete
-	@sed -i -E 's,(required_version\s*\=\s*\")(.*)(\"),\1'"$KEEP_VERSION"'\3,g' $$(find . -type f -name 'versions.tf')
+	@KEEP_VERSION=$$(grep -Eo 'required_version\s*=\s*"(.*)"' versions.tf | cut -d '"' -f2) ; \
+		terraform-0.13 0.13upgrade -yes ./ ; \
+		terraform-0.13 0.13upgrade -yes examples/complete ; \
+		sed -i -E 's,(required_version\s*\=\s*\")(.*)(\"),\1'"$$KEEP_VERSION"'\3,g' $$(find . -type f -name 'versions.tf')
 	@$(TERRAFORM) fmt .
 	@$(TERRAFORM) fmt examples/complete
 

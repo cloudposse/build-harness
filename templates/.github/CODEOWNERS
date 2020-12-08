@@ -15,3 +15,7 @@
 
 # Cloud Posse must review any changes to standard context definition
 **/context.tf   @cloudposse/engineering
+
+# Cloud Posse Admins must review all changes to CODEOWNERS or the mergify configuration
+.github/mergify.yml @cloudposse/admins
+.github/CODEOWNERS  @cloudposse/admins

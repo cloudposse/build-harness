@@ -8,14 +8,22 @@ GITHUB_TEMPLATES = \
 	.github/auto-release.yml \
 	.github/workflows/auto-release.yml
 
-ifneq ($(wildcard *.tf),)
-# Install test workflow for terraform projects
-GITHUB_TEMPLATES += .github/workflows/chatops.yml
-endif
+# Install extra configuration for terraform projects
+GITHUB_TERRAFORM_TEMPLATES = .github/workflows/chatops.yml
+# ToDo once we can make Mergify a code owner
+#	.github/workflows/auto-context.yml \
+#	.github/workflows/auto-readme.yml \
+#	.github/mergify.yml
+
 
 $(GITHUB_TEMPLATES): $(addprefix $(BUILD_HARNESS_PATH)/templates/, $(GITHUB_TEMPLATES))
 	mkdir -p $(dir $@)
 	cp $(BUILD_HARNESS_PATH)/templates/$@ $@
 	git ls-files --error-unmatch $@ 2>/dev/null || git add $@
 
-github/init: $(GITHUB_TEMPLATES)
+$(GITHUB_TERRAFORM_TEMPLATES): $(addprefix $(BUILD_HARNESS_PATH)/templates/terraform/, $(GITHUB_TERRAFORM_TEMPLATES))
+	mkdir -p $(dir $@)
+	cp $(BUILD_HARNESS_PATH)/templates/terraform/$@ $@
+	git ls-files --error-unmatch $@ 2>/dev/null || git add $@
+
+github/init: $(GITHUB_TEMPLATES) $(if $(wildcard *.tf),$(GITHUB_TERRAFORM_TEMPLATES))

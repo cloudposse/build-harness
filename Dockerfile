@@ -1,4 +1,4 @@
-FROM golang:1.14.4-alpine3.11
+FROM golang:1.15.6-alpine3.12
 LABEL maintainer="Cloud Posse <hello@cloudposse.com>"
 
 LABEL "com.github.actions.name"="Build Harness"
@@ -32,6 +32,8 @@ RUN apk --update --no-cache add \
       helm@cloudposse \
       helmfile@cloudposse \
       codefresh@cloudposse \
+      terraform-config-inspect@cloudposse \
+      vert@cloudposse \
       yq@cloudposse && \
     sed -i /PATH=/d /etc/profile
 
