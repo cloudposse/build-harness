@@ -19,6 +19,7 @@ RUN apk update && \
       libc6-compat \
       make \
       py-pip && \
+    rm -rf /var/cache/apk/* && \
     git config --global advice.detachedHead false
 
 RUN curl -sSL https://apk.cloudposse.com/install.sh | bash
