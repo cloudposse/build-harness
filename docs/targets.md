@@ -1,3 +1,4 @@
+<!-- markdownlint-disable -->
 ## Makefile Targets
 ```text
 Available targets:
@@ -41,12 +42,10 @@ Available targets:
   docker/image/push                   Push $TARGET_DOCKER_REGISTRY/$IMAGE_NAME:$TARGET_VERSION
   docker/login                        Login into docker hub
   docs/copyright-add                  Add copyright headers to source code
-  docs/deps                           MarkDown files in docs are embedded in README.md and they won't pass linting that's why we ignore them
   geodesic/deploy                     Run a Jenkins Job to Deploy $(APP) with $(CANONICAL_TAG)
   git/aliases-update                  Update git aliases
   git/export                          Export git vars
   git/submodules-update               Update submodules
-  github-automated-workflow/init      Create new workflow
   github/download-private-release     Download release from github
   github/download-public-release      Download release from github
   github/latest-release               Fetch the latest release tag from the GitHub API
@@ -120,6 +119,7 @@ Available targets:
   terraform/get-plugins               Ensure all plugins can be fetched
   terraform/install                   Install terraform
   terraform/lint                      Lint check Terraform
+  terraform/loosen-constraints        Rewrite versions.tf to remove upper bound for terraform core version constraint (like this ">= 0.12.0, < 0.14.0")
   terraform/rewrite-module-source     Rewrite the *.tf files to use registry notation for modules sources
   terraform/rewrite-required-providers Rewrite versions.tf to update existing configuration to add an explicit source attribute for each provider
   terraform/upgrade-modules           Upgrade all terraform module sources
@@ -128,3 +128,4 @@ Available targets:
   travis/docker-tag-and-push          Tag & Push according Travis environment variables
 
 ```
+<!-- markdownlint-restore -->
