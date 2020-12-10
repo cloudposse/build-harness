@@ -6,16 +6,33 @@ GITHUB_TEMPLATES = \
 	.github/ISSUE_TEMPLATE/bug_report.md \
 	.github/ISSUE_TEMPLATE/question.md \
 	.github/auto-release.yml \
-	.github/workflows/auto-release.yml
+	.github/workflows/auto-release.yml \
+	.github/workflows/validate-codeowners.yml
 
-ifneq ($(wildcard *.tf),)
-# Install test workflow for terraform projects
-GITHUB_TEMPLATES += .github/workflows/chatops.yml
-endif
+# Install extra configuration for terraform projects
+GITHUB_TERRAFORM_TEMPLATES = .github/workflows/chatops.yml \
+	.github/workflows/auto-context.yml \
+	.github/workflows/auto-readme.yml \
+	.github/mergify.yml
+
 
 $(GITHUB_TEMPLATES): $(addprefix $(BUILD_HARNESS_PATH)/templates/, $(GITHUB_TEMPLATES))
 	mkdir -p $(dir $@)
 	cp $(BUILD_HARNESS_PATH)/templates/$@ $@
 	git ls-files --error-unmatch $@ 2>/dev/null || git add $@
 
-github/init: $(GITHUB_TEMPLATES)
+$(GITHUB_TERRAFORM_TEMPLATES): $(addprefix $(BUILD_HARNESS_PATH)/templates/terraform/, $(GITHUB_TERRAFORM_TEMPLATES))
+	mkdir -p $(dir $@)
+	cp $(BUILD_HARNESS_PATH)/templates/terraform/$@ $@
+	git ls-files --error-unmatch $@ 2>/dev/null || git add $@
+
+github/init/context.tf:
+	curl -o context.tf -fsSL https://raw.githubusercontent.com/cloudposse/terraform-null-label/master/exports/context.tf
+	git ls-files --error-unmatch context.tf 2>/dev/null || git add context.tf
+	@if [[ -d examples/complete ]]; then \
+		cp -p context.tf examples/complete/context.tf ; \
+	fi
+
+.PHONY: $(GITHUB_TEMPLATES) $(GITHUB_TERRAFORM_TEMPLATES) github/init/context.tf
+
+github/init: $(GITHUB_TEMPLATES) $(if $(wildcard *.tf),$(GITHUB_TERRAFORM_TEMPLATES) github/init/context.tf)

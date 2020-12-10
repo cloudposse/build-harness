@@ -41,17 +41,59 @@ else
 endif
 
 ## Upgrade all terraform module sources
+## This target has not been upgraded to handle registry format
 terraform/upgrade-modules:
-	@$(BUILD_HARNESS_PATH)/bin/upgrade_terraform_modules.sh all
+	@echo "* $@ has been disabled because it has not been updated to handle Terraform registry syntax"
+	# @$(BUILD_HARNESS_PATH)/bin/upgrade_terraform_modules.sh all
 
-## Rewrite the *.tf files to use registry notation for modules sources
+# Rewrite the *.tf files to use registry notation for modules sources
+terraform/rewrite-module-source: TERRAFORM = terraform-0.13
 terraform/rewrite-module-source:
-	@sed -i -E 's,"git::https://github.com/(.*?)/terraform-([^-]*?)-(.*?).git\?ref=tags/(.*?)","\1/\3/\2"\n  version     = "\4",g' $$(find . -type f -name '*.tf')
+	@sed -i -E 's,\s*source\s+=\s+"git::https://github.com/([^/]+)/terraform-([^-]+)-(.+).git\?ref=(tags/)?([0-9.]+)",  source = "\1/\3/\2"\n  version     = "\5",g' $$(find . -type f -not -name context.tf -name '*.tf')
 	@$(TERRAFORM) fmt .
 	@$(TERRAFORM) fmt examples/complete
+
+terraform/rewrite-readme-source: TERRAFORM = terraform-0.13
+terraform/rewrite-readme-source:
+	@sed -i -E 's,^(\s*)source\s+=\s+"git::https://github.com/([^/]+)/terraform-([^-]+)-(.+).git\?ref=(tags/)?master",\1source = "\2/\4/\3"\n\1# Cloud Posse recommends pinning every module to a specific version\n\1# version     = "x.x.x",g' README.yaml
 
 ## Rewrite versions.tf to remove upper bound for terraform core version constraint (like this ">= 0.12.0, < 0.14.0")
-terraform/remove-upper-bound:
-	@sed -i -E 's,required_version\s*\=\s*\"(.*?)(\,\s*<.*)",required_version = "\1",g' $$(find . -type f -name 'versions.tf')
-	@$(TERRAFORM) fmt .
-	@$(TERRAFORM) fmt examples/complete
+## and convert "~>" constraints to ">=".
+terraform/loosen-constraints: TERRAFORM = terraform-0.13
+terraform/loosen-constraints:
+	@for v in $$(find . -type f -name 'versions.tf'); do \
+		DIR="$$(dirname $$v)"; \
+		sed -i -E 's,\s\=\s*\"(.*[0-9.]+)(\,\s*<.*)", = "\1",g' "$$v" ; \
+		sed -i -E 's,=\s*"\s*~>,= ">=,g' "$$v" ; \
+		$(TERRAFORM) fmt "$$DIR" ; \
+	done
+
+## Rewrite versions.tf to bump modules with minimum core version of '0.12.x' to '>= 0.12.26'
+terraform/bump-tf-12-min-version: TERRAFORM = terraform-0.13
+terraform/bump-tf-12-min-version: terraform/loosen-constraints
+	@for v in $$(find . -type f -name 'versions.tf'); do \
+		DIR="$$(dirname $$v)"; \
+		PIN="$$(terraform-config-inspect --json "$$DIR" | jq -r '.required_core[]')" ; \
+		if vert "$$PIN" 0.12.25 >/dev/null; then \
+			echo updating "$$v" ; \
+			sed -i -E 's,required_version\s*\=\s*\"(\~>|>\=)\s?(0\.12(\.\d+)?)\",required_version = ">= 0.12.26",g' "$$v" ; \
+			$(TERRAFORM) fmt $$DIR ; \
+		else \
+			echo "$$v" already pinned to "$$PIN" ; \
+		fi; \
+	done
+
+## Rewrite versions.tf to update existing configuration to add an explicit source attribute for each provider
+terraform/rewrite-required-providers: TERRAFORM = terraform-0.13
+terraform/rewrite-required-providers: terraform/loosen-constraints
+	@for v in $$(find . -type f -name 'versions.tf'); do \
+		DIR="$$(dirname $$v)" ; \
+		KEEP_VERSION=$$(grep -Eo 'required_version\s*=\s*"(.*)"' "$$v" | cut -d '"' -f2) ; \
+		echo upgrading $$v ; \
+		terraform-0.13 0.13upgrade -yes "$$DIR" >/dev/null ; \
+		sed -i -E 's,(required_version\s*\=\s*\")(.*)(\"),\1'"$$KEEP_VERSION"'\3,g' "$$v" ; \
+	done
+
+terraform/v14-rewrite: TERRAFORM = terraform-0.13
+terraform/v14-rewrite: terraform/loosen-constraints terraform/bump-tf-12-min-version terraform/rewrite-required-providers terraform/rewrite-module-source terraform/rewrite-readme-source
+	@git diff --no-patch --exit-code README.yaml || $(MAKE) readme
