@@ -27,9 +27,9 @@ packages/install/%:
   		echo "* Package $$binary already installed"; \
 	elif [[ "$(PACKAGES_PREFER_HOST)" == "true" ]] && installed=$$(command -v $* 2>/dev/null); then \
 			echo Using "$*" from "$$installed" ; \
-			cp -p "$$installed" "$*" ; \
 	else \
 	  	$(MAKE) packages/install && \
+	  	echo "* Installing $* to $(INSTALL_PATH)" && \
 		$(MAKE) -C $(PACKAGES_PATH)/install "$*"; \
 	fi;
 

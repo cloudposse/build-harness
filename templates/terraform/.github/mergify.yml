@@ -10,6 +10,7 @@ pull_request_rules:
   actions:
     review:
       type: "APPROVE"
+      bot_account: "cloudposse-mergebot"
       message: "We've automatically approved this PR because the checks from the automated Pull Request have passed."
 
 - name: "merge automated PRs when approved and tests pass"
@@ -39,7 +40,7 @@ pull_request_rules:
   - "conflict"
   actions:
     comment:
-      message: "This pull request is now in conflicts. Could you fix it @{{author}}? 🙏"
+      message: "This pull request is now in conflict. Could you fix it @{{author}}? 🙏"
 
 - name: "remove outdated reviews"
   conditions:

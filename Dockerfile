@@ -36,6 +36,7 @@ RUN apk --update --no-cache add \
       codefresh@cloudposse \
       terraform-0.11@cloudposse terraform-0.12@cloudposse terraform-0.13@cloudposse terraform-0.14@cloudposse \
       terraform-config-inspect@cloudposse \
+      terraform-docs@cloudposse \
       vert@cloudposse \
       yq@cloudposse && \
     sed -i /PATH=/d /etc/profile
@@ -43,6 +44,7 @@ RUN apk --update --no-cache add \
 # Use Terraform 0.13 by default
 ARG DEFAULT_TERRAFORM_VERSION=0.13
 RUN update-alternatives --set terraform /usr/share/terraform/$DEFAULT_TERRAFORM_VERSION/bin/terraform && \
+  mkdir -p /build-harness/vendor && \
   cp -p /usr/share/terraform/$DEFAULT_TERRAFORM_VERSION/bin/terraform /build-harness/vendor/terraform
 
 COPY ./ /build-harness/

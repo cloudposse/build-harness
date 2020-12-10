@@ -37,6 +37,11 @@ EXTRA_DOCKER_ENVS ?= AWS_CONFIG_FILE AWS_SHARED_CREDENTIALS_FILE
 MOUNT_HOME ?= $(shell [ -d "$$HOME" ] && printf -- "-e HOME -v \"%s\":\"%s\"" "$$HOME" "$$HOME")
 DOCKER_ENVS ?= $(DEFAULT_DOCKER_ENVS) $(EXTRA_DOCKER_ENVS)
 
+## Start a shell inside of the `build-harness` docker container with `make shell` or `make builder`
+## Run `make` targets inside the shell by setting `TARGETS`, e.g.
+##     make builder TARGETS="github/init readme"
+ARGS := $(if $(TARGETS),$(TARGETS),-l)
+ENTRYPOINT := $(if $(TARGETS),/usr/bin/make,/bin/bash)
 shell builder:
 	$(info Starting $(BUILD_HARNESS_DOCKER_IMAGE):$(BUILD_HARNESS_DOCKER_TAG))
 	docker run --name build-harness \
@@ -46,5 +51,5 @@ shell builder:
 		$(MOUNT_HOME) \
 		-v $(CURDIR):/opt \
 		--workdir /opt \
-		--entrypoint /bin/bash \
-		$(BUILD_HARNESS_DOCKER_IMAGE):$(BUILD_HARNESS_DOCKER_TAG) -l
+		--entrypoint $(ENTRYPOINT) \
+		$(BUILD_HARNESS_DOCKER_IMAGE):$(BUILD_HARNESS_DOCKER_TAG) $(ARGS)
