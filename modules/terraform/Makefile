@@ -62,7 +62,7 @@ terraform/rewrite-readme-source:
 terraform/loosen-constraints: TERRAFORM = terraform-0.13
 terraform/loosen-constraints:
 	@for v in $$(find . -type f -name 'versions.tf'); do \
-  		DIR="$$(dirname $$v)"; \
+		DIR="$$(dirname $$v)"; \
 		sed -i -E 's,\s\=\s*\"(.*[0-9.]+)(\,\s*<.*)", = "\1",g' "$$v" ; \
 		sed -i -E 's,=\s*"\s*~>,= ">=,g' "$$v" ; \
 		$(TERRAFORM) fmt "$$DIR" ; \
@@ -72,10 +72,10 @@ terraform/loosen-constraints:
 terraform/bump-tf-12-min-version: TERRAFORM = terraform-0.13
 terraform/bump-tf-12-min-version: terraform/loosen-constraints
 	@for v in $$(find . -type f -name 'versions.tf'); do \
-  		DIR="$$(dirname $$v)"; \
+		DIR="$$(dirname $$v)"; \
 		PIN="$$(terraform-config-inspect --json "$$DIR" | jq -r '.required_core[]')" ; \
 		if vert "$$PIN" 0.12.25 >/dev/null; then \
-		  	echo updating "$$v" ; \
+			echo updating "$$v" ; \
 			sed -i -E 's,required_version\s*\=\s*\"(\~>|>\=)\s?(0\.12(\.\d+)?)\",required_version = ">= 0.12.26",g' "$$v" ; \
 			$(TERRAFORM) fmt $$DIR ; \
 		else \
@@ -87,7 +87,7 @@ terraform/bump-tf-12-min-version: terraform/loosen-constraints
 terraform/rewrite-required-providers: TERRAFORM = terraform-0.13
 terraform/rewrite-required-providers: terraform/loosen-constraints
 	@for v in $$(find . -type f -name 'versions.tf'); do \
-  		DIR="$$(dirname $$v)" ; \
+		DIR="$$(dirname $$v)" ; \
 		KEEP_VERSION=$$(grep -Eo 'required_version\s*=\s*"(.*)"' "$$v" | cut -d '"' -f2) ; \
 		echo upgrading $$v ; \
 		terraform-0.13 0.13upgrade -yes "$$DIR" >/dev/null ; \
