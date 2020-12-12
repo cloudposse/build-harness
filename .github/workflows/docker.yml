@@ -15,13 +15,15 @@ jobs:
       if: (github.event_name == 'release' && github.event.action == 'created') || github.event.pull_request.head.repo.full_name == github.repository
       id: prepare
       run: |
-        TAGS=${{ github.repository }}:sha-${GITHUB_SHA:0:7}
-        SLIM_TAGS=${{ github.repository }}:slim-sha-${GITHUB_SHA:0:7}
+        COMMIT_SHA="${GITHUB_SHA}"
         if [[ $GITHUB_REF == refs/tags/* ]]; then
           VERSION=${GITHUB_REF#refs/tags/}
         elif [[ $GITHUB_REF == refs/pull/* ]]; then
           VERSION=pr-${{ github.event.pull_request.number }}-merge
+          COMMIT_SHA=${{ github.event.pull_request.head.sha }}
         fi
+        TAGS=${{ github.repository }}:sha-${COMMIT_SHA:0:7}
+        SLIM_TAGS=${{ github.repository }}:slim-sha-${COMMIT_SHA:0:7}
         if [[ -n $VERSION ]]; then
           TAGS="$TAGS,${{ github.repository }}:${VERSION}"
           SLIM_TAGS="$SLIM_TAGS,${{ github.repository }}:slim-${VERSION}"
