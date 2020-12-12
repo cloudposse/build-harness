@@ -40,6 +40,20 @@ else
 	[ -z "$$FAIL" ] || (echo "Terraform configuration needs linting. Run '$(TERRAFORM) fmt'"; echo $$FAIL; exit 1)
 endif
 
+terraform/fmt:
+ifeq ($(wildcard *.tf),)
+	@echo "* $@: No terraform files detected"
+else
+	@{ command -v terraform-0.13 && command -v terraform-0.14; } >/dev/null || { echo "* $@ requires binaries named terraform-0.13 and terraform-0.14" && false; }
+	@ # vert exits non-zero if any of the versions are not acceptable, so `|| [[ -n "$VERSION" ]]` for a real error check
+	@TF12=0.12.29; \
+	TF13=$$(terraform-0.13 version --json | jq -r .terraform_version); \
+	TF14=$$(terraform-0.14 version --json | jq -r .terraform_version); \
+	VERSION=$$(vert -s "$$(terraform-config-inspect --json . | jq -r '.required_core[]')" "$$TF12" "$$TF13" "$$TF14" | head -1) || [[ -n "$$VERSION" ]]; \
+	VERSION=$${VERSION:0:4}; \
+	terraform-$${VERSION} fmt -recursive .
+endif
+
 ## Upgrade all terraform module sources
 ## This target has not been upgraded to handle registry format
 terraform/upgrade-modules:
@@ -96,4 +110,4 @@ terraform/rewrite-required-providers: terraform/loosen-constraints
 
 terraform/v14-rewrite: TERRAFORM = terraform-0.13
 terraform/v14-rewrite: terraform/loosen-constraints terraform/bump-tf-12-min-version terraform/rewrite-required-providers terraform/rewrite-module-source terraform/rewrite-readme-source
-	@git diff --no-patch --exit-code README.yaml || $(MAKE) readme
+	@{ [[ "$(TERRAFORM_FORCE_README)" != "true" ]] && git diff --no-patch --exit-code README.yaml; } || $(MAKE) readme
