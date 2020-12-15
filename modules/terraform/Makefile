@@ -69,7 +69,7 @@ terraform/rewrite-module-source:
 
 terraform/rewrite-readme-source: TERRAFORM = terraform-0.13
 terraform/rewrite-readme-source:
-	@sed -i -E 's,^(\s*)source\s+=\s+"git::https://github.com/([^/]+)/terraform-([^-]+)-(.+).git\?ref=(tags/)?master",\1source = "\2/\4/\3"\n\1# Cloud Posse recommends pinning every module to a specific version\n\1# version     = "x.x.x",g' README.yaml
+	@sed -i -E 's,^(\s*)source\s+=\s+"git::https://github.com/([^/]+)/terraform-([^-]+)-(.+).git\?ref=(tags/)?master",\1source = "\2/\4/\3"\n\1# Cloud Posse recommends pinning every module to a specific version\n\1# version = "x.x.x",g' README.yaml
 
 ## Rewrite versions.tf to remove upper bound for terraform core version constraint (like this ">= 0.12.0, < 0.14.0")
 ## and convert "~>" constraints to ">=".
