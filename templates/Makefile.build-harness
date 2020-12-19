@@ -4,6 +4,9 @@
 #
 
 export SHELL = /bin/bash
+
+export PACKAGES_VERSION := master
+
 export BUILD_HARNESS_PATH ?= $(shell until [ -d "$(BUILD_HARNESS_PROJECT)" ] || [ "`pwd`" == '/' ]; do cd ..; done; pwd)/$(BUILD_HARNESS_PROJECT)
 export BUILD_HARNESS_ORG ?= cloudposse
 export BUILD_HARNESS_PROJECT ?= build-harness
@@ -28,10 +31,10 @@ clean::
 	[ "$(BUILD_HARNESS_PATH)" == '/$(BUILD_HARNESS_PROJECT)' ] || \
 	echo rm -rf $(BUILD_HARNESS_PATH)
 
-.PHONY: shell builder shell/pull builder/pull
+.PHONY: bh-shell builder bh-shell/pull builder/pull
 
-shell/pull builder/pull: BUILD_HARNESS_DOCKER_SHA_TAG ?= $(shell $(BUILD_HARNESS_DOCKER_SHA_TAG_CMD))
-shell/pull builder/pull:
+bh-shell/pull builder/pull: BUILD_HARNESS_DOCKER_SHA_TAG ?= $(shell $(BUILD_HARNESS_DOCKER_SHA_TAG_CMD))
+bh-shell/pull builder/pull:
 	docker pull $(BUILD_HARNESS_DOCKER_IMAGE):$(BUILD_HARNESS_DOCKER_SHA_TAG)
 	@[[ "$(BUILD_HARNESS_DOCKER_SHA_TAG)" == "latest" ]] || docker pull $(BUILD_HARNESS_DOCKER_IMAGE):latest
 
@@ -40,42 +43,52 @@ DEFAULT_DOCKER_ENVS := AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
 EXTRA_DOCKER_ENVS ?= AWS_CONFIG_FILE AWS_SHARED_CREDENTIALS_FILE
 DOCKER_ENVS ?= $(DEFAULT_DOCKER_ENVS) $(EXTRA_DOCKER_ENVS)
 
-## Start a shell inside of the `build-harness` docker container with `make shell` or `make builder`
-## Run `make` targets inside the shell by setting `TARGETS` or `TARGET`, e.g.
+## Start a bh-shell inside of the `build-harness` docker container with `make bh-shell` or `make builder`
+## Run `make` targets inside the bh-shell by setting `TARGETS` or `TARGET`, e.g.
 ##     make builder TARGETS="github/init readme"
-shell builder: MOUNT_HOME ?= $(shell [ -d "$$HOME" ] && printf -- "-e HOME -v \"%s\":\"%s\"" "$$HOME" "$$HOME")
-shell builder: TARGETS ?= $(TARGET)
-shell builder: ARGS := $(if $(TARGETS),$(TARGETS),-l || true)
-shell builder: ENTRYPOINT := $(if $(TARGETS),/usr/bin/make,/bin/bash)
-shell builder: BUILD_HARNESS_DOCKER_TAG ?= $(shell $(BUILD_HARNESS_DOCKER_SHA_TAG_CMD))
-shell builder: build-harness/run/docker
+bh-shell builder tester: MOUNT_HOME ?= $(shell [ -d "$$HOME" ] && printf -- "-e HOME -v \"%s\":\"%s\"" "$$HOME" "$$HOME")
+bh-shell builder tester: TARGETS ?= $(TARGET)
+bh-shell builder tester: ARGS := $(if $(TARGETS),$(TARGETS),-l || true)
+bh-shell builder tester: ENTRYPOINT := $(if $(TARGETS),/usr/bin/make,/bin/bash)
+bh-shell builder: RUNNER_DOCKER_TAG ?= $(shell $(BUILD_HARNESS_DOCKER_SHA_TAG_CMD))
+bh-shell builder: build-harness/runner
 	@exit 0
 
-.PHONY: shell-slim builder-slim pr/auto-format tf14-upgrade
+.PHONY: bh-shell-slim builder-slim pr/auto-format pr/auto-format/host tf14-upgrade
 
-shell-slim builder-slim tf14-upgrade pr/auto-format: BUILD_HARNESS_DOCKER_SHA_TAG ?= $(shell $(BUILD_HARNESS_DOCKER_SHA_TAG_CMD))
-shell-slim builder-slim tf14-upgrade pr/auto-format: BUILD_HARNESS_DOCKER_TAG ?= \
-	$(shell docker inspect --type=image $(BUILD_HARNESS_DOCKER_IMAGE):$(BUILD_HARNESS_DOCKER_SHA_TAG) >/dev/null 2>&1 && \
-	echo "$(BUILD_HARNESS_DOCKER_SHA_TAG) " || echo "slim-$(BUILD_HARNESS_DOCKER_SHA_TAG)")
+bh-shell-slim builder-slim pr/auto-format tf14-upgrade: RUNNER_DOCKER_IMAGE ?= $(BUILD_HARNESS_DOCKER_IMAGE)
 
-shell-slim builder-slim: TARGETS ?= $(TARGET)
-shell-slim builder-slim: ARGS := $(if $(TARGETS),$(TARGETS),-l || true)
-shell-slim builder-slim: ENTRYPOINT := $(if $(TARGETS),/usr/bin/make,/bin/bash)
-shell-slim builder-slim: build-harness/run/docker
+bh-shell-slim builder-slim tf14-upgrade pr/auto-format: RUNNER_DOCKER_SHA_TAG ?= $(shell $(BUILD_HARNESS_DOCKER_SHA_TAG_CMD))
+bh-shell-slim builder-slim tf14-upgrade pr/auto-format: RUNNER_DOCKER_TAG ?= \
+	$(shell docker inspect --type=image $(RUNNER_DOCKER_IMAGE):$(RUNNER_DOCKER_SHA_TAG) >/dev/null 2>&1 && \
+	echo "$(RUNNER_DOCKER_SHA_TAG) " || echo "slim-$(RUNNER_DOCKER_SHA_TAG)")
+
+bh-shell-slim builder-slim: TARGETS ?= $(TARGET)
+bh-shell-slim builder-slim: ARGS := $(if $(TARGETS),$(TARGETS),-l || true)
+bh-shell-slim builder-slim: ENTRYPOINT := $(if $(TARGETS),/usr/bin/make,/bin/bash)
+bh-shell-slim builder-slim: build-harness/runner
 
 pr/auto-format tf14-upgrade : ENTRYPOINT := /usr/bin/make
 
-pr/auto-format: ARGS := terraform/fmt readme
-pr/auto-format: build-harness/run/docker
+pr/auto-format pr/auto-format/host: ARGS := terraform/fmt readme
+pr/auto-format: build-harness/runner
+pr/auto-format/host: 
+	$(MAKE) $(ARGS)
 
 tf14-upgrade: export TERRAFORM_FORCE_README := true
 tf14-upgrade: ARGS := github/init terraform/v14-rewrite
-tf14-upgrade: build-harness/run/docker
+tf14-upgrade: build-harness/runner
 
-.PHONY: build-harness/run/docker
+tester: TEST_HARNESS_DOCKER_IMAGE ?= cloudposse/test-harness
+tester: TEST_HARNESS_DOCKER_TAG ?= latest
+tester: RUNNER_DOCKER_IMAGE ?= $(TEST_HARNESS_DOCKER_IMAGE)
+tester: RUNNER_DOCKER_TAG ?= $(TEST_HARNESS_DOCKER_TAG)
+tester: build-harness/runner
 
-build-harness/run/docker:
-	$(info Starting $(BUILD_HARNESS_DOCKER_IMAGE):$(BUILD_HARNESS_DOCKER_TAG))
+.PHONY: build-harness/runner
+
+build-harness/runner:
+	$(info Starting $(RUNNER_DOCKER_IMAGE):$(RUNNER_DOCKER_TAG))
 	docker run --name build-harness \
 		--rm -it \
 		-e PACKAGES_PREFER_HOST=true \
@@ -84,7 +97,7 @@ build-harness/run/docker:
 		-v $(CURDIR):/opt \
 		--workdir /opt \
 		--entrypoint $(ENTRYPOINT) \
-		$(BUILD_HARNESS_DOCKER_IMAGE):$(BUILD_HARNESS_DOCKER_TAG) $(ARGS)
+		$(RUNNER_DOCKER_IMAGE):$(RUNNER_DOCKER_TAG) $(ARGS)
 
 .PHONY: reset-owner
 reset-owner:
