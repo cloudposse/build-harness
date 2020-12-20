@@ -13,6 +13,7 @@ GITHUB_TEMPLATES = \
 GITHUB_TERRAFORM_TEMPLATES = .github/workflows/chatops.yml \
 	.github/workflows/auto-context.yml \
 	.github/workflows/auto-readme.yml \
+	.github/workflows/auto-format.yml \
 	.github/mergify.yml \
 	.github/renovate.json
 
