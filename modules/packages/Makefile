@@ -1,5 +1,5 @@
 export INSTALL_PATH ?= $(BUILD_HARNESS_PATH)/vendor
-export PACKAGES_VERSION ?= 0.133.0
+export PACKAGES_VERSION ?= master
 export PACKAGES_PATH ?= $(BUILD_HARNESS_PATH)/vendor/packages
 export PACKAGES_PREFER_HOST ?= false
 

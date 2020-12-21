@@ -4,9 +4,6 @@
 #
 
 export SHELL = /bin/bash
-
-export PACKAGES_VERSION := master
-
 export BUILD_HARNESS_PATH ?= $(shell until [ -d "$(BUILD_HARNESS_PROJECT)" ] || [ "`pwd`" == '/' ]; do cd ..; done; pwd)/$(BUILD_HARNESS_PROJECT)
 export BUILD_HARNESS_ORG ?= cloudposse
 export BUILD_HARNESS_PROJECT ?= build-harness
