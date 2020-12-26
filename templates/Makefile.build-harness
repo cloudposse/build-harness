@@ -77,11 +77,17 @@ tf14-upgrade: export TERRAFORM_FORCE_README := true
 tf14-upgrade: ARGS := github/init terraform/v14-rewrite
 tf14-upgrade: build-harness/runner
 
-tester: TEST_HARNESS_DOCKER_IMAGE ?= cloudposse/test-harness
-tester: TEST_HARNESS_DOCKER_TAG ?= latest
+.PHONY: tester tester/pull
+
+tester tester/pull: TEST_HARNESS_DOCKER_IMAGE ?= cloudposse/test-harness
+tester tester/pull: TEST_HARNESS_DOCKER_TAG ?= latest
 tester: RUNNER_DOCKER_IMAGE ?= $(TEST_HARNESS_DOCKER_IMAGE)
 tester: RUNNER_DOCKER_TAG ?= $(TEST_HARNESS_DOCKER_TAG)
 tester: build-harness/runner
+
+tester/pull:
+	docker pull $(TEST_HARNESS_DOCKER_IMAGE):$(TEST_HARNESS_DOCKER_TAG)
+
 
 .PHONY: build-harness/runner
 
