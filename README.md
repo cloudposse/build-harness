@@ -64,19 +64,7 @@ It's 100% Open Source and licensed under the [APACHE2](LICENSE).
 
 
 
-## Compliance
-| Benchmark | Description |
-|--------|---------------|
-| [![Infrastructure Security](https://www.bridgecrew.cloud/badges/github/cloudposse/build-harness/general)](https:%2F%2Fwww.bridgecrew.cloud%2Flink%2Fbadge?vcs=github&fullRepo=cloudposse%2Fbuild-harness&benchmark=INFRASTRUCTURE+SECURITY) | Infrastructure Security Compliance |
-| [![CIS KUBERNETES](https://www.bridgecrew.cloud/badges/github/cloudposse/build-harness/cis_kubernetes)](https:%2F%2Fwww.bridgecrew.cloud%2Flink%2Fbadge?vcs=github&fullRepo=cloudposse%2Fbuild-harness&benchmark=CIS+KUBERNETES+V1.5) | Center for Internet Security, KUBERNETES Compliance |
-| [![CIS AWS](https://www.bridgecrew.cloud/badges/github/cloudposse/build-harness/cis_aws)](https:%2F%2Fwww.bridgecrew.cloud%2Flink%2Fbadge?vcs=github&fullRepo=cloudposse%2Fbuild-harness&benchmark=CIS+AWS+V1.2) | Center for Internet Security, AWS Compliance |
-| [![CIS AZURE](https://www.bridgecrew.cloud/badges/github/cloudposse/build-harness/cis_azure)](https:%2F%2Fwww.bridgecrew.cloud%2Flink%2Fbadge?vcs=github&fullRepo=cloudposse%2Fbuild-harness&benchmark=CIS+AZURE+V1.1) | Center for Internet Security, AZURE Compliance |
-| [![PCI-DSS](https://www.bridgecrew.cloud/badges/github/cloudposse/build-harness/pci)](https:%2F%2Fwww.bridgecrew.cloud%2Flink%2Fbadge?vcs=github&fullRepo=cloudposse%2Fbuild-harness&benchmark=PCI-DSS+V3.2) | Payment Card Industry Data Security Standards Compliance |
-| [![NIST-800-53](https://www.bridgecrew.cloud/badges/github/cloudposse/build-harness/nist)](https:%2F%2Fwww.bridgecrew.cloud%2Flink%2Fbadge?vcs=github&fullRepo=cloudposse%2Fbuild-harness&benchmark=NIST-800-53) | National Institute of Standards and Technology Compliance |
-| [![ISO27001](https://www.bridgecrew.cloud/badges/github/cloudposse/build-harness/iso)](https:%2F%2Fwww.bridgecrew.cloud%2Flink%2Fbadge?vcs=github&fullRepo=cloudposse%2Fbuild-harness&benchmark=ISO27001) | Information Security Management System, ISO/IEC 27001 Compliance |
-| [![SOC2](https://www.bridgecrew.cloud/badges/github/cloudposse/build-harness/soc2)](https:%2F%2Fwww.bridgecrew.cloud%2Flink%2Fbadge?vcs=github&fullRepo=cloudposse%2Fbuild-harness&benchmark=SOC2)| Service Organization Control 2 Compliance |
-| [![CIS GCP](https://www.bridgecrew.cloud/badges/github/cloudposse/build-harness/cis_gcp)](https:%2F%2Fwww.bridgecrew.cloud%2Flink%2Fbadge?vcs=github&fullRepo=cloudposse%2Fbuild-harness&benchmark=CIS+GCP+V1.1) | Center for Internet Security, GCP Compliance |
-| [![HIPAA](https://www.bridgecrew.cloud/badges/github/cloudposse/build-harness/hipaa)](https:%2F%2Fwww.bridgecrew.cloud%2Flink%2Fbadge?vcs=github&fullRepo=cloudposse%2Fbuild-harness&benchmark=HIPAA) | Health Insurance Portability and Accountability Compliance |
+
 
 
 ## Usage
@@ -373,7 +361,7 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
 ## Copyrights
 
-Copyright © 2016-2020 [Cloud Posse, LLC](https://cloudposse.com)
+Copyright © 2016-2021 [Cloud Posse, LLC](https://cloudposse.com)
 
 
 
