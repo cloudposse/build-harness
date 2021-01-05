@@ -1,4 +1,6 @@
+<!-- markdownlint-disable -->
 # Build Harness [![Build Status](https://github.com/cloudposse/build-harness/workflows/docker/badge.svg?branch=master)](https://github.com/cloudposse/build-harness/actions?query=workflow%3Adocker) [![Latest Release](https://img.shields.io/github/release/cloudposse/build-harness.svg)](https://github.com/cloudposse/build-harness/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com) [![Discourse Forum](https://img.shields.io/discourse/https/ask.sweetops.com/posts.svg)](https://ask.sweetops.com/)
+<!-- markdownlint-restore -->
 
 [![README Header][readme_header_img]][readme_header_link]
 
@@ -250,11 +252,14 @@ Available targets:
   slack/notify/deploy                 Send notification to slack using "deploy" template
   template/build                      Create $OUT file by building it from $IN template file
   template/deps                       Install dependencies
+  terraform/bump-tf-12-min-version    Rewrite versions.tf to bump modules with minimum core version of '0.12.x' to '>= 0.12.26'
   terraform/get-modules               Ensure all modules can be fetched
   terraform/get-plugins               Ensure all plugins can be fetched
   terraform/install                   Install terraform
   terraform/lint                      Lint check Terraform
-  terraform/upgrade-modules           Upgrade all terraform module sources
+  terraform/loosen-constraints        and convert "~>" constraints to ">=".
+  terraform/rewrite-required-providers Rewrite versions.tf to update existing configuration to add an explicit source attribute for each provider
+  terraform/upgrade-modules           This target has not been upgraded to handle registry format
   terraform/validate                  Basic terraform sanity check
   travis/docker-login                 Login into docker hub
   travis/docker-tag-and-push          Tag & Push according Travis environment variables
@@ -427,8 +432,10 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
 
 ### Contributors
 
+<!-- markdownlint-disable -->
 |  [![Erik Osterman][osterman_avatar]][osterman_homepage]<br/>[Erik Osterman][osterman_homepage] | [![Igor Rodionov][goruha_avatar]][goruha_homepage]<br/>[Igor Rodionov][goruha_homepage] | [![Andriy Knysh][aknysh_avatar]][aknysh_homepage]<br/>[Andriy Knysh][aknysh_homepage] | [![Sarkis][sarkis_avatar]][sarkis_homepage]<br/>[Sarkis][sarkis_homepage] | [![Alexander Babai][alebabai_avatar]][alebabai_homepage]<br/>[Alexander Babai][alebabai_homepage] | [![Jon Boulle][jonboulle_avatar]][jonboulle_homepage]<br/>[Jon Boulle][jonboulle_homepage] | [![Marcin Brański][3h4x_avatar]][3h4x_homepage]<br/>[Marcin Brański][3h4x_homepage] |
 |---|---|---|---|---|---|---|
+<!-- markdownlint-restore -->
 
   [osterman_homepage]: https://github.com/osterman
   [osterman_avatar]: https://img.cloudposse.com/150x150/https://github.com/osterman.png
