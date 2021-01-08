@@ -4,21 +4,52 @@
 #
 
 export SHELL = /bin/bash
-export BUILD_HARNESS_PATH ?= $(shell until [ -d "$(BUILD_HARNESS_PROJECT)" ] || [ "`pwd`" == '/' ]; do cd ..; done; pwd)/$(BUILD_HARNESS_PROJECT)
 export BUILD_HARNESS_ORG ?= cloudposse
 export BUILD_HARNESS_PROJECT ?= build-harness
 export BUILD_HARNESS_DOCKER_IMAGE ?= $(BUILD_HARNESS_ORG)/$(BUILD_HARNESS_PROJECT)
 export BUILD_HARNESS_BRANCH ?= master
+export BUILD_HARNESS_CLONE_URL ?= https://github.com/$(BUILD_HARNESS_ORG)/$(BUILD_HARNESS_PROJECT).git
 # It is kind of expensive to figure out the Docker SHA tag, so we just define the command here, and only call it when needed
 export BUILD_HARNESS_DOCKER_SHA_TAG_CMD := git -C "$(BUILD_HARNESS_PATH)" log -n 1 --format=sha-%h 2>/dev/null || echo latest
 
--include $(BUILD_HARNESS_PATH)/Makefile
+# Resolves BUILD_HARNESS_PATH to BUILD_HARNESS_PATH_LOCAL when BUILD_HARNESS_PATH does not exist
+BUILD_HARNESS_PATH ?= $(shell until [ -d "$(BUILD_HARNESS_PROJECT)" ] || [ "`pwd`" == '/' ]; do cd ..; done; pwd)/$(BUILD_HARNESS_PROJECT)
+BUILD_HARNESS_PATH_LOCAL := $(PWD)/$(BUILD_HARNESS_PROJECT)
+export BUILD_HARNESS_PATH := $(or $(wildcard $(BUILD_HARNESS_PATH)),$(BUILD_HARNESS_PATH_LOCAL))
+
+# Macro to clone/install BUILD_HARNESS_PROJECT
+define harness_install
+curl --retry 5 --fail --silent --retry-delay 1 \
+	https://raw.githubusercontent.com/$(BUILD_HARNESS_ORG)/$(BUILD_HARNESS_PROJECT)/$(BUILD_HARNESS_BRANCH)/bin/install.sh | \
+	bash -s "$(BUILD_HARNESS_ORG)" "$(BUILD_HARNESS_PROJECT)" "$(BUILD_HARNESS_BRANCH)"
+endef
+
+# Macro to auto-init the BUILD_HARNESS_PROJECT with the `include` directive
+# Tests if BUILD_HARNESS_PROJECT does not yet exist, or if it does exist but the
+# checkout does not match BUILD_HARNESS_BRANCH
+define harness_auto_init
+if [[ \
+	"$(BUILD_HARNESS_PATH)" != "$(BUILD_HARNESS_PATH_LOCAL)" && \
+	-f "$(BUILD_HARNESS_PATH)/Makefile" \
+]]; then \
+	: ;\
+elif [[ \
+	"$(BUILD_HARNESS_PATH)" == "$(BUILD_HARNESS_PATH_LOCAL)" && \
+	-f "$(BUILD_HARNESS_PATH)/Makefile" && \
+	"$$(git -C '$(BUILD_HARNESS_PATH_LOCAL)' ls-remote '$(BUILD_HARNESS_CLONE_URL)' '$(BUILD_HARNESS_BRANCH)' | cut -f1)" == "$$(git -C '$(BUILD_HARNESS_PATH_LOCAL)' rev-parse HEAD)" \
+]]; then \
+	: ;\
+else \
+	$(harness_install) ;\
+fi
+endef
+
+-include $(shell $(harness_auto_init) >&2 ; echo $(BUILD_HARNESS_PATH)/Makefile)
 
 .PHONY : init
 ## Init build-harness
 init::
-	@curl --retry 5 --fail --silent --retry-delay 1 https://raw.githubusercontent.com/$(BUILD_HARNESS_ORG)/$(BUILD_HARNESS_PROJECT)/$(BUILD_HARNESS_BRANCH)/bin/install.sh | \
-		bash -s "$(BUILD_HARNESS_ORG)" "$(BUILD_HARNESS_PROJECT)" "$(BUILD_HARNESS_BRANCH)"
+	@ $(harness_install)
 
 .PHONY : clean
 ## Clean build-harness
