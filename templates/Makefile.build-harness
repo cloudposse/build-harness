@@ -4,6 +4,7 @@
 #
 
 export SHELL = /bin/bash
+export PWD = $(shell pwd)
 export BUILD_HARNESS_ORG ?= cloudposse
 export BUILD_HARNESS_PROJECT ?= build-harness
 export BUILD_HARNESS_DOCKER_IMAGE ?= $(BUILD_HARNESS_ORG)/$(BUILD_HARNESS_PROJECT)
