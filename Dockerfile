@@ -53,6 +53,7 @@ RUN update-alternatives --set terraform /usr/share/terraform/$DEFAULT_TERRAFORM_
   cp -p /usr/share/terraform/$DEFAULT_TERRAFORM_VERSION/bin/terraform /build-harness/vendor/terraform
 
 COPY ./ /build-harness/
+RUN touch /.dockerenv
 
 ENV INSTALL_PATH /usr/local/bin
 
