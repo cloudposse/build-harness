@@ -1,10 +1,9 @@
-from github import Github
 import os
 import json
-import requests
 import subprocess
+from github import Github
+import requests
 from iteration_utilities import unique_everseen
-import itertools
 from ruamel.yaml import YAML
 
 GH_TOKEN = os.environ["GH_TOKEN"]
@@ -12,77 +11,82 @@ GH_ORG_NAME = os.getenv("GH_ORG_NAME", "cloudposse")
 GH_SEARCH_PATTERN = os.getenv("GH_SEARCH_PATTERN", "terraform-aws-eks")
 TF_MODULE_PATH = os.getenv("TF_MODULE_PATH", ".")
 TF_CONFIG_INSPECT_BINARY_PATH = os.getenv(
-    "TF_CONFIG_INSPECT_BINARY_PATH", "/usr/local/bin/terraform-config-inspect"
+    "TF_CONFIG_INSPECT_BINARY_PATH",
+    "terraform-config-inspect"
 )
 TF_REGISTRY_URL = "https://registry.terraform.io/v1"
 
 gh = Github(GH_TOKEN)
-yaml = YAML(typ="safe", pure=True)
+yaml = YAML(typ="rt")
 yaml.default_flow_style = False
-yaml.preserve_quotes = True
+yaml.preserve_quotes = False
 
 
-def get_list_of_repos(g):
-    repos = []
+def parse_gh():
+    gh_repos = []
     for repo in gh.get_organization(GH_ORG_NAME).get_repos():
-        name = repo.name
-        if GH_SEARCH_PATTERN in name:
-            repos.append(name)
-    return repos
+        if GH_SEARCH_PATTERN in repo.name:
+            repo_object = {}
+            repo_object["name"] = repo.name
+            repo_object["description"] = repo.description
+            repo_object["url"] = repo.html_url
+            gh_repos.append(repo_object)
+    return gh_repos
 
 
 def tf_config_inspect():
-    list_of_modules = []
-    list_of_providers = []
-    list_of_related = []
-
     output = json.loads(
         subprocess.check_output(
             [TF_CONFIG_INSPECT_BINARY_PATH, TF_MODULE_PATH, "--json"],
             stderr=subprocess.STDOUT,
         )
     )
+    return output
 
-    for k, v in output["module_calls"].items():
-        module_object = {}
-        url = TF_REGISTRY_URL + "/modules/" + v["source"]
-        module_info = requests.get(url=url).json()
 
-        module_object["name"] = "terraform-{}-{}".format(
-            module_info["provider"], module_info["name"]
-        )
-        module_object["description"] = module_info["description"]
-        module_object["url"] = module_info["source"]
-        list_of_modules.append(module_object)
+def parse_tf_registry(src_data, src_type):
+    items = []
+    src_item = "module_calls"
+    if src_type == "providers":
+        src_item = "required_providers"
 
-    for k, v in output["required_providers"].items():
-        provider_object = {}
-        url = TF_REGISTRY_URL + "/providers/" + v["source"]
-        provider_info = requests.get(url=url).json()
+    for k, v in src_data[src_item].items():
+        item_object = {}
+        url = TF_REGISTRY_URL + "/" + src_type + "/" + v["source"]
+        r = requests.get(url=url).json()
 
-        provider_object["name"] = "terraform-provider-{}".format(
-            provider_info["namespace"]
-        )
-        provider_object["description"] = provider_info["description"]
-        provider_object["url"] = provider_info["source"]
-        list_of_providers.append(provider_object)
-
-    for m, p in itertools.zip_longest(
-        unique_everseen(list_of_modules), list_of_providers
-    ):
-        list_of_related.append(m)
-        list_of_related.append(p)
-
-    return list_of_related
+        if src_type == "providers":
+            name_pattern = "terraform-provider-{}".format(r["name"])
+        else:
+            name_pattern = "terraform-{}-{}".format(r["provider"], r["name"])
+        item_object["name"] = name_pattern
+        item_object["description"] = r["description"]
+        item_object["url"] = r["source"]
+        items.append(item_object)
+    return items
 
 
 if __name__ == "__main__":
+    related_reference_list = []
+
+    inspected_data = tf_config_inspect()
+    modules_list = parse_tf_registry(inspected_data, "modules")
+    providers_list = parse_tf_registry(inspected_data, "providers")
+    gh_repos_list = parse_gh()
+
+    # this can be done in one line but it requires itertools
+    # and additional step to remove empty dicts
+    for m in unique_everseen(modules_list):
+        related_reference_list.append(m)
+    for g in unique_everseen(gh_repos_list):
+        related_reference_list.append(g)
+    for p in unique_everseen(providers_list):
+        related_reference_list.append(p)
 
     with open("{}/README.yaml".format(TF_MODULE_PATH)) as f:
         readme = yaml.load(f)
 
-    new_related_list = yaml.load(json.dumps(tf_config_inspect()))
-    readme["related"] = new_related_list
+    readme["related"] = related_reference_list
 
     with open("{}/README.yaml".format(TF_MODULE_PATH), "w") as f:
         yaml.dump(readme, f)
