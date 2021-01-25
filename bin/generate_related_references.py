@@ -1,8 +1,11 @@
-import os
+#!/usr/bin/env python3
+
 import json
+import os
 import subprocess
-from github import Github
+
 import requests
+from github import Github
 from iteration_utilities import unique_everseen
 from ruamel.yaml import YAML
 
@@ -11,8 +14,7 @@ GH_ORG_NAME = os.getenv("GH_ORG_NAME", "cloudposse")
 GH_SEARCH_PATTERN = os.getenv("GH_SEARCH_PATTERN", "terraform-")
 TF_MODULE_PATH = os.getenv("TF_MODULE_PATH", ".")
 TF_CONFIG_INSPECT_BINARY_PATH = os.getenv(
-    "TF_CONFIG_INSPECT_BINARY_PATH",
-    "terraform-config-inspect"
+    "TF_CONFIG_INSPECT_BINARY_PATH", "terraform-config-inspect"
 )
 TF_REGISTRY_URL = "https://registry.terraform.io/v1"
 

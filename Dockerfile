@@ -18,7 +18,12 @@ RUN apk --update --no-cache add \
       jq \
       libc6-compat \
       make \
-      py-pip && \
+      python3-dev \
+      py-pip \
+      py3-ruamel.yaml && \
+    pip3 install --no-cache-dir \
+      iteration-utilities==0.11.0 \
+      PyGithub==1.54.1 && \
     git config --global advice.detachedHead false
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
