@@ -16,7 +16,7 @@ TF_MODULE_PATH = os.getenv("TF_MODULE_PATH", ".")
 TF_CONFIG_INSPECT_BINARY_PATH = os.getenv(
     "TF_CONFIG_INSPECT_BINARY_PATH", "terraform-config-inspect"
 )
-TF_REGISTRY_URL = "https://registry.terraform.io/v1"
+TF_REGISTRY_URL = "https://registry.terraform.io"
 
 gh = Github(GH_TOKEN)
 yaml = YAML(typ="rt")
@@ -54,7 +54,7 @@ def parse_tf_registry(src_data, src_type):
 
     for k, v in src_data[src_item].items():
         item_object = {}
-        url = TF_REGISTRY_URL + "/" + src_type + "/" + v["source"]
+        url = TF_REGISTRY_URL + "/v1/" + src_type + "/" + v["source"]
         r = requests.get(url=url).json()
 
         if src_type == "providers":
@@ -62,14 +62,25 @@ def parse_tf_registry(src_data, src_type):
         else:
             name_pattern = "terraform-{}-{}".format(r["provider"], r["name"])
         item_object["name"] = name_pattern
-        item_object["description"] = r["description"]
-        item_object["url"] = r["source"]
+
+        if src_type == "providers":
+            # description on GitHub looks better than on terraform-registry
+            gh_repo_info = gh.get_repo("{}/{}".format(r["namespace"], name_pattern))
+            item_object["description"] = gh_repo_info.description
+            item_object["url"] = TF_REGISTRY_URL + "/providers/{}/{}/latest".format(
+                r["namespace"], r["name"]
+            )
+        else:
+            item_object["description"] = r["description"]
+            item_object["url"] = r["source"]
+
         items.append(item_object)
     return items
 
 
 if __name__ == "__main__":
-    related_reference_list = []
+    related_list = []
+    reference_list = []
 
     inspected_data = tf_config_inspect()
     modules_list = parse_tf_registry(inspected_data, "modules")
@@ -79,16 +90,24 @@ if __name__ == "__main__":
     # this can be done in one line but it requires itertools
     # and additional step to remove empty dicts
     for m in unique_everseen(modules_list):
-        related_reference_list.append(m)
+        related_list.append(m)
     for g in unique_everseen(gh_repos_list):
-        related_reference_list.append(g)
+        related_list.append(g)
     for p in unique_everseen(providers_list):
-        related_reference_list.append(p)
+        reference_list.append(p)
 
     with open("{}/README.yaml".format(TF_MODULE_PATH)) as f:
         readme = yaml.load(f)
 
-    readme["related"] = related_reference_list
+    readme["related"] = related_list
+
+    # ensure that "references" key is present and then insert data
+    if readme.get("references"):
+        readme["references"] = reference_list
+    else:
+        # create key "references" after the "related"
+        readme.insert(list(readme.keys()).index("related") + 1, "references", [])
+        readme["references"] = reference_list
 
     with open("{}/README.yaml".format(TF_MODULE_PATH), "w") as f:
         yaml.dump(readme, f)
