@@ -1,6 +1,7 @@
 export INSTALL_PATH ?= $(BUILD_HARNESS_PATH)/vendor
-export PACKAGES_VERSION ?= 0.133.0
+export PACKAGES_VERSION ?= master
 export PACKAGES_PATH ?= $(BUILD_HARNESS_PATH)/vendor/packages
+export PACKAGES_PREFER_HOST ?= false
 
 ## Delete packages
 packages/delete:
@@ -13,18 +14,23 @@ packages/reinstall: packages/delete packages/install
 ## Install packages 
 packages/install:
 	@if [ ! -d $(PACKAGES_PATH) ]; then \
-	  echo "Installing packages $(PACKAGES_VERSION)..."; \
-	  rm -rf $(PACKAGES_PATH); \
-	  $(GIT) clone -c advice.detachedHead=false --depth=1 -b $(PACKAGES_VERSION) https://github.com/cloudposse/packages.git $(PACKAGES_PATH); \
-	  rm -rf $(PACKAGES_PATH)/.git; \
+		echo "* Installing packages $(PACKAGES_VERSION)..."; \
+		rm -rf $(PACKAGES_PATH); \
+		$(GIT) clone -c advice.detachedHead=false --depth=1 -b $(PACKAGES_VERSION) https://github.com/cloudposse/packages.git $(PACKAGES_PATH); \
+		rm -rf $(PACKAGES_PATH)/.git; \
 	fi 
 
 ## Install package (e.g. helm, helmfile, kubectl)
-packages/install/%: packages/install
-	@if [ ! -x $(INSTALL_PATH)/$(subst packages/install/,,$@) ]; then \
-		$(MAKE) -C $(PACKAGES_PATH)/install $(subst packages/install/,,$@); \
+packages/install/%:
+	@binary="$*"; \
+	if [[ -x "$(INSTALL_PATH)/$$binary" ]]; then \
+		echo "* Package $$binary already installed"; \
+	elif [[ "$(PACKAGES_PREFER_HOST)" == "true" ]] && installed=$$(command -v $* 2>/dev/null); then \
+		echo Using "$*" from "$$installed" ; \
 	else \
-		echo "Package $(subst packages/install/,,$@) already installed"; \
+		$(MAKE) packages/install && \
+		echo "* Installing $* to $(INSTALL_PATH)" && \
+		$(MAKE) -C $(PACKAGES_PATH)/install "$*"; \
 	fi;
 
 ## Reinstall package (e.g. helm, helmfile, kubectl)
