@@ -377,7 +377,7 @@ Before commiting & pushing your changes, we recommend using [`pre-commit`](https
 
 ## Copyrights
 
-Copyright © 2016-2020 [Cloud Posse, LLC](https://cloudposse.com)
+Copyright © 2016-2021 [Cloud Posse, LLC](https://cloudposse.com)
 
 
 
