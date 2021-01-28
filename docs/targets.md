@@ -108,6 +108,7 @@ Available targets:
   readme/build                        Create README.md by building it from README.yaml
   readme/init                         Create basic minimalistic .README.md template file
   readme/lint                         Verify the `README.md` is up to date
+  readme/generate-related-references  Generate related references block (e.i. `related`) in the README.yaml
   semver/export                       Export semver vars
   slack/notify                        Send webhook notification to slack
   slack/notify/build                  Send notification to slack using "build" template
