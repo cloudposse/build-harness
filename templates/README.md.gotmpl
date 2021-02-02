@@ -85,6 +85,27 @@ We literally have [*hundreds of terraform modules*][terraform_modules] that are 
 
 {{ (ds "config").introduction -}}
 {{ end }}
+
+{{ if (file.Exists "main.tf") }}
+{{- $repo_encoded := (ds "config").github_repo | regexp.Replace "/" "%2F" -}}
+## Security & Compliance [<img src="https://cloudposse.com/wp-content/uploads/2020/11/bridgecrew.svg" width="250" align="right" />](https://bridgecrew.io/)
+
+Security scanning is graciously provided by Bridgecrew. Bridgecrew is the leading fully hosted, cloud-native solution providing continuous Terraform security and compliance.
+
+| Benchmark | Description |
+|--------|---------------|
+| [![Infrastructure Security]({{ printf "https://www.bridgecrew.cloud/badges/github/%s/general" (ds "config").github_repo}})]({{ printf "https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=%s&benchmark=INFRASTRUCTURE+SECURITY" $repo_encoded }}) | Infrastructure Security Compliance |
+| [![CIS KUBERNETES]({{ printf "https://www.bridgecrew.cloud/badges/github/%s/cis_kubernetes" (ds "config").github_repo}})]({{ printf "https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=%s&benchmark=CIS+KUBERNETES+V1.5" $repo_encoded }}) | Center for Internet Security, KUBERNETES Compliance |
+| [![CIS AWS]({{ printf "https://www.bridgecrew.cloud/badges/github/%s/cis_aws" (ds "config").github_repo}})]({{ printf "https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=%s&benchmark=CIS+AWS+V1.2" $repo_encoded }}) | Center for Internet Security, AWS Compliance |
+| [![CIS AZURE]({{ printf "https://www.bridgecrew.cloud/badges/github/%s/cis_azure" (ds "config").github_repo}})]({{ printf "https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=%s&benchmark=CIS+AZURE+V1.1" $repo_encoded }}) | Center for Internet Security, AZURE Compliance |
+| [![PCI-DSS]({{ printf "https://www.bridgecrew.cloud/badges/github/%s/pci" (ds "config").github_repo}})]({{ printf "https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=%s&benchmark=PCI-DSS+V3.2" $repo_encoded }}) | Payment Card Industry Data Security Standards Compliance |
+| [![NIST-800-53]({{ printf "https://www.bridgecrew.cloud/badges/github/%s/nist" (ds "config").github_repo}})]({{ printf "https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=%s&benchmark=NIST-800-53" $repo_encoded }}) | National Institute of Standards and Technology Compliance |
+| [![ISO27001]({{ printf "https://www.bridgecrew.cloud/badges/github/%s/iso" (ds "config").github_repo}})]({{ printf "https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=%s&benchmark=ISO27001" $repo_encoded }}) | Information Security Management System, ISO/IEC 27001 Compliance |
+| [![SOC2]({{ printf "https://www.bridgecrew.cloud/badges/github/%s/soc2" (ds "config").github_repo}})]({{ printf "https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=%s&benchmark=SOC2" $repo_encoded }})| Service Organization Control 2 Compliance |
+| [![CIS GCP]({{ printf "https://www.bridgecrew.cloud/badges/github/%s/cis_gcp" (ds "config").github_repo}})]({{ printf "https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=%s&benchmark=CIS+GCP+V1.1" $repo_encoded }}) | Center for Internet Security, GCP Compliance |
+| [![HIPAA]({{ printf "https://www.bridgecrew.cloud/badges/github/%s/hipaa" (ds "config").github_repo}})]({{ printf "https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=%s&benchmark=HIPAA" $repo_encoded }}) | Health Insurance Portability and Accountability Compliance |
+{{ end }}
+
 {{ if has (ds "config") "usage" }}
 ## Usage
 
