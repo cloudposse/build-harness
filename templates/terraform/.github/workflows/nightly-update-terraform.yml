@@ -1,0 +1,40 @@
+name: "nightly"
+on:
+  schedule:
+  # Update Terraform modules nightly
+  - cron:  '0 3 * * *'
+
+jobs:
+  update:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    container: cloudposse/build-harness:latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Nightly Update
+      id: nightly
+      if: github.event_name == 'schedule'
+      shell: bash
+      run: /usr/bin/make BUILD_HARNESS_PATH=/build-harness PACKAGES_PREFER_HOST=true -f /build-harness/templates/Makefile.build-harness terraform/nightly/host
+
+    - name: Create Pull Request
+      if: steps.nightly.outputs.create_pull_request == 'true'
+      uses: cloudposse/actions/github/create-pull-request@0.28.1
+      with:
+        token: ${{ secrets.PUBLIC_REPO_ACCESS_TOKEN }}
+        committer: 'cloudpossebot <11232728+cloudpossebot@users.noreply.github.com>'
+        author: 'cloudpossebot <11232728+cloudpossebot@users.noreply.github.com>'
+        commit-message: Nightly update null ${{ steps.nightly.outputs.null_label_version }}/SHA ${{ steps.nightly.outputs.nightly_update_sha }}
+        title: Nightly update null ${{ steps.nightly.outputs.null_label_version }}/SHA ${{ steps.nightly.outputs.nightly_update_sha }}
+        body: |-
+          ## what
+          This is an auto-generated PR that keeps this module up-to-date
+
+          ## why
+          Keep everythign in sync
+
+        branch: auto-update/nightly
+        base: master
+        delete-branch: true
+        labels: ${{ steps.nightly.outputs.pull_request_labels }}

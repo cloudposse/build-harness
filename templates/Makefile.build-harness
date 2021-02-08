@@ -95,7 +95,7 @@ build-harness/shell builder: RUNNER_DOCKER_IMAGE ?= $(BUILD_HARNESS_DOCKER_IMAGE
 build-harness/shell builder: build-harness/runner
 	@exit 0
 
-.PHONY: build-harness/shell-slim builder-slim pr/auto-format pr/auto-format/host tf14-upgrade
+.PHONY: build-harness/shell-slim builder-slim pr/auto-format pr/auto-format/host tf14-upgrade terraform/nightly terraform/nightly/host
 
 build-harness/shell-slim builder-slim pr/auto-format tf14-upgrade: RUNNER_DOCKER_IMAGE ?= $(BUILD_HARNESS_DOCKER_IMAGE)
 
@@ -109,11 +109,12 @@ build-harness/shell-slim builder-slim: ARGS := $(if $(TARGETS),$(TARGETS),-l || 
 build-harness/shell-slim builder-slim: ENTRYPOINT := $(if $(TARGETS),/usr/bin/make,/bin/bash)
 build-harness/shell-slim builder-slim: build-harness/runner
 
-pr/auto-format tf14-upgrade : ENTRYPOINT := /usr/bin/make
+pr/auto-format tf14-upgrade terraform/nightly : ENTRYPOINT := /usr/bin/make
 
 pr/auto-format pr/auto-format/host: ARGS := terraform/fmt readme
-pr/auto-format: build-harness/runner
-pr/auto-format/host: 
+terraform/nightly terraform/nightly/host: ARGS := terraform/nightly-update
+pr/auto-format terraform/nightly: build-harness/runner
+pr/auto-format/host terraform/nightly/host:
 	$(MAKE) $(ARGS)
 
 tf14-upgrade: export TERRAFORM_FORCE_README := true

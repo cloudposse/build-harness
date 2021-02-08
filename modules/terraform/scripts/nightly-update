@@ -1,0 +1,41 @@
+#!/bin/bash
+
+export THIS_UPDATE_SHA=
+export LATEST_NULL_LABEL_VERSION=
+
+export CREATE_PR=false
+export CREATE_RELEASE=false
+export PR_LABELS=auto-update
+
+# Use/parse a JSON file to limit damage from malicious content
+export CHECKPOINT_FILE=".github/last-update.json"
+CHECKPOINT_TEMPLATE='{ "LAST_UPDATE_SHA": "%s", "LAST_NULL_LABEL_VERSION": "%s" }\n'
+
+function set_outputs() {
+	printf "::set-output name=create_pull_request::%s\n" "${CREATE_PR}"
+	[[ "${CREATE_RELEASE}" == "true" ]] || PR_LABELS+=,no-release
+	printf "::set-output name=pull_request_labels::%s\n" "${PR_LABELS}"
+	printf "::set-output name=nightly_update_sha::%s\n" "${THIS_UPDATE_SHA}"
+	printf "::set-output name=null_label_version::%s\n" "${LATEST_NULL_LABEL_VERSION}"
+}
+
+trap set_outputs EXIT RETURN
+
+if [[ -r $CHECKPOINT_FILE ]]; then
+	LAST_UPDATE_SHA=$(jq -r .LAST_UPDATE_SHA <x)
+	if [[ "${LAST_UPDATE_SHA}" == "${THIS_UPDATE_SHA}" ]]; then
+		printf "Already updated to %s. Exiting.\n" "$LAST_UPDATE_SHA"
+		exit 0
+	fi
+else
+	touch "$CHECKPOINT_FILE"
+fi
+
+if [[ -f context.tf && "${LATEST_NULL_LABEL_VERSION}" != $(terraform-config-inspect --json | jq '.module_calls.this.version') ]]; then
+	/usr/bin/make BUILD_HARNESS_PATH=/build-harness PACKAGES_PREFER_HOST=true -f /build-harness/templates/Makefile.build-harness github/init/context.tf
+	CREATE_PR=true
+
+	# TODO update all usages of null label
+	# for files in in $(terraform-config-inspect --json | jq -cr '.module_calls[] | select(.source == "cloudposse/label/null" and .name != "this") | .pos.filename' | sort | uniq); do
+
+fi
