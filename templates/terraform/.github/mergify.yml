@@ -62,4 +62,4 @@ pull_request_rules:
     - "#files=0"
   actions:
     close:
-      message: "This pull request has been automatically closed by Mergify becasue no files was changed."
+      message: "This pull request has been automatically closed by Mergify because there are no longer any changes."
