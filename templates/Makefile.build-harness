@@ -68,7 +68,7 @@ build-harness/shell-slim builder-slim: build-harness/runner
 
 pr/auto-format tf14-upgrade : ENTRYPOINT := /usr/bin/make
 
-pr/auto-format pr/auto-format/host: ARGS := terraform/fmt readme/generate-related-references readme
+pr/auto-format pr/auto-format/host: ARGS := terraform/fmt readme
 pr/auto-format: build-harness/runner
 pr/auto-format/host: 
 	$(MAKE) $(ARGS)
