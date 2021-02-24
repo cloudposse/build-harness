@@ -36,6 +36,7 @@ RUN curl -fsSL --retry 3 https://apk.cloudposse.com/install.sh | bash
 RUN apk --update --no-cache add \
       chamber@cloudposse \
       gomplate@cloudposse \
+      kubectl@cloudposse \
       helm@cloudposse \
       helmfile@cloudposse \
       codefresh@cloudposse \

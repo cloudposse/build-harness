@@ -17,7 +17,7 @@ license: "APACHE2"
 copyrights:
   - name: "Cloud Posse, LLC"
     url: "https://cloudposse.com"
-    year: "2016"
+    year: "2016-2021"
 
 # Canonical GitHub repo
 github_repo: cloudposse/build-harness
@@ -83,7 +83,7 @@ usage: |-
   **NOTE:** the `/` is interchangable with the `:` in target names
 
   ## GitHub Actions
- 
+
   The `build-harness` is compatible with [GitHub Actions](https://github.com/features/actions).
 
   Here's an example of running `make readme/lint`
