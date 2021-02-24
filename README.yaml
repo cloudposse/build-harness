@@ -17,7 +17,7 @@ license: "APACHE2"
 copyrights:
   - name: "Cloud Posse, LLC"
     url: "https://cloudposse.com"
-    year: "2016-2021"
+    year: "2016"
 
 # Canonical GitHub repo
 github_repo: cloudposse/build-harness
