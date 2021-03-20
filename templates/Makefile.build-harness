@@ -35,18 +35,18 @@ define harness_auto_init
 if [[ \
 	-f "/.dockerenv" && -f "/$(BUILD_HARNESS_PROJECT)/Makefile" \
 ]]; then \
-	: ;\
+	echo "[.build-harness]: In $(BUILD_HARNESS_PROJECT) docker container, skipping auto-init" ;\
 elif [[ \
 	"$(BUILD_HARNESS_PATH)" != "$(BUILD_HARNESS_PATH_LOCAL)" && \
 	-f "$(BUILD_HARNESS_PATH)/Makefile" \
 ]]; then \
-	: ;\
+	echo "[.build-harness]: Using external $(BUILD_HARNESS_PATH), skipping auto-init" ;\
 elif [[ \
 	"$(BUILD_HARNESS_PATH)" == "$(BUILD_HARNESS_PATH_LOCAL)" && \
 	-f "$(BUILD_HARNESS_PATH)/Makefile" && \
 	"$$(git -C '$(BUILD_HARNESS_PATH_LOCAL)' ls-remote '$(BUILD_HARNESS_CLONE_URL)' '$(BUILD_HARNESS_BRANCH)' | cut -f1)" == "$$(git -C '$(BUILD_HARNESS_PATH_LOCAL)' rev-parse HEAD)" \
 ]]; then \
-	: ;\
+	echo "[.build-harness]: Clone of $(BUILD_HARNESS_PROJECT) is up-to-date, skipping auto-init" ;\
 else \
 	$(harness_install) ;\
 fi
