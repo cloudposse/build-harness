@@ -18,6 +18,9 @@ BUILD_HARNESS_PATH ?= $(shell until [ -d "$(BUILD_HARNESS_PROJECT)" ] || [ "`pwd
 BUILD_HARNESS_PATH_LOCAL := $(PWD)/$(BUILD_HARNESS_PROJECT)
 export BUILD_HARNESS_PATH := $(or $(wildcard $(BUILD_HARNESS_PATH)),$(BUILD_HARNESS_PATH_LOCAL))
 
+# Toggles the auto-init feature
+BUILD_HARNESS_AUTO_INIT ?= false
+
 # Macro to clone/install BUILD_HARNESS_PROJECT
 define harness_install
 curl --retry 5 --fail --silent --retry-delay 1 \
@@ -49,7 +52,7 @@ else \
 fi
 endef
 
--include $(shell $(harness_auto_init) >&2 ; echo $(BUILD_HARNESS_PATH)/Makefile)
+-include $(if $(findstring true,$(BUILD_HARNESS_AUTO_INIT)),$(shell $(harness_auto_init) >&2)) $(BUILD_HARNESS_PATH)/Makefile
 
 .PHONY : init
 ## Init build-harness

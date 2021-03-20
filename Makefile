@@ -7,6 +7,9 @@ export SELF ?= $(MAKE)
 export PATH := $(BUILD_HARNESS_PATH)/vendor:$(PATH)
 export DOCKER_BUILD_FLAGS ?=
 
+# Forces auto-init off to avoid invoking the macro on recursive $(MAKE)
+export BUILD_HARNESS_AUTO_INIT = false
+
 # Debug should not be defaulted to a value because some cli consider any value as `true` (e.g. helm)
 export DEBUG ?=
 
