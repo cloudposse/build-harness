@@ -33,7 +33,7 @@ endef
 # checkout does not match BUILD_HARNESS_BRANCH
 define harness_auto_init
 if [[ \
-	-f "/.dockerenv" && -f "/$(BUILD_HARNESS_PROJECT)/Makefile" \
+	-f "/build-harness/Makefile" || -f "/$(BUILD_HARNESS_PROJECT)/Makefile" \
 ]]; then \
 	echo "[.build-harness]: In $(BUILD_HARNESS_PROJECT) docker container, skipping auto-init" ;\
 elif [[ \
