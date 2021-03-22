@@ -122,6 +122,7 @@ quickstart: |-
 include:
   - "docs/targets.md"
   - "docs/extensions.md"
+  - "docs/auto-init.md"
 
 # Contributors to this project
 contributors:
