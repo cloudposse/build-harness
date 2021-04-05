@@ -1,7 +1,11 @@
 #!/bin/bash
 
-export THIS_UPDATE_SHA=
-export LATEST_NULL_LABEL_VERSION=
+export THIS_UPDATE_SHA=${VERSION_SHA}
+[[ -n $THIS_UPDATE_SHA ]] || { echo "# Cannot find update SHA, quitting" >&2; exit 99; }
+
+# We leave LATEST_NULL_LABEL_VERSION to be updated manually, so we can have a testing period
+# where we only roll out a new null-label version to a few modules at first.
+export LATEST_NULL_LABEL_VERSION=0.24.1
 
 export CREATE_PR=false
 export CREATE_RELEASE=false
@@ -15,14 +19,14 @@ function set_outputs() {
 	printf "::set-output name=create_pull_request::%s\n" "${CREATE_PR}"
 	[[ "${CREATE_RELEASE}" == "true" ]] || PR_LABELS+=,no-release
 	printf "::set-output name=pull_request_labels::%s\n" "${PR_LABELS}"
-	printf "::set-output name=nightly_update_sha::%s\n" "${THIS_UPDATE_SHA}"
+	printf "::set-output name=nightly_update_sha::%s\n" "${THIS_UPDATE_SHA:0:7}"
 	printf "::set-output name=null_label_version::%s\n" "${LATEST_NULL_LABEL_VERSION}"
 }
 
 trap set_outputs EXIT RETURN
 
 if [[ -r $CHECKPOINT_FILE ]]; then
-	LAST_UPDATE_SHA=$(jq -r .LAST_UPDATE_SHA <x)
+	LAST_UPDATE_SHA=$(jq -r .LAST_UPDATE_SHA <${CHECKPOINT_FILE})
 	if [[ "${LAST_UPDATE_SHA}" == "${THIS_UPDATE_SHA}" ]]; then
 		printf "Already updated to %s. Exiting.\n" "$LAST_UPDATE_SHA"
 		exit 0

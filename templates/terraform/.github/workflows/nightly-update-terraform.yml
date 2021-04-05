@@ -1,5 +1,7 @@
 name: "nightly"
 on:
+  workflow_dispatch:
+
   schedule:
   # Update Terraform modules nightly
   - cron:  '0 3 * * *'
@@ -12,14 +14,30 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Check for update
+      id: check
+      shell: bash
+      run: |
+        CHECKPOINT_FILE=".github/last-update.json"
+        if [[ -r $CHECKPOINT_FILE ]]; then
+        	LAST_UPDATE_SHA=$(jq -r .LAST_UPDATE_SHA <${CHECKPOINT_FILE})
+            BH_LATEST_COMIIT=$(curl -sSL https://api.github.com/repos/cloudposse/build-harness/commits?per_page=1 | jq -r .[0].sha)
+        	if [[ "${LAST_UPDATE_SHA}" == "${BH_LATEST_COMIIT}" ]]; then
+        		printf "Already updated to %s. Skipping.\n" "$LAST_UPDATE_SHA"
+                printf "::set-output name=update::false\n"
+                exit 0
+        	fi
+        fi
+        printf "::set-output name=update::true\n"
+
     - name: Nightly Update
       id: nightly
-      if: github.event_name == 'schedule'
+      if: steps.check.outputs.update == 'true'
       shell: bash
       run: /usr/bin/make BUILD_HARNESS_PATH=/build-harness PACKAGES_PREFER_HOST=true -f /build-harness/templates/Makefile.build-harness terraform/nightly/host
 
     - name: Create Pull Request
-      if: steps.nightly.outputs.create_pull_request == 'true'
+      if: steps.check.outputs.update == 'true' && steps.nightly.outputs.create_pull_request == 'true'
       uses: cloudposse/actions/github/create-pull-request@0.28.1
       with:
         token: ${{ secrets.PUBLIC_REPO_ACCESS_TOKEN }}
