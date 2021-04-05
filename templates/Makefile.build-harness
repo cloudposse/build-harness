@@ -10,13 +10,14 @@ export BUILD_HARNESS_PROJECT ?= build-harness
 export BUILD_HARNESS_DOCKER_IMAGE ?= $(BUILD_HARNESS_ORG)/$(BUILD_HARNESS_PROJECT)
 export BUILD_HARNESS_BRANCH ?= master
 export BUILD_HARNESS_CLONE_URL ?= https://github.com/$(BUILD_HARNESS_ORG)/$(BUILD_HARNESS_PROJECT).git
-# It is kind of expensive to figure out the Docker SHA tag, so we just define the command here, and only call it when needed
-export BUILD_HARNESS_DOCKER_SHA_TAG_CMD := git -C "$(BUILD_HARNESS_PATH)" log -n 1 --format=sha-%h 2>/dev/null || echo latest
 
 # Resolves BUILD_HARNESS_PATH to BUILD_HARNESS_PATH_LOCAL when BUILD_HARNESS_PATH does not exist
 BUILD_HARNESS_PATH ?= $(shell until [ -d "$(BUILD_HARNESS_PROJECT)" ] || [ "`pwd`" == '/' ]; do cd ..; done; pwd)/$(BUILD_HARNESS_PROJECT)
 BUILD_HARNESS_PATH_LOCAL := $(PWD)/$(BUILD_HARNESS_PROJECT)
 export BUILD_HARNESS_PATH := $(or $(wildcard $(BUILD_HARNESS_PATH)),$(BUILD_HARNESS_PATH_LOCAL))
+# It is kind of expensive to figure out the Docker SHA tag, so we just define the command here, and only call it when needed
+# With the ":=" syntax, it stores the current value of BUILD_HARNESS_PATH, so this has to come after that has been set with ":="
+export BUILD_HARNESS_DOCKER_SHA_TAG_CMD := git -C "$(BUILD_HARNESS_PATH)" log -n 1 --format=sha-%h 2>/dev/null || echo latest
 
 # Toggles the auto-init feature
 BUILD_HARNESS_AUTO_INIT ?= false
