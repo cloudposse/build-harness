@@ -3,6 +3,9 @@ TERRAFORM ?= $(BUILD_HARNESS_PATH)/vendor/terraform
 TERRAFORM_VERSION ?= 0.12.26
 TERRAFORM_URL ?= https://releases.hashicorp.com/terraform/$(TERRAFORM_VERSION)/terraform_$(TERRAFORM_VERSION)_$(OS)_$(BUILD_HARNESS_ARCH).zip
 
+terraform/nightly-update:
+	$(BUILD_HARNESS_PATH)/modules/terraform/scripts/nightly-update
+
 ## Install terraform
 terraform/install:
 	@[ -x $(TERRAFORM) ] || ( \

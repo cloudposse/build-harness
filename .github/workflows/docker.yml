@@ -24,6 +24,10 @@ jobs:
           VERSION=pr-${{ github.event.pull_request.number }}-merge
           COMMIT_SHA=${{ github.event.pull_request.head.sha }}
         fi
+        printf "Version resolved to %s\n" "${VERSION}"
+        echo ::set-output name=version::${VERSION}
+        echo ::set-output name=version-sha::${COMMIT_SHA}
+
         TAGS=${{ github.repository }}:sha-${COMMIT_SHA:0:7}
         SLIM_TAGS=${{ github.repository }}:slim-sha-${COMMIT_SHA:0:7}
         if [[ -n $VERSION ]]; then
@@ -54,6 +58,9 @@ jobs:
       with:
         push: ${{ (github.event_name == 'release' && github.event.action == 'created') || github.event.pull_request.head.repo.full_name == github.repository || github.event_name == 'schedule' }}
         tags: ${{ steps.prepare.outputs.tags }}
+        build-args: |
+          VERSION=${{ steps.prepare.outputs.version }}
+          VERSION_SHA=${{ steps.prepare.outputs.version-sha }}
     - name: "Build and push slim docker image to DockerHub"
       id: docker_slim_build
       uses: docker/build-push-action@v2
@@ -61,3 +68,6 @@ jobs:
         file: ./Dockerfile.slim
         push: ${{ (github.event_name == 'release' && github.event.action == 'created') || github.event.pull_request.head.repo.full_name == github.repository || github.event_name == 'schedule' }}
         tags: ${{ steps.prepare.outputs.slim-tags }}
+        build-args: |
+          VERSION=${{ steps.prepare.outputs.version }}
+          VERSION_SHA=${{ steps.prepare.outputs.version-sha }}
