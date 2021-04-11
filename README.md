@@ -131,6 +131,7 @@ Available targets:
   bash/lint                           Lint all bash scripts
   chamber/install                     Install chamber
   chamber/shell                       Start a chamber shell with secrets exported to the environment
+  clean                               Clean build-harness
   codefresh/export                    DEPRECATED!!! Export codefresh additional envvars
   codefresh/notify/slack/build        Send notification from codefresh to slack using "build" template
   codefresh/notify/slack/deploy       Send notification from codefresh to slack using "deploy" template
@@ -219,6 +220,7 @@ Available targets:
   help                                Help screen
   help/all                            Display help for all targets
   help/short                          This help short screen
+  init                                Init build-harness
   jenkins/run-job-with-tag            Run a Jenkins Job with $(TAG)
   make/lint                           Lint all makefiles
   packages/delete                     Delete packages
