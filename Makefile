@@ -1,3 +1,10 @@
+# templates/Makefile.build-harness includes this Makefile
+# and this Makefile includes templates/Makefile.build-harness
+# to support different modes of invocation. Use a guard variable
+# to prevent infinite recursive includes
+ifeq ($(BUILD_HARNESS_TOP_LEVEL_MAKEFILE_GUARD),)
+BUILD_HARNESS_TOP_LEVEL_MAKEFILE_GUARD := included
+
 export OS ?= $(shell uname -s | tr '[:upper:]' '[:lower:]')
 export BUILD_HARNESS_PATH ?= $(shell 'pwd')
 export BUILD_HARNESS_EXTENSIONS_PATH ?= $(BUILD_HARNESS_PATH)/../build-harness-extensions
@@ -8,7 +15,7 @@ export PATH := $(BUILD_HARNESS_PATH)/vendor:$(PATH)
 export DOCKER_BUILD_FLAGS ?=
 
 # Forces auto-init off to avoid invoking the macro on recursive $(MAKE)
-export BUILD_HARNESS_AUTO_INIT = false
+export BUILD_HARNESS_AUTO_INIT := false
 
 # Debug should not be defaulted to a value because some cli consider any value as `true` (e.g. helm)
 export DEBUG ?=
@@ -30,6 +37,7 @@ endif
 include $(BUILD_HARNESS_PATH)/Makefile.*
 include $(BUILD_HARNESS_PATH)/modules/*/bootstrap.Makefile*
 include $(BUILD_HARNESS_PATH)/modules/*/Makefile*
+include $(BUILD_HARNESS_PATH)/templates/Makefile.build-harness
 # Don't fail if there are no build harness extensions
 # Wildcard conditions is to fixes `make[1]: *** No rule to make target` error
 ifneq ($(wildcard $(BUILD_HARNESS_EXTENSIONS_PATH)/modules/*/Makefile*),)
@@ -43,4 +51,6 @@ init::
 ifndef TRANSLATE_COLON_NOTATION
 %:
 	@$(SELF) -s $(subst :,/,$@) TRANSLATE_COLON_NOTATION=false
+endif
+
 endif
