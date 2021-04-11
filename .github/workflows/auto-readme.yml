@@ -26,7 +26,7 @@ jobs:
         ref: ${{ github.event.pull_request.head.ref }}
 
     # Do all the formatting stuff
-    - name: Auto Format
+    - name: Update README
       if: github.event.pull_request.state == 'open'
       shell: bash
       env:
