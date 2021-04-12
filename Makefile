@@ -12,6 +12,8 @@ export BUILD_HARNESS_OS ?= $(OS)
 export BUILD_HARNESS_ARCH ?= $(shell uname -m | sed 's/x86_64/amd64/g')
 export SELF ?= $(MAKE)
 export PATH := $(BUILD_HARNESS_PATH)/vendor:$(PATH)
+# Solve PATH problem for MacOs https://stackoverflow.com/questions/21708839/problems-setting-path-in-makefile/26936855
+export SHELL := env PATH=$(PATH) /bin/bash
 export DOCKER_BUILD_FLAGS ?=
 
 # Forces auto-init off to avoid invoking the macro on recursive $(MAKE)

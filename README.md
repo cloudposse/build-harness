@@ -1,6 +1,6 @@
-<!-- markdownlint-disable -->
+<!-- markdownlint-disable MD013 -->
 # Build Harness [![Build Status](https://github.com/cloudposse/build-harness/workflows/docker/badge.svg?branch=master)](https://github.com/cloudposse/build-harness/actions?query=workflow%3Adocker) [![Latest Release](https://img.shields.io/github/release/cloudposse/build-harness.svg)](https://github.com/cloudposse/build-harness/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com) [![Discourse Forum](https://img.shields.io/discourse/https/ask.sweetops.com/posts.svg)](https://ask.sweetops.com/)
-<!-- markdownlint-restore -->
+<!-- markdownlint-enable MD013 -->
 
 [![README Header][readme_header_img]][readme_header_link]
 
@@ -392,16 +392,35 @@ Please use the [issue tracker](https://github.com/cloudposse/build-harness/issue
 If you are interested in being a contributor and want to get involved in developing this project or [help out](https://cpco.io/help-out) with our other projects, we would love to hear from you! Shoot us an [email][email].
 
 In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
-
  1. **Fork** the repo on GitHub
  2. **Clone** the project to your own machine
- 3. **Commit** changes to your own branch
- 4. **Push** your work back up to your fork
- 5. Submit a **Pull Request** so that we can review your changes
+ 3. [**Setup pre-commit**](#developer-setup) to verify code style (optional, but recommended)
+ 4. **Commit** changes to your own branch
+ 5. **Push** your work back up to your fork
+ 6. Submit a **Pull Request** so that we can review your changes
 
 **NOTE:** Be sure to merge the latest changes from "upstream" before making a pull request!
+#### Developer Setup
 
+Before commiting & pushing your changes, we recommend using [`pre-commit`](https://pre-commit.com/) hooks.
 
+##### MacOs
+  ```bash
+  brew install pre-commit
+  pre-commit install --install-hooks
+  ```
+
+##### Linux
+  ```bash
+  pip install pre-commit
+  pre-commit install --install-hooks
+  ```
+
+##### Windows
+  ```bash
+  pip install pre-commit
+  pre-commit install --install-hooks
+  ```
 
 ## Copyrights
 
@@ -464,10 +483,10 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
 
 ### Contributors
 
-<!-- markdownlint-disable -->
+<!-- markdownlint-disable MD013 -->
 |  [![Erik Osterman][osterman_avatar]][osterman_homepage]<br/>[Erik Osterman][osterman_homepage] | [![Igor Rodionov][goruha_avatar]][goruha_homepage]<br/>[Igor Rodionov][goruha_homepage] | [![Andriy Knysh][aknysh_avatar]][aknysh_homepage]<br/>[Andriy Knysh][aknysh_homepage] | [![Sarkis][sarkis_avatar]][sarkis_homepage]<br/>[Sarkis][sarkis_homepage] | [![Alexander Babai][alebabai_avatar]][alebabai_homepage]<br/>[Alexander Babai][alebabai_homepage] | [![Jon Boulle][jonboulle_avatar]][jonboulle_homepage]<br/>[Jon Boulle][jonboulle_homepage] | [![Marcin Brański][3h4x_avatar]][3h4x_homepage]<br/>[Marcin Brański][3h4x_homepage] |
 |---|---|---|---|---|---|---|
-<!-- markdownlint-restore -->
+<!-- markdownlint-enable MD013 -->
 
   [osterman_homepage]: https://github.com/osterman
   [osterman_avatar]: https://img.cloudposse.com/150x150/https://github.com/osterman.png
