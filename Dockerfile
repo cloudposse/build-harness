@@ -1,4 +1,4 @@
-FROM golang:1.15.6-alpine3.12
+FROM golang:1.15.11-alpine3.13
 LABEL maintainer="Cloud Posse <hello@cloudposse.com>"
 
 LABEL "com.github.actions.name"="Build Harness"
@@ -18,11 +18,18 @@ RUN apk --update --no-cache add \
       jq \
       libc6-compat \
       make \
+      perl \
       python3-dev \
       py-pip \
       py3-ruamel.yaml && \
+    python3 -m pip install --upgrade pip setuptools wheel && \
     pip3 install --no-cache-dir \
+      PyYAML==5.4.1 \
+      awscli==1.19.49 \
+      boto==2.49.0 \
+      boto3==1.17.49 \
       iteration-utilities==0.11.0 \
+      pre-commit \
       PyGithub==1.54.1 && \
     git config --global advice.detachedHead false
 
@@ -39,7 +46,8 @@ RUN apk --update --no-cache add \
       helm@cloudposse \
       helmfile@cloudposse \
       codefresh@cloudposse \
-      terraform-0.11@cloudposse terraform-0.12@cloudposse terraform-0.13@cloudposse terraform-0.14@cloudposse \
+      terraform-0.11@cloudposse terraform-0.12@cloudposse \
+      terraform-0.13@cloudposse terraform-0.14@cloudposse terraform-0.15@cloudposse \
       terraform-config-inspect@cloudposse \
       terraform-docs@cloudposse \
       vert@cloudposse \

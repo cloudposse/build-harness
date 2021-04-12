@@ -16,6 +16,7 @@ modules/helmfile: modules/helmfile/**
 modules/jenkins: modules/jenkins/**
 modules/make: modules/make/**
 modules/packages: modules/packages/**
+modules/pre-commit: modules/pre-commit/**
 modules/readme: modules/readme/**
 modules/semver: modules/semver/**
 modules/slack: modules/slack/**
