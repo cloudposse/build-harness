@@ -1,7 +1,18 @@
 {{- defineDatasource "config" .Env.README_YAML | regexp.Replace ".*" "" -}}
 {{- defineDatasource "includes" .Env.README_INCLUDES | regexp.Replace ".*" "" -}}
+{{- $deprecated := has (ds "config") "deprecated" }}
 <!-- markdownlint-disable -->
-# {{(ds "config").name}}{{ if gt (len (ds "config").name) 34 }}{{ print "\n\n" }}{{ end }}{{ if has (ds "config") "badges" }}{{- range $badge := (ds "config").badges -}}{{ printf " [![%s](%s)](%s)" $badge.name $badge.image $badge.url }}{{ end }}{{ end }}
+{{- if $deprecated }}
+# (deprecated) {{(ds "config").name}}{{ if gt (len (ds "config").name) 23 }}{{ print "\n\n" }}{{ end }}
+{{- else }}
+# {{(ds "config").name}}{{ if gt (len (ds "config").name) 34 }}{{ print "\n\n" }}{{ end }}
+{{- end }}
+{{- if $deprecated }}[![deprecated](https://img.shields.io/badge/lifecycle-deprecated-critical)](#deprecated){{ end }}
+  {{- if has (ds "config") "badges" }}
+    {{- range $badge := (ds "config").badges }}
+    {{- printf " [![%s](%s)](%s)" $badge.name $badge.image $badge.url }}
+  {{- end }}
+{{- end }}
 <!-- markdownlint-restore -->
 
 [![README Header][readme_header_img]][readme_header_link]
@@ -32,13 +43,34 @@
 ![{{(ds "config").name}}]({{ (ds "config").logo }})
 {{- end -}}
 
+{{- if $deprecated }}
+## Deprecated
+
+{{ if has (ds "config").deprecated "notice" }}
+  {{- (ds "config").deprecated.notice }}
+{{- else }}
+  This module is no longer actively maintained
+{{- end }}
+{{- if (file.Exists "main.tf") }}
+
+We literally have [*hundreds of other terraform modules*][terraform_modules] that are Open Source and well-maintained. Check them out!
+{{- end }}
+
 {{ if has (ds "config") "description" }}
+### Historical Description
+
 {{(ds "config").description }}
-{{ end }}
+{{- end }}
+{{- else }}
+{{- if has (ds "config") "description" }}
+{{ (ds "config").description }}
+
+{{- end }}
+{{- end }}
 
 ---
 
-This project is part of our comprehensive ["SweetOps"](https://cpco.io/sweetops) approach towards DevOps.
+This project {{ if $deprecated }}was{{ else }}is{{ end }} part of our comprehensive ["SweetOps"](https://cpco.io/sweetops) approach towards DevOps.
 [<img align="right" title="Share via Email" src="https://docs.cloudposse.com/images/ionicons/ios-email-outline-2.0.1-16x16-999999.svg"/>][share_email]
 [<img align="right" title="Share on Google+" src="https://docs.cloudposse.com/images/ionicons/social-googleplus-outline-2.0.1-16x16-999999.svg" />][share_googleplus]
 [<img align="right" title="Share on Facebook" src="https://docs.cloudposse.com/images/ionicons/social-facebook-outline-2.0.1-16x16-999999.svg" />][share_facebook]
@@ -68,10 +100,10 @@ It's 100% Open Source and licensed under the [Internet Systems Consortium](LICEN
 It's 100% Open Source and licensed under the [GNU General Public License](LICENSE).
 {{ end }}
 
-{{ if (file.Exists "main.tf") }}
+{{ if not $deprecated }}
+{{- if (file.Exists "main.tf") }}
 We literally have [*hundreds of terraform modules*][terraform_modules] that are Open Source and well-maintained. Check them out!
-{{end}}
-
+{{- end }}
 
 
 {{ if has (ds "config") "screenshots" }}
@@ -79,11 +111,13 @@ We literally have [*hundreds of terraform modules*][terraform_modules] that are 
 
 {{ range $screenshot := (ds "config").screenshots }}
 {{ printf "![%s](%s)\n*%s*" $screenshot.name $screenshot.url $screenshot.description }}{{ end }}
-{{ end }}
+{{- end }}
+{{- end }}
+
 {{ if has (ds "config") "introduction" }}
 ## Introduction
 
-{{ (ds "config").introduction -}}
+{{ (ds "config").introduction }}
 {{ end }}
 
 {{ if (file.Exists "main.tf") }}
@@ -94,6 +128,9 @@ Security scanning is graciously provided by Bridgecrew. Bridgecrew is the leadin
 
 | Benchmark | Description |
 |--------|---------------|
+{{- if $deprecated }}
+| [![deprecated](https://img.shields.io/badge/lifecycle-deprecated-critical)](#deprecated) | This project is no longer being maintained |
+{{- end }}
 | [![Infrastructure Security]({{ printf "https://www.bridgecrew.cloud/badges/github/%s/general" (ds "config").github_repo}})]({{ printf "https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=%s&benchmark=INFRASTRUCTURE+SECURITY" $repo_encoded }}) | Infrastructure Security Compliance |
 | [![CIS KUBERNETES]({{ printf "https://www.bridgecrew.cloud/badges/github/%s/cis_kubernetes" (ds "config").github_repo}})]({{ printf "https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=%s&benchmark=CIS+KUBERNETES+V1.5" $repo_encoded }}) | Center for Internet Security, KUBERNETES Compliance |
 | [![CIS AWS]({{ printf "https://www.bridgecrew.cloud/badges/github/%s/cis_aws" (ds "config").github_repo}})]({{ printf "https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=%s&benchmark=CIS+AWS+V1.2" $repo_encoded }}) | Center for Internet Security, AWS Compliance |
@@ -124,6 +161,7 @@ The table below correctly indicates which inputs are required.
 {{ (ds "config").usage -}}
 {{ end }}
 
+{{ if not $deprecated -}}
 {{ if has (ds "config") "quickstart" -}}
 ## Quick Start
 
@@ -149,7 +187,7 @@ Like this project? Please give it a ★ on [our GitHub]({{ printf "https://githu
 
 Are you using this project or any of our other projects? Consider [leaving a testimonial][testimonial]. =)
 
-
+{{ end }}
 ## Related Projects
 
 Check out these related projects.
@@ -214,6 +252,7 @@ Sign up for [our newsletter][newsletter] that covers everything on our technolog
 
 [![zoom](https://img.cloudposse.com/fit-in/200x200/https://cloudposse.com/wp-content/uploads/2019/08/Powered-by-Zoom.png")][office_hours]
 
+{{ if not $deprecated -}}
 ## Contributing
 
 ### Bug Reports & Feature Requests
@@ -233,7 +272,7 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
  5. Submit a **Pull Request** so that we can review your changes
 
 **NOTE:** Be sure to merge the latest changes from "upstream" before making a pull request!
-
+{{ end }}
 {{ if has (ds "config") "copyrights" }}
 
 ## Copyrights

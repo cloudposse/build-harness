@@ -120,7 +120,7 @@ build-harness/shell-slim builder-slim: build-harness/runner
 pr/auto-format pr/readme pr/pre-commit tf14-upgrade : ENTRYPOINT := /usr/bin/make
 
 pr/auto-format pr/auto-format/host: ARGS := terraform/fmt readme
-pr/readme pr/readme/host: ARGS := readme
+pr/readme pr/readme/host: ARGS := readme/deps readme
 pr/auto-format pr/readme: build-harness/runner
 pr/auto-format/host pr/readme/host:
 	$(MAKE) $(ARGS)
