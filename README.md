@@ -315,13 +315,14 @@ Like this project? Please give it a ★ on [our GitHub](https://github.com/cloud
 Are you using this project or any of our other projects? Consider [leaving a testimonial][testimonial]. =)
 
 
-
 ## Related Projects
 
 Check out these related projects.
 
 - [Packages](https://github.com/cloudposse/packages) - Cloud Posse installer and distribution of native apps
 - [Dev Harness](https://github.com/cloudposse/dev) - Cloud Posse Local Development Harness
+
+
 
 
 ## References
