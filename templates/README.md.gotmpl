@@ -188,12 +188,14 @@ Like this project? Please give it a ★ on [our GitHub]({{ printf "https://githu
 Are you using this project or any of our other projects? Consider [leaving a testimonial][testimonial]. =)
 
 {{ end }}
+{{ if has (ds "config") "related" }}
 ## Related Projects
 
 Check out these related projects.
 {{ range $related := (ds "config").related }}
 {{ printf "- [%s](%s) - %s" $related.name $related.url $related.description }}{{ end }}
 
+{{ end}}
 {{ end}}
 {{ if has (ds "config") "references" }}
 
