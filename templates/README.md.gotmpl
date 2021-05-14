@@ -195,8 +195,8 @@ Check out these related projects.
 {{ range $related := (ds "config").related }}
 {{ printf "- [%s](%s) - %s" $related.name $related.url $related.description }}{{ end }}
 
-{{ end}}
-{{ end}}
+{{- end}}
+{{- end}}
 {{ if has (ds "config") "references" }}
 
 ## References
