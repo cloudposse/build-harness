@@ -44,13 +44,20 @@ terraform/fmt:
 ifeq ($(wildcard *.tf),)
 	@echo "* $@: No terraform files detected"
 else
-	@{ command -v terraform-0.13 && command -v terraform-0.14; } >/dev/null || { echo "* $@ requires binaries named terraform-0.13 and terraform-0.14" && false; }
+	@{ command -v terraform-0.13 && \
+	command -v terraform-0.14 && \
+	command -v terraform-0.15 && \
+	command -v terraform-1 \
+	; } >/dev/null || { echo "* $@ requires binaries named terraform-0.13, terraform-0.14, terraform-0.15, and terraform-1" && false; }
 	@ # vert exits non-zero if any of the versions are not acceptable, so `|| [[ -n "$VERSION" ]]` for a real error check
-	@TF12=0.12.29; \
-	TF13=$$(terraform-0.13 version --json | jq -r .terraform_version); \
-	TF14=$$(terraform-0.14 version --json | jq -r .terraform_version); \
-	VERSION=$$(vert -s "$$(terraform-config-inspect --json . | jq -r '.required_core[]')" "$$TF12" "$$TF13" "$$TF14" | head -1) || [[ -n "$$VERSION" ]]; \
+	@TF012=0.12.29; \
+	TF013=$$(terraform-0.13 version --json | jq -r .terraform_version); \
+	TF014=$$(terraform-0.14 version --json | jq -r .terraform_version); \
+	TF015=$$(terraform-0.15 version --json | jq -r .terraform_version); \
+	TF1=$$(terraform-1 version --json | jq -r .terraform_version); \
+	VERSION=$$(vert -s "$$(terraform-config-inspect --json . | jq -r '.required_core[]')" "$$TF012" "$$TF013" "$$TF014" "$$TF015" "$$TF1" | head -1) || [[ -n "$$VERSION" ]]; \
 	VERSION=$${VERSION:0:4}; \
+	[[ $$VERSION =~ ^1 ]] && VERSION=1 || true; \
 	terraform-$${VERSION} fmt -recursive .
 endif
 
