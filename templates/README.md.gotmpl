@@ -120,7 +120,7 @@ We literally have [*hundreds of terraform modules*][terraform_modules] that are 
 {{ (ds "config").introduction }}
 {{ end }}
 
-{{ if (file.Exists "main.tf") }}
+{{ if and (file.Exists "main.tf") (not (has (ds "config") "disable_security_compliance")) }}
 {{- $repo_encoded := (ds "config").github_repo | regexp.Replace "/" "%2F" -}}
 ## Security & Compliance [<img src="https://cloudposse.com/wp-content/uploads/2020/11/bridgecrew.svg" width="250" align="right" />](https://bridgecrew.io/)
 
