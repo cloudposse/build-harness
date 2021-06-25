@@ -12,7 +12,12 @@ codefresh/trigger/webhook:
 	 --data-binary \
 		'{"serviceId":"$(CF_TRIGGER_SERVICE_ID)","type":"$(CF_TRIGGER_TYPE)","repoOwner":"$(CF_TRIGGER_REPO_OWNER)","branch":"$(CF_TRIGGER_BRANCH)","repoName":"$(CF_TRIGGER_REPO_NAME)"}'
 
-## DEPRECATED!!! Export codefresh additional envvars
+## Export codefresh additional envvars
 codefresh/export:
 	$(call assert-set,CF_BUILD_TIMESTAMP)
 	@echo "CF_BUILD_UNIX_TIMESTAMP=$(shell expr $(CF_BUILD_TIMESTAMP) / 1000)"
+	@echo "IS_CODEFRESH=$(IS_CODEFRESH)"
+	@echo "CICD_BUILD_ID=$(CICD_BUILD_ID)"
+	@echo "CICD_COMMIT=$(CICD_COMMIT)"
+	@echo "CICD_DOCKER_IMAGE_PULL_REQUEST_TAG=$(CICD_DOCKER_IMAGE_PULL_REQUEST_TAG)"
+	@echo "CICD_DOCKER_IMAGE_LATEST_TAG=$(CICD_DOCKER_IMAGE_LATEST_TAG)"
