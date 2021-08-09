@@ -171,13 +171,13 @@ Available targets:
   geodesic/deploy                     Run a Jenkins Job to Deploy $(APP) with $(CANONICAL_TAG)
   git/aliases-update                  Update git aliases
   git/export                          Export git vars
-  git/submodules-update               Update submodules
   github/download-private-release     Download release from github
   github/download-public-release      Download release from github
   github/latest-release               Fetch the latest release tag from the GitHub API
   github/push-artifacts               Push all release artifacts to GitHub (Required: `GITHUB_TOKEN`)
   gitleaks/install                    Install gitleaks
   gitleaks/scan                       Scan current repository
+  git/submodules-update               Update submodules
   go/build                            Build binary
   go/build-all                        Build binary for all platforms
   go/clean                            Clean compiled binary
@@ -206,6 +206,7 @@ Available targets:
   helm/delete/failed                  Delete all failed releases in a `NAMESPACE` subject to `FILTER`
   helm/delete/namespace               Delete all releases in a `NAMEPSACE` as well as the namespace
   helm/delete/namespace/empty         Delete `NAMESPACE` if there are no releases in it
+  helmfile/install                    Install helmfile
   helm/install                        Install helm
   helm/repo/add                       Add $REPO_NAME from $REPO_ENDPOINT
   helm/repo/add-current               Add helm remote dev repos
@@ -218,7 +219,6 @@ Available targets:
   helm/repo/update                    Update repo info
   helm/serve/index                    Build index for serve helm charts
   helm/toolbox/upsert                 Install or upgrade helm tiller 
-  helmfile/install                    Install helmfile
   help                                Help screen
   help/all                            Display help for all targets
   help/short                          This help short screen
