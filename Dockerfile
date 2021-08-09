@@ -47,7 +47,8 @@ RUN apk --update --no-cache add \
       helmfile@cloudposse \
       codefresh@cloudposse \
       terraform-0.11@cloudposse terraform-0.12@cloudposse \
-      terraform-0.13@cloudposse terraform-0.14@cloudposse terraform-0.15@cloudposse \
+      terraform-0.13@cloudposse terraform-0.14@cloudposse \
+      terraform-0.15@cloudposse terraform-1@cloudposse \
       terraform-config-inspect@cloudposse \
       terraform-docs@cloudposse \
       vert@cloudposse \
