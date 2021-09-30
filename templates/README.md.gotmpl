@@ -1,6 +1,7 @@
 {{- defineDatasource "config" .Env.README_YAML | regexp.Replace ".*" "" -}}
 {{- defineDatasource "includes" .Env.README_INCLUDES | regexp.Replace ".*" "" -}}
 {{- $deprecated := has (ds "config") "deprecated" }}
+{{- $disable_cloudposse_parts := has (ds "config") "disable_cloudposse_parts" }}
 <!-- markdownlint-disable -->
 {{- if $deprecated }}
 # (deprecated) {{(ds "config").name}}{{ if gt (len (ds "config").name) 23 }}{{ print "\n\n" }}{{ end }}
@@ -13,12 +14,17 @@
     {{- printf " [![%s](%s)](%s)" $badge.name $badge.image $badge.url }}
   {{- end }}
 {{- end }}
+{{- $custom_header := has (ds "config") "custom_header" }}
+{{- if $custom_header }}
+
+{{- (ds "config").custom_header }}
+{{- else }}
 <!-- markdownlint-restore -->
 
 [![README Header][readme_header_img]][readme_header_link]
 
 [![Cloud Posse][logo]](https://cpco.io/homepage)
-
+{{- end }}
 <!--
 
 
@@ -51,7 +57,7 @@
 {{- else }}
   This module is no longer actively maintained
 {{- end }}
-{{- if (file.Exists "main.tf") }}
+{{- if and (file.Exists "main.tf") (not $disable_cloudposse_parts) }}
 
 We literally have [*hundreds of other terraform modules*][terraform_modules] that are Open Source and well-maintained. Check them out!
 {{- end }}
@@ -70,6 +76,8 @@ We literally have [*hundreds of other terraform modules*][terraform_modules] tha
 
 ---
 
+{{ if (not $disable_cloudposse_parts) }}
+
 This project {{ if $deprecated }}was{{ else }}is{{ end }} part of our comprehensive ["SweetOps"](https://cpco.io/sweetops) approach towards DevOps.
 [<img align="right" title="Share via Email" src="https://docs.cloudposse.com/images/ionicons/ios-email-outline-2.0.1-16x16-999999.svg"/>][share_email]
 [<img align="right" title="Share on Google+" src="https://docs.cloudposse.com/images/ionicons/social-googleplus-outline-2.0.1-16x16-999999.svg" />][share_googleplus]
@@ -80,7 +88,9 @@ This project {{ if $deprecated }}was{{ else }}is{{ end }} part of our comprehens
 
 {{ if (file.Exists "main.tf") }}
 [![Terraform Open Source Modules](https://docs.cloudposse.com/images/terraform-open-source-modules.svg)][terraform_modules]
-{{end}}
+{{- end }}
+
+{{- end }}
 
 {{ if eq (ds "config").license "APACHE2" }}
 It's 100% Open Source and licensed under the [APACHE2](LICENSE).
@@ -100,11 +110,12 @@ It's 100% Open Source and licensed under the [Internet Systems Consortium](LICEN
 It's 100% Open Source and licensed under the [GNU General Public License](LICENSE).
 {{ end }}
 
+{{ if (not $disable_cloudposse_parts) }}
 {{ if not $deprecated }}
 {{- if (file.Exists "main.tf") }}
 We literally have [*hundreds of terraform modules*][terraform_modules] that are Open Source and well-maintained. Check them out!
 {{- end }}
-
+{{- end }}
 
 {{ if has (ds "config") "screenshots" }}
 ## Screenshots
@@ -120,7 +131,7 @@ We literally have [*hundreds of terraform modules*][terraform_modules] that are 
 {{ (ds "config").introduction }}
 {{ end }}
 
-{{ if and (file.Exists "main.tf") (not (has (ds "config") "disable_security_compliance")) }}
+{{ if and (file.Exists "main.tf") (not ($disable_cloudposse_parts)) }}
 {{- $repo_encoded := (ds "config").github_repo | regexp.Replace "/" "%2F" -}}
 ## Security & Compliance [<img src="https://cloudposse.com/wp-content/uploads/2020/11/bridgecrew.svg" width="250" align="right" />](https://bridgecrew.io/)
 
@@ -185,7 +196,9 @@ The table below correctly indicates which inputs are required.
 
 Like this project? Please give it a ★ on [our GitHub]({{ printf "https://github.com/%s" (ds "config").github_repo}})! (it helps us **a lot**)
 
+{{ if (not $disable_cloudposse_parts) }}
 Are you using this project or any of our other projects? Consider [leaving a testimonial][testimonial]. =)
+{{- end }}
 
 {{ end }}
 {{ if has (ds "config") "related" }}
@@ -206,6 +219,8 @@ For additional context, refer to some of these links.
 {{ printf "- [%s](%s) - %s" $reference.name $reference.url $reference.description }}{{ end }}
 
 {{ end}}
+
+{{ if (not $disable_cloudposse_parts) }}
 ## Help
 
 **Got a question?** We got answers.
@@ -254,6 +269,7 @@ Sign up for [our newsletter][newsletter] that covers everything on our technolog
 
 [![zoom](https://img.cloudposse.com/fit-in/200x200/https://cloudposse.com/wp-content/uploads/2019/08/Powered-by-Zoom.png")][office_hours]
 
+{{ end }}
 {{ if not $deprecated -}}
 ## Contributing
 
@@ -263,7 +279,11 @@ Please use the [issue tracker]({{ printf "https://github.com/%s/issues" (ds "con
 
 ### Developing
 
+{{ if (not $disable_cloudposse_parts) }}
+
 If you are interested in being a contributor and want to get involved in developing this project or [help out](https://cpco.io/help-out) with our other projects, we would love to hear from you! Shoot us an [email][email].
+
+{{ end }}
 
 In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
@@ -406,6 +426,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ```
 {{ end }}
 
+{{ if (not $disable_cloudposse_parts) }}
+
 ## Trademarks
 
 All other trademarks referenced herein are the property of their respective owners.
@@ -422,6 +444,7 @@ We offer [paid support][commercial_support] on all of our projects.
 
 Check out [our other projects][github], [follow us on twitter][twitter], [apply for a job][jobs], or [hire us][hire] to help with your cloud strategy and implementation.
 
+{{ end }}
 
 {{ if has (datasource "config") "contributors" }}
 ### Contributors
