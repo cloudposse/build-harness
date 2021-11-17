@@ -7,32 +7,32 @@ LABEL "com.github.actions.icon"="tool"
 LABEL "com.github.actions.color"="blue"
 
 RUN apk --update --no-cache add \
-      bash \
-      ca-certificates \
-      coreutils \
-      curl \
-      git \
-      gettext \
-      go \
-      grep \
-      groff \
-      jq \
-      libc6-compat \
-      make \
-      perl \
-      python3-dev \
-      py-pip \
-      py3-ruamel.yaml && \
-    python3 -m pip install --upgrade pip setuptools wheel && \
-    pip3 install --no-cache-dir \
-      PyYAML==5.4.1 \
-      awscli==1.20.28 \
-      boto==2.49.0 \
-      boto3==1.18.28 \
-      iteration-utilities==0.11.0 \
-      pre-commit \
-      PyGithub==1.54.1 && \
-    git config --global advice.detachedHead false
+  bash \
+  ca-certificates \
+  coreutils \
+  curl \
+  git \
+  gettext \
+  go \
+  grep \
+  groff \
+  jq \
+  libc6-compat \
+  make \
+  perl \
+  python3-dev \
+  py-pip \
+  py3-ruamel.yaml && \
+  python3 -m pip install --upgrade pip setuptools wheel && \
+  pip3 install --no-cache-dir \
+  PyYAML==5.4.1 \
+  awscli==1.20.28 \
+  boto==2.49.0 \
+  boto3==1.18.28 \
+  iteration-utilities==0.11.0 \
+  pre-commit \
+  PyGithub==1.54.1 && \
+  git config --global advice.detachedHead false
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN curl -fsSL --retry 3 https://apk.cloudposse.com/install.sh | bash
@@ -42,22 +42,22 @@ RUN curl -fsSL --retry 3 https://apk.cloudposse.com/install.sh | bash
 ## Codefresh required additional libraries for alpine
 ## So can not be curl binary
 RUN apk --update --no-cache add \
-      chamber@cloudposse \
-      gomplate@cloudposse \
-      helm@cloudposse \
-      helmfile@cloudposse \
-      codefresh@cloudposse \
-      terraform-0.11@cloudposse terraform-0.12@cloudposse \
-      terraform-0.13@cloudposse terraform-0.14@cloudposse \
-      terraform-0.15@cloudposse terraform-1@cloudposse \
-      terraform-config-inspect@cloudposse \
-      terraform-docs@cloudposse \
-      vert@cloudposse \
-      yq@cloudposse && \
-    sed -i /PATH=/d /etc/profile
+  chamber@cloudposse \
+  gomplate@cloudposse \
+  helm@cloudposse \
+  helmfile@cloudposse \
+  codefresh@cloudposse \
+  terraform-0.11@cloudposse terraform-0.12@cloudposse \
+  terraform-0.13@cloudposse terraform-0.14@cloudposse \
+  terraform-0.15@cloudposse terraform-1.0@cloudposse \
+  terraform-config-inspect@cloudposse \
+  terraform-docs@cloudposse \
+  vert@cloudposse \
+  yq@cloudposse && \
+  sed -i /PATH=/d /etc/profile
 
-# Use Terraform 1.x by default
-ARG DEFAULT_TERRAFORM_VERSION=1
+# Use Terraform 1.0.x by default
+ARG DEFAULT_TERRAFORM_VERSION=1.0
 RUN update-alternatives --set terraform /usr/share/terraform/$DEFAULT_TERRAFORM_VERSION/bin/terraform && \
   mkdir -p /build-harness/vendor && \
   cp -p /usr/share/terraform/$DEFAULT_TERRAFORM_VERSION/bin/terraform /build-harness/vendor/terraform
