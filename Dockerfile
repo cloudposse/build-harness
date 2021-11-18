@@ -56,8 +56,8 @@ RUN apk --update --no-cache add \
       yq@cloudposse && \
     sed -i /PATH=/d /etc/profile
 
-# Use Terraform 0.13 by default
-ARG DEFAULT_TERRAFORM_VERSION=0.13
+# Use Terraform 1.x by default
+ARG DEFAULT_TERRAFORM_VERSION=1
 RUN update-alternatives --set terraform /usr/share/terraform/$DEFAULT_TERRAFORM_VERSION/bin/terraform && \
   mkdir -p /build-harness/vendor && \
   cp -p /usr/share/terraform/$DEFAULT_TERRAFORM_VERSION/bin/terraform /build-harness/vendor/terraform
