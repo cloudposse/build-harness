@@ -15,6 +15,7 @@ RUN apk --update --no-cache add \
       gettext \
       go \
       grep \
+      groff \
       jq \
       libc6-compat \
       make \
@@ -25,9 +26,9 @@ RUN apk --update --no-cache add \
     python3 -m pip install --upgrade pip setuptools wheel && \
     pip3 install --no-cache-dir \
       PyYAML==5.4.1 \
-      awscli==1.19.49 \
+      awscli==1.20.28 \
       boto==2.49.0 \
-      boto3==1.17.49 \
+      boto3==1.18.28 \
       iteration-utilities==0.11.0 \
       pre-commit \
       PyGithub==1.54.1 && \
@@ -55,8 +56,8 @@ RUN apk --update --no-cache add \
       yq@cloudposse && \
     sed -i /PATH=/d /etc/profile
 
-# Use Terraform 0.13 by default
-ARG DEFAULT_TERRAFORM_VERSION=0.13
+# Use Terraform 1.x by default
+ARG DEFAULT_TERRAFORM_VERSION=1
 RUN update-alternatives --set terraform /usr/share/terraform/$DEFAULT_TERRAFORM_VERSION/bin/terraform && \
   mkdir -p /build-harness/vendor && \
   cp -p /usr/share/terraform/$DEFAULT_TERRAFORM_VERSION/bin/terraform /build-harness/vendor/terraform
@@ -69,7 +70,7 @@ WORKDIR /build-harness
 
 ARG PACKAGES_PREFER_HOST=true
 RUN make -s bash/lint make/lint
-RUN make -s template/deps aws/install terraform/install readme/deps
+RUN make -s template/deps readme/deps
 RUN make -s go/deps-build go/deps-dev
 
 ENTRYPOINT ["/usr/bin/make"]

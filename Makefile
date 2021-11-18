@@ -31,6 +31,10 @@ auto-label:
 	for module in $(MODULES); do \
 		echo "$${module%/}: $${module}**"; \
 	done > .github/$@.yml
+
+# builder/build is defined in templates/Makefile.build-harness
+build: builder/build
+
 endif
 
 # Import Makefiles into current context

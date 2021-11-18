@@ -1,4 +1,4 @@
-export AWSCLI_VERSION ?= 1.11.185
+export AWSCLI_VERSION ?= 1.20.28
 
 WITH_AWS ?= aws-vault exec $(AWS_PROFILE) --
 
