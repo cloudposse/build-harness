@@ -56,11 +56,18 @@ RUN apk --update --no-cache add \
       yq@cloudposse && \
     sed -i /PATH=/d /etc/profile
 
-# Use Terraform 1.x by default
+# Use Terraform 1 by default
 ARG DEFAULT_TERRAFORM_VERSION=1
 RUN update-alternatives --set terraform /usr/share/terraform/$DEFAULT_TERRAFORM_VERSION/bin/terraform && \
   mkdir -p /build-harness/vendor && \
   cp -p /usr/share/terraform/$DEFAULT_TERRAFORM_VERSION/bin/terraform /build-harness/vendor/terraform
+
+# Patch for old Makefiles that expect a directory like x.x from the 0.x days.
+# Fortunately, they only look for the current version, so we only need links
+# for the current major version.
+RUN v=$(curl -s https://checkpoint-api.hashicorp.com/v1/check/terraform | jq -r -M '.current_version' | cut -d. -f1-2) && \
+    major=${v%%\.*} && n=$(( ${v##*\.} + 1 )) && \
+    for (( x=0; x <= $n; x++ )); do ln -s /usr/local/terraform/{${major},${major}.${x}}; done
 
 COPY ./ /build-harness/
 
