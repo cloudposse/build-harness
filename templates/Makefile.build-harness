@@ -44,9 +44,7 @@ if [[ \
 	-f "/build-harness/Makefile" || -f "/$(BUILD_HARNESS_PROJECT)/Makefile" \
 ]]; then \
 	echo "[.build-harness]: In $(BUILD_HARNESS_PROJECT) docker container, skipping auto-init" ;\
-elif [[ \
-	grep -q docker /proc/1/cgroup 2>/dev/null \
-]]; then \
+elif grep -q docker /proc/1/cgroup 2>/dev/null; then \
 	echo "[.build-harness]: In unknown docker container, skipping auto-init" ;\
 elif [[ \
 	"$(BUILD_HARNESS_PATH)" != "$(BUILD_HARNESS_PATH_LOCAL)" && \
