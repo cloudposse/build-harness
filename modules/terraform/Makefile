@@ -1,6 +1,6 @@
 TMP ?= /tmp
 TERRAFORM ?= $(BUILD_HARNESS_PATH)/vendor/terraform
-TERRAFORM_VERSION ?= 0.12.26
+TERRAFORM_VERSION ?= 1.0.11
 TERRAFORM_URL ?= https://releases.hashicorp.com/terraform/$(TERRAFORM_VERSION)/terraform_$(TERRAFORM_VERSION)_$(OS)_$(BUILD_HARNESS_ARCH).zip
 
 ## Install terraform
@@ -16,7 +16,7 @@ terraform/install:
 
 ## Ensure all plugins can be fetched
 terraform/get-plugins:
-	@$(TERRAFORM) init -get-plugins -backend=false -input=false >/dev/null
+	@$echo terraform -get-plugins no longer supported
 
 ## Ensure all modules can be fetched
 terraform/get-modules:
@@ -24,11 +24,7 @@ terraform/get-modules:
 
 ## Basic terraform sanity check
 terraform/validate:
-ifeq ("12","$(word 2, $(subst ., ,$(TERRAFORM_VERSION)))")
-	@echo "Terraform 0.12 does not support validate without skipping variables"
-else
-	@$(TERRAFORM) validate -check-variables=false
-endif
+	@$(TERRAFORM) validate
 
 ## Lint check Terraform
 terraform/lint:
