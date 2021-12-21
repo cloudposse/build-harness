@@ -1,0 +1,100 @@
+#
+# This is the canonical configuration for the `README.md`
+# Run `make readme` to rebuild the `README.md`
+#
+
+# Name of this project
+name:
+
+# Logo for this project
+#logo: docs/logo.png
+
+# License of this project
+license: "APACHE2"
+
+# Copyrights
+copyrights:
+- name: "Cloud Posse, LLC"
+  url: "https://cloudposse.com"
+  year: "2021"
+
+# Canonical GitHub repo
+github_repo:
+
+# Badges to display
+badges:
+- name: "Latest Release"
+  image: "https://img.shields.io/github/release/cloudposse/terraform-example-module.svg"
+  url: "https://github.com/cloudposse/terraform-example-module/releases/latest"
+- name: "Slack Community"
+  image: "https://slack.cloudposse.com/badge.svg"
+  url: "https://slack.cloudposse.com"
+- name: "Discourse Forum"
+  image: "https://img.shields.io/discourse/https/ask.sweetops.com/posts.svg"
+  url: "https://ask.sweetops.com/"
+
+# List any related terraform modules that this module may be used with or that this module depends on.
+related:
+- name: "terraform-null-label"
+  description: "Terraform module designed to generate consistent names and tags for resources. Use terraform-null-label to implement a strict naming convention."
+  url: "https://github.com/cloudposse/terraform-null-label"
+
+# List any resources helpful for someone to get started. For example, link to the hashicorp documentation or AWS documentation.
+references:
+
+# Short description of this project
+description: |-
+  Short
+  description
+
+# Introduction to the project
+introduction: |-
+  This is an introduction.
+
+# How to use this module. Should be an easy example to copy and paste.
+usage: |-
+  For a complete example, see [examples/complete](examples/complete).
+
+  For automated tests of the complete example using [bats](https://github.com/bats-core/bats-core) and [Terratest](https://github.com/gruntwork-io/terratest)
+  (which tests and deploys the example on AWS), see [test](test).
+
+  ```hcl
+  # Create a standard label resource. See [null-label](https://github.com/cloudposse/terraform-null-label/#terraform-null-label--)
+  module "label" {
+    source  = "cloudposse/label/null"
+    # Cloud Posse recommends pinning every module to a specific version, though usually you want to use the current one
+    # version = "x.x.x"
+
+    namespace = "eg"
+    name      = "example"
+  }
+
+  module "example" {
+    source  = "cloudposse/*****/aws"
+    # Cloud Posse recommends pinning every module to a specific version
+    # version = "x.x.x"
+
+    example = "Hello world!"
+
+    context = module.label.this
+  }
+  ```
+
+# Example usage
+examples: |-
+  Here is an example of using this module:
+  - [`examples/complete`](https://github.com/cloudposse/terraform-example-module/) - complete example of using this module
+
+# How to get started quickly
+quickstart: |-
+  Here's how to get started...
+
+# Other files to include in this README from the project folder
+include:
+- "docs/targets.md"
+- "docs/terraform.md"
+
+# Contributors to this project
+contributors:
+- name: "Erik Osterman"
+  github: "osterman"
