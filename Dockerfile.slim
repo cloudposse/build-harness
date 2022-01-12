@@ -1,5 +1,4 @@
 FROM alpine:3.13
-LABEL maintainer="Cloud Posse <hello@cloudposse.com>"
 
 LABEL "com.github.actions.name"="Build Harness"
 LABEL "com.github.actions.description"="Run any build-harness make target"
@@ -16,7 +15,8 @@ RUN apk --no-cache add \
       grep \
       jq \
       libc6-compat \
-      make
+      make \
+      fetch
 
 RUN git config --global advice.detachedHead false
 
@@ -27,7 +27,6 @@ RUN curl -fsSL --retry 3 https://apk.cloudposse.com/install.sh | bash
 
 RUN apk --no-cache add \
       gomplate@cloudposse \
-      terraform-0.12@cloudposse terraform-0.13@cloudposse terraform-0.14@cloudposse \
       terraform-0.15@cloudposse terraform-1@cloudposse \
       terraform-config-inspect@cloudposse \
       terraform-docs@cloudposse \

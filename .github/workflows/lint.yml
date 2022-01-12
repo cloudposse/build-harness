@@ -13,8 +13,11 @@ jobs:
     name: readme
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - uses: cloudposse/build-harness@0.38.0
+      - name: Checkout source code
+        uses: actions/checkout@master
+
+      - name: README lint
+        uses: bitdefendermdr/build-harness@master
         with:
           entrypoint: /usr/bin/make
           args: readme/lint
@@ -23,8 +26,9 @@ jobs:
     name: superlinter
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
+      - name: Checkout source code
         uses: actions/checkout@v2
+
       - name: Lint Code Base
         uses: docker://github/super-linter:v3
         env:

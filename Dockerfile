@@ -1,5 +1,4 @@
 FROM golang:1.15.11-alpine3.13
-LABEL maintainer="Cloud Posse <hello@cloudposse.com>"
 
 LABEL "com.github.actions.name"="Build Harness"
 LABEL "com.github.actions.description"="Run any build-harness make target"
@@ -19,6 +18,7 @@ RUN apk --update --no-cache add \
       jq \
       libc6-compat \
       make \
+      fetch \
       perl \
       python3-dev \
       py-pip \
@@ -42,13 +42,9 @@ RUN curl -fsSL --retry 3 https://apk.cloudposse.com/install.sh | bash
 ## Codefresh required additional libraries for alpine
 ## So can not be curl binary
 RUN apk --update --no-cache add \
-      chamber@cloudposse \
       gomplate@cloudposse \
       helm@cloudposse \
       helmfile@cloudposse \
-      codefresh@cloudposse \
-      terraform-0.11@cloudposse terraform-0.12@cloudposse \
-      terraform-0.13@cloudposse terraform-0.14@cloudposse \
       terraform-0.15@cloudposse terraform-1@cloudposse \
       terraform-config-inspect@cloudposse \
       terraform-docs@cloudposse \
@@ -57,7 +53,7 @@ RUN apk --update --no-cache add \
     sed -i /PATH=/d /etc/profile
 
 # Use Terraform 1 by default
-ARG DEFAULT_TERRAFORM_VERSION=1
+ARG DEFAULT_TERRAFORM_VERSION=0.15.0
 RUN update-alternatives --set terraform /usr/share/terraform/$DEFAULT_TERRAFORM_VERSION/bin/terraform && \
   mkdir -p /build-harness/vendor && \
   cp -p /usr/share/terraform/$DEFAULT_TERRAFORM_VERSION/bin/terraform /build-harness/vendor/terraform

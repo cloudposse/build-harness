@@ -2,7 +2,7 @@
 ## Login into docker hub
 docker/login: $(DOCKER)
 	@if [ -n "$(DOCKER_HUB_USERNAME)" ] && [ -n "$(DOCKER_HUB_PASSWORD)" ]; then \
-      $(DOCKER) login --username="$(DOCKER_HUB_USERNAME)" --password="$(DOCKER_HUB_PASSWORD)"; \
+		$(DOCKER) login --username="$(DOCKER_HUB_USERNAME)" --password="$(DOCKER_HUB_PASSWORD)"; \
 	else \
-	  echo "Skipping docker:login. Docker credentials (DOCKER_HUB_USERNAME or DOCKER_HUB_PASSWORD) are not set"; \
+		echo "Skipping docker:login. Docker credentials (DOCKER_HUB_USERNAME or DOCKER_HUB_PASSWORD) are not set"; \
 	fi;
