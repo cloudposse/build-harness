@@ -1,9 +1,0 @@
-change-template: |
-  <details>
-    <summary>$TITLE @$AUTHOR (#$NUMBER)</summary>
-
-    $BODY
-  </details>
-
-template: |
-  $CHANGES

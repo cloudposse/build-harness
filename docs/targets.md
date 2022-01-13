@@ -3,6 +3,7 @@
 ```text
 Available targets:
 
+  bash/lint                           Lint all bash scripts
   checkov/install                     Install checkov
   checkov/run                         Static code security analysis
   clean                               Clean build-harness
@@ -26,6 +27,7 @@ Available targets:
   help/all                            Display help for all targets
   help/short                          This help short screen
   init                                Init build-harness
+  make/lint                           Lint all makefiles
   packages/delete                     Delete packages
   packages/install/%                  Install package (e.g. helm, helmfile, kubectl)
   packages/install                    Install packages

@@ -16,6 +16,9 @@
 <!-- markdownlint-restore -->
 
 
+[![Bitdefender][logo]](https://bitdefender.com)
+
+
 <!--
 
 
@@ -60,6 +63,25 @@
 {{- end }}
 
 ---
+
+{{ if eq (ds "config").license "APACHE2" }}
+It's 100% Open Source and licensed under the [APACHE2](LICENSE).
+{{ end }}
+{{ if eq (ds "config").license "CC-BY-NC-SA-4.0" }}
+It's 100% Open Source and licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](LICENSE).
+
+<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img title="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License" src="static/images/cc-by-nc-sa.png" width="150" /></a>
+{{ end }}
+{{ if eq (ds "config").license "MIT" }}
+It's 100% Open Source and licensed under the [MIT](LICENSE).
+{{ end }}
+{{ if eq (ds "config").license "ISC" }}
+It's 100% Open Source and licensed under the [Internet Systems Consortium](LICENSE).
+{{ end }}
+{{ if eq (ds "config").license "GPL3" }}
+It's 100% Open Source and licensed under the [GNU General Public License](LICENSE).
+{{ end }}
+
 
 {{ if has (ds "config") "screenshots" }}
 ## Screenshots
@@ -160,3 +182,6 @@ In general, PRs are welcome. We follow the typical "shared repository" Git workf
 {{ end }}
 
 {{- $utm_link := printf "%%s?utm_source=%s&utm_medium=%s&utm_campaign=%s&utm_content=%s" "github" "readme" (ds "config").github_repo "%s" -}}
+
+
+[logo]: https://www.bitdefender.com/etc.clientlibs/bitdefender/clientlibs/clientlib-site/resources/images/aem/black_company_logo.svg

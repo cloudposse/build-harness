@@ -18,7 +18,6 @@ RUN apk --update --no-cache add \
       jq \
       libc6-compat \
       make \
-      fetch \
       perl \
       python3-dev \
       py-pip \
@@ -49,11 +48,12 @@ RUN apk --update --no-cache add \
       terraform-config-inspect@cloudposse \
       terraform-docs@cloudposse \
       vert@cloudposse \
-      yq@cloudposse && \
+      yq@cloudposse \
+      fetch@cloudposse && \
     sed -i /PATH=/d /etc/profile
 
 # Use Terraform 1 by default
-ARG DEFAULT_TERRAFORM_VERSION=0.15.0
+ARG DEFAULT_TERRAFORM_VERSION=0.15
 RUN update-alternatives --set terraform /usr/share/terraform/$DEFAULT_TERRAFORM_VERSION/bin/terraform && \
   mkdir -p /build-harness/vendor && \
   cp -p /usr/share/terraform/$DEFAULT_TERRAFORM_VERSION/bin/terraform /build-harness/vendor/terraform
@@ -73,7 +73,6 @@ WORKDIR /build-harness
 
 ARG PACKAGES_PREFER_HOST=true
 RUN make -s bash/lint make/lint
-RUN make -s template/deps readme/deps
-RUN make -s go/deps-build go/deps-dev
+RUN make -s readme/deps
 
 ENTRYPOINT ["/usr/bin/make"]

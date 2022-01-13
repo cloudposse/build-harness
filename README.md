@@ -1,7 +1,10 @@
 
 <!-- markdownlint-disable -->
-# Build Harness
+# Build Harness [![Build Status](https://github.com/BitdefenderMDR/build-harness/workflows/docker/badge.svg?branch=master)](https://github.com/BitdefenderMDR/build-harness/actions?query=workflow%3Adocker)
 <!-- markdownlint-restore -->
+
+
+[![Bitdefender][logo]](https://bitdefender.com)
 
 
 <!--
@@ -27,6 +30,15 @@ This `build-harness` is a collection of Makefiles to facilitate building README 
 It's designed to work with CI/CD systems such as GitHub Actions, Codefresh, Travis CI, CircleCI and Jenkins.
 
 ---
+
+
+It's 100% Open Source and licensed under the [APACHE2](LICENSE).
+
+
+
+
+
+
 
 
 
@@ -77,6 +89,7 @@ Here is an example:
 ```text
 Available targets:
 
+  bash/lint                           Lint all bash scripts
   checkov/install                     Install checkov
   checkov/run                         Static code security analysis
   clean                               Clean build-harness
@@ -100,6 +113,7 @@ Available targets:
   help/all                            Display help for all targets
   help/short                          This help short screen
   init                                Init build-harness
+  make/lint                           Lint all makefiles
   packages/delete                     Delete packages
   packages/install/%                  Install package (e.g. helm, helmfile, kubectl)
   packages/install                    Install packages
@@ -174,3 +188,4 @@ In general, PRs are welcome. We follow the typical "shared repository" Git workf
   [sptompkins_homepage]: https://github.com/sptompkins
   [sptompkins_avatar]: https://img.cloudposse.com/150x150/https://github.com/sptompkins.png
 
+[logo]: https://www.bitdefender.com/etc.clientlibs/bitdefender/clientlibs/clientlib-site/resources/images/aem/black_company_logo.svg

@@ -1,9 +1,11 @@
+modules/bash: modules/bash/**
 modules/checkov: modules/checkov/**
 modules/docker: modules/docker/**
 modules/docs: modules/docs/**
 modules/flake8: modules/flake8/**
 modules/git: modules/git/**
 modules/github: modules/github/**
+modules/make: modules/make/**
 modules/packages: modules/packages/**
 modules/readme: modules/readme/**
 modules/terraform: modules/terraform/**

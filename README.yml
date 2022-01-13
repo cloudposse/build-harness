@@ -7,7 +7,7 @@
 name: Build Harness
 
 # Logo for this project
-#logo: docs/logo.png
+# logo: docs/logo.svg
 
 # License of this project
 license: "APACHE2"
@@ -22,10 +22,10 @@ copyrights:
 github_repo: BitdefenderMDR/build-harness
 
 # Badges to display
-# badges:
-# - name: "Latest Release"
-#   image: "https://img.shields.io/github/release/BitdefenderMDR/terraform-template.svg"
-#   url: "https://github.com/BitdefenderMDR/terraform-template/releases/latest"
+badges:
+  - name: "Build Status"
+    image: "https://github.com/BitdefenderMDR/build-harness/workflows/docker/badge.svg?branch=master"
+    url: "https://github.com/BitdefenderMDR/build-harness/actions?query=workflow%3Adocker"
 
 # List any related terraform modules that this module may be used with or that this module depends on.
 related:

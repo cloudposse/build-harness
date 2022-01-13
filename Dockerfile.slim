@@ -15,8 +15,7 @@ RUN apk --no-cache add \
       grep \
       jq \
       libc6-compat \
-      make \
-      fetch
+      make
 
 RUN git config --global advice.detachedHead false
 
@@ -30,12 +29,13 @@ RUN apk --no-cache add \
       terraform-0.15@cloudposse terraform-1@cloudposse \
       terraform-config-inspect@cloudposse \
       terraform-docs@cloudposse \
-      vert@cloudposse
+      vert@cloudposse \
+      fetch@cloudposse
 
 RUN sed -i /PATH=/d /etc/profile
 
 # Use Terraform 1 by default
-ARG DEFAULT_TERRAFORM_VERSION=1
+ARG DEFAULT_TERRAFORM_VERSION=0.15
 RUN update-alternatives --set terraform /usr/share/terraform/$DEFAULT_TERRAFORM_VERSION/bin/terraform && \
   mkdir -p /build-harness/vendor && \
   ln -s /usr/share/terraform/$DEFAULT_TERRAFORM_VERSION/bin/terraform /build-harness/vendor/terraform
@@ -55,6 +55,6 @@ WORKDIR /build-harness
 
 ENV PACKAGES_PREFER_HOST=true
 RUN make -s bash/lint make/lint
-RUN make -s template/deps readme/deps
+RUN make -s readme/deps
 
 ENTRYPOINT ["/usr/bin/make"]

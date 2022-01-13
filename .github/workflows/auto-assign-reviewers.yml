@@ -1,7 +1,7 @@
 name: Auto Assign Reviewers
 on:
   pull_request:
-    branches: [master]
+    branches: [master, main]
     types: [opened]
 
 jobs:
