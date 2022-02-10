@@ -14,11 +14,11 @@ terraform/install:
 		)
 	$(TERRAFORM) version
 
-## Ensure all plugins can be fetched
+## (Obsolete) Ensure all plugins can be fetched
 terraform/get-plugins:
 	@$echo terraform -get-plugins no longer supported
 
-## Ensure all modules can be fetched
+## (Obsolete) Ensure all modules can be fetched
 terraform/get-modules:
 	@$(TERRAFORM) init -get -backend=false -input=false >/dev/null
 
