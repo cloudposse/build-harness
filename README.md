@@ -242,8 +242,8 @@ Available targets:
   template/build                      Create $OUT file by building it from $IN template file
   template/deps                       Install dependencies
   terraform/bump-tf-12-min-version    Rewrite versions.tf to bump modules with minimum core version of '0.12.x' to '>= 0.12.26'
-  terraform/get-modules               Ensure all modules can be fetched
-  terraform/get-plugins               Ensure all plugins can be fetched
+  terraform/get-modules               (Obsolete) Ensure all modules can be fetched
+  terraform/get-plugins               (Obsolete) Ensure all plugins can be fetched
   terraform/install                   Install terraform
   terraform/lint                      Lint check Terraform
   terraform/loosen-constraints        and convert "~>" constraints to ">=".
