@@ -76,7 +76,7 @@ At the top of your `Makefile` add, the following...
 -include $(shell curl -sSL -o .build-harness "https://git.io/build-harness"; echo .build-harness)
 ```
 
-This will download a `Makefile` called `.build-harness` and include it at run-time. We recommend adding the `.build-harness` file to your `.gitignore`.
+This will download a `Makefile` called `.build-harness` and include it at run time. We recommend adding the `.build-harness` file to your `.gitignore`.
 
 This automatically exposes many new targets that you can leverage throughout your build & CI/CD process.
 
