@@ -72,14 +72,14 @@ init::
 .PHONY : clean
 ## Clean build-harness
 clean::
-	if [ -d "$(BUILD_HARNESS_PATH)" ]; then \
-	  if [ -d build-harness ] && [ $$(stat -f %i "$(BUILD_HARNESS_PATH)") == $$(stat -f %i build-harness) ]; then \
-	    rm -rf build-harness; \
-	  else \
-	    echo Not removing build harness from "$(BUILD_HARNESS_PATH)" because it appears to be shared.; \
-	    echo If you are sure you want to delete it, run: ; \
-	    echo '   rm -rf "$(BUILD_HARNESS_PATH)"'; \
-	  fi; \
+	@if [ -d "$(BUILD_HARNESS_PATH)" ]; then \
+		if [ -d build-harness ] && [ $$(ls -di "$(BUILD_HARNESS_PATH)" | cut -f 1 -d' ') == $$(ls -di build-harness | cut -f 1 -d' ') ]; then \
+			rm -rf build-harness; \
+		else \
+			echo Not removing build harness from "$(BUILD_HARNESS_PATH)" because it appears to be shared.; \
+			echo If you are sure you want to delete it, run: ; \
+			echo '   rm -rf "$(BUILD_HARNESS_PATH)"'; \
+		fi; \
 	fi
 
 .PHONY: build-harness/shell builder build-harness/shell/pull builder/pull builder/build

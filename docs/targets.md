@@ -43,6 +43,8 @@ Available targets:
   docker/image/push                   Push $TARGET_DOCKER_REGISTRY/$IMAGE_NAME:$TARGET_VERSION
   docker/login                        Login into docker hub
   docs/copyright-add                  Add copyright headers to source code
+  docs/targets.md                     Update `docs/targets.md` from `make help`
+  docs/terraform.md                   Update `docs/terraform.md` from `terraform-docs`
   geodesic/deploy                     Run a Jenkins Job to Deploy $(APP) with $(CANONICAL_TAG)
   git/aliases-update                  Update git aliases
   git/export                          Export git vars
@@ -117,8 +119,8 @@ Available targets:
   template/build                      Create $OUT file by building it from $IN template file
   template/deps                       Install dependencies
   terraform/bump-tf-12-min-version    Rewrite versions.tf to bump modules with minimum core version of '0.12.x' to '>= 0.12.26'
-  terraform/get-modules               Ensure all modules can be fetched
-  terraform/get-plugins               Ensure all plugins can be fetched
+  terraform/get-modules               (Obsolete) Ensure all modules can be fetched
+  terraform/get-plugins               (Obsolete) Ensure all plugins can be fetched
   terraform/install                   Install terraform
   terraform/lint                      Lint check Terraform
   terraform/loosen-constraints        and convert "~>" constraints to ">=".

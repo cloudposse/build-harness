@@ -8,7 +8,7 @@ jobs:
     steps:
     - name: "Checkout source code at current commit"
       uses: actions/checkout@v2
-    - uses: mszostok/codeowners-validator@v0.5.0
+    - uses: mszostok/codeowners-validator@v0.6.0
       if: github.event.pull_request.head.repo.full_name == github.repository
       name: "Full check of CODEOWNERS"
       with:
@@ -18,7 +18,7 @@ jobs:
         checks: "syntax,owners,duppatterns"
         # GitHub access token is required only if the `owners` check is enabled
         github_access_token: "${{ secrets.PUBLIC_REPO_ACCESS_TOKEN }}"
-    - uses: mszostok/codeowners-validator@v0.5.0
+    - uses: mszostok/codeowners-validator@v0.6.0
       if: github.event.pull_request.head.repo.full_name != github.repository
       name: "Syntax check of CODEOWNERS"
       with:
