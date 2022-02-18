@@ -1,4 +1,4 @@
-FROM golang:1.15.11-alpine3.13
+FROM golang:1.17.7-alpine3.15
 LABEL maintainer="Cloud Posse <hello@cloudposse.com>"
 
 LABEL "com.github.actions.name"="Build Harness"
@@ -22,16 +22,17 @@ RUN apk --update --no-cache add \
       perl \
       python3-dev \
       py-pip \
-      py3-ruamel.yaml && \
+      py3-ruamel.yaml \
+      py3-cffi && \
     python3 -m pip install --upgrade pip setuptools wheel && \
     pip3 install --no-cache-dir \
       PyYAML==5.4.1 \
-      awscli==1.20.28 \
+      awscli==1.22.56 \
       boto==2.49.0 \
-      boto3==1.18.28 \
+      boto3==1.21.1 \
       iteration-utilities==0.11.0 \
       pre-commit \
-      PyGithub==1.54.1 && \
+      PyGithub==1.55 && \
     git config --global advice.detachedHead false
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]

@@ -73,7 +73,8 @@ init::
 ## Clean build-harness
 clean::
 	@if [ -d "$(BUILD_HARNESS_PATH)" ]; then \
-		if [ -d build-harness ] && [ $$(ls -di "$(BUILD_HARNESS_PATH)" | cut -f 1 -d' ') == $$(ls -di build-harness | cut -f 1 -d' ') ]; then \
+		if [ -d build-harness ] && [ "$(BUILD_HARNESS_PATH)" -ef build-harness ]; then \
+			echo rm -rf build-harness; \
 			rm -rf build-harness; \
 		else \
 			echo Not removing build harness from "$(BUILD_HARNESS_PATH)" because it appears to be shared.; \
@@ -82,15 +83,20 @@ clean::
 		fi; \
 	fi
 
-.PHONY: build-harness/shell builder build-harness/shell/pull builder/pull builder/build
+.PHONY: build-harness/shell builder build-harness/shell/pull builder/pull builder/build builder-slim/build
 
-build-harness/shell/pull builder/pull builder/build: BUILD_HARNESS_DOCKER_SHA_TAG ?= $(shell $(BUILD_HARNESS_DOCKER_SHA_TAG_CMD))
+build-harness/shell/pull builder/pull builder/build builder-slim/build: BUILD_HARNESS_DOCKER_SHA_TAG ?= $(shell $(BUILD_HARNESS_DOCKER_SHA_TAG_CMD))
 build-harness/shell/pull builder/pull:
 	docker pull $(BUILD_HARNESS_DOCKER_IMAGE):$(BUILD_HARNESS_DOCKER_SHA_TAG)
 	@[[ "$(BUILD_HARNESS_DOCKER_SHA_TAG)" == "latest" ]] || docker pull $(BUILD_HARNESS_DOCKER_IMAGE):latest
 
 builder/build: export DOCKER_IMAGE_NAME = $(BUILD_HARNESS_DOCKER_IMAGE):$(BUILD_HARNESS_DOCKER_SHA_TAG)
 builder/build:
+	@$(MAKE) --no-print-directory docker/build
+
+builder-slim/build: export DOCKER_IMAGE_NAME = $(BUILD_HARNESS_DOCKER_IMAGE):slim-$(BUILD_HARNESS_DOCKER_SHA_TAG)
+builder-slim/build: export DOCKER_FILE := Dockerfile.slim
+builder-slim/build:
 	@$(MAKE) --no-print-directory docker/build
 
 DEFAULT_DOCKER_ENVS := AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN TERM AWS_PROFILE AWS_REGION \
@@ -105,12 +111,12 @@ build-harness/shell builder tester: MOUNT_HOME ?= $(shell [ -d "$$HOME" ] && pri
 build-harness/shell builder tester: TARGETS ?= $(TARGET)
 build-harness/shell builder tester: ARGS := $(if $(TARGETS),$(TARGETS),-l || true)
 build-harness/shell builder tester: ENTRYPOINT := $(if $(TARGETS),/usr/bin/make,/bin/bash)
-build-harness/shell builder pr/pre-commit: RUNNER_DOCKER_TAG ?= $(shell $(BUILD_HARNESS_DOCKER_SHA_TAG_CMD))
-build-harness/shell builder pr/pre-commit: RUNNER_DOCKER_IMAGE ?= $(BUILD_HARNESS_DOCKER_IMAGE)
+build-harness/shell builder pr/pre-commit pr/readme pr/github-update: RUNNER_DOCKER_TAG ?= $(shell $(BUILD_HARNESS_DOCKER_SHA_TAG_CMD))
+build-harness/shell builder pr/pre-commit pr/readme pr/github-update: RUNNER_DOCKER_IMAGE ?= $(BUILD_HARNESS_DOCKER_IMAGE)
 build-harness/shell builder: build-harness/runner
 	@exit 0
 
-.PHONY: build-harness/shell-slim builder-slim pr/auto-format pr/auto-format/host pr/readme pr/readme/host pr/pre-commit tf14-upgrade
+.PHONY: build-harness/shell-slim builder-slim pr/auto-format pr/auto-format/host pr/readme pr/readme/host pr/pre-commit pr/github-update pr/github-update/host tf14-upgrade
 
 build-harness/shell-slim builder-slim pr/auto-format pr/readme tf14-upgrade: RUNNER_DOCKER_IMAGE ?= $(BUILD_HARNESS_DOCKER_IMAGE)
 
@@ -124,12 +130,13 @@ build-harness/shell-slim builder-slim: ARGS := $(if $(TARGETS),$(TARGETS),-l || 
 build-harness/shell-slim builder-slim: ENTRYPOINT := $(if $(TARGETS),/usr/bin/make,/bin/bash)
 build-harness/shell-slim builder-slim: build-harness/runner
 
-pr/auto-format pr/readme pr/pre-commit tf14-upgrade : ENTRYPOINT := /usr/bin/make
+pr/auto-format pr/readme pr/pre-commit pr/github-update tf14-upgrade : ENTRYPOINT := /usr/bin/make
 
-pr/auto-format pr/auto-format/host: ARGS := terraform/fmt readme
+pr/auto-format pr/auto-format/host: ARGS := github/update terraform/fmt readme
 pr/readme pr/readme/host: ARGS := readme/deps readme
-pr/auto-format pr/readme: build-harness/runner
-pr/auto-format/host pr/readme/host:
+pr/github-update pr/github-update/host: ARGS := github/update
+pr/auto-format pr/readme pr/github-update: build-harness/runner
+pr/auto-format/host pr/readme/host pr/github-update/host:
 	$(MAKE) $(ARGS)
 
 pr/pre-commit: ARGS := pre-commit/run
