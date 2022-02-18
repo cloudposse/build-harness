@@ -17,16 +17,21 @@ GITHUB_TERRAFORM_TEMPLATES = .github/workflows/chatops.yml \
 	.github/mergify.yml \
 	.github/renovate.json
 
+# Create a file (contents unimportant) with this name
+# to prevent pr/auto-format etc. from updating the GitHub templates.
+GITHUB_UPDATE_DISABLE_SENTINEL := .github/.github-update-disabled
 
 $(GITHUB_TEMPLATES): $(addprefix $(BUILD_HARNESS_PATH)/templates/, $(GITHUB_TEMPLATES))
-	mkdir -p $(dir $@)
-	cp $(BUILD_HARNESS_PATH)/templates/$@ $@
-	git ls-files --error-unmatch $@ 2>/dev/null || git add $@
+	@mkdir -p $(dir $@)
+	@cp $(BUILD_HARNESS_PATH)/templates/$@ $@
+	@git ls-files --error-unmatch $@ >/dev/null 2>&1 || { git add $@; echo "# github/update: Added $@"; }
+	@for file in $$(git diff --name-only $@); do echo "# github/update: Updated $$file"; done
 
 $(GITHUB_TERRAFORM_TEMPLATES): $(addprefix $(BUILD_HARNESS_PATH)/templates/terraform/, $(GITHUB_TERRAFORM_TEMPLATES))
-	mkdir -p $(dir $@)
-	cp $(BUILD_HARNESS_PATH)/templates/terraform/$@ $@
-	git ls-files --error-unmatch $@ 2>/dev/null || git add $@
+	@mkdir -p $(dir $@)
+	@cp $(BUILD_HARNESS_PATH)/templates/terraform/$@ $@
+	@git ls-files --error-unmatch $@ >/dev/null 2>&1 || { git add $@; echo "# github/update: Added " $@; }
+	@for file in $$(git diff --name-only $@); do echo "# github/update: Updated $$file"; done
 
 # Update context.tf if it is in place. Leave it in directory
 # if it did not previously exist, but do not add it to git
@@ -38,6 +43,19 @@ github/init/context.tf:
 	fi
 	find . -xdev -mindepth 2 -name context.tf -exec cp -p context.tf {} \;
 
-.PHONY: $(GITHUB_TEMPLATES) $(GITHUB_TERRAFORM_TEMPLATES) github/init/context.tf
+.PHONY: $(GITHUB_TEMPLATES) $(GITHUB_TERRAFORM_TEMPLATES) github/init/context.tf github/init github/update
 
 github/init: $(GITHUB_TEMPLATES) $(if $(wildcard *.tf),$(GITHUB_TERRAFORM_TEMPLATES) github/init/context.tf)
+
+ifeq (,$(wildcard $(GITHUB_UPDATE_DISABLE_SENTINEL)))
+
+# Unless the sentinel file is present, update all the GitHub templates.
+# Do not update context.tf via github/update. That should be updated separately and explicitly.
+github/update: $(GITHUB_TEMPLATES) $(if $(wildcard *.tf),$(GITHUB_TERRAFORM_TEMPLATES))
+	@printf "\n** GitHub workflows updated **\n\n"
+
+else
+github/update:
+	@printf "\n** Auto-update of GitHub workflows disabled by presence of %s **\n\n"  "$(GITHUB_UPDATE_DISABLE_SENTINEL)"
+
+endif
