@@ -7,7 +7,7 @@ jobs:
   reviewers:
     runs-on: ubuntu-latest
     steps:
-      - uses: cloudposse/actions/github/auto-assign@0.5.0
+      - uses: cloudposse/actions/github/auto-assign@0.30.0
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           configuration-path: '.github/auto-assign.yml'
