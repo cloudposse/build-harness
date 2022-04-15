@@ -43,7 +43,7 @@ github/init/context.tf:
 	fi
 	find . -xdev -mindepth 2 -name context.tf -exec cp -p context.tf {} \;
 
-.PHONY: $(GITHUB_TEMPLATES) $(GITHUB_TERRAFORM_TEMPLATES) github/init/context.tf github/init github/update
+.PHONY: $(GITHUB_TEMPLATES) $(GITHUB_TERRAFORM_TEMPLATES) github/init/context.tf github/init github/update github/update/start
 
 github/init: $(GITHUB_TEMPLATES) $(if $(wildcard *.tf),$(GITHUB_TERRAFORM_TEMPLATES) github/init/context.tf)
 
@@ -51,7 +51,7 @@ ifeq (,$(wildcard $(GITHUB_UPDATE_DISABLE_SENTINEL)))
 
 # Unless the sentinel file is present, update all the GitHub templates.
 # Do not update context.tf via github/update. That should be updated separately and explicitly.
-github/update: $(GITHUB_TEMPLATES) $(if $(wildcard *.tf),$(GITHUB_TERRAFORM_TEMPLATES))
+github/update: github/update/start $(GITHUB_TEMPLATES) $(if $(wildcard *.tf),$(GITHUB_TERRAFORM_TEMPLATES))
 	@printf "\n** GitHub workflows updated **\n\n"
 
 else
@@ -59,3 +59,6 @@ github/update:
 	@printf "\n** Auto-update of GitHub workflows disabled by presence of %s **\n\n"  "$(GITHUB_UPDATE_DISABLE_SENTINEL)"
 
 endif
+
+github/update/start:
+	@printf "\n** GitHub workflows update started **\n\n"
