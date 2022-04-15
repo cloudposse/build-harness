@@ -83,6 +83,12 @@ clean::
 		fi; \
 	fi
 
+.PHONY: safe-directory
+
+# Workaround for https://github.com/actions/checkout/issues/766
+safe-directory:
+	[[ -z "$$GITHUB_WORKSPACE" ]] || git config --global --add safe.directory "$$GITHUB_WORKSPACE"
+
 .PHONY: build-harness/shell builder build-harness/shell/pull builder/pull builder/build builder-slim/build
 
 build-harness/shell/pull builder/pull builder/build builder-slim/build: BUILD_HARNESS_DOCKER_SHA_TAG ?= $(shell $(BUILD_HARNESS_DOCKER_SHA_TAG_CMD))
@@ -136,7 +142,7 @@ pr/auto-format pr/auto-format/host: ARGS := github/update terraform/fmt readme
 pr/readme pr/readme/host: ARGS := readme/deps readme
 pr/github-update pr/github-update/host: ARGS := github/update
 pr/auto-format pr/readme pr/github-update: build-harness/runner
-pr/auto-format/host pr/readme/host pr/github-update/host:
+pr/auto-format/host pr/readme/host pr/github-update/host: safe-directory
 	$(MAKE) $(ARGS)
 
 pr/pre-commit: ARGS := pre-commit/run
