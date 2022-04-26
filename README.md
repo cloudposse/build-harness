@@ -37,7 +37,7 @@ GitHub announced that the [`git.io` redirector service is shutting down on 2022-
 
 We have acquired `cloudposse.tools` to mitigate this. Update all references of `git.io/build-harness` with `cloudposse.tools/build-harness`
 
-Here's a command to to the following command to replace all occurances:
+Use the following command to replace all occurances:
 ```
 sed -i '' 's/git.io\/build-harness/cloudposse.tools\/build-harness/' $(grep -l "git\.io/build-harness" -R .)
 ```
