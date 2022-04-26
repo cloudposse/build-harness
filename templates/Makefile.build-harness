@@ -87,7 +87,7 @@ clean::
 
 # Workaround for https://github.com/actions/checkout/issues/766
 safe-directory:
-	[[ -z "$$GITHUB_WORKSPACE" ]] || git config --global --add safe.directory "$$GITHUB_WORKSPACE"
+	[[ -n "$$GITHUB_WORKSPACE" ]] && git config --global --add safe.directory "$$GITHUB_WORKSPACE" || git config --global --add safe.directory '*'
 
 .PHONY: build-harness/shell builder build-harness/shell/pull builder/pull builder/build builder-slim/build
 
