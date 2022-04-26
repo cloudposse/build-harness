@@ -61,7 +61,7 @@ grep -l "git\.io/build-harness" * */*
 ```
 or for full depth below the current directory
 ```
-find . \( -name .terraform -prune -type f \)  -o \( -name build-harness -prune -type f \) -o \( -name 'Makefile*' -o -name 'README*' \)
+find . \( -name .terraform -prune -type f \)  -o \( -name build-harness -prune -type f \) -o \( -name 'Makefile*' -o -name 'README*' \) -type f
 ```
 
 ### Updating the affected files
@@ -80,7 +80,7 @@ sed -i '' 's/git.io\/build-harness/cloudposse.tools\/build-harness/' $(grep -l "
 
 If you have multiple projects to update and want to be thorough, then this is probably best:
 ```
-sed -i '' 's/git.io\/build-harness/cloudposse.tools\/build-harness/' $(find . \( -name .terraform -prune -type f \)  -o \( -name build-harness -prune -type f \) -o \( -name 'Makefile*' -o -name 'README*' \) )
+sed -i '' 's/git.io\/build-harness/cloudposse.tools\/build-harness/' $(find . \( -name .terraform -prune -type f \)  -o \( -name build-harness -prune -type f \) -o \( -name 'Makefile*' -o -name 'README*' \) -type f )
 ```
 
 This is the most thorough, but probably overkill for most people:
