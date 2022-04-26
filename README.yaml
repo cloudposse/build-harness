@@ -1,5 +1,4 @@
 ---
-#
 # This is the canonical configuration for the `README.md`
 # Run `make readme` to rebuild the `README.md`
 #
@@ -61,6 +60,18 @@ screenshots:
 description: |-
   This `build-harness` is a collection of Makefiles to facilitate building Golang projects, Dockerfiles, Helm charts, and more.
   It's designed to work with CI/CD systems such as GitHub Actions, Codefresh, Travis CI, CircleCI and Jenkins.
+  
+  # IMPORTANT BREAKING CHANGE - GIT.IO DEPRECATION
+
+  GitHub announced that the [`git.io` redirector service is shutting down on 2022-04-29](https://github.blog/changelog/2022-04-25-git-io-deprecation/). This means all references to `git.io/build-harness` will stop working.
+  
+  We have acquired `cloudposse.tools` to mitigate this. Update all references of `git.io/build-harness` with `cloudposse.tools/build-harness`
+
+  Use the following command to replace all occurances:
+  ```
+  sed -i '' 's/git.io\/build-harness/cloudposse.tools\/build-harness/' $(grep -l "git\.io/build-harness" -R .)
+  ```
+
 
 # Introduction to the project
 #introduction: |-
@@ -71,7 +82,7 @@ usage: |-
   At the top of your `Makefile` add, the following...
 
   ```make
-  -include $(shell curl -sSL -o .build-harness "https://git.io/build-harness"; echo .build-harness)
+  -include $(shell curl -sSL -o .build-harness "https://cloudposse.tools/build-harness"; echo .build-harness)
   ```
 
   This will download a `Makefile` called `.build-harness` and include it at run time. We recommend adding the `.build-harness` file to your `.gitignore`.

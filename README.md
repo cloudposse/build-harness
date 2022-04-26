@@ -31,6 +31,17 @@
 This `build-harness` is a collection of Makefiles to facilitate building Golang projects, Dockerfiles, Helm charts, and more.
 It's designed to work with CI/CD systems such as GitHub Actions, Codefresh, Travis CI, CircleCI and Jenkins.
 
+# IMPORTANT BREAKING CHANGE - GIT.IO DEPRECATION
+
+GitHub announced that the [`git.io` redirector service is shutting down on 2022-04-29](https://github.blog/changelog/2022-04-25-git-io-deprecation/). This means all references to `git.io/build-harness` will stop working.
+
+We have acquired `cloudposse.tools` to mitigate this. Update all references of `git.io/build-harness` with `cloudposse.tools/build-harness`
+
+Use the following command to replace all occurances:
+```
+sed -i '' 's/git.io\/build-harness/cloudposse.tools\/build-harness/' $(grep -l "git\.io/build-harness" -R .)
+```
+
 ---
 
 This project is part of our comprehensive ["SweetOps"](https://cpco.io/sweetops) approach towards DevOps.
@@ -73,7 +84,7 @@ It's 100% Open Source and licensed under the [APACHE2](LICENSE).
 At the top of your `Makefile` add, the following...
 
 ```make
--include $(shell curl -sSL -o .build-harness "https://git.io/build-harness"; echo .build-harness)
+-include $(shell curl -sSL -o .build-harness "https://cloudposse.tools/build-harness"; echo .build-harness)
 ```
 
 This will download a `Makefile` called `.build-harness` and include it at run time. We recommend adding the `.build-harness` file to your `.gitignore`.
@@ -277,7 +288,7 @@ Alternatively, the "auto-init" feature can automatically run the `init` logic fo
 ```make
 BUILD_HARNESS_AUTO_INIT = true
 
--include $(shell curl -sSL -o .build-harness "https://git.io/build-harness"; echo .build-harness)
+-include $(shell curl -sSL -o .build-harness "https://cloudposse.tools/build-harness"; echo .build-harness)
 ```
 
 The "auto-init" feature will _also_ keep the install up-to-date. It will check the value of `BUILD_HARNESS_BRANCH`, get the commit ID, compare that to the current checkout, and update the clone if they differ. A useful side-effect is that it becomes easy to pin to versions of the `build-harness` from your own project, and let the `build-harness` update itself as you update the pin:
@@ -286,7 +297,7 @@ The "auto-init" feature will _also_ keep the install up-to-date. It will check t
 BUILD_HARNESS_AUTO_INIT = true
 BUILD_HARNESS_BRANCH = {TAG}
 
--include $(shell curl -sSL -o .build-harness "https://git.io/build-harness"; echo .build-harness)
+-include $(shell curl -sSL -o .build-harness "https://cloudposse.tools/build-harness"; echo .build-harness)
 ```
 
 Now when you run `make` the project will update itself to use the version specified by the `BUILD_HARNESS_BRANCH` value:
