@@ -67,7 +67,7 @@ description: |-
   
   We have acquired `cloudposse.tools` to mitigate this. Update all references of `git.io/build-harness` with `cloudposse.tools/build-harness`
 
-  Use the following command to replace all occurances:
+  Use the following command to replace all occurrences:
   ```
   sed -i '' 's/git.io\/build-harness/cloudposse.tools\/build-harness/' $(grep -l "git\.io/build-harness" -R .)
   ```
