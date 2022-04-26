@@ -38,8 +38,6 @@ GitHub announced that the [`git.io` redirector service is shutting down on 2022-
 We have acquired `cloudposse.tools` to mitigate this. Update all references of `git.io/build-harness` with `cloudposse.tools/build-harness`.
 Critical references are in Makefiles, and there are also important references in README files that describe Makefiles.
 
-We have acquired `cloudposse.tools` to mitigate this. Update all references of `git.io/build-harness` with `cloudposse.tools/build-harness`
-
 ## Automating the update process
 
 In all cases, these commands are intended to be run from a directory at the top of the directory tree 
