@@ -33,9 +33,9 @@ It's designed to work with CI/CD systems such as GitHub Actions, Codefresh, Trav
 
 # IMPORTANT BREAKING CHANGE - GIT.IO DEPRECATION
 
-GitHub announced that the [`git.io` redirector service is shutting down on 2022-04-29](https://github.blog/changelog/2022-04-25-git-io-deprecation/). This means all references to `git.io/build-harness` will stop working.
+GitHub announced that the [`git.io` redirector service is shutting down on 2022-04-29](https://github.blog/changelog/2022-04-25-git-io-deprecation/). This means all references to `cloudposse.tools/build-harness` will stop working.
 
-We have acquired `cloudposse.tools` to mitigate this. Update all references of `git.io/build-harness` with `cloudposse.tools/build-harness`.
+We have acquired `cloudposse.tools` to mitigate this. Update all references of `cloudposse.tools/build-harness` with `cloudposse.tools/build-harness`.
 Critical references are in Makefiles, and there are also important references in README files that describe Makefiles.
 
 ## Automating the update process
