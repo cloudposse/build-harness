@@ -38,8 +38,6 @@ GitHub announced that the [`git.io` redirector service is shutting down on 2022-
 We have acquired `cloudposse.tools` to mitigate this. Update all references of `git.io/build-harness` with `cloudposse.tools/build-harness`.
 Critical references are in Makefiles, and there are also important references in README files that describe Makefiles.
 
-We have acquired `cloudposse.tools` to mitigate this. Update all references of `git.io/build-harness` with `cloudposse.tools/build-harness`
-
 ## Automating the update process
 
 In all cases, these commands are intended to be run from a directory at the top of the directory tree 
@@ -63,7 +61,7 @@ grep -l "git\.io/build-harness" * */*
 ```
 or for full depth below the current directory
 ```
-find . \( -name .terraform -prune -type f \)  -o \( -name build-harness -prune -type f \) -o \( -name 'Makefile*' -o -name 'README*' \)
+find . \( -name .terraform -prune -type f \)  -o \( -name build-harness -prune -type f \) -o \( -name 'Makefile*' -o -name 'README*' \) -type f
 ```
 
 ### Updating the affected files
@@ -82,7 +80,7 @@ sed -i '' 's/git.io\/build-harness/cloudposse.tools\/build-harness/' $(grep -l "
 
 If you have multiple projects to update and want to be thorough, then this is probably best:
 ```
-sed -i '' 's/git.io\/build-harness/cloudposse.tools\/build-harness/' $(find . \( -name .terraform -prune -type f \)  -o \( -name build-harness -prune -type f \) -o \( -name 'Makefile*' -o -name 'README*' \) )
+sed -i '' 's/git.io\/build-harness/cloudposse.tools\/build-harness/' $(find . \( -name .terraform -prune -type f \)  -o \( -name build-harness -prune -type f \) -o \( -name 'Makefile*' -o -name 'README*' \) -type f )
 ```
 
 This is the most thorough, but probably overkill for most people:
