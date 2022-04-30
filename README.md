@@ -31,14 +31,14 @@
 This `build-harness` is a collection of Makefiles to facilitate building Golang projects, Dockerfiles, Helm charts, and more.
 It's designed to work with CI/CD systems such as GitHub Actions, Codefresh, Travis CI, CircleCI and Jenkins.
 
-## IMPORTANT BREAKING CHANGE - GIT.IO DEPRECATION
+## Regarding the phase out of `git.io`
 
 Prior to April 25, 2022, practically all Cloud Posse Makefiles pulled in a common Makefile via
 ```
 curl -sSL -o .build-harness "https://git.io/build-harness"
 ```
 
-The `git.io` service is a link shortener/redirector provided by GitHub, but they no longer support it.
+The `git.io` service is a link shortener/redirector provided by GitHub, but [they no longer support it](https://github.blog/changelog/2022-04-25-git-io-deprecation/).
 We have therefore set up `https://cloudposse.tools/build-harness` as an alternative and are migrating
 all our Makefiles to use that URL instead. We encourage you to update any references you have in your
 own code derived from our code, whether by forking one of our repos or simply following one of our examples.
@@ -323,7 +323,7 @@ Available targets:
 <!-- markdownlint-restore -->
 # GIT.IO DEPRECATION
 
-On April 25, 2022, GitHub announced that the [`git.io` redirector service would be shutting down on 2022-04-29](https://github.blog/changelog/2022-04-25-git-io-deprecation/), merely 4 days later. The announcement said that all references to `git.io/build-harness` 
+On April 25, 2022, GitHub announced that the [`git.io` redirector service would be shutting down on 2022-04-29](https://github.blog/changelog/2022-04-25-git-io-deprecation/), merely 4 days later. The announcement said that all references to `git.io` 
 would stop working that day.
 
 This was a major breaking change for Cloud Posse, because *all* of our standard Makefiles include a Makefile from this `build-harness`
@@ -333,8 +333,8 @@ break once that link stopped redirecting to the appropriate content.
 Cloud Posse quickly set up `https://cloudposse.tools/build-harness` as a long-term replacement for `git.io`
 and undertook an emergency update of all of our repositories to make this change.
 
-While we were largely successful in updating our repositories, Cloud Posse was not fully prepared to make the
-mass updates across all of our repositories that this required, so some repositories were not updated. Furthermore,
+While we were largely successful in updating our repositories by 2022-04-29, Cloud Posse was not fully prepared to make the
+mass updates across all of our repositories that this required, so some repositories were not updated in time. Furthermore,
 even if all of Cloud Posse's repositories were updated, that would not affect anyone's fork or clone or 
 locally checked-out version, so we are publishing the instructions below to help you update your own code.
 
@@ -343,13 +343,15 @@ an URL shorting/link redirecting service, and reversed their decision to shut do
 they agreed to archive the links and continue to serve existing links indefinitely, with the caveat that they
 would remove links on a case-by-case basis if they were found to be malicious, misleading, or broken. 
 
-This means that instead of being an urgent requirement that you immediately change your links or your builds will break,
+This means that instead of being an urgent requirement that you immediately change your links, or else your builds would break,
 it is now merely a recommended best practice that you update to the new link that Cloud Posse controls and 
 is committed to maintaining. 
 
-This means that you should replace all references to `git.io/build-harness` with `cloudposse.tools/build-harness`.
-Critical references are in Makefiles, and there are also important references in README files that describe Makefiles. 
-Below we provide guidance on how to make the updates.
+Specifically, in source files you control, you should update all references to `git.io/build-harness`
+to instead refer to `cloudposse.tools/build-harness`. Critical references are in Makefiles, and there are also 
+important references in README files that describe Makefiles. References in derived or downloaded files, such as 
+Terraform modules downloaded by `terraform init`, do not need to be modified.
+Below we provide guidance on how to make the replacements.
 
 ## Automating the update process
 
