@@ -16,7 +16,7 @@ license: "APACHE2"
 copyrights:
   - name: "Cloud Posse, LLC"
     url: "https://cloudposse.com"
-    year: "2016"
+    year: "2016-2022"
 
 # Canonical GitHub repo
 github_repo: cloudposse/build-harness
@@ -61,62 +61,19 @@ description: |-
   This `build-harness` is a collection of Makefiles to facilitate building Golang projects, Dockerfiles, Helm charts, and more.
   It's designed to work with CI/CD systems such as GitHub Actions, Codefresh, Travis CI, CircleCI and Jenkins.
   
-  # IMPORTANT BREAKING CHANGE - GIT.IO DEPRECATION
+  ## Regarding the phase out of `git.io`
 
-  GitHub announced that the [`git.io` redirector service is shutting down on 2022-04-29](https://github.blog/changelog/2022-04-25-git-io-deprecation/). This means all references to `git.io/build-harness` will stop working.
-  
-  We have acquired `cloudposse.tools` to mitigate this. Update all references of `git.io/build-harness` with `cloudposse.tools/build-harness`.
-  Critical references are in Makefiles, and there are also important references in README files that describe Makefiles.
-  
-  ## Automating the update process
-  
-  In all cases, these commands are intended to be run from a directory at the top of the directory tree 
-  under which all your potentially affected code resides. Usually either the top-level directory of a single `git` repo
-  or a `src` (or similar) directory under which you have all your `git` repos (directly or in subdirectories).
-
-  ### Finding affected files
-
-  Use the following command to find all occurrences in all directories recursively:
+  Prior to April 25, 2022, practically all Cloud Posse Makefiles pulled in a common Makefile via
   ```
-  grep -l "git\.io/build-harness" -R .
-  ```
-  Note that the above command can reach very deeply, such as into Terraform modules you have downloaded. You may want to impose some limits.
-  If you run from the top level of a `git` repo, where there is a `Makefile` and a `Dockerfile`, you can reduce that to
-  ```
-  grep -l "git\.io/build-harness" *
-  ```
-  If you have a lot of Cloud Posse projects under a single directory, then you might try
-  ```
-  grep -l "git\.io/build-harness" * */*
-  ```
-  or for full depth below the current directory
-  ```
-  find . \( -name .terraform -prune -type f \)  -o \( -name build-harness -prune -type f \) -o \( -name 'Makefile*' -o -name 'README*' \) -type f
+  curl -sSL -o .build-harness "https://git.io/build-harness"
   ```
   
-  ### Updating the affected files
+  The `git.io` service is a link shortener/redirector provided by GitHub, but [they no longer support it](https://github.blog/changelog/2022-04-25-git-io-deprecation/).
+  We have therefore set up `https://cloudposse.tools/build-harness` as an alternative and are migrating
+  all our Makefiles to use that URL instead. We encourage you to update any references you have in your
+  own code derived from our code, whether by forking one of our repos or simply following one of our examples.
   
-  Once you are happy with the command to generate the list of files to update, update the files by inserting that command into this command template:
-  ```
-  sed -i '' 's/git.io\/build-harness/cloudposse.tools\/build-harness/' $(<command to list files>)
-  ```
-  
-  #### Examples
-  
-  The quickest update will be if you only have a single project to update, in which case you can `cd` into the project root directory and
-  ```
-  sed -i '' 's/git.io\/build-harness/cloudposse.tools\/build-harness/' $(grep -l "git\.io/build-harness" *)
-  ```
-  
-  If you have multiple projects to update and want to be thorough, then this is probably best:
-  ```
-  sed -i '' 's/git.io\/build-harness/cloudposse.tools\/build-harness/' $(find . \( -name .terraform -prune -type f \)  -o \( -name build-harness -prune -type f \) -o \( -name 'Makefile*' -o -name 'README*' \) -type f )
-  ```
-
-  This is the most thorough, but probably overkill for most people:
-  ```
-  sed -i '' 's/git.io\/build-harness/cloudposse.tools\/build-harness/' $(grep -l "git\.io/build-harness" -R .)
-  ```
+  Full details are available in our [`git.io` deprecation documentation](docs/git-io-deprecation.md).
 
 # Introduction to the project
 #introduction: |-
@@ -179,6 +136,7 @@ include:
   - "docs/targets.md"
   - "docs/extensions.md"
   - "docs/auto-init.md"
+  - "docs/git-io-deprecation.md"
 
 # Contributors to this project
 contributors:

@@ -1,5 +1,4 @@
 GITHUB_TEMPLATES = \
-	.github/CODEOWNERS \
 	.github/PULL_REQUEST_TEMPLATE.md \
 	.github/ISSUE_TEMPLATE/config.yml \
 	.github/ISSUE_TEMPLATE/feature_request.md \
@@ -17,10 +16,24 @@ GITHUB_TERRAFORM_TEMPLATES = .github/workflows/chatops.yml \
 	.github/mergify.yml \
 	.github/renovate.json
 
+GTIHUB_CODEOWNERS_FILE = .github/CODEOWNERS
+
 # Create a file (contents unimportant) with this name
-# to prevent pr/auto-format etc. from updating the GitHub templates.
+# to prevent pr/auto-format etc. from updating the GitHub templates, including CODEOWNERS.
 GITHUB_UPDATE_DISABLE_SENTINEL := .github/.github-update-disabled
 
+# Create a file (contents unimportant) with this name to prevent pr/auto-format etc.
+# from updating/replacing the CODEOWNERS file while still allowing other updates.
+GITHUB_CODEOWNERS_UPDATE_DISABLE_SENTINEL := .github/.github-CODEOWNERS-update-disabled
+
+ifeq (,$(wildcard $(GITHUB_CODEOWNERS_UPDATE_DISABLE_SENTINEL)))
+  GITHUB_TEMPLATES += $(GTIHUB_CODEOWNERS_FILE)
+endif
+
+# We cannot rely on modification dates to tell which files are out of date,
+# so we cannot use a traditional make rule. Instead, we use a phony target
+# to ensure the recipe always runs, and copy over all the files and then
+# ask `git` what has changed.
 $(GITHUB_TEMPLATES): $(addprefix $(BUILD_HARNESS_PATH)/templates/, $(GITHUB_TEMPLATES))
 	@mkdir -p $(dir $@)
 	@cp $(BUILD_HARNESS_PATH)/templates/$@ $@
@@ -62,3 +75,4 @@ endif
 
 github/update/start:
 	@printf "\n** GitHub workflows update started **\n\n"
+	@[ -f "$(GITHUB_CODEOWNERS_UPDATE_DISABLE_SENTINEL)" ] && printf "** Auto-update of CODEOWNERS file disabled by presence of %s **\n\n"  "$(GITHUB_CODEOWNERS_UPDATE_DISABLE_SENTINEL)"
