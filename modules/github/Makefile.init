@@ -75,4 +75,4 @@ endif
 
 github/update/start:
 	@printf "\n** GitHub workflows update started **\n\n"
-	@[ -f "$(GITHUB_CODEOWNERS_UPDATE_DISABLE_SENTINEL)" ] && printf "** Auto-update of CODEOWNERS file disabled by presence of %s **\n\n"  "$(GITHUB_CODEOWNERS_UPDATE_DISABLE_SENTINEL)"
+	@[ -f "$(GITHUB_CODEOWNERS_UPDATE_DISABLE_SENTINEL)" ] && printf "** Auto-update of CODEOWNERS file disabled by presence of %s **\n\n"  "$(GITHUB_CODEOWNERS_UPDATE_DISABLE_SENTINEL)" || true
