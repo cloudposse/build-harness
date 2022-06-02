@@ -27,7 +27,7 @@ GITHUB_UPDATE_DISABLE_SENTINEL := .github/.github-update-disabled
 GITHUB_CODEOWNERS_UPDATE_DISABLE_SENTINEL := .github/.github-CODEOWNERS-update-disabled
 
 ifeq (,$(wildcard $(GITHUB_CODEOWNERS_UPDATE_DISABLE_SENTINEL)))
-  GITHUB_TEMPLATES += $(GTIHUB_CODEOWNERS_FILE)
+	GITHUB_TEMPLATES += $(GTIHUB_CODEOWNERS_FILE)
 endif
 
 # We cannot rely on modification dates to tell which files are out of date,
