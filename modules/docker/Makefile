@@ -1,4 +1,4 @@
-DOCKER = $(shell which docker)
+DOCKER ?= $(shell which docker)
 
 DOCKER_RUN ?= docker run -i --rm --network=$(DOCKER_NETWORK)
 DOCKER_EXEC ?= $(DOCKER) exec -it
