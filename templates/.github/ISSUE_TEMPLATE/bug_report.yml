@@ -1,3 +1,4 @@
+---
 name: Bug report
 description: Create a report to help us improve
 labels: ["bug"]
@@ -6,7 +7,10 @@ body:
   - type: markdown
     attributes:
       value: |
-        Found a bug? Please checkout our [Slack Community](https://slack.cloudposse.com) or visit our [Slack Archive](https://archive.sweetops.com/).
+        Found a bug?
+        
+        Please checkout our [Slack Community](https://slack.cloudposse.com)
+        or visit our [Slack Archive](https://archive.sweetops.com/).
 
         [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 
@@ -23,7 +27,7 @@ body:
     id: expected
     attributes:
       label: Expected Behavior
-      description: A clear and concise description of what you expected to happen.
+      description: A clear and concise description of what you expected.
       placeholder: What happened?
     validations:
       required: true
@@ -41,7 +45,7 @@ body:
     id: screenshots
     attributes:
       label: Screenshots
-      description: If applicable, add screenshots or logs to help explain your problem.
+      description: If applicable, add screenshots or logs to help explain.
     validations:
       required: false
 

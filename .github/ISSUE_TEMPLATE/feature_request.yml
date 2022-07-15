@@ -1,3 +1,4 @@
+---
 name: Feature Request
 description: Suggest an idea for this project
 labels: ["feature request"]
@@ -6,7 +7,10 @@ body:
   - type: markdown
     attributes:
       value: |
-        Have a question? Please checkout our [Slack Community](https://slack.cloudposse.com) or visit our [Slack Archive](https://archive.sweetops.com/).
+        Have a question?
+        
+        Please checkout our [Slack Community](https://slack.cloudposse.com)
+        or visit our [Slack Archive](https://archive.sweetops.com/).
 
         [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 
@@ -23,7 +27,7 @@ body:
     id: expected
     attributes:
       label: Expected Behavior
-      description: A clear and concise description of what you expected to happen.
+      description: A clear and concise description of what you expected.
       placeholder: What happened?
     validations:
       required: true
@@ -32,7 +36,12 @@ body:
     id: use-case
     attributes:
       label: Use Case
-      description: Is your feature request related to a problem/challenge you are trying to solve? Please provide some additional context of why this feature or capability will be valuable.
+      description: |
+        Is your feature request related to a problem/challenge you are trying
+        to solve?
+        
+        Please provide some additional context of why this feature or
+        capability will be valuable.
     validations:
       required: true
 
@@ -40,7 +49,7 @@ body:
     id: ideal-solution
     attributes:
       label: Describe Ideal Solution
-      description: A clear and concise description of what you want to happen. If you don't know, that's okay.
+      description: A clear and concise description of what you want to happen.
     validations:
       required: true
 
@@ -48,7 +57,7 @@ body:
     id: alternatives-considered
     attributes:
       label: Alternatives Considered
-      description: Explain what alternative solutions or features you've considered.
+      description: Explain alternative solutions or features considered.
     validations:
       required: false
 
