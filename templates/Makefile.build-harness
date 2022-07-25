@@ -173,8 +173,8 @@ build-harness/runner:
 		-e PACKAGES_PREFER_HOST=true \
 		$(addprefix -e ,$(DOCKER_ENVS)) \
 		$(MOUNT_HOME) \
-		-v $(CURDIR):/opt \
-		--workdir /opt \
+		-v $(CURDIR):/host \
+		--workdir /host \
 		--entrypoint $(ENTRYPOINT) \
 		$(RUNNER_DOCKER_IMAGE):$(RUNNER_DOCKER_TAG) $(ARGS)
 
