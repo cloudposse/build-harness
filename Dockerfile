@@ -31,9 +31,13 @@ RUN apk --update --no-cache add \
       boto==2.49.0 \
       boto3==1.21.1 \
       iteration-utilities==0.11.0 \
-      pre-commit \
       PyGithub==1.55 && \
     git config --global advice.detachedHead false
+
+## Workaround https://github.com/pypa/pip/issues/5247
+RUN pip3 install --upgrade --force-reinstall pip==9.0.3 && \
+    pip3 install --no-cache-dir --disable-pip-version-check pre-commit && \
+    pip3 install --upgrade pip
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN curl -fsSL --retry 3 https://apk.cloudposse.com/install.sh | bash
