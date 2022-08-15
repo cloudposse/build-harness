@@ -614,4 +614,4 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
   [share_googleplus]: https://plus.google.com/share?url=https://github.com/cloudposse/build-harness
   [share_email]: mailto:?subject=Build+Harness&body=https://github.com/cloudposse/build-harness
   [beacon]: https://ga-beacon.cloudposse.com/UA-76589703-4/cloudposse/build-harness?pixel&cs=github&cm=readme&an=build-harness
-<!-- markdownlint-enable -->
+<!-- markdownlint-restore -->

@@ -479,4 +479,4 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
   [share_googleplus]: {{ printf "https://plus.google.com/share?url=https://github.com/%s" (ds "config").github_repo }}
   [share_email]: {{ printf "mailto:?subject=%s&body=https://github.com/%s" ((ds "config").name | regexp.Replace " " "+") (ds "config").github_repo }}
   [beacon]: {{ printf "https://ga-beacon.cloudposse.com/UA-76589703-4/%s?pixel&cs=github&cm=readme&an=%s" (ds "config").github_repo (filepath.Base ((ds "config").github_repo)) }}
-<!-- markdownlint-enable -->
+<!-- markdownlint-restore -->
