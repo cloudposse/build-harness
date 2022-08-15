@@ -20,3 +20,10 @@ docs/terraform.md: docs/deps packages/install/terraform-docs
 	@echo "<!-- markdownlint-disable -->" > $@
 	@terraform-docs md . >> $@
 	@echo "<!-- markdownlint-restore -->" >> $@
+
+.PHONY : docs/github-action.md
+## Update `docs/github-action.md` from `action.yaml`
+docs/github-action.md: docs/deps packages/install/gomplate
+	@echo "<!-- markdownlint-disable -->" > $@
+	@gomplate -d action=./action.yml -f $(BUILD_HARNESS_PATH)/templates/docs-github-action.gotmpl >> $@
+	@echo "<!-- markdownlint-restore -->" >> $@
