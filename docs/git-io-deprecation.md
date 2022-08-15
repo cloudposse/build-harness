@@ -63,7 +63,7 @@ Once you are happy with the command to generate the list of files to update, upd
 sed -i '' 's/git.io\/build-harness/cloudposse.tools\/build-harness/' $(<command to list files>)
 ```
 
-#### Examples
+#### Samples
 
 The quickest update will be if you only have a single project to update, in which case you can `cd` into the project root directory and
 ```bash
