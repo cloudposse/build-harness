@@ -43,6 +43,7 @@ Available targets:
   docker/image/push                   Push $TARGET_DOCKER_REGISTRY/$IMAGE_NAME:$TARGET_VERSION
   docker/login                        Login into docker hub
   docs/copyright-add                  Add copyright headers to source code
+  docs/github-action.md               Update `docs/github-action.md` from `action.yaml`
   docs/targets.md                     Update `docs/targets.md` from `make help`
   docs/terraform.md                   Update `docs/terraform.md` from `terraform-docs`
   geodesic/deploy                     Run a Jenkins Job to Deploy $(APP) with $(CANONICAL_TAG)

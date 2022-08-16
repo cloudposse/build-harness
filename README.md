@@ -34,7 +34,7 @@ It's designed to work with CI/CD systems such as GitHub Actions, Codefresh, Trav
 ## Regarding the phase out of `git.io`
 
 Prior to April 25, 2022, practically all Cloud Posse Makefiles pulled in a common Makefile via
-```
+```bash
 curl -sSL -o .build-harness "https://git.io/build-harness"
 ```
 
@@ -182,6 +182,7 @@ Available targets:
   docker/image/push                   Push $TARGET_DOCKER_REGISTRY/$IMAGE_NAME:$TARGET_VERSION
   docker/login                        Login into docker hub
   docs/copyright-add                  Add copyright headers to source code
+  docs/github-action.md               Update `docs/github-action.md` from `action.yaml`
   docs/targets.md                     Update `docs/targets.md` from `make help`
   docs/terraform.md                   Update `docs/terraform.md` from `terraform-docs`
   geodesic/deploy                     Run a Jenkins Job to Deploy $(APP) with $(CANONICAL_TAG)
@@ -323,7 +324,7 @@ Available targets:
 <!-- markdownlint-restore -->
 # GIT.IO DEPRECATION
 
-On April 25, 2022, GitHub announced that the [`git.io` redirector service would be shutting down on 2022-04-29](https://github.blog/changelog/2022-04-25-git-io-deprecation/), merely 4 days later. The announcement said that all references to `git.io` 
+On April 25, 2022, GitHub announced that the [`git.io` redirector service would be shutting down on 2022-04-29](https://github.blog/changelog/2022-04-25-git-io-deprecation/), merely 4 days later. The announcement said that all references to `git.io`
 would stop working that day.
 
 This was a major breaking change for Cloud Posse, because *all* of our standard Makefiles include a Makefile from this `build-harness`
@@ -335,21 +336,21 @@ and undertook an emergency update of all of our repositories to make this change
 
 While we were largely successful in updating our repositories by 2022-04-29, Cloud Posse was not fully prepared to make the
 mass updates across all of our repositories that this required, so some repositories were not updated in time. Furthermore,
-even if all of Cloud Posse's repositories were updated, that would not affect anyone's fork or clone or 
+even if all of Cloud Posse's repositories were updated, that would not affect anyone's fork or clone or
 locally checked-out version, so we are publishing the instructions below to help you update your own code.
 
 Fortunately, GitHub recognized the massive upheaval and loss that would be caused by completely shutting down
 an URL shorting/link redirecting service, and reversed their decision to shut down `git.io` completely. Instead,
 they agreed to archive the links and continue to serve existing links indefinitely, with the caveat that they
-would remove links on a case-by-case basis if they were found to be malicious, misleading, or broken. 
+would remove links on a case-by-case basis if they were found to be malicious, misleading, or broken.
 
 This means that instead of being an urgent requirement that you immediately change your links, or else your builds would break,
-it is now merely a recommended best practice that you update to the new link that Cloud Posse controls and 
-is committed to maintaining. 
+it is now merely a recommended best practice that you update to the new link that Cloud Posse controls and
+is committed to maintaining.
 
 Specifically, in source files you control, you should update all references to `git.io/build-harness`
-to instead refer to `cloudposse.tools/build-harness`. Critical references are in Makefiles, and there are also 
-important references in README files that describe Makefiles. References in derived or downloaded files, such as 
+to instead refer to `cloudposse.tools/build-harness`. Critical references are in Makefiles, and there are also
+important references in README files that describe Makefiles. References in derived or downloaded files, such as
 Terraform modules downloaded by `terraform init`, do not need to be modified.
 Below we provide guidance on how to make the replacements.
 
@@ -362,44 +363,44 @@ or a `src` (or similar) directory under which you have all your `git` repos (dir
 ### Finding affected files
 
 Use the following command to find all occurrences in all directories recursively:
-```
+```bash
 grep -l "git\.io/build-harness" -R .
 ```
 Note that the above command can reach very deeply, such as into Terraform modules you have downloaded. You may want to impose some limits.
 If you run from the top level of a `git` repo, where there is a `Makefile` and a `Dockerfile`, you can reduce that to
-```
+```bash
 grep -l "git\.io/build-harness" *
 ```
 If you have a lot of Cloud Posse projects under a single directory, then you might try
-```
+```bash
 grep -l "git\.io/build-harness" * */*
 ```
 or for full depth below the current directory
-```
+```bash
 find . \( -name .terraform -prune -type f \)  -o \( -name build-harness -prune -type f \) -o \( -name 'Makefile*' -o -name 'README*' \) -type f
 ```
 
 ### Updating the affected files
 
 Once you are happy with the command to generate the list of files to update, update the files by inserting that command into this command template:
-```
+```bash
 sed -i '' 's/git.io\/build-harness/cloudposse.tools\/build-harness/' $(<command to list files>)
 ```
 
-#### Examples
+#### Samples
 
 The quickest update will be if you only have a single project to update, in which case you can `cd` into the project root directory and
-```
+```bash
 sed -i '' 's/git.io\/build-harness/cloudposse.tools\/build-harness/' $(grep -l "git\.io/build-harness" *)
 ```
 
 If you have multiple projects to update and want to be thorough, then this is probably best:
-```
+```bash
 sed -i '' 's/git.io\/build-harness/cloudposse.tools\/build-harness/' $(find . \( -name .terraform -prune -type f \)  -o \( -name build-harness -prune -type f \) -o \( -name 'Makefile*' -o -name 'README*' \) -type f )
 ```
 
 This is the most thorough, but probably overkill for most people:
-```
+```bash
 sed -i '' 's/git.io\/build-harness/cloudposse.tools\/build-harness/' $(grep -l "git\.io/build-harness" -R .)
 ```
 
@@ -582,7 +583,7 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
 
 [![README Footer][readme_footer_img]][readme_footer_link]
 [![Beacon][beacon]][website]
-
+<!-- markdownlint-disable -->
   [logo]: https://cloudposse.com/logo-300x69.svg
   [docs]: https://cpco.io/docs?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/build-harness&utm_content=docs
   [website]: https://cpco.io/homepage?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/build-harness&utm_content=website
@@ -613,3 +614,4 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
   [share_googleplus]: https://plus.google.com/share?url=https://github.com/cloudposse/build-harness
   [share_email]: mailto:?subject=Build+Harness&body=https://github.com/cloudposse/build-harness
   [beacon]: https://ga-beacon.cloudposse.com/UA-76589703-4/cloudposse/build-harness?pixel&cs=github&cm=readme&an=build-harness
+<!-- markdownlint-restore -->
