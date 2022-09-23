@@ -33,6 +33,7 @@ RUN apk --update --no-cache add \
       boto3==1.24.43 \
       iteration-utilities==0.11.0 \
       PyGithub==1.55 && \
+      pre-commit && \
     git config --global advice.detachedHead false
 
 ### Workaround https://github.com/pypa/pip/issues/5247
