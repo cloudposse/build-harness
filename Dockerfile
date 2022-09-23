@@ -35,6 +35,13 @@ RUN apk --update --no-cache add \
       PyGithub==1.55 && \
     git config --global advice.detachedHead false
 
+# Install pre-commit support
+RUN pip install pre-commit
+# Install ADR tools
+RUN cd /usr/local/bin && curl -fsSL https://github.com/npryce/adr-tools/archive/refs/tags/3.0.0.tar.gz | \
+    tar xzf - adr-tools-3.0.0/src --strip 2
+
+
 ### Workaround https://github.com/pypa/pip/issues/5247
 # Should no longer be needed, but leaving it in case we need to revert
 #RUN pip3 install --upgrade --force-reinstall pip==9.0.3 && \
@@ -54,6 +61,7 @@ RUN apk --update --no-cache add \
       helm@cloudposse \
       helmfile@cloudposse \
       codefresh@cloudposse \
+      npm nodejs \
       terraform-0.11@cloudposse terraform-0.12@cloudposse \
       terraform-0.13@cloudposse terraform-0.14@cloudposse \
       terraform-0.15@cloudposse terraform-1@cloudposse \
