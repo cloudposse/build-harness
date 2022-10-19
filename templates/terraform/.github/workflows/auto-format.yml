@@ -54,10 +54,10 @@ jobs:
           [[ $SENDER ==  "cloudpossebot" ]] || git push
           # Set status to fail, because the push should trigger another status check,
           # and we use success to indicate the checks are finished.
-          echo "changed=true" >> $GITHUB_OUTPUT
+          echo "changed = true" >> $GITHUB_OUTPUT
           exit 1
         else
-          echo "changed=false" >> $GITHUB_OUTPUT
+          echo "changed = false" >> $GITHUB_OUTPUT
           echo "No changes detected"
         fi
 
