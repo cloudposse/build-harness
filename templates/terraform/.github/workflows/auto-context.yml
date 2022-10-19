@@ -27,7 +27,7 @@ jobs:
             make init
             make github/init/context.tf
             make readme/build
-            echo "create_pull_request = true" >> $GITHUB_OUTPUT
+            echo "create_pull_request=true" >> "$GITHUB_OUTPUT"
           fi
         else
           echo "This module has not yet been updated to support the context.tf pattern! Please update in order to support automatic updates."
