@@ -29,7 +29,7 @@ jobs:
         GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
       run: |
         default_branch=$(gh repo view --json defaultBranchRef --jq .defaultBranchRef.name)
-        echo "defaultBranch=${default_branch}\n" >> $GITHUB_OUTPUT
+        echo "defaultBranch=${default_branch}" >> $GITHUB_OUTPUT
         printf "defaultBranchRef.name=%s\n" "${default_branch}"
 
     - name: Update readme
