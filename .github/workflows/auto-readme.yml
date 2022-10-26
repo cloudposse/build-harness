@@ -1,5 +1,7 @@
 name: Auto Readme
 on:
+  # temporary to test action change
+  pull_request:
   pull_request_target:
     types: [opened, synchronize]
 
