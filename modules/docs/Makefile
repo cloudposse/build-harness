@@ -27,3 +27,11 @@ docs/github-action.md: docs/deps packages/install/gomplate
 	@echo "<!-- markdownlint-disable -->" > $@
 	@gomplate -d action=./action.yml -f $(BUILD_HARNESS_PATH)/templates/docs-github-action.gotmpl >> $@
 	@echo "<!-- markdownlint-restore -->" >> $@
+
+.PHONY : docs/github-actions-reusable-workflows.md
+## Update `docs/github-actions-reusable-workflows.md` from `.github/workflows/*.yaml`
+docs/github-actions-reusable-workflows.md: docs/deps packages/install/gomplate packages/install/yq
+	@echo "<!-- markdownlint-disable -->" > $@
+	@yq eval-all --exit-status --no-colors [.] ./.github/workflows/* | \
+		gomplate -d workflows=stdin:?type=application/yaml -f $(BUILD_HARNESS_PATH)/templates/docs-github-actions-reusable-workflows.gotmpl >> $@
+	@echo "<!-- markdownlint-restore -->" >> $@
