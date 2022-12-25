@@ -1,12 +1,13 @@
 {{/* Inspired https://github.com/Dirrk/action-docs/blob/master/src/default_template.tpl */}}
 {{- define "escape_chars" }}{{ . | strings.ReplaceAll "_" "\\_" | strings.ReplaceAll "|" "\\|" | strings.ReplaceAll "*" "\\*" }}{{- end }}
 {{- define "sanatize_string" }}{{ . | strings.ReplaceAll "\n\n" "<br><br>" | strings.ReplaceAll "  \n" "<br>" | strings.ReplaceAll "\n" "<br>" | tmpl.Exec "escape_chars" }}{{- end }}
+{{- define "sanatize_gha_substitution" }}{{ . | strings.ReplaceAll "\\{" "{" | strings.ReplaceAll "\\}" "}" | tmpl.Exec "sanatize_string" }}{{- end }}
 {{- $workflows := (datasource "workflows") -}}
 
 {{ range $index, $workflow := $workflows }}
 {{ if has $workflow.on "workflow_call" }}
 
-## {{ $workflow.name }}
+## {{ tmpl.Exec "sanatize_gha_substitution" $workflow.name }}
 
 {{ if has $workflow.on.workflow_call "inputs" }}
 
