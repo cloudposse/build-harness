@@ -2,7 +2,7 @@
 {{- define "escape_chars" }}{{ . | strings.ReplaceAll "_" "\\_" | strings.ReplaceAll "|" "\\|" | strings.ReplaceAll "*" "\\*" }}{{- end }}
 {{- define "sanatize_string" }}{{ . | strings.ReplaceAll "\n\n" "<br><br>" | strings.ReplaceAll "  \n" "<br>" | strings.ReplaceAll "\n" "<br>" | tmpl.Exec "escape_chars" }}{{- end }}
 {{- define "sanatize_gha_substitution" }}{{ . | strings.ReplaceAll "\\{" "{" | strings.ReplaceAll "\\}" "}" }}{{- end }}
-{{- define "to_markdown_ref" }}#{{ . | strings.Trim " " | strings.ToLower | regexp.Replace "[^a-zA-Z0-9 ]" "" | strings.ReplaceAll " " "-" }}{{- end }}
+{{- define "to_markdown_ref" }}#{{ . | strings.Trim " " | strings.ToLower | regexp.Replace "[^a-zA-Z0-9- ]" "" | strings.ReplaceAll " " "-" }}{{- end }}
 {{- define "gha_reusable_workflow_name" }}{{ index ( . | strings.Split "\n" ) 0 | tmpl.Exec "escape_chars" }}{{- end }}
 {{- define "gha_reusable_workflow_reference" }}{{ . | tmpl.Exec "gha_reusable_workflow_name" | tmpl.Exec "to_markdown_ref" }}{{- end }}
 {{- define "gha_reusable_workflow_description" }}{{ index ( . | strings.Split "\n" ) 2 | tmpl.Exec "escape_chars" }}{{- end }}
