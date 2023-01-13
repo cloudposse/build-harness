@@ -502,7 +502,7 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
 ## Copyrights
 
-Copyright © 2016-2022-2022 [Cloud Posse, LLC](https://cloudposse.com)
+Copyright © 2016-2022-2023 [Cloud Posse, LLC](https://cloudposse.com)
 
 
 
