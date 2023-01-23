@@ -108,8 +108,7 @@ helm/repo/index:
 helm/repo/lint:
 	$(call assert-set,REPO_NAME)
 	@echo "## Linting charts $(shell pwd)"
-	@find $(HELM_REPO_PATH) -maxdepth 1 -mindepth 1 -type d | \
-    	xargs -n 1 -I'{}' $(HELM) lint {}
+	@find $(HELM_REPO_PATH) -maxdepth 1 -mindepth 1 -type d | xargs -n 1 -I'{}' $(HELM) lint {}
 
 ## Clean helm repo
 helm/repo/clean:
