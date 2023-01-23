@@ -1,0 +1,66 @@
+{{/* Inspired https://github.com/Dirrk/action-docs/blob/master/src/default_template.tpl */}}
+{{- define "escape_chars" }}{{ . | strings.ReplaceAll "_" "\\_" | strings.ReplaceAll "|" "\\|" | strings.ReplaceAll "*" "\\*" }}{{- end }}
+{{- define "sanatize_string" }}{{ . | strings.ReplaceAll "\n\n" "<br><br>" | strings.ReplaceAll "  \n" "<br>" | strings.ReplaceAll "\n" "<br>" | tmpl.Exec "escape_chars" }}{{- end }}
+{{- define "sanatize_gha_substitution" }}{{ . | strings.ReplaceAll "\\{" "{" | strings.ReplaceAll "\\}" "}" }}{{- end }}
+{{- define "to_markdown_ref" }}#{{ . | strings.Trim " " | strings.ToLower | regexp.Replace "[^a-zA-Z0-9- ]" "" | strings.ReplaceAll " " "-" }}{{- end }}
+{{- define "gha_reusable_workflow_name" }}{{ index ( . | strings.Split "\n" ) 0 | tmpl.Exec "escape_chars" }}{{- end }}
+{{- define "gha_reusable_workflow_reference" }}{{ . | tmpl.Exec "gha_reusable_workflow_name" | tmpl.Exec "to_markdown_ref" }}{{- end }}
+{{- define "gha_reusable_workflow_description" }}{{ index ( . | strings.Split "\n" ) 2 | tmpl.Exec "escape_chars" }}{{- end }}
+{{- $workflows := (datasource "workflows") -}}
+
+## Workflows
+
+| Name | Description |
+|------|-------------|
+
+{{- range $index, $workflow := $workflows }}
+{{- if has $workflow.on "workflow_call" }}
+| [{{ tmpl.Exec "gha_reusable_workflow_name" $workflow.name }}]({{ tmpl.Exec "gha_reusable_workflow_reference" $workflow.name }}) | {{ tmpl.Exec "gha_reusable_workflow_description" $workflow.name }} |
+{{- end }}
+{{- end }}
+
+{{ range $index, $workflow := $workflows }}
+{{ if has $workflow.on "workflow_call" }}
+
+## {{ tmpl.Exec "sanatize_gha_substitution" $workflow.name }}
+
+{{ if has $workflow.on.workflow_call "inputs" }}
+
+### Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|----------|
+{{- range $key, $input := $workflow.on.workflow_call.inputs }}
+| {{ tmpl.Exec "escape_chars" $key }} | {{ if (has $input "description") }}{{ tmpl.Exec "sanatize_string" $input.description }}{{ else }}{{ tmpl.Exec "escape_chars" $key }}{{ end }} | {{ tmpl.Exec "sanatize_string" $input.type }} | {{ if (has $input "default") }}{{ tmpl.Exec "sanatize_string" $input.default }}{{ else }}N/A{{ end }} | {{ if (has $input "required") }}{{ $input.required }}{{ else }}false{{ end }} |
+{{- end }}
+
+{{- end }}
+
+{{ if has $workflow.on.workflow_call "secrets" }}
+
+### Secrets
+
+| Name | Description | Required |
+|------|-------------|----------|
+{{- range $key, $secret := $workflow.on.workflow_call.secrets }}
+| {{ tmpl.Exec "escape_chars" $key }} | {{ if (has $secret "description") }}{{ tmpl.Exec "sanatize_string" $secret.description }}{{ else }}{{ tmpl.Exec "escape_chars" $key }}{{ end }} | {{ if (has $secret "required") }}{{ $secret.required }}{{ else }}false{{ end }} |
+{{- end }}
+
+{{- end }}
+
+
+{{ if has $workflow.on.workflow_call "outputs" }}
+### Outputs
+
+| Name | Description |
+|------|-------------|
+{{- range $key, $output := $workflow.on.workflow_call.outputs }}
+| {{ tmpl.Exec "escape_chars" $key }} | {{ if (has $output "description") }}{{ tmpl.Exec "sanatize_string" $output.description }}{{ else }}{{ tmpl.Exec "escape_chars" $key }}{{ end }} |
+{{- end }}
+
+
+{{- end }}
+
+{{- end }}
+{{ end }}
+
