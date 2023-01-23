@@ -5,7 +5,7 @@
 ifeq ($(BUILD_HARNESS_TOP_LEVEL_MAKEFILE_GUARD),)
 BUILD_HARNESS_TOP_LEVEL_MAKEFILE_GUARD := included
 
-export OS ?= $(shell uname -s | tr '[:upper:]' '[:lower:]')
+export OS := $(shell uname -s | tr '[:upper:]' '[:lower:]')
 export BUILD_HARNESS_PATH ?= $(shell 'pwd')
 export BUILD_HARNESS_EXTENSIONS_PATH ?= $(BUILD_HARNESS_PATH)/../build-harness-extensions
 export BUILD_HARNESS_OS ?= $(OS)
