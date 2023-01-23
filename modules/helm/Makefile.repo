@@ -4,21 +4,21 @@ HELM_REPO_PREFIX ?= cloudposse
 REPO_URL?=https://charts.cloudposse.com
 
 ifneq ($(TRAVIS_PULL_REQUEST_BRANCH),)
-  BRANCH=pr-$(TRAVIS_PULL_REQUEST_BRANCH)
+	BRANCH=pr-$(TRAVIS_PULL_REQUEST_BRANCH)
 else ifneq ($(TRAVIS_BRANCH),)
-  BRANCH=$(TRAVIS_BRANCH)
+	BRANCH=$(TRAVIS_BRANCH)
 else ifneq ($(TRAVIS_TAG),)
-  BRANCH=$(TRAVIS_TAG)
+	BRANCH=$(TRAVIS_TAG)
 else ifneq ($(wildcard .git),)
-  BRANCH=$(GIT_BRANCH)
+	BRANCH=$(GIT_BRANCH)
 else ifeq ($(DEBUG),true)
-  $(warning unable to extrapolate current BRANCH)
+	$(warning unable to extrapolate current BRANCH)
 endif
 
 ifeq ($(BRANCH),master)
-  CURRENT_REPO_URL?=$(REPO_URL)
+	CURRENT_REPO_URL?=$(REPO_URL)
 else
-  CURRENT_REPO_URL?=https://charts.dev.cloudposse.com/$(BRANCH)
+	CURRENT_REPO_URL?=https://charts.dev.cloudposse.com/$(BRANCH)
 endif
 
 ## Show repo info
@@ -39,10 +39,10 @@ helm/repo/add-current:
 	
 helm/repo/add-all:
 	@REPO_NAME=kubernetes-charts \
-		REPO_ENDPOINT=http://storage.googleapis.com/kubernetes-charts \
+		REPO_ENDPOINT=https://charts.helm.sh/stable \
 		$(SELF) -s --no-print-directory helm/repo/add
 	@REPO_NAME=kubernetes-charts-incubator \
-		REPO_ENDPOINT=https://kubernetes-charts-incubator.storage.googleapis.com \
+		REPO_ENDPOINT=	https://charts.helm.sh/incubator \
 		$(SELF) -s --no-print-directory helm/repo/add
 	@for repo in $(HELM_REPO_NAMES); do \
 		if [ -d "$$repo" ]; then \
@@ -83,13 +83,13 @@ helm/repo/deps:
 	$(call assert-set,REPO_NAME)
 	@echo "## Fetching deps for charts in $(shell basename $(CURDIR))"
 	@find $(HELM_REPO_PATH) -maxdepth 1 -mindepth 1 -type d  | \
-    	xargs -n 1 -I '{}' sh -c 'echo && echo "# Updating dependencies for {}" && $(HELM) dependency build --debug {}'
+		xargs -n 1 -I '{}' sh -c 'echo && echo "# Updating dependencies for {}" && $(HELM) dependency build --debug {}'
 
 helm/repo/package:
 	$(call assert-set,REPO_NAME)
 	@echo "## Building packages in $(shell basename $(CURDIR))"
 	@find $(HELM_REPO_PATH) -maxdepth 1 -mindepth 1 -type d  | \
-    	xargs -n 1 -I '{}' sh -c 'echo && echo "# Building package for {}" && $(HELM) package --debug {}'
+		xargs -n 1 -I '{}' sh -c 'echo && echo "# Building package for {}" && $(HELM) package --debug {}'
 	@mkdir -p $(HELM_PACKAGE_PATH)
 	@find . -maxdepth 1 -mindepth 1 -type f -name '*.tgz' | \
 		xargs -I '{}' mv {} $(HELM_PACKAGE_PATH)
@@ -108,8 +108,7 @@ helm/repo/index:
 helm/repo/lint:
 	$(call assert-set,REPO_NAME)
 	@echo "## Linting charts $(shell pwd)"
-	@find $(HELM_REPO_PATH) -maxdepth 1 -mindepth 1 -type d | \
-    	xargs -n 1 -I'{}' $(HELM) lint {}
+	@find $(HELM_REPO_PATH) -maxdepth 1 -mindepth 1 -type d | xargs -n 1 -I'{}' $(HELM) lint {}
 
 ## Clean helm repo
 helm/repo/clean:
