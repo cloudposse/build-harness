@@ -4,21 +4,21 @@ HELM_REPO_PREFIX ?= cloudposse
 REPO_URL?=https://charts.cloudposse.com
 
 ifneq ($(TRAVIS_PULL_REQUEST_BRANCH),)
-  BRANCH=pr-$(TRAVIS_PULL_REQUEST_BRANCH)
+	BRANCH=pr-$(TRAVIS_PULL_REQUEST_BRANCH)
 else ifneq ($(TRAVIS_BRANCH),)
-  BRANCH=$(TRAVIS_BRANCH)
+ 	BRANCH=$(TRAVIS_BRANCH)
 else ifneq ($(TRAVIS_TAG),)
-  BRANCH=$(TRAVIS_TAG)
+ 	BRANCH=$(TRAVIS_TAG)
 else ifneq ($(wildcard .git),)
-  BRANCH=$(GIT_BRANCH)
+ 	BRANCH=$(GIT_BRANCH)
 else ifeq ($(DEBUG),true)
-  $(warning unable to extrapolate current BRANCH)
+ 	$(warning unable to extrapolate current BRANCH)
 endif
 
 ifeq ($(BRANCH),master)
-  CURRENT_REPO_URL?=$(REPO_URL)
+ 	CURRENT_REPO_URL?=$(REPO_URL)
 else
-  CURRENT_REPO_URL?=https://charts.dev.cloudposse.com/$(BRANCH)
+ 	CURRENT_REPO_URL?=https://charts.dev.cloudposse.com/$(BRANCH)
 endif
 
 ## Show repo info
