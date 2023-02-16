@@ -1,4 +1,4 @@
-FROM golang:1.17.9-alpine3.15
+FROM golang:1.19.0-alpine3.16
 LABEL maintainer="Cloud Posse <hello@cloudposse.com>"
 
 LABEL "com.github.actions.name"="Build Harness"
@@ -26,14 +26,27 @@ RUN apk --update --no-cache add \
       py3-cffi && \
     python3 -m pip install --upgrade pip setuptools wheel && \
     pip3 install --no-cache-dir \
+      cryptography==37.0.4 \
       PyYAML==5.4.1 \
-      awscli==1.22.56 \
+      awscli==1.25.43 \
       boto==2.49.0 \
-      boto3==1.21.1 \
+      boto3==1.24.43 \
       iteration-utilities==0.11.0 \
-      pre-commit \
       PyGithub==1.55 && \
     git config --global advice.detachedHead false
+
+# Install pre-commit support
+RUN pip install pre-commit
+# Install ADR tools
+RUN cd /usr/local/bin && curl -fsSL https://github.com/npryce/adr-tools/archive/refs/tags/3.0.0.tar.gz | \
+    tar xzf - adr-tools-3.0.0/src --strip 2
+
+
+### Workaround https://github.com/pypa/pip/issues/5247
+# Should no longer be needed, but leaving it in case we need to revert
+#RUN pip3 install --upgrade --force-reinstall pip==9.0.3 && \
+#    pip3 install --no-cache-dir --disable-pip-version-check pre-commit && \
+#    pip3 install --upgrade pip
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN curl -fsSL --retry 3 https://apk.cloudposse.com/install.sh | bash
@@ -48,6 +61,7 @@ RUN apk --update --no-cache add \
       helm@cloudposse \
       helmfile@cloudposse \
       codefresh@cloudposse \
+      npm nodejs \
       terraform-0.11@cloudposse terraform-0.12@cloudposse \
       terraform-0.13@cloudposse terraform-0.14@cloudposse \
       terraform-0.15@cloudposse terraform-1@cloudposse \
@@ -82,3 +96,4 @@ RUN make -s template/deps readme/deps
 RUN make -s go/deps-build go/deps-dev
 
 ENTRYPOINT ["/usr/bin/make"]
+#ENTRYPOINT ["/bin/sh"]
