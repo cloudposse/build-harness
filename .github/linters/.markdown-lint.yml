@@ -1,0 +1,7 @@
+# Default state for all rules
+default: true
+
+# Ignore MD041/first-line-heading/first-line-h1
+# Error: First line in a file should be a top-level heading [Context: "## what"]
+# This is so the PULL_REQUEST_TEMPLATE.md may continue to use a second-level heading instead of top-level.
+MD041: false
