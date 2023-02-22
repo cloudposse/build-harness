@@ -16,3 +16,4 @@
 # Cloud Posse must review any changes to GitHub templates actions
 templates/.github/*             @cloudposse/engineering
 templates/terraform/.github/*   @cloudposse/engineering
+**/.gomplate.*
