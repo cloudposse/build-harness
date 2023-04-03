@@ -23,9 +23,9 @@ packages/install:
 ## Install package (e.g. helm, helmfile, kubectl)
 packages/install/%:
 	@binary="$*"; \
-	if [[ -x "$(INSTALL_PATH)/$$binary" ]]; then \
+	if [ -x "$(INSTALL_PATH)/$$binary" ]; then \
 		echo "* Package $$binary already installed"; \
-	elif [[ "$(PACKAGES_PREFER_HOST)" == "true" ]] && installed=$$(command -v $* 2>/dev/null); then \
+	elif [ "$(PACKAGES_PREFER_HOST)" = "true" ] && installed=$$(command -v $* 2>/dev/null); then \
 		echo Using "$*" from "$$installed" ; \
 	else \
 		$(MAKE) packages/install && \
