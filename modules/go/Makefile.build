@@ -23,22 +23,6 @@ go/deps: $(GO)
 	$(GO) get
 	$(GO) mod tidy
 
-## DEPRECATED Install dependencies
-go/glide-deps: $(GLIDE)
-	@echo "DEPRECATED: Please update to 'go mod' and use go/deps"
-	$(call assert-set,GLIDE)
-	$(GLIDE) install --strip-vendor
-	$(GLIDE) update  --strip-vendor
-
-## DEPRECATED Install dependencies for build
-go/glide-deps-build:
-	@echo "DEPRECATED: Please update to 'go mod' and use go/deps"
-	$(call assert-set,GOPATH)
-	mkdir -p  $(GOPATH)/bin
-	# 2022-098-02 https://glide.sh/get no longer works (parked domain, bad SSL cert)
-	# which $(GLIDE) || (curl https://glide.sh/get | sh)
-	which $(GLIDE) || apk add --no-cache glide
-
 ## Install development dependencies
 go/deps-dev: $(GO)
 	$(call assert-set,GO)
@@ -52,12 +36,6 @@ go/clean:
 ## Clean compiled binary and dependencies
 go/clean-all: go/clean
 	$(GO) mod download
-
-## DEPRECATED Clean compiled binary and dependency
-go/glide-clean-all: go/clean
-	@echo "DEPRECATED: Please update to 'go mod' and use go/clean-all"
-	rm -rf vendor
-	rm -rf glide.lock
 
 ## Install cli
 go/install: $(APP) go/build
