@@ -199,7 +199,7 @@ Available targets:
   go/build                            Build binary
   go/build-all                        Build binary for all platforms
   go/clean                            Clean compiled binary
-  go/clean-all                        Clean compiled binary and dependency
+  go/clean-all                        Clean compiled binary and dependencies
   go/deps                             Install dependencies
   go/deps-dev                         Install development dependencies
   go/fmt                              Format code according to Golang convention
