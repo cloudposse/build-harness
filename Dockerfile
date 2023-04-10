@@ -93,7 +93,7 @@ WORKDIR /build-harness
 ARG PACKAGES_PREFER_HOST=true
 RUN make -s bash/lint make/lint
 RUN make -s template/deps readme/deps
-RUN make -s go/deps-build go/deps-dev
+RUN make -s go/deps-dev
 
 ENTRYPOINT ["/usr/bin/make"]
 #ENTRYPOINT ["/bin/sh"]

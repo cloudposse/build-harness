@@ -201,7 +201,6 @@ Available targets:
   go/clean                            Clean compiled binary
   go/clean-all                        Clean compiled binary and dependency
   go/deps                             Install dependencies
-  go/deps-build                       Install dependencies for build
   go/deps-dev                         Install development dependencies
   go/fmt                              Format code according to Golang convention
   go/install                          Install cli
