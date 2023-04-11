@@ -1,4 +1,3 @@
-GLIDE	:= $(shell which glide 2>/dev/null)
 INSTALL_DIR ?= /usr/local/sbin
 RELEASE_DIR ?= release
 APP ?= $(shell basename `pwd`)
@@ -18,18 +17,10 @@ else
 endif
 
 ## Install dependencies
-go/deps: $(GLIDE)
-	$(call assert-set,GLIDE)
-	$(GLIDE) install --strip-vendor
-	$(GLIDE) update  --strip-vendor
-
-## Install dependencies for build
-go/deps-build:
-	$(call assert-set,GOPATH)
-	mkdir -p  $(GOPATH)/bin
-	# 2022-098-02 https://glide.sh/get no longer works (parked domain, bad SSL cert)
-	# which $(GLIDE) || (curl https://glide.sh/get | sh)
-	which $(GLIDE) || apk add --no-cache glide
+go/deps: $(GO)
+	$(call assert-set,GO)
+	$(GO) get
+	$(GO) mod tidy
 
 ## Install development dependencies
 go/deps-dev: $(GO)
@@ -40,11 +31,10 @@ go/deps-dev: $(GO)
 ## Clean compiled binary
 go/clean:
 	rm -rf $(RELEASE_DIR)
-
-## Clean compiled binary and dependency
+	
+## Clean compiled binary and dependencies
 go/clean-all: go/clean
-	rm -rf vendor
-	rm -rf glide.lock
+	$(GO) mod download
 
 ## Install cli
 go/install: $(APP) go/build
