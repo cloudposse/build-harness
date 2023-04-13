@@ -11,6 +11,16 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Find default branch name
+      id: defaultBranch
+      shell: bash
+      env:
+        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      run: |
+        default_branch=$(gh repo view --json defaultBranchRef --jq .defaultBranchRef.name)
+        echo "defaultBranch=${default_branch}" >> "$GITHUB_OUTPUT"
+        printf "defaultBranchRef.name=%s\n" "${default_branch}"
+
     - name: Update context.tf
       shell: bash
       id: update
@@ -50,7 +60,7 @@ jobs:
           To support all the features of the `context` interface.
 
         branch: auto-update/context.tf
-        base: master
+        base: ${{ steps.defaultBranch.outputs.defaultBranch }}
         delete-branch: true
         labels: |
           auto-update
