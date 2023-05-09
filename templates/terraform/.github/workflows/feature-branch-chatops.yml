@@ -1,3 +1,4 @@
+---
 name: feature-branch-chatops
 on:
   issue_comment:
