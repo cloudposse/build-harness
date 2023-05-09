@@ -78,8 +78,8 @@ RUN update-alternatives --set terraform /usr/share/terraform/$DEFAULT_TERRAFORM_
   cp -p /usr/share/terraform/$DEFAULT_TERRAFORM_VERSION/bin/terraform /build-harness/vendor/terraform
 
 # Install tflint
-RUN  -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
-RUN at << EOF >> .tflint.hcl
+RUN curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+RUN cat << EOF >> .tflint.hcl
 plugin "aws" {
     enabled = true
     version = "0.23.0"
