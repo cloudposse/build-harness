@@ -4,7 +4,6 @@ GITHUB_TEMPLATES = \
 	.github/ISSUE_TEMPLATE/feature_request.yml \
 	.github/ISSUE_TEMPLATE/bug_report.yml \
 	.github/ISSUE_TEMPLATE/question.md \
-	.github/auto-release.yml
 
 # Install extra configuration for terraform projects
 GITHUB_TERRAFORM_TEMPLATES = .github/workflows/feature-branch.yml \
@@ -13,8 +12,8 @@ GITHUB_TERRAFORM_TEMPLATES = .github/workflows/feature-branch.yml \
 	.github/workflows/release-published.yml \
 	.github/workflows/scheduled.yml \
 	.github/mergify.yml \
-	.github/auto-release.yml \
-	.github/renovate.json
+	.github/renovate.json \
+	.github/auto-release.yml
 
 GTIHUB_CODEOWNERS_FILE = .github/CODEOWNERS
 
