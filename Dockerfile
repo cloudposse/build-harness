@@ -11,6 +11,7 @@ RUN apk --update --no-cache add \
       ca-certificates \
       coreutils \
       curl \
+      unzip \
       git \
       gettext \
       go \
