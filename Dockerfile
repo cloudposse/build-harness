@@ -80,12 +80,12 @@ RUN update-alternatives --set terraform /usr/share/terraform/$DEFAULT_TERRAFORM_
 
 # Install tflint
 RUN curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
-RUN cat << EOF >> .tflint.hcl \
-plugin "aws" { \
-    enabled = true \
-    version = "0.23.0" \
-    source  = "github.com/terraform-linters/tflint-ruleset-aws" \
-} \
+COPY <<EOF .tflint.hcl
+plugin "aws" {
+    enabled = true
+    version = "0.23.0"
+    source  = "github.com/terraform-linters/tflint-ruleset-aws"
+}
 EOF
 RUN tflint --init
 
