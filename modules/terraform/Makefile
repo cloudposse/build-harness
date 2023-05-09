@@ -121,5 +121,4 @@ terraform/v14-rewrite: terraform/loosen-constraints terraform/bump-tf-12-min-ver
 	@{ [[ "$(TERRAFORM_FORCE_README)" != "true" ]] && git diff --no-patch --exit-code README.yaml; } || $(MAKE) readme
 
 
-pr/terraform: ARGS := terraform/fmt terraform/tflint readme/build
-	$(MAKE) $(ARGS)
+pr/terraform: terraform/fmt terraform/tflint readme/build
