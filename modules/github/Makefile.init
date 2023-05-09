@@ -8,8 +8,12 @@ GITHUB_TEMPLATES = \
 
 # Install extra configuration for terraform projects
 GITHUB_TERRAFORM_TEMPLATES = .github/workflows/feature-branch.yml \
-	.github/workflows/main-branch.yml \
+	.github/workflows/feature-branch-chatops.yml \
+	.github/workflows/release-branch.yml \
+	.github/workflows/release-published.yml \
+	.github/workflows/scheduled.yml \
 	.github/mergify.yml \
+	.github/auto-release.yml \
 	.github/renovate.json
 
 GTIHUB_CODEOWNERS_FILE = .github/CODEOWNERS
