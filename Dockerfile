@@ -86,8 +86,8 @@ plugin "aws" { \
     version = "0.23.0" \
     source  = "github.com/terraform-linters/tflint-ruleset-aws" \
 } \
-EOF \
-tflint --init
+EOF
+RUN tflint --init
 
 # Patch for old Makefiles that expect a directory like x.x from the 0.x days.
 # Fortunately, they only look for the current version, so we only need links
