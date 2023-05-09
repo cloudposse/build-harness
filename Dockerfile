@@ -78,14 +78,14 @@ RUN update-alternatives --set terraform /usr/share/terraform/$DEFAULT_TERRAFORM_
   cp -p /usr/share/terraform/$DEFAULT_TERRAFORM_VERSION/bin/terraform /build-harness/vendor/terraform
 
 # Install tflint
-curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
-cat << EOF >> .tflint.hcl
+RUN  -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+RUN at << EOF >> .tflint.hcl
 plugin "aws" {
     enabled = true
     version = "0.23.0"
     source  = "github.com/terraform-linters/tflint-ruleset-aws"
 }
-EOF
+EOF \ 
 tflint --init
 
 # Patch for old Makefiles that expect a directory like x.x from the 0.x days.
