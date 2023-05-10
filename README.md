@@ -248,6 +248,7 @@ Available targets:
   packages/reinstall                  Reinstall packages
   packages/reinstall/%                Reinstall package (e.g. helm, helmfile, kubectl)
   packages/uninstall/%                Uninstall package (e.g. helm, helmfile, kubectl)
+  precommit/terraform                 Terraform pull-request routine check/update
   readme                              Alias for readme/build
   readme/build                        Create README.md by building it from README.yaml
   readme/init                         Create basic minimalistic .README.md template file

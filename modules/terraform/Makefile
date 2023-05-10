@@ -120,5 +120,5 @@ terraform/v14-rewrite: TERRAFORM = terraform-0.13
 terraform/v14-rewrite: terraform/loosen-constraints terraform/bump-tf-12-min-version terraform/rewrite-required-providers terraform/rewrite-module-source terraform/rewrite-readme-source
 	@{ [[ "$(TERRAFORM_FORCE_README)" != "true" ]] && git diff --no-patch --exit-code README.yaml; } || $(MAKE) readme
 
-
+## Terraform pull-request routine check/update
 precommit/terraform: terraform/fmt terraform/tflint readme/build
