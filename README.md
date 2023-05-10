@@ -248,7 +248,6 @@ Available targets:
   packages/reinstall                  Reinstall packages
   packages/reinstall/%                Reinstall package (e.g. helm, helmfile, kubectl)
   packages/uninstall/%                Uninstall package (e.g. helm, helmfile, kubectl)
-  precommit/terraform                 Terraform pull-request routine check/update
   readme                              Alias for readme/build
   readme/build                        Create README.md by building it from README.yaml
   readme/init                         Create basic minimalistic .README.md template file
@@ -266,6 +265,7 @@ Available targets:
   terraform/install                   Install terraform
   terraform/lint                      Format check terraform
   terraform/loosen-constraints        and convert "~>" constraints to ">=".
+  terraform/precommit                 Terraform pull-request routine check/update
   terraform/rewrite-required-providers Rewrite versions.tf to update existing configuration to add an explicit source attribute for each provider
   terraform/tflint                    Lint terraform (with tflint)
   terraform/upgrade-modules           This target has not been upgraded to handle registry format
