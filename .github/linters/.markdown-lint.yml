@@ -1,5 +1,5 @@
 # Default state for all rules
-default: true
+default: false
 
 # Ignore MD041/first-line-heading/first-line-h1
 # Error: First line in a file should be a top-level heading [Context: "## what"]

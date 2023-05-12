@@ -26,7 +26,11 @@ terraform/get-modules:
 terraform/validate:
 	@$(TERRAFORM) validate
 
-## Lint check Terraform
+## Lint terraform (with tflint)
+terraform/tflint:
+	tflint --enable-plugin=aws
+
+## Format check terraform
 terraform/lint:
 ifeq ($(OS), darwin)
 	@FAIL=`$(TERRAFORM) fmt -write=false | xargs -n 1 printf '\t- %s\n'`; \
@@ -36,6 +40,7 @@ else
 	[ -z "$$FAIL" ] || (echo "Terraform configuration needs linting. Run '$(TERRAFORM) fmt'"; echo $$FAIL; exit 1)
 endif
 
+## Format terraform
 terraform/fmt:
 ifeq ($(wildcard *.tf),)
 	@echo "* $@: No terraform files detected"
@@ -114,3 +119,6 @@ terraform/rewrite-required-providers: terraform/loosen-constraints
 terraform/v14-rewrite: TERRAFORM = terraform-0.13
 terraform/v14-rewrite: terraform/loosen-constraints terraform/bump-tf-12-min-version terraform/rewrite-required-providers terraform/rewrite-module-source terraform/rewrite-readme-source
 	@{ [[ "$(TERRAFORM_FORCE_README)" != "true" ]] && git diff --no-patch --exit-code README.yaml; } || $(MAKE) readme
+
+## Terraform pull-request routine check/update
+terraform/precommit: terraform/fmt terraform/tflint readme/build

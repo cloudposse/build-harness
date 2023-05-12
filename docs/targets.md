@@ -120,12 +120,15 @@ Available targets:
   template/build                      Create $OUT file by building it from $IN template file
   template/deps                       Install dependencies
   terraform/bump-tf-12-min-version    Rewrite versions.tf to bump modules with minimum core version of '0.12.x' to '>= 0.12.26'
+  terraform/fmt                       Format terraform
   terraform/get-modules               (Obsolete) Ensure all modules can be fetched
   terraform/get-plugins               (Obsolete) Ensure all plugins can be fetched
   terraform/install                   Install terraform
-  terraform/lint                      Lint check Terraform
+  terraform/lint                      Format check terraform
   terraform/loosen-constraints        and convert "~>" constraints to ">=".
+  terraform/precommit                 Terraform pull-request routine check/update
   terraform/rewrite-required-providers Rewrite versions.tf to update existing configuration to add an explicit source attribute for each provider
+  terraform/tflint                    Lint terraform (with tflint)
   terraform/upgrade-modules           This target has not been upgraded to handle registry format
   terraform/validate                  Basic terraform sanity check
   travis/docker-login                 Login into docker hub

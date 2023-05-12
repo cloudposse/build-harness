@@ -4,17 +4,16 @@ GITHUB_TEMPLATES = \
 	.github/ISSUE_TEMPLATE/feature_request.yml \
 	.github/ISSUE_TEMPLATE/bug_report.yml \
 	.github/ISSUE_TEMPLATE/question.md \
-	.github/auto-release.yml \
-	.github/workflows/auto-release.yml \
-	.github/workflows/validate-codeowners.yml
 
 # Install extra configuration for terraform projects
-GITHUB_TERRAFORM_TEMPLATES = .github/workflows/chatops.yml \
-	.github/workflows/auto-context.yml \
-	.github/workflows/auto-format.yml \
-	.github/workflows/auto-readme.yml \
+GITHUB_TERRAFORM_TEMPLATES = .github/workflows/feature-branch.yml \
+	.github/workflows/feature-branch-chatops.yml \
+	.github/workflows/release-branch.yml \
+	.github/workflows/release-published.yml \
+	.github/workflows/scheduled.yml \
 	.github/mergify.yml \
-	.github/renovate.json
+	.github/renovate.json \
+	.github/auto-release.yml
 
 GTIHUB_CODEOWNERS_FILE = .github/CODEOWNERS
 
