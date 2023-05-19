@@ -3,6 +3,10 @@ TERRAFORM ?= $(BUILD_HARNESS_PATH)/vendor/terraform
 TERRAFORM_VERSION ?= 1.0.11
 TERRAFORM_URL ?= https://releases.hashicorp.com/terraform/$(TERRAFORM_VERSION)/terraform_$(TERRAFORM_VERSION)_$(OS)_$(BUILD_HARNESS_ARCH).zip
 
+.PHONY: terraform/install terraform/get-plugins terraform/get-modules terraform/validate terraform/tflint terraform/lint
+.PHONY: terraform/fmt terraform/upgrade-modules terraform/rewrite-module-source terraform/rewrite-readme-source terraform/loosen-constraints
+.PHONY: terraform/bump-tf-12-min-version terraform/rewrite-required-providers terraform/v14-rewrite terraform/precommit
+
 ## Install terraform
 terraform/install:
 	@[ -x $(TERRAFORM) ] || ( \
@@ -122,3 +126,4 @@ terraform/v14-rewrite: terraform/loosen-constraints terraform/bump-tf-12-min-ver
 
 ## Terraform pull-request routine check/update
 terraform/precommit: terraform/fmt terraform/tflint readme/build
+	@# Need a recipe to avoid default recipe

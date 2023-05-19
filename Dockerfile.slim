@@ -1,4 +1,4 @@
-FROM alpine:3.15
+FROM alpine:3.17
 LABEL maintainer="Cloud Posse <hello@cloudposse.com>"
 
 LABEL "com.github.actions.name"="Build Harness"
@@ -11,6 +11,7 @@ RUN apk --no-cache add \
       ca-certificates \
       coreutils \
       curl \
+      unzip \
       git \
       gettext \
       grep \
@@ -40,6 +41,17 @@ ARG DEFAULT_TERRAFORM_VERSION=1
 RUN update-alternatives --set terraform /usr/share/terraform/$DEFAULT_TERRAFORM_VERSION/bin/terraform && \
   mkdir -p /build-harness/vendor && \
   ln -s /usr/share/terraform/$DEFAULT_TERRAFORM_VERSION/bin/terraform /build-harness/vendor/terraform
+
+# Install tflint
+RUN curl -sSL https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+COPY <<EOF /root/.tflint.hcl
+plugin "aws" {
+    enabled = true
+    version = "0.23.0"
+    source  = "github.com/terraform-linters/tflint-ruleset-aws"
+}
+EOF
+RUN tflint --init
 
 # Patch for old Makefiles that expect a directory like x.x from the 0.x days.
 # Fortunately, they only look for the current version, so we only need links
