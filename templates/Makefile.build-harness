@@ -122,12 +122,13 @@ build-harness/shell builder pr/pre-commit pr/readme pr/github-update: RUNNER_DOC
 build-harness/shell builder: build-harness/runner
 	@exit 0
 
-.PHONY: build-harness/shell-slim builder-slim pr/auto-format pr/auto-format/host pr/readme pr/readme/host pr/pre-commit pr/github-update pr/github-update/host tf14-upgrade
+.PHONY: build-harness/shell-slim builder-slim pr/readme pr/readme/host pr/pre-commit pr/github-update pr/github-update/host tf14-upgrade
+.PHONY: precommit/terraform pr/auto-format precommit/terraform/host pr/auto-format/host
 
-build-harness/shell-slim builder-slim pr/auto-format pr/readme tf14-upgrade: RUNNER_DOCKER_IMAGE ?= $(BUILD_HARNESS_DOCKER_IMAGE)
+build-harness/shell-slim builder-slim precommit/terraform pr/auto-format pr/readme tf14-upgrade: RUNNER_DOCKER_IMAGE ?= $(BUILD_HARNESS_DOCKER_IMAGE)
 
-build-harness/shell-slim builder-slim tf14-upgrade pr/auto-format pr/readme: RUNNER_DOCKER_SHA_TAG ?= $(shell $(BUILD_HARNESS_DOCKER_SHA_TAG_CMD))
-build-harness/shell-slim builder-slim tf14-upgrade pr/auto-format pr/readme: RUNNER_DOCKER_TAG ?= \
+build-harness/shell-slim builder-slim tf14-upgrade precommit/terraform pr/auto-format pr/readme: RUNNER_DOCKER_SHA_TAG ?= $(shell $(BUILD_HARNESS_DOCKER_SHA_TAG_CMD))
+build-harness/shell-slim builder-slim tf14-upgrade precommit/terraform pr/auto-format pr/readme: RUNNER_DOCKER_TAG ?= \
 	$(shell docker inspect --type=image $(RUNNER_DOCKER_IMAGE):$(RUNNER_DOCKER_SHA_TAG) >/dev/null 2>&1 && \
 	echo "$(RUNNER_DOCKER_SHA_TAG) " || echo "slim-$(RUNNER_DOCKER_SHA_TAG)")
 
@@ -136,13 +137,19 @@ build-harness/shell-slim builder-slim: ARGS := $(if $(TARGETS),$(TARGETS),-l || 
 build-harness/shell-slim builder-slim: ENTRYPOINT := $(if $(TARGETS),/usr/bin/make,/bin/bash)
 build-harness/shell-slim builder-slim: build-harness/runner
 
-pr/auto-format pr/readme pr/pre-commit pr/github-update tf14-upgrade : ENTRYPOINT := /usr/bin/make
+precommit/terraform pr/auto-format pr/readme pr/pre-commit pr/github-update tf14-upgrade : ENTRYPOINT := /usr/bin/make
 
-pr/auto-format pr/auto-format/host: ARGS := github/update terraform/fmt readme
+# Prior to 2023-05-17 (build-harness v1.18.0), before committing changes to a terraform module, you could run
+#   make pr/auto-format
+# which used this setting:
+#   pr/auto-format pr/auto-format/host: ARGS := github/update terraform/fmt readme
+# Now the preferred target is `precommit/terraform` but the old targets are left for backwards compatibility.
+
+precommit/terraform pr/auto-format precommit/terraform/host pr/auto-format/host: ARGS := terraform/precommit
 pr/readme pr/readme/host: ARGS := readme/deps readme
 pr/github-update pr/github-update/host: ARGS := github/update
-pr/auto-format pr/readme pr/github-update: build-harness/runner
-pr/auto-format/host pr/readme/host pr/github-update/host: safe-directory
+precommit/terraform pr/auto-format pr/readme pr/github-update: build-harness/runner
+precommit/terraform/host pr/auto-format/host pr/readme/host pr/github-update/host: safe-directory
 	$(MAKE) $(ARGS)
 
 pr/pre-commit: ARGS := pre-commit/run

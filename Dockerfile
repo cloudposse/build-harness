@@ -1,4 +1,4 @@
-FROM golang:1.19.0-alpine3.16
+FROM golang:1.20.4-alpine3.17
 LABEL maintainer="Cloud Posse <hello@cloudposse.com>"
 
 LABEL "com.github.actions.name"="Build Harness"
@@ -80,7 +80,7 @@ RUN update-alternatives --set terraform /usr/share/terraform/$DEFAULT_TERRAFORM_
 
 # Install tflint
 RUN curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
-COPY <<EOF .tflint.hcl
+COPY <<EOF /root/.tflint.hcl
 plugin "aws" {
     enabled = true
     version = "0.23.0"
