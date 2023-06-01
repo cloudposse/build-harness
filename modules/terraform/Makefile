@@ -38,7 +38,6 @@ terraform/tflint:
 terraform/tflint-fix:
 	@for v in $$(find . -type f -name '*.tf'); do \
 		sed -i 's/\([[:alpha:]]\+[0-9]*\)\.\([*0-9]\)\./\1[\2]\./g' "$$v" ; \
-		sed -i 's/join("", \([^)]*\))/one(\1)/g' "$$v" ; \
 	done
 
 ## Format check terraform
