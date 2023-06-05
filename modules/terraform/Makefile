@@ -34,11 +34,13 @@ terraform/validate:
 terraform/tflint:
 	tflint --enable-plugin=aws
 
-# Auto-fix tflint errors
-terraform/tflint-fix:
+terraform/tflint-fix-deprecated-index:
 	@for v in $$(find . -type f -name '*.tf'); do \
 		sed -i 's/\([[:alpha:]]\+[0-9]*\)\.\([*0-9]\)\./\1[\2]\./g' "$$v" ; \
 	done
+
+# Auto-fix tflint errors
+terraform/tflint-fix: terraform/tflint-fix-deprecated-index
 
 ## Format check terraform
 terraform/lint:
@@ -131,5 +133,5 @@ terraform/v14-rewrite: terraform/loosen-constraints terraform/bump-tf-12-min-ver
 	@{ [[ "$(TERRAFORM_FORCE_README)" != "true" ]] && git diff --no-patch --exit-code README.yaml; } || $(MAKE) readme
 
 ## Terraform pull-request routine check/update
-terraform/precommit: terraform/tflint-fix terraform/fmt terraform/tflint readme/build
+terraform/precommit: terraform/fmt terraform/tflint readme/build
 	@# Need a recipe to avoid default recipe
