@@ -34,6 +34,7 @@ terraform/validate:
 terraform/tflint:
 	tflint --enable-plugin=aws
 
+## Auto-fix terraform deprecated list accessors
 terraform/tflint-fix-deprecated-index:
 	@for v in $$(find . -type f -name '*.tf'); do \
 		sed -i 's/\([[:alpha:]]\+[0-9]*\)\.\([*0-9]\)\./\1[\2]\./g' "$$v" ; \
