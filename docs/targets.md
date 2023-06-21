@@ -129,6 +129,8 @@ Available targets:
   terraform/precommit                 Terraform pull-request routine check/update
   terraform/rewrite-required-providers Rewrite versions.tf to update existing configuration to add an explicit source attribute for each provider
   terraform/tflint                    Lint terraform (with tflint)
+  terraform/tflint-fix                Auto-fix tflint errors
+  terraform/tflint-fix-deprecated-index Auto-fix terraform deprecated list accessors
   terraform/upgrade-modules           This target has not been upgraded to handle registry format
   terraform/validate                  Basic terraform sanity check
   travis/docker-login                 Login into docker hub
