@@ -40,6 +40,8 @@ terraform/tflint-fix-deprecated-index:
 		sed -i 's/\([[:alpha:]]\+[0-9]*\)\.\([*0-9]\)\./\1[\2]\./g' "$$v" ; \
 	done
 
+.PHONY: terraform/tflint-fix terraform/tflint-fix-deprecated-index
+
 ## Auto-fix tflint errors
 terraform/tflint-fix: terraform/tflint-fix-deprecated-index
 
