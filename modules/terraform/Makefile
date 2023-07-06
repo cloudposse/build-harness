@@ -37,7 +37,7 @@ terraform/tflint:
 ## Auto-fix terraform deprecated list accessors
 terraform/tflint-fix-deprecated-index:
 	@for v in $$(find . -type f -name '*.tf'); do \
-		sed -i 's/\([[:alpha:]]\+[0-9]*\)\.\([*0-9]\)\./\1[\2]\./g' "$$v" ; \
+		sed -i 's/\([[:alpha:]][-_[:alpha:][:digit:]]\{2,\}\)\.\([*0-9]\+\)\./\1[\2]\./g' "$$v" ; \
 	done
 
 .PHONY: terraform/tflint-fix terraform/tflint-fix-deprecated-index
