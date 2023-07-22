@@ -27,13 +27,13 @@ RUN apk --update --no-cache add \
       py3-cffi && \
     python3 -m pip install --upgrade pip setuptools wheel && \
     pip3 install --no-cache-dir \
-      cryptography==37.0.4 \
-      PyYAML==5.4.1 \
-      awscli==1.25.43 \
+      cryptography==41.0.2 \
+      PyYAML==6.0.1 \
+      awscli==1.29.9 \
       boto==2.49.0 \
-      boto3==1.24.43 \
+      boto3==1.28.9 \
       iteration-utilities==0.11.0 \
-      PyGithub==1.55 && \
+      PyGithub==1.59 && \
     git config --global advice.detachedHead false
 
 # Install pre-commit support
