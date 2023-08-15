@@ -1,7 +1,7 @@
-DOCKER ?= $(shell which docker)
+DOCKER ?= docker
 
-DOCKER_RUN ?= docker run -i --rm --network=$(DOCKER_NETWORK)
-DOCKER_EXEC ?= $(DOCKER) exec -it
+DOCKER_RUN ?= "$(DOCKER)" run -i --rm --network=$(DOCKER_NETWORK)
+DOCKER_EXEC ?= "$(DOCKER)" exec -it
 CONTAINER_SHELL ?= sh
 
 # It's like ssh for docker
