@@ -1,4 +1,4 @@
-FROM golang:1.20.4-alpine3.17
+FROM golang:1.20.7-alpine3.18
 LABEL maintainer="Cloud Posse <hello@cloudposse.com>"
 
 LABEL "com.github.actions.name"="Build Harness"
@@ -27,13 +27,13 @@ RUN apk --update --no-cache add \
       py3-cffi && \
     python3 -m pip install --upgrade pip setuptools wheel && \
     pip3 install --no-cache-dir \
-      cryptography==37.0.4 \
-      PyYAML==5.4.1 \
-      awscli==1.25.43 \
+      cryptography==41.0.3 \
+      PyYAML==6.0.1 \
+      awscli==1.29.25 \
       boto==2.49.0 \
-      boto3==1.24.43 \
+      boto3==1.28.25 \
       iteration-utilities==0.11.0 \
-      PyGithub==1.55 && \
+      PyGithub==1.59.1 && \
     git config --global advice.detachedHead false
 
 # Install pre-commit support
@@ -83,7 +83,7 @@ RUN curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/in
 COPY <<EOF /root/.tflint.hcl
 plugin "aws" {
     enabled = true
-    version = "0.23.0"
+    version = "0.26.0"
     source  = "github.com/terraform-linters/tflint-ruleset-aws"
 }
 EOF

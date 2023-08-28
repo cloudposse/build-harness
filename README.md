@@ -142,6 +142,7 @@ Here are some real world examples:
 ```text
 Available targets:
 
+  .PHONY                              Login into docker hub
   aws/install                         Install aws cli bundle
   aws/shell                           Start a aws-vault shell with access to aws api
   bash/lint                           Lint all bash scripts
@@ -180,7 +181,6 @@ Available targets:
   docker/image/promote/local          Promote $SOURCE_DOCKER_REGISTRY/$IMAGE_NAME:$SOURCE_VERSION to $TARGET_DOCKER_REGISTRY/$IMAGE_NAME:$TARGET_VERSION
   docker/image/promote/remote         Pull $SOURCE_DOCKER_REGISTRY/$IMAGE_NAME:$SOURCE_VERSION and promote to $TARGET_DOCKER_REGISTRY/$IMAGE_NAME:$TARGET_VERSION
   docker/image/push                   Push $TARGET_DOCKER_REGISTRY/$IMAGE_NAME:$TARGET_VERSION
-  docker/login                        Login into docker hub
   docs/copyright-add                  Add copyright headers to source code
   docs/github-action.md               Update `docs/github-action.md` from `action.yaml`
   docs/github-actions-reusable-workflows.md Update `docs/github-actions-reusable-workflows.md` from `.github/workflows/*.yaml`

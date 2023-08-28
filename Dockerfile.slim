@@ -1,4 +1,4 @@
-FROM alpine:3.17
+FROM alpine:3.18
 LABEL maintainer="Cloud Posse <hello@cloudposse.com>"
 
 LABEL "com.github.actions.name"="Build Harness"
@@ -47,7 +47,7 @@ RUN curl -sSL https://raw.githubusercontent.com/terraform-linters/tflint/master/
 COPY <<EOF /root/.tflint.hcl
 plugin "aws" {
     enabled = true
-    version = "0.23.0"
+    version = "0.26.0"
     source  = "github.com/terraform-linters/tflint-ruleset-aws"
 }
 EOF
