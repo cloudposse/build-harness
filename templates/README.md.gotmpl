@@ -422,22 +422,12 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
 {{ if has (datasource "config") "contributors" }}
 ### Contributors
 
-<!-- markdownlint-disable -->
-| {{ range $contributor := (ds "config").contributors }}{{ printf " [![%s][%s_avatar]][%s_homepage]<br/>[%s][%s_homepage] |" $contributor.name $contributor.github $contributor.github $contributor.name $contributor.github}}{{ end }}
-|{{- range $contributor := (ds "config").contributors -}}---|{{ end }}
-<!-- markdownlint-restore -->
+Many thanks to our wonderful contributors:
 
-{{ range $contributor := (ds "config").contributors -}}
-{{- if has $contributor "homepage" }}
-{{ printf "  [%s_homepage]: %s" $contributor.github $contributor.homepage }}
-{{ else -}}
-{{ printf "  [%s_homepage]: https://github.com/%s" $contributor.github $contributor.github }}
-{{ end -}}
-{{ if has $contributor "avatar" }}{{ printf "  [%s_avatar]: %s" $contributor.github $contributor.avatar }}
-{{ else -}}
-{{ printf "  [%s_avatar]: https://img.cloudposse.com/150x150/https://github.com/%s.png" $contributor.github $contributor.github }}
-{{- end }}
-{{ end }}
+<a href="https://github.com/{{ printf "%s" (ds "config").github_repo}}/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo={{ printf "%s" (ds "config").github_repo}}&max=24" />
+</a>
+
 {{ end }}
 
 {{- $utm_link := printf "%%s?utm_source=%s&utm_medium=%s&utm_campaign=%s&utm_content=%s" "github" "readme" (ds "config").github_repo "%s" -}}
