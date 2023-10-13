@@ -138,21 +138,5 @@ include:
   - "docs/auto-init.md"
   - "docs/git-io-deprecation.md"
 
-# Contributors to this project
+# Include contributors to this project
 contributors:
-  - name: "Erik Osterman"
-    github: "osterman"
-  - name: "Igor Rodionov"
-    github: "goruha"
-  - name: "Andriy Knysh"
-    github: "aknysh"
-  - name: "Nuru"
-    github: "Nuru"
-  - name: "Sarkis"
-    github: "sarkis"
-  - name: "Alexander Babai"
-    github: "alebabai"
-  - name: "Jon Boulle"
-    github: "jonboulle"
-  - name: "Marcin Brański"
-    github: "3h4x"
