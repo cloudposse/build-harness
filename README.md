@@ -562,13 +562,14 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
 
 
 
-### Contributors
+### ✨ Contributors
 
-<!-- markdownlint-disable -->
-| 
-|
-<!-- markdownlint-restore -->
+This project is under active development, and we encourage contributions from our community. 
+Many thanks to our outstanding contributors:
 
+<a href="https://github.com/cloudposse/build-harness/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=cloudposse/build-harness&max=24" />
+</a>
 
 [![README Footer][readme_footer_img]][readme_footer_link]
 [![Beacon][beacon]][website]
