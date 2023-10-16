@@ -139,4 +139,4 @@ include:
   - "docs/git-io-deprecation.md"
 
 # Include contributors to this project
-contributors:
+contributors: []
