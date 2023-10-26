@@ -444,7 +444,7 @@ Many thanks to our outstanding contributors:
 
 Please use the [issue tracker](https://github.com/cloudposse/build-harness/issues) to report any bugs or file feature requests.
 
-### Developing
+### 💻 Developing
 
 If you are interested in being a contributor and want to get involved in developing this project or [help out](https://cpco.io/help-out) with our other projects, we would love to hear from you! Shoot us an [email][email].
 
@@ -458,15 +458,15 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
 **NOTE:** Be sure to merge the latest changes from "upstream" before making a pull request!
 
-### Slack Community
+### 🌎 Slack Community
 
 Join our [Open Source Community][slack] on Slack. It's **FREE** for everyone! Our "SweetOps" community is where you get to talk with others who share a similar vision for how to rollout and manage infrastructure. This is the best place to talk shop, ask questions, solicit feedback, and work together as a community to build totally *sweet* infrastructure.
 
-### Newsletter
+### :newspaper: Newsletter
 
 Sign up for [our newsletter][newsletter] that covers everything on our technology radar.  Receive updates on what we're up to on GitHub as well as awesome new projects we discover.
 
-### Office Hours
+### :calendar: Office Hours
 
 [Join us every Wednesday via Zoom][office_hours] for our weekly "Lunch & Learn" sessions. It's **FREE** for everyone!
 
