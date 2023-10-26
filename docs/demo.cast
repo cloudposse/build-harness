@@ -1,0 +1,6 @@
+make init
+make help/all
+make docker/build
+make readme
+exit
+
