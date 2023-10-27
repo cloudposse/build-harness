@@ -47,14 +47,8 @@ Full details are available in our [`git.io` deprecation documentation](docs/git-
 
 ---
 
-## TODO, make this section smaller 
-## move terraform logo to right side like bridgecrew was
-
 This project is part of our comprehensive ["SweetOps"](https://cpco.io/sweetops) approach towards DevOps.
-
-
-[![Terraform Open Source Modules](https://docs.cloudposse.com/images/terraform-open-source-modules.svg)][terraform_modules]
-
+<img src="https://docs.cloudposse.com/images/terraform-open-source-modules.svg" align="right" />
 
 
 It's 100% Open Source and licensed under the [APACHE2](LICENSE).
@@ -462,20 +456,18 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
 Join our [Open Source Community][slack] on Slack. It's **FREE** for everyone! Our "SweetOps" community is where you get to talk with others who share a similar vision for how to rollout and manage infrastructure. This is the best place to talk shop, ask questions, solicit feedback, and work together as a community to build totally *sweet* infrastructure.
 
-### :newspaper: Newsletter
+### 📰 Newsletter
 
 Sign up for [our newsletter][newsletter] that covers everything on our technology radar.  Receive updates on what we're up to on GitHub as well as awesome new projects we discover.
 
-### :calendar: Office Hours
+### 📆 Office Hours <img src="https://img.cloudposse.com/fit-in/200x200/https://cloudposse.com/wp-content/uploads/2019/08/Powered-by-Zoom.png" align="right" />
 
 [Join us every Wednesday via Zoom][office_hours] for our weekly "Lunch & Learn" sessions. It's **FREE** for everyone!
 
-[![zoom](https://img.cloudposse.com/fit-in/200x200/https://cloudposse.com/wp-content/uploads/2019/08/Powered-by-Zoom.png")][office_hours]
-
-## About
-## TODO add back logo like above
+## About 
 
 This project is maintained and funded by [Cloud Posse, LLC][website]. 
+<img src="https://cloudposse.com/logo-300x69.svg" align="right" />
 
 We are a [**DevOps Accelerator**][commercial_support]. We'll help you build your cloud infrastructure from the ground up so you can own it. Then we'll show you how to operate it and stick around for as long as you need us.
 
