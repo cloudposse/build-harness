@@ -5,7 +5,7 @@ on:
 
 jobs:
   auto-readme:
-    if: ${{ !contains( github.event.pull_request.labels.*.name, 'modules/readme') }}
+    if: ${{ !contains( github.event.pull_request.labels.*.name, 'auto-readme-disabled') }}
     runs-on: ubuntu-latest
     container: cloudposse/build-harness:latest
     steps:
