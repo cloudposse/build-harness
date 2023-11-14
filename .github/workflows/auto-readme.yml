@@ -1,12 +1,11 @@
 name: Auto Readme
 on:
-  pull_request_target:
+  pull_request:
     types: [opened, synchronize]
-    paths-ignore:
-      - 'templates/README.md.gotmpl'
 
 jobs:
   auto-readme:
+    if: ${{ !contains( github.event.pull_request.labels.*.name, 'auto-readme-disabled') }}
     runs-on: ubuntu-latest
     container: cloudposse/build-harness:latest
     steps:

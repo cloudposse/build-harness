@@ -16,7 +16,7 @@ license: "APACHE2"
 copyrights:
   - name: "Cloud Posse, LLC"
     url: "https://cloudposse.com"
-    year: "2016-2022"
+    year: "2016"
 
 # Canonical GitHub repo
 github_repo: cloudposse/build-harness
@@ -32,9 +32,6 @@ badges:
   - name: "Slack Community"
     image: "https://slack.cloudposse.com/badge.svg"
     url: "https://slack.cloudposse.com"
-  - name: "Discourse Forum"
-    image: "https://img.shields.io/discourse/https/ask.sweetops.com/posts.svg"
-    url: "https://ask.sweetops.com/"
 
 related:
   - name: "Packages"
