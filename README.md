@@ -29,21 +29,7 @@
 -->
 
 This `build-harness` is a collection of Makefiles to facilitate building Golang projects, Dockerfiles, Helm charts, and more.
-It's designed to work with CI/CD systems such as GitHub Actions, Codefresh, Travis CI, CircleCI and Jenkins.
-
-## Regarding the phase out of `git.io`
-
-Prior to April 25, 2022, practically all Cloud Posse Makefiles pulled in a common Makefile via
-```bash
-curl -sSL -o .build-harness "https://git.io/build-harness"
-```
-
-The `git.io` service is a link shortener/redirector provided by GitHub, but [they no longer support it](https://github.blog/changelog/2022-04-25-git-io-deprecation/).
-We have therefore set up `https://cloudposse.tools/build-harness` as an alternative and are migrating
-all our Makefiles to use that URL instead. We encourage you to update any references you have in your
-own code derived from our code, whether by forking one of our repos or simply following one of our examples.
-
-Full details are available in our [`git.io` deprecation documentation](docs/git-io-deprecation.md).
+It's designed to work with CI/CD systems such as GitHub Actions.
 
 ---
 
@@ -73,6 +59,20 @@ It's 100% Open Source and licensed under the [APACHE2](LICENSE).
 ## Usage
 
 
+
+
+> [!IMPORTANT] Regarding the phase out of `git.io`
+> Prior to April 25, 2022, practically all Cloud Posse Makefiles pulled in a common Makefile via
+> ```bash
+> curl -sSL -o .build-harness "https://git.io/build-harness"
+> ```
+> 
+> The `git.io` service is a link shortener/redirector provided by GitHub, but [they no longer support it](https://github.blog/changelog/2022-04-25-git-io-deprecation/).
+> We have therefore set up `https://cloudposse.tools/build-harness` as an alternative and are migrating
+> all our Makefiles to use that URL instead. We encourage you to update any references you have in your
+> own code derived from our code, whether by forking one of our repos or simply following one of our examples.
+> 
+> Full details are available in our [`git.io` deprecation documentation](docs/git-io-deprecation.md).
 
 At the top of your `Makefile` add, the following...
 
