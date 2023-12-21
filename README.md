@@ -1,11 +1,11 @@
 
 <!-- markdownlint-disable -->
-# Build Harness [![Build Status](https://github.com/cloudposse/build-harness/workflows/docker/badge.svg?branch=master)](https://github.com/cloudposse/build-harness/actions?query=workflow%3Adocker) [![Latest Release](https://img.shields.io/github/release/cloudposse/build-harness.svg)](https://github.com/cloudposse/build-harness/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
-<!-- markdownlint-restore -->
-
 [![README Header][readme_header_img]][readme_header_link]
 
-[![Cloud Posse][logo]](https://cpco.io/homepage)
+# Build Harness [![Build Status](https://github.com/cloudposse/build-harness/workflows/docker/badge.svg?branch=master)](https://github.com/cloudposse/build-harness/actions?query=workflow%3Adocker) [![Latest Release](https://img.shields.io/github/release/cloudposse/build-harness.svg)](https://github.com/cloudposse/build-harness/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
+<a href="https://cpco.io/homepage"><img align="right" src="https://cloudposse.com/logo-300x69.svg"/></a>
+<!-- markdownlint-restore -->
+
 
 <!--
 

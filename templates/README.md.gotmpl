@@ -5,6 +5,8 @@
 {{- if $deprecated }}
 # (deprecated) {{(ds "config").name}}{{ if gt (len (ds "config").name) 23 }}{{ print "\n\n" }}{{ end }}
 {{- else }}
+[![README Header][readme_header_img]][readme_header_link]
+
 # {{(ds "config").name}}{{ if gt (len (ds "config").name) 34 }}{{ print "\n\n" }}{{ end }}
 {{- end }}
 {{- if $deprecated }}[![deprecated](https://img.shields.io/badge/lifecycle-deprecated-critical)](#deprecated){{ end }}
@@ -13,11 +15,9 @@
     {{- printf " [![%s](%s)](%s)" $badge.name $badge.image $badge.url }}
   {{- end }}
 {{- end }}
+<a href="https://cpco.io/homepage"><img align="right" src="https://cloudposse.com/logo-300x69.svg"/></a>
 <!-- markdownlint-restore -->
 
-[![README Header][readme_header_img]][readme_header_link]
-
-[![Cloud Posse][logo]](https://cpco.io/homepage)
 
 <!--
 
