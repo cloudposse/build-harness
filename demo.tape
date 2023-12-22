@@ -36,9 +36,8 @@ Enter
 Type "cd demo"
 Enter
 Sleep 500ms
-Type "vim Makefile"
-Enter
-Escape
+Type "vim Makefile" Enter
+Sleep 1
 Type "i"
 Sleep 1s
 Type "# Example Makefile leveraging the build-harness!" Enter
@@ -58,7 +57,7 @@ Sleep 2s
 Type "# Now let's create a new Docker image..." Enter
 Sleep 500ms
 Type "vim Dockerfile" Enter
-Escape
+Sleep 1
 Type "i" Enter
 Sleep 500ms
 Type "FROM alpine:latest" Enter 2
