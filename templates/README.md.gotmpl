@@ -8,6 +8,7 @@
 {{ if not $deprecated }}
 [![README Header][readme_header_img]][readme_header_link]
 {{- end }}
+<a href="https://cpco.io/homepage"><img align="right" src="https://cloudposse.com/logo-300x69.svg" width="150" /></a><br/>
 # {{(ds "config").name}}{{ if gt (len (ds "config").name) 34 }}{{ print "\n\n" }}{{ end }}
 {{- end }}
 {{- if $deprecated }}[![deprecated](https://img.shields.io/badge/lifecycle-deprecated-critical)](#deprecated){{ end }}
@@ -68,7 +69,6 @@ We literally have [*hundreds of other terraform modules*][terraform_modules] tha
 {{- end }}
 {{- end }}
 
-<a href="https://cpco.io/homepage"><img align="right" src="https://cloudposse.com/logo-300x69.svg" width="150" /></a><br/>
 ---
 This project {{ if $deprecated }}was{{ else }}is{{ end }} part of our comprehensive ["SweetOps"](https://cpco.io/sweetops) approach towards DevOps.
 
