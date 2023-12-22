@@ -37,9 +37,9 @@ related:
   - name: "Packages"
     description: "Cloud Posse installer and distribution of native apps"
     url: "https://github.com/cloudposse/packages"
-  - name: "Dev Harness"
-    description: "Cloud Posse Local Development Harness"
-    url: "https://github.com/cloudposse/dev"
+  - name: "Atmos"
+    description: "DevOps Automation Tool"
+    url: "https://github.com/cloudposse/atmos"
 
 # References
 references:
@@ -51,7 +51,7 @@ references:
 screenshots:
   - name: "demo"
     description: "Example of using the `build-harness` to build a docker image"
-    url: "https://cdn.rawgit.com/cloudposse/build-harness/master/docs/demo.svg"
+    url: "docs/demo.gif?raw=true"
 
 # Short description of this project
 description: |-

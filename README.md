@@ -51,7 +51,7 @@ It's 100% Open Source and licensed under the [APACHE2](LICENSE).
 ## Screenshots
 
 
-![demo](https://cdn.rawgit.com/cloudposse/build-harness/master/docs/demo.svg)
+![demo](docs/demo.gif?raw=true)
 *Example of using the `build-harness` to build a docker image*
 
 
@@ -324,7 +324,7 @@ Available targets:
 Check out these related projects.
 
 - [Packages](https://github.com/cloudposse/packages) - Cloud Posse installer and distribution of native apps
-- [Dev Harness](https://github.com/cloudposse/dev) - Cloud Posse Local Development Harness
+- [Atmos](https://github.com/cloudposse/atmos) - DevOps Automation Tool
 
 
 ## References
