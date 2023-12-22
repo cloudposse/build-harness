@@ -65,7 +65,8 @@ description: |-
 # How to use this project
 usage: |-
 
-  > [!IMPORTANT] Regarding the phase out of `git.io`
+  > [!IMPORTANT]
+  > **Regarding the phase out of `git.io`**
   > Prior to April 25, 2022, practically all Cloud Posse Makefiles pulled in a common Makefile via
   > ```bash
   > curl -sSL -o .build-harness "https://git.io/build-harness"
