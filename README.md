@@ -1,8 +1,5 @@
 
 <!-- markdownlint-disable -->
-
-[![README Header][readme_header_img]][readme_header_link]
-
 # Build Harness<a href="https://cpco.io/homepage"><img align="right" src="https://cloudposse.com/logo-300x69.svg" width="150" /></a> [![Build Status](https://github.com/cloudposse/build-harness/workflows/docker/badge.svg?branch=master)](https://github.com/cloudposse/build-harness/actions?query=workflow%3Adocker) [![Latest Release](https://img.shields.io/github/release/cloudposse/build-harness.svg)](https://github.com/cloudposse/build-harness/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 <!-- markdownlint-restore -->
 
@@ -32,6 +29,9 @@ This `build-harness` is a collection of Makefiles to facilitate building Golang 
 It's designed to work with CI/CD systems such as GitHub Actions.
 
 ---
+
+[![README Header][readme_header_img]][readme_header_link]
+
 This project is part of our comprehensive ["SweetOps"](https://cpco.io/sweetops) approach towards DevOps.
 
 
