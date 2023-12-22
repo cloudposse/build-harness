@@ -134,7 +134,6 @@ include:
   - "docs/targets.md"
   - "docs/extensions.md"
   - "docs/auto-init.md"
-  - "docs/git-io-deprecation.md"
 
 # Include contributors to this project
 contributors: []
