@@ -42,44 +42,43 @@ Type "i"
 Sleep 1s
 Type "# Example Makefile leveraging the build-harness!" Enter
 Sleep 500ms
-Type "export DOCKER_ORG ?= acme" Enter
-Type "export DOCKER_IMAGE ?= $(DOCKER_ORG)/demo" Enter
-Type "export DOCKER_TAG ?= latest" Enter
-Type "export DOCKER_IMAGE_NAME ?= $(DOCKER_IMAGE):$(DOCKER_TAG)" Enter
-Type "export DOCKER_BUILD_FLAGS =" Enter
+Type "export DOCKER_ORG ?= acme" Sleep 500ms Enter
+Type "export DOCKER_IMAGE ?= $(DOCKER_ORG)/demo" Sleep 500ms Enter
+Type "export DOCKER_TAG ?= latest" Sleep 500ms Enter
+Type "export DOCKER_IMAGE_NAME ?= $(DOCKER_IMAGE):$(DOCKER_TAG)" Sleep 500ms Enter
+Type "export DOCKER_BUILD_FLAGS =" Sleep 500ms Enter
 Sleep 500ms
-Type "# Import the remote Makefile shim" Enter
+Type "# Import the remote Makefile shim" Sleep 500ms Enter
 Sleep 500ms
 Type '-include $(shell curl -sSL -o .build-harness "https://cloudposse.tools/build-harness"; echo .build-harness)' Enter
 Sleep 1
 Escape
-Type ":wq" Enter
-Type "# Now let's initialize the build-harness" Enter
+Type ":wq" Sleep 500ms Enter
+Type "# Now let's initialize the build-harness" Sleep 500ms Enter
 Sleep 500ms
-Type "make init" Enter
+Type "make init" Sleep 500ms Enter
 Sleep 2s
-Type "# We have successfully initialized the .build-harness" Enter
+Type "# We have successfully initialized the .build-harness" Sleep 500ms Enter
 Sleep 500ms
-Type "ls -al" Enter
+Type "ls -al" Sleep500ms Enter
 Sleep 500ms
-Type "# Now let's create a new Docker image using the build-harness..." Enter
+Type "# Now let's create a new Docker image using the build-harness..." Sleep 500ms Enter
 Sleep 500ms
-Type "vim Dockerfile" Enter
+Type "vim Dockerfile" Sleep 500ms Enter
 Sleep 1
-Type "i"
-Sleep 500ms
-Type "FROM alpine:latest" Enter 2
-Type "RUN apk add nginx" Enter
+Type "i" Sleep 500ms
+Type "FROM alpine:latest" Sleep 500ms Enter 2
+Type "RUN apk add nginx" Sleep 500ms Enter
 Sleep 500ms
 Escape
-Type ":wq" Enter
+Type ":wq" Sleep 500ms Enter
 Sleep 500ms
 Enter
 
-Type "# Now let's build a docker image" Enter
+Type "# Now let's build a docker image" Sleep 500ms Enter
 Sleep 1
-Type "make docker/build" Enter
+Type "make docker/build" Sleep 500ms Enter
 Sleep 2s
-Type "# that was easy!" Enter
+Type "# that was easy!" Sleep 500ms Enter
 Sleep 2s
 
