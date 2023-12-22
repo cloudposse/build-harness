@@ -23,6 +23,11 @@ jobs:
         id: buildx
         uses: docker/setup-buildx-action@v2
 
+      - name: Tune vim settings
+        run: |
+          echo "set formatoptions-=r" >> ~/.vimrc
+          echo "set formatoptions-=o" >> ~/.vimrc
+
       - uses: charmbracelet/vhs-action@v1
         with: 
           token: ${{ secrets.GITHUB_TOKEN }}
