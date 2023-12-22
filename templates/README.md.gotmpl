@@ -7,7 +7,6 @@
 {{- else }}
 
 # {{(ds "config").name}}{{ if gt (len (ds "config").name) 34 }}{{ print "\n\n" }}{{ end }}
-<a href="https://cpco.io/homepage"><img align="right" src="https://cloudposse.com/logo-300x69.svg" width="100" /></a>
 {{- end }}
 {{- if $deprecated }}[![deprecated](https://img.shields.io/badge/lifecycle-deprecated-critical)](#deprecated){{ end }}
   {{- if has (ds "config") "badges" }}
@@ -67,6 +66,7 @@ We literally have [*hundreds of other terraform modules*][terraform_modules] tha
 {{- end }}
 {{- end }}
 
+<a href="https://cpco.io/homepage"><img align="right" src="https://cloudposse.com/logo-300x69.svg" width="150" /></a>
 ---
 {{ if not $deprecated }}
 [![README Header][readme_header_img]][readme_header_link]
