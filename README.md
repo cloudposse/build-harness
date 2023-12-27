@@ -29,14 +29,14 @@ This `build-harness` is a collection of Makefiles to facilitate building Golang 
 It's designed to work with CI/CD systems such as GitHub Actions.
 
 ---
-
-[![README Header][readme_header_img]][readme_header_link]
-
 > [!NOTE]
 > This project is part of Cloud Posse's comprehensive ["SweetOps"](https://cpco.io/sweetops) approach towards DevOps.
 >
 > It's 100% Open Source and licensed under the [APACHE2](LICENSE).
 >
+
+[![README Header][readme_header_img]][readme_header_link]
+
 
 
 ## Screenshots

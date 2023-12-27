@@ -67,10 +67,6 @@ We literally have [*hundreds of other terraform modules*][terraform_modules] tha
 {{- end }}
 
 ---
-{{ if not $deprecated }}
-[![README Header][readme_header_img]][readme_header_link]
-{{- end }}
-
 > [!NOTE]
 > This project {{ if $deprecated }}was{{ else }}is{{ end }} part of Cloud Posse's comprehensive ["SweetOps"](https://cpco.io/sweetops) approach towards DevOps.
 {{- if (file.Exists "main.tf") }}
@@ -99,6 +95,10 @@ We literally have [*hundreds of other terraform modules*][terraform_modules] tha
 {{- if (file.Exists "main.tf") }}
 > We literally have [*hundreds of terraform modules*][terraform_modules] that are Open Source and well-maintained. Check them out!
 {{- end }}
+{{ if not $deprecated }}
+[![README Header][readme_header_img]][readme_header_link]
+{{- end }}
+
 
 {{ if has (ds "config") "screenshots" }}
 ## Screenshots
