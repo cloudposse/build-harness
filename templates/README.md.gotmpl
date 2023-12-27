@@ -77,29 +77,28 @@ We literally have [*hundreds of other terraform modules*][terraform_modules] tha
 > <a href="https://cpco.io/terraform-modules"><img src="https://docs.cloudposse.com/images/terraform-open-source-modules.svg" align="right" /></a>
 {{- end}}
 >
-{{ if eq (ds "config").license "APACHE2" }}
+{{- if eq (ds "config").license "APACHE2" }}
 > It's 100% Open Source and licensed under the [APACHE2](LICENSE).
-{{ end }}
-{{ if eq (ds "config").license "CC-BY-NC-SA-4.0" }}
+{{- end }}
+{{- if eq (ds "config").license "CC-BY-NC-SA-4.0" }}
 > It's 100% Open Source and licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](LICENSE).
 > 
 > <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img title="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License" src="static/images/cc-by-nc-sa.png" width="150" /></a>
-{{ end }}
-{{ if eq (ds "config").license "MIT" }}
+{{- end }}
+{{- if eq (ds "config").license "MIT" }}
 > It's 100% Open Source and licensed under the [MIT](LICENSE).
-{{ end }}
-{{ if eq (ds "config").license "ISC" }}
+{{- end }}
+{{- if eq (ds "config").license "ISC" }}
 > It's 100% Open Source and licensed under the [Internet Systems Consortium](LICENSE).
-{{ end }}
-{{ if eq (ds "config").license "GPL3" }}
+{{- end }}
+{{- if eq (ds "config").license "GPL3" }}
 > It's 100% Open Source and licensed under the [GNU General Public License](LICENSE).
-{{ end }}
+{{- end }}
 >
-{{ if not $deprecated }}
+{{- if not $deprecated }}
 {{- if (file.Exists "main.tf") }}
 > We literally have [*hundreds of terraform modules*][terraform_modules] that are Open Source and well-maintained. Check them out!
 {{- end }}
-
 
 {{ if has (ds "config") "screenshots" }}
 ## Screenshots

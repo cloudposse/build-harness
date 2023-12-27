@@ -35,16 +35,8 @@ It's designed to work with CI/CD systems such as GitHub Actions.
 > [!NOTE]
 > This project is part of Cloud Posse's comprehensive ["SweetOps"](https://cpco.io/sweetops) approach towards DevOps.
 >
-
 > It's 100% Open Source and licensed under the [APACHE2](LICENSE).
-
-
-
-
-
 >
-
-
 
 
 ## Screenshots
