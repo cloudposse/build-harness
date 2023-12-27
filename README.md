@@ -32,10 +32,11 @@ It's designed to work with CI/CD systems such as GitHub Actions.
 
 [![README Header][readme_header_img]][readme_header_link]
 
-This project is part of our comprehensive ["SweetOps"](https://cpco.io/sweetops) approach towards DevOps.
+> [!NOTE]
+> This project is part of our comprehensive ["SweetOps"](https://cpco.io/sweetops) approach towards DevOps.
 
 
-It's 100% Open Source and licensed under the [APACHE2](LICENSE).
+> It's 100% Open Source and licensed under the [APACHE2](LICENSE).
 
 
 
