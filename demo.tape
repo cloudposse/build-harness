@@ -31,23 +31,20 @@ Set PlaybackSpeed 1
 Set Shell bash
 
 Sleep 3s
-Type "mkdir demo"
-Enter
-Type "cd demo"
-Enter
-Sleep 500ms
-Type "vim Makefile" Enter
+Type "mkdir demo" Sleep 500ms Enter
+Type "cd demo" Sleep 500ms Enter
+Type "vim Makefile" Sleep 500ms Enter
 Sleep 1
 Type "i"
 Sleep 1s
-Type "# Example Makefile leveraging the build-harness!" Enter
-Sleep 500ms
+Type "# Example Makefile leveraging the build-harness!" Sleep 500ms Enter
 Type "export DOCKER_ORG ?= acme" Sleep 500ms Enter
 Type "export DOCKER_IMAGE ?= $(DOCKER_ORG)/demo" Sleep 500ms Enter
 Type "export DOCKER_TAG ?= latest" Sleep 500ms Enter
 Type "export DOCKER_IMAGE_NAME ?= $(DOCKER_IMAGE):$(DOCKER_TAG)" Sleep 500ms Enter
 Type "export DOCKER_BUILD_FLAGS =" Sleep 500ms Enter
 Sleep 500ms
+
 Type "# Import the remote Makefile shim" Sleep 500ms Enter
 Sleep 500ms
 Type '-include $(shell curl -sSL -o .build-harness "https://cloudposse.tools/build-harness"; echo .build-harness)' Enter
@@ -60,7 +57,7 @@ Type "make init" Sleep 500ms Enter
 Sleep 2s
 Type "# We have successfully initialized the .build-harness" Sleep 500ms Enter
 Sleep 500ms
-Type "ls -al" Sleep500ms Enter
+Type "ls -al" Sleep 500ms Enter
 Sleep 500ms
 Type "# Now let's create a new Docker image using the build-harness..." Sleep 500ms Enter
 Sleep 500ms
