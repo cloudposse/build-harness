@@ -5,7 +5,7 @@
 {{- if $deprecated }}
 # (deprecated) {{(ds "config").name}}{{ if gt (len (ds "config").name) 23 }}{{ print "\n\n" }}{{ end }}
 {{- else }}
-# {{(ds "config").name}}{{ if gt (len (ds "config").name) 34 }}{{ print "\n\n" }}{{ end }}
+# {{(ds "config").name}}<a href="https://cpco.io/homepage"><img align="right" src="https://cloudposse.com/logo-300x69.svg" width="150" /></a>{{ if gt (len (ds "config").name) 34 }}{{ print "\n\n" }}{{ end }}
 {{- end }}
 {{- if $deprecated }}[![deprecated](https://img.shields.io/badge/lifecycle-deprecated-critical)](#deprecated){{ end }}
   {{- if has (ds "config") "badges" }}
@@ -15,9 +15,6 @@
 {{- end }}
 <!-- markdownlint-restore -->
 
-[![README Header][readme_header_img]][readme_header_link]
-
-[![Cloud Posse][logo]](https://cpco.io/homepage)
 
 <!--
 
@@ -49,7 +46,8 @@
 {{ if has (ds "config").deprecated "notice" }}
   {{- (ds "config").deprecated.notice }}
 {{- else }}
-  This module is no longer actively maintained
+> [!IMPORTANT]
+>  This module is no longer actively maintained
 {{- end }}
 {{- if (file.Exists "main.tf") }}
 
@@ -69,34 +67,36 @@ We literally have [*hundreds of other terraform modules*][terraform_modules] tha
 {{- end }}
 
 ---
-
-This project {{ if $deprecated }}was{{ else }}is{{ end }} part of our comprehensive ["SweetOps"](https://cpco.io/sweetops) approach towards DevOps.
-
+> [!NOTE]
+> This project {{ if $deprecated }}was{{ else }}is{{ end }} part of Cloud Posse's comprehensive ["SweetOps"](https://cpco.io/sweetops) approach towards DevOps.
 {{- if (file.Exists "main.tf") }}
-<a href="https://cpco.io/terraform-modules"><img src="https://docs.cloudposse.com/images/terraform-open-source-modules.svg" align="right" /></a>
+> <a href="https://cpco.io/terraform-modules"><img src="https://docs.cloudposse.com/images/terraform-open-source-modules.svg" align="right" /></a>
 {{- end}}
-
-{{ if eq (ds "config").license "APACHE2" }}
-It's 100% Open Source and licensed under the [APACHE2](LICENSE).
-{{ end }}
-{{ if eq (ds "config").license "CC-BY-NC-SA-4.0" }}
-It's 100% Open Source and licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](LICENSE).
-
-<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img title="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License" src="static/images/cc-by-nc-sa.png" width="150" /></a>
-{{ end }}
-{{ if eq (ds "config").license "MIT" }}
-It's 100% Open Source and licensed under the [MIT](LICENSE).
-{{ end }}
-{{ if eq (ds "config").license "ISC" }}
-It's 100% Open Source and licensed under the [Internet Systems Consortium](LICENSE).
-{{ end }}
-{{ if eq (ds "config").license "GPL3" }}
-It's 100% Open Source and licensed under the [GNU General Public License](LICENSE).
-{{ end }}
-
-{{ if not $deprecated }}
+>
+{{- if eq (ds "config").license "APACHE2" }}
+> It's 100% Open Source and licensed under the [APACHE2](LICENSE).
+{{- end }}
+{{- if eq (ds "config").license "CC-BY-NC-SA-4.0" }}
+> It's 100% Open Source and licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](LICENSE).
+> 
+> <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img title="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License" src="static/images/cc-by-nc-sa.png" width="150" /></a>
+{{- end }}
+{{- if eq (ds "config").license "MIT" }}
+> It's 100% Open Source and licensed under the [MIT](LICENSE).
+{{- end }}
+{{- if eq (ds "config").license "ISC" }}
+> It's 100% Open Source and licensed under the [Internet Systems Consortium](LICENSE).
+{{- end }}
+{{- if eq (ds "config").license "GPL3" }}
+> It's 100% Open Source and licensed under the [GNU General Public License](LICENSE).
+{{- end }}
+>
+{{- if not $deprecated }}
 {{- if (file.Exists "main.tf") }}
-We literally have [*hundreds of terraform modules*][terraform_modules] that are Open Source and well-maintained. Check them out!
+> We literally have [*hundreds of terraform modules*][terraform_modules] that are Open Source and well-maintained. Check them out!
+{{- end }}
+{{ if not $deprecated }}
+[![README Header][readme_header_img]][readme_header_link]
 {{- end }}
 
 
@@ -120,7 +120,7 @@ We literally have [*hundreds of terraform modules*][terraform_modules] that are 
 {{ if (file.Exists "main.tf") }}
 
 > **Important**
-> We do not pin modules to versions in our examples because of the
+> We do not pin modules to versions in Cloud Posse's examples because of the
 > difficulty of keeping the versions in the documentation in sync with the latest released versions.
 > We highly recommend that in your code you pin the version to the exact version you are
 > using so that your infrastructure remains stable, and update versions in a
@@ -184,7 +184,7 @@ Please use the [issue tracker]({{ printf "https://github.com/%s/issues" (ds "con
 
 ### 💻 Developing
 
-If you are interested in being a contributor and want to get involved in developing this project or [help out](https://cpco.io/help-out) with our other projects, we would love to hear from you! Shoot us an [email][email].
+If you are interested in being a contributor and want to get involved in developing this project or [help out](https://cpco.io/help-out) with Cloud Posse's other projects, we would love to hear from you! Shoot us an [email][email].
 
 In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
