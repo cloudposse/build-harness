@@ -33,8 +33,8 @@ It's designed to work with CI/CD systems such as GitHub Actions.
 [![README Header][readme_header_img]][readme_header_link]
 
 > [!NOTE]
-> This project is part of our comprehensive ["SweetOps"](https://cpco.io/sweetops) approach towards DevOps.
-
+> This project is part of Cloud Posse's comprehensive ["SweetOps"](https://cpco.io/sweetops) approach towards DevOps.
+>
 
 > It's 100% Open Source and licensed under the [APACHE2](LICENSE).
 
@@ -42,7 +42,7 @@ It's designed to work with CI/CD systems such as GitHub Actions.
 
 
 
-
+>
 
 
 
@@ -345,7 +345,7 @@ Please use the [issue tracker](https://github.com/cloudposse/build-harness/issue
 
 ### 💻 Developing
 
-If you are interested in being a contributor and want to get involved in developing this project or [help out](https://cpco.io/help-out) with our other projects, we would love to hear from you! Shoot us an [email][email].
+If you are interested in being a contributor and want to get involved in developing this project or [help out](https://cpco.io/help-out) with Cloud Posse's other projects, we would love to hear from you! Shoot us an [email][email].
 
 In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
