@@ -65,6 +65,12 @@ We literally have [*hundreds of other terraform modules*][terraform_modules] tha
 
 {{- end }}
 {{- end }}
+{{ if has (ds "config") "screenshots" }}
+## Screenshots
+
+{{ range $screenshot := (ds "config").screenshots }}
+{{ printf "![%s](%s)\n*%s*" $screenshot.name $screenshot.url $screenshot.description }}{{ end }}
+{{- end }}
 
 ---
 > [!NOTE]
@@ -99,13 +105,6 @@ We literally have [*hundreds of other terraform modules*][terraform_modules] tha
 [![README Header][readme_header_img]][readme_header_link]
 {{- end }}
 
-
-{{ if has (ds "config") "screenshots" }}
-## Screenshots
-
-{{ range $screenshot := (ds "config").screenshots }}
-{{ printf "![%s](%s)\n*%s*" $screenshot.name $screenshot.url $screenshot.description }}{{ end }}
-{{- end }}
 {{- end }}
 
 {{ if has (ds "config") "introduction" }}

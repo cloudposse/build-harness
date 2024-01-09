@@ -28,6 +28,12 @@
 This `build-harness` is a collection of Makefiles to facilitate building Golang projects, Dockerfiles, Helm charts, and more.
 It's designed to work with CI/CD systems such as GitHub Actions.
 
+## Screenshots
+
+
+![demo](docs/demo.gif?raw=true)
+*Example of using the `build-harness` to build a docker image*
+
 ---
 > [!NOTE]
 > This project is part of Cloud Posse's comprehensive ["SweetOps"](https://cpco.io/sweetops) approach towards DevOps.
@@ -36,14 +42,6 @@ It's designed to work with CI/CD systems such as GitHub Actions.
 >
 
 [![README Header][readme_header_img]][readme_header_link]
-
-
-
-## Screenshots
-
-
-![demo](docs/demo.gif?raw=true)
-*Example of using the `build-harness` to build a docker image*
 
 
 
@@ -416,7 +414,7 @@ under the License.
 All other trademarks referenced herein are the property of their respective owners.
 ## Copyrights
 
-Copyright © 2016-2023 [Cloud Posse, LLC](https://cloudposse.com)
+Copyright © 2016-2024 [Cloud Posse, LLC](https://cloudposse.com)
 
 [![README Footer][readme_footer_img]][readme_footer_link]
 [![Beacon][beacon]][website]
