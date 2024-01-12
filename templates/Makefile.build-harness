@@ -67,7 +67,6 @@ endef
 .PHONY : init
 ## Init build-harness
 init::
-	if ! make --version | grep -q "GNU Make 4.4"; then echo "GNU Make 4.4 is required. Please upgrade. For MacOS users it's 'brew install make'."; fi
 	@ $(harness_install)
 
 .PHONY : clean
