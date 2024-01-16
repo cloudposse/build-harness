@@ -5,7 +5,7 @@
 {{- if $deprecated }}
 # (deprecated) {{(ds "config").name}}{{ if gt (len (ds "config").name) 23 }}{{ print "\n\n" }}{{ end }}
 {{- else }}
-{{- if (file.Exists "banner/image.png") }}
+{{ if (file.Exists "banner/image.png") -}}
 [![Project Banner](banner/image.png?raw=true)](https://cpco.io/homepage)
 {{- else -}}
 # {{(ds "config").name}}<a href="https://cpco.io/homepage"><img align="right" src="https://cloudposse.com/logo-300x69.svg" width="150" /></a>{{ if gt (len (ds "config").name) 34 }}{{ print "\n\n" }}{{ end }}
