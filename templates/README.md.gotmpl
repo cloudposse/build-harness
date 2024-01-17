@@ -7,13 +7,13 @@
 {{- else }}
 {{ if (file.Exists "banner/image.png") -}}
 [![Project Banner](banner/image.png?raw=true)](https://cpco.io/homepage)
-{{- else -}}
+{{ else -}}
 # {{(ds "config").name}}<a href="https://cpco.io/homepage"><img align="right" src="https://cloudposse.com/logo-300x69.svg" width="150" /></a>{{ if gt (len (ds "config").name) 34 }}{{ print "\n\n" }}{{ end }}
 {{- end -}}
 {{- end }}
 {{- if $deprecated }}[![deprecated](https://img.shields.io/badge/lifecycle-deprecated-critical)](#deprecated){{ end }}
-  {{- if has (ds "config") "badges" }}
-    {{- range $badge := (ds "config").badges }}
+  {{- if has (ds "config") "badges" -}}
+    {{- range $badge := (ds "config").badges -}}
     {{- printf " [![%s](%s)](%s)" $badge.name $badge.image $badge.url }}
   {{- end }}
 {{- end }}
