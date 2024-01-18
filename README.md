@@ -1,6 +1,6 @@
 
 <!-- markdownlint-disable -->
-[![Project Banner](banner/image.png?raw=true)](https://cpco.io/homepage)
+[![Project Banner](.github/banner.png?raw=true)](https://cpco.io/homepage)
  [![Build Status](https://github.com/cloudposse/build-harness/workflows/docker/badge.svg?branch=master)](https://github.com/cloudposse/build-harness/actions?query=workflow%3Adocker) [![Latest Release](https://img.shields.io/github/release/cloudposse/build-harness.svg)](https://github.com/cloudposse/build-harness/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 <!-- markdownlint-restore -->
 
