@@ -15,12 +15,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - run: |
-          git config --global --add safe.directory ${{ github.workspace }}
       - uses: docker://cloudposse/build-harness:latest
         with:
           entrypoint: /usr/bin/make
-          args: readme/lint
+          args: github/ci readme/lint
 
   super-linter:
     name: superlinter
