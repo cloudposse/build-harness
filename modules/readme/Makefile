@@ -5,16 +5,16 @@ export README_YAML ?= README.yaml
 export README_TEMPLATE_REPO_REMOTE_NAME ?= origin
 export README_TEMPLATE_REPO_REMOTE ?= $(shell git remote get-url $(README_TEMPLATE_REPO_REMOTE_NAME))
 
-ifneq ($(strip $(README_TEMPLATE_REPO_REMOTE)),)
 # Parse https://github.com/...
-ifneq (,$(findstring https://,$(README_TEMPLATE_REPO_REMOTE)))
-export README_TEMPLATE_REPO_ORG ?= $(shell basename $(shell dirname $(README_TEMPLATE_REPO_REMOTE)))
+ifneq (,$(findstring https://github.com/,$(README_TEMPLATE_REPO_REMOTE)))
+URL_NO_PROTOCOL := $(subst https://github.com/,,$(README_TEMPLATE_REPO_REMOTE))
+README_TEMPLATE_REPO_ORG ?= $(firstword $(subst /, ,$(URL_NO_PROTOCOL)))
 endif
 
-# Parse git@github.com
-ifneq (,$(findstring git@github.com,$(README_TEMPLATE_REPO_REMOTE)))
-export README_TEMPLATE_REPO_ORG ?= $(lastword $(subst :, ,$(subst /,,$(dir $(README_TEMPLATE_REPO_REMOTE)))))
-endif
+# Parse git@github.com:...
+ifneq (,$(findstring git@github.com:,$(README_TEMPLATE_REPO_REMOTE)))
+URL_NO_GIT := $(subst git@github.com:,,$(README_TEMPLATE_REPO_REMOTE))
+README_TEMPLATE_REPO_ORG ?= $(firstword $(subst /, ,$(URL_NO_GIT)))
 endif
 
 export README_TEMPLATE_REPO ?= .github
