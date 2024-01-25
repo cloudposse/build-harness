@@ -40,10 +40,10 @@ readme/deps: packages/install/gomplate $(README_TEMPLATE_FILE)
 ## Create basic minimalistic .README.md template file
 readme/init:
 	@if [ -f $(README_YAML) ]; then \
-	  echo "$(README_YAML) already exists!"; \
+		echo "$(README_YAML) already exists!"; \
 	else \
-	  cp $(README_TEMPLATE_YAML) $(README_YAML) ; \
-	  echo "$(README_YAML) created!"; \
+		cp $(README_TEMPLATE_YAML) $(README_YAML) ; \
+		echo "$(README_YAML) created!"; \
 	fi;
 
 ## Verify the `README.md` is up to date
