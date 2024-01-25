@@ -14,6 +14,7 @@ export README_INCLUDES ?= $(file://$(shell pwd)/?type=text/plain)
 
 # Create the README.md.gotmpl, if none exists by fetching it from the organization's `.github` repository
 $(README_TEMPLATE_FILE):
+	@git remote get-url $(README_TEMPLATE_REPO_REMOTE_NAME)
 	@echo GitHub Org: $(README_TEMPLATE_REPO_ORG)
 	curl -o $@ -fsSL '$(README_TEMPLATE_REPO_URL)'
 
