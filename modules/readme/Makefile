@@ -5,7 +5,7 @@ export README_YAML ?= README.yaml
 export README_TEMPLATE_REPO_REMOTE_NAME ?= origin
 export README_TEMPLATE_REPO_ORG ?= $(lastword $(subst :, ,$(subst /,,$(dir $(shell git remote get-url $(README_TEMPLATE_REPO_REMOTE_NAME))))))
 export README_TEMPLATE_REPO ?= .github
-export README_TEMPLATE_REPO_REF ?= blob/add-readme-md-tmpl
+export README_TEMPLATE_REPO_REF ?= blob/main
 export README_TEMPLATE_REPO_PATH ?= README.md.gotmpl
 export README_TEMPLATE_REPO_URL ?= https://github.com/$(README_TEMPLATE_REPO_ORG)/$(README_TEMPLATE_REPO)/$(README_TEMPLATE_REPO_REF)/$(README_TEMPLATE_REPO_PATH)?raw=true
 export README_TEMPLATE_FILE ?= $(BUILD_HARNESS_PATH)/templates/README.md.gotmpl
