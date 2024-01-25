@@ -3,9 +3,7 @@ export README_FILE ?= README.md
 export README_YAML ?= README.yaml
 
 export README_TEMPLATE_REPO_REMOTE_NAME ?= origin
-#export README_TEMPLATE_REPO_REMOTE ?= $(shell git remote get-url $(README_TEMPLATE_REPO_REMOTE_NAME))
-export README_TEMPLATE_REPO_REMOTE ?= https://github.com/cloudposse/build-harness
-export README_TEMPLATE_REPO_REMOTE ?= git@github.com:cloudposse/build-harness.git
+export README_TEMPLATE_REPO_REMOTE ?= $(shell git remote get-url $(README_TEMPLATE_REPO_REMOTE_NAME))
 
 # Parse https://github.com/...
 ifneq (,$(findstring https://,$(README_TEMPLATE_REPO_REMOTE)))
