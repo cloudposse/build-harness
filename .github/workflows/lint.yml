@@ -15,7 +15,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - run: git config --system --add safe.directory ${{ github.workspace }}
+      - name: Fix git safe.directory in container
+        # https://github.com/actions/runner/issues/2033
+        run: mkdir -p /home/runner/work/_temp/_github_home && printf "[safe]\n\tdirectory = /github/workspace" > /home/runner/work/_temp/_github_home/.gitconfig
       - uses: docker://cloudposse/build-harness:latest
         with:
           entrypoint: /usr/bin/make
