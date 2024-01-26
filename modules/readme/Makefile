@@ -24,8 +24,8 @@ export README_TEMPLATE_REPO_URL ?= https://raw.githubusercontent.com/$${README_G
 export README_TEMPLATE_FILE ?= $(BUILD_HARNESS_PATH)/templates/README.md.gotmpl
 export README_TEMPLATE_YAML := $(BUILD_HARNESS_PATH)/templates/$(README_YAML)
 
-# Only allow whitelisted orgs to supply the README template
-export README_WHITELIST_ORGS := \
+# Only allow allowlisted orgs to supply the README template
+export README_ALLOWLIST_ORGS := \
  	cloudposse \
 	cloudposse-archives \
 	cloudposse-corp \
@@ -41,13 +41,13 @@ export README_WHITELIST_ORGS := \
 
 # Fetch the README.md.gotmpl corresponding to this repo's GitHub Org
 $(README_TEMPLATE_FILE):
-	@for README_GITHUB_ORG in $(README_WHITELIST_ORGS); do \
+	@for README_GITHUB_ORG in $(README_ALLOWLIST_ORGS); do \
 		if [ "$${README_GITHUB_ORG}" == "$${README_TEMPLATE_REPO_ORG}" ]; then \
 			curl -o $@ -fsSL "$(README_TEMPLATE_REPO_URL)"; \
 			exit 0; \
 		fi; \
 	done; \
-	printf "Detected GitHub Org '%s' is not whitelisted\n" "$(README_TEMPLATE_REPO_ORG)" >&2; \
+	printf "Detected GitHub Org '%s' is not in the list of organizations allowed to provide README templates.\n" "$(README_TEMPLATE_REPO_ORG)" >&2; \
 	exit 1
 
 ## Alias for readme/build
