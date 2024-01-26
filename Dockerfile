@@ -1,4 +1,4 @@
-FROM golang:1.20.7-alpine3.18
+FROM golang:1.20.13-alpine3.18
 LABEL maintainer="Cloud Posse <hello@cloudposse.com>"
 
 LABEL "com.github.actions.name"="Build Harness"
@@ -8,6 +8,7 @@ LABEL "com.github.actions.color"="blue"
 
 RUN apk --update --no-cache add \
       bash \
+      build-base \
       ca-certificates \
       coreutils \
       curl \
@@ -27,12 +28,12 @@ RUN apk --update --no-cache add \
       py3-cffi && \
     python3 -m pip install --upgrade pip setuptools wheel && \
     pip3 install --no-cache-dir \
-      cryptography==41.0.3 \
+      cryptography==41.0.7 \
       PyYAML==6.0.1 \
-      awscli==1.29.25 \
+      awscli==1.32.23 \
       boto==2.49.0 \
-      boto3==1.28.25 \
-      iteration-utilities==0.11.0 \
+      boto3==1.34.23 \
+      iteration-utilities==0.12.0 \
       PyGithub==1.59.1 && \
     git config --global advice.detachedHead false
 
