@@ -26,7 +26,7 @@ export README_TEMPLATE_YAML := $(BUILD_HARNESS_PATH)/templates/$(README_YAML)
 
 # Only allow allowlisted orgs to supply the README template
 export README_ALLOWLIST_ORGS := \
- 	cloudposse \
+	cloudposse \
 	cloudposse-archives \
 	cloudposse-corp \
 	cloudposse-depos \
