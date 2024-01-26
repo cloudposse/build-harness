@@ -13,17 +13,11 @@ jobs:
   lint-readme:
     name: readme
     runs-on: ubuntu-latest
+    container: cloudposse/build-harness:latest
     steps:
       - uses: actions/checkout@v4
-      - name: Fix git safe.directory when run inside container
-        # https://github.com/actions/runner/issues/2033
-        run: |
-          mkdir -p /home/runner/work/_temp/_github_home
-          printf "[safe]\n\tdirectory = /github/workspace" > /home/runner/work/_temp/_github_home/.gitconfig
-      - uses: docker://cloudposse/build-harness:latest
-        with:
-          entrypoint: /usr/bin/make
-          args: readme/lint
+      - shell: bash
+        run: /usr/bin/make BUILD_HARNESS_PATH=/build-harness PACKAGES_PREFER_HOST=true readme/lint
 
   super-linter:
     name: superlinter
