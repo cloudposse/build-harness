@@ -12,7 +12,8 @@ export BUILD_HARNESS_OS ?= $(OS)
 export BUILD_HARNESS_ARCH ?= $(shell uname -m | sed 's/x86_64/amd64/g')
 export SELF ?= $(MAKE)
 export PATH := $(BUILD_HARNESS_PATH)/vendor:$(PATH)
-export DOCKER_BUILD_FLAGS ?=
+# We do not have Alpine packages for arm64, so we need to force amd64 until we switch to Debian
+export DOCKER_BUILD_FLAGS ?= --platform linux/amd64
 
 # Forces auto-init off to avoid invoking the macro on recursive $(MAKE)
 export BUILD_HARNESS_AUTO_INIT := false
