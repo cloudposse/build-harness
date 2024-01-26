@@ -43,8 +43,12 @@ export README_ALLOWLIST_ORGS := \
 $(README_TEMPLATE_FILE):
 	@for README_GITHUB_ORG in $(README_ALLOWLIST_ORGS); do \
 		if [ "$${README_GITHUB_ORG}" == "$${README_TEMPLATE_REPO_ORG}" ]; then \
-			curl -o $@ -fsSL "$(README_TEMPLATE_REPO_URL)"; \
-			exit 0; \
+			if curl -o $@ -fsSL "$(README_TEMPLATE_REPO_URL)"; then \
+				exit 0; \
+			else \
+				printf "Failed to fetch README template from %s\n" "$(README_TEMPLATE_REPO_URL)" >&2; \
+				exit 1; \
+			fi; \
 		fi; \
 	done; \
 	printf "Detected GitHub Org '%s' is not in the list of organizations allowed to provide README templates.\n" "$(README_TEMPLATE_REPO_ORG)" >&2; \
