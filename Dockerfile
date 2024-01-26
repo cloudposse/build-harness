@@ -1,4 +1,3 @@
-# syntax=docker/dockerfile:1.3
 FROM golang:1.20.13-alpine3.18
 
 LABEL maintainer="Cloud Posse <hello@cloudposse.com>"
