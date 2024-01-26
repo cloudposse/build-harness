@@ -3,7 +3,7 @@ export README_FILE ?= README.md
 export README_YAML ?= README.yaml
 
 export README_TEMPLATE_REPO_REMOTE_NAME ?= origin
-export README_TEMPLATE_REPO_REMOTE ?= $(shell git remote get-url $(README_TEMPLATE_REPO_REMOTE_NAME))
+export README_TEMPLATE_REPO_REMOTE ?= $(shell [ -d .git ] && git remote get-url $(README_TEMPLATE_REPO_REMOTE_NAME))
 
 # Parse https://github.com/...
 ifneq (,$(findstring https://github.com/,$(README_TEMPLATE_REPO_REMOTE)))
@@ -34,7 +34,7 @@ $(README_TEMPLATE_FILE):
 readme: readme/build
 	@exit 0
 
-readme/deps: packages/install/gomplate $(README_TEMPLATE_FILE)
+readme/deps: packages/install/gomplate
 	@exit 0
 
 ## Create basic minimalistic .README.md template file
@@ -53,7 +53,7 @@ readme/lint:
 	@rm -f $(README_LINT)
 
 ## Create README.md by building it from README.yaml
-readme/build: readme/deps $(README_DEPS)
+readme/build: readme/deps $(README_TEMPLATE_FILE) $(README_DEPS)
 	@gomplate --file $(README_TEMPLATE_FILE) --out $(README_FILE) --config $(BUILD_HARNESS_PATH)/configs/gomplate.yaml
 	@echo "Generated $(README_FILE) from $(README_TEMPLATE_FILE) using data from $(README_TEMPLATE_YAML)"
 
