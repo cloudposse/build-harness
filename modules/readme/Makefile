@@ -2,6 +2,9 @@ export README_LINT ?= $(TMP)/README.md
 export README_FILE ?= README.md
 export README_YAML ?= README.yaml
 
+# Needed by README.md.gotmpl for `includes` to function
+export README_INCLUDES ?= $(file://$(shell pwd)/?type=text/plain)
+
 export README_TEMPLATE_REPO_REMOTE_NAME ?= origin
 export README_TEMPLATE_REPO_REMOTE ?= $(shell [ -d .git ] && git remote get-url $(README_TEMPLATE_REPO_REMOTE_NAME))
 
