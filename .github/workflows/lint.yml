@@ -13,12 +13,11 @@ jobs:
   lint-readme:
     name: readme
     runs-on: ubuntu-latest
+    container: cloudposse/build-harness:latest
     steps:
-      - uses: actions/checkout@master
-      - uses: docker://cloudposse/build-harness:latest
-        with:
-          entrypoint: /usr/bin/make
-          args: readme/lint
+      - uses: actions/checkout@v4
+      - shell: bash
+        run: /usr/bin/make BUILD_HARNESS_PATH=/build-harness PACKAGES_PREFER_HOST=true readme/lint
 
   super-linter:
     name: superlinter

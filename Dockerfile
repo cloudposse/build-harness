@@ -1,4 +1,5 @@
 FROM golang:1.20.13-alpine3.18
+
 LABEL maintainer="Cloud Posse <hello@cloudposse.com>"
 
 LABEL "com.github.actions.name"="Build Harness"
@@ -81,6 +82,7 @@ RUN update-alternatives --set terraform /usr/share/terraform/$DEFAULT_TERRAFORM_
 
 # Install tflint
 RUN curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+
 COPY <<EOF /root/.tflint.hcl
 plugin "aws" {
     enabled = true
@@ -88,6 +90,7 @@ plugin "aws" {
     source  = "github.com/terraform-linters/tflint-ruleset-aws"
 }
 EOF
+
 RUN tflint --init
 
 # Patch for old Makefiles that expect a directory like x.x from the 0.x days.
