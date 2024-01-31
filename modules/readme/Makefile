@@ -5,6 +5,8 @@ export README_YAML ?= README.yaml
 export README_TEMPLATE_REPO_REMOTE_NAME ?= origin
 export README_TEMPLATE_REPO_REMOTE ?= $(shell [ -d .git ] && git remote get-url $(README_TEMPLATE_REPO_REMOTE_NAME))
 
+export GOMPLATE_PATH ?= $(BUILD_HARNESS_PATH)/vendor/gomplate
+
 # Parse https://github.com/...
 ifneq (,$(findstring https://github.com/,$(README_TEMPLATE_REPO_REMOTE)))
 URL_NO_PROTOCOL := $(subst https://github.com/,,$(README_TEMPLATE_REPO_REMOTE))
@@ -78,7 +80,7 @@ readme/lint:
 
 ## Create README.md by building it from README.yaml
 readme/build: readme/deps $(README_TEMPLATE_FILE) $(README_DEPS)
-	@gomplate --file $(README_TEMPLATE_FILE) --out $(README_FILE) --config $(BUILD_HARNESS_PATH)/configs/gomplate.yaml
+	@$(GOMPLATE_PATH) --file $(README_TEMPLATE_FILE) --out $(README_FILE) --config $(BUILD_HARNESS_PATH)/configs/gomplate.yaml
 	@echo "Generated $(README_FILE) from $(README_TEMPLATE_FILE) using data from $(README_TEMPLATE_YAML)"
 
 readme/generate-related-references:

@@ -387,7 +387,7 @@ We deliver 10x the value for a fraction of the cost of a full-time engineer. Our
 [![README Commercial Support][readme_commercial_support_img]][readme_commercial_support_link]
 ## License
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=for-the-badge)](https://opensource.org/licenses/Apache-2.0)
 
 See [LICENSE](LICENSE) for full details.
 
