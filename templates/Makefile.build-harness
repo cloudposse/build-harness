@@ -83,11 +83,22 @@ clean::
 		fi; \
 	fi
 
-.PHONY: safe-directory
+.PHONY: git-safe-directory
 
 # Workaround for https://github.com/actions/checkout/issues/766
-safe-directory:
-	[[ -n "$$GITHUB_WORKSPACE" ]] && git config --global --add safe.directory "$$GITHUB_WORKSPACE" || git config --global --add safe.directory '*'
+# Note that if we always add a safe directory, we are recreating the security problem git is trying to solve.
+# So we only add the safe directory if we are running in a GitHub Actions environment.
+git-safe-directory:
+	@if remove_protection_cmd=$$(git log -1 2>&1 | grep -F 'git config --global --add safe.directory'); then \
+		if [[ -n "$$GITHUB_WORKSPACE" ]]; then \
+			printf "Marking directory %s as safe for git to trust\n" "$$GITHUB_WORKSPACE" >&2; \
+			git config --global --add safe.directory "$$GITHUB_WORKSPACE";  \
+		else \
+			printf "\nGit refused to trust a directory, presumably due to dubious ownership.\n" >&2; \
+			printf "GitHub Actions environment not detected, so script is not automatically trusting suspicious directory.\n\n" >&2 ;\
+			printf "To trust the directory git is concerned about, run:\n\n  %s\n\n" "$$remove_protection_cmd" >&2; \
+		fi \
+	fi
 
 .PHONY: build-harness/shell builder build-harness/shell/pull builder/pull builder/build builder-slim/build
 
@@ -149,7 +160,7 @@ precommit/terraform pr/auto-format precommit/terraform/host pr/auto-format/host:
 pr/readme pr/readme/host: ARGS := readme/deps readme
 pr/github-update pr/github-update/host: ARGS := github/update
 precommit/terraform pr/auto-format pr/readme pr/github-update: build-harness/runner
-precommit/terraform/host pr/auto-format/host pr/readme/host pr/github-update/host: safe-directory
+precommit/terraform/host pr/auto-format/host pr/readme/host pr/github-update/host: git-safe-directgory
 	$(MAKE) $(ARGS)
 
 pr/pre-commit: ARGS := pre-commit/run
