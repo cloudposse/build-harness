@@ -30,8 +30,8 @@ badges:
     image: "https://img.shields.io/github/release/cloudposse/build-harness.svg?style=for-the-badge"
     url: "https://github.com/cloudposse/build-harness/releases/latest"
   - name: "Last Updated"
-    image: https://img.shields.io/github/last-commit/cloudposse/build-harness/main?style=for-the-badge
-    url: https://github.com/cloudposse/build-harness/commits/main/
+    image: https://img.shields.io/github/last-commit/cloudposse/build-harness/master?style=for-the-badge
+    url: https://github.com/cloudposse/build-harness/commits/master/
   - name: "Slack Community"
     image: "https://slack.cloudposse.com/for-the-badge.svg"
     url: "https://slack.cloudposse.com"

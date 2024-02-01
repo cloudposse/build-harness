@@ -1,7 +1,7 @@
 
 <!-- markdownlint-disable -->
 [![Project Banner](.github/banner.png?raw=true)](https://cpco.io/homepage)
- [![Build Status](https://img.shields.io/github/actions/workflow/status/cloudposse/build-harness/docker.yml?style=for-the-badge)](https://github.com/cloudposse/build-harness/actions/workflows/docker.yml) [![Latest Release](https://img.shields.io/github/release/cloudposse/build-harness.svg?style=for-the-badge)](https://github.com/cloudposse/build-harness/releases/latest) [![Last Updated](https://img.shields.io/github/last-commit/cloudposse/build-harness/main?style=for-the-badge)](https://github.com/cloudposse/build-harness/commits/main/) [![Slack Community](https://slack.cloudposse.com/for-the-badge.svg)](https://slack.cloudposse.com)
+ [![Build Status](https://img.shields.io/github/actions/workflow/status/cloudposse/build-harness/docker.yml?style=for-the-badge)](https://github.com/cloudposse/build-harness/actions/workflows/docker.yml) [![Latest Release](https://img.shields.io/github/release/cloudposse/build-harness.svg?style=for-the-badge)](https://github.com/cloudposse/build-harness/releases/latest) [![Last Updated](https://img.shields.io/github/last-commit/cloudposse/build-harness/master?style=for-the-badge)](https://github.com/cloudposse/build-harness/commits/master/) [![Slack Community](https://slack.cloudposse.com/for-the-badge.svg)](https://slack.cloudposse.com)
 <!-- markdownlint-restore -->
 
 
