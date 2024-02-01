@@ -2,25 +2,11 @@ export README_LINT ?= $(TMP)/README.md
 export README_FILE ?= README.md
 export README_YAML ?= README.yaml
 
-export README_TEMPLATE_REPO_REMOTE_NAME ?= origin
-export README_TEMPLATE_REPO_REMOTE ?= $(shell [ -d .git ] && git remote get-url $(README_TEMPLATE_REPO_REMOTE_NAME))
-
-# Parse https://github.com/...
-ifneq (,$(findstring https://github.com/,$(README_TEMPLATE_REPO_REMOTE)))
-URL_NO_PROTOCOL := $(subst https://github.com/,,$(README_TEMPLATE_REPO_REMOTE))
-export README_TEMPLATE_REPO_ORG ?= $(firstword $(subst /, ,$(URL_NO_PROTOCOL)))
-endif
-
-# Parse git@github.com:...
-ifneq (,$(findstring git@github.com:,$(README_TEMPLATE_REPO_REMOTE)))
-URL_NO_GIT := $(subst git@github.com:,,$(README_TEMPLATE_REPO_REMOTE))
-export README_TEMPLATE_REPO_ORG ?= $(firstword $(subst /, ,$(URL_NO_GIT)))
-endif
-
+export README_TEMPLATE_REPO_ORG ?= $(shell [ -f "$(README_YAML)" ] &&  dirname $$(grep '^github_repo: *' "$(README_YAML)" | cut -d: -f2))
 export README_TEMPLATE_REPO ?= .github
 export README_TEMPLATE_REPO_REF ?= main
 export README_TEMPLATE_REPO_PATH ?= README.md.gotmpl
-export README_TEMPLATE_REPO_URL := https://raw.githubusercontent.com/$${README_GITHUB_ORG}/$(README_TEMPLATE_REPO)/$(README_TEMPLATE_REPO_REF)/$(README_TEMPLATE_REPO_PATH)
+export README_TEMPLATE_REPO_URL := https://raw.githubusercontent.com/$(README_TEMPLATE_REPO_ORG)/$(README_TEMPLATE_REPO)/$(README_TEMPLATE_REPO_REF)/$(README_TEMPLATE_REPO_PATH)
 export README_TEMPLATE_FILE ?= $(BUILD_HARNESS_PATH)/templates/README.md.gotmpl
 export README_TEMPLATE_YAML := $(BUILD_HARNESS_PATH)/templates/$(README_YAML)
 
@@ -43,6 +29,7 @@ export README_ALLOWLIST_ORGS := \
 $(README_TEMPLATE_FILE):
 	@for README_GITHUB_ORG in $(README_ALLOWLIST_ORGS); do \
 		if [ "$${README_GITHUB_ORG}" == "$${README_TEMPLATE_REPO_ORG}" ]; then \
+			echo "Fetching README template from $${README_TEMPLATE_REPO_ORG}"; \
 			if curl -o $@ -fsSL "$(README_TEMPLATE_REPO_URL)"; then \
 				exit 0; \
 			else \
@@ -51,7 +38,7 @@ $(README_TEMPLATE_FILE):
 			fi; \
 		fi; \
 	done; \
-	printf "Detected GitHub Org '%s' is not in the list of organizations allowed to provide README templates.\n" "$(README_TEMPLATE_REPO_ORG)" >&2; \
+	printf "Detected GitHub Org '%s' is not in the list of organizations allowed to provide README templates.\n" "$${README_TEMPLATE_REPO_ORG}" >&2; \
 	exit 1
 
 ## Alias for readme/build
