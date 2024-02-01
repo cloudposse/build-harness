@@ -13,7 +13,7 @@ jobs:
   lint-readme:
     name: readme
     runs-on: ubuntu-latest
-    container: cloudposse/build-harness:pr-374-merge
+    container: cloudposse/build-harness:latest
     steps:
       - uses: actions/checkout@v4
       - shell: bash
