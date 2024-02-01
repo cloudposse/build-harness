@@ -7,9 +7,9 @@ jobs:
   default:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: "Handle common commands"
-        uses: cloudposse/actions/github/slash-command-dispatch@0.30.0
+        uses: cloudposse/actions/github/slash-command-dispatch@0.33.0
         with:
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
           reaction-token: ${{ secrets.GITHUB_TOKEN }}
@@ -22,9 +22,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout commit"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: "Run tests"
-        uses: cloudposse/actions/github/slash-command-dispatch@0.30.0
+        uses: cloudposse/actions/github/slash-command-dispatch@0.33.0
         with:
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
           reaction-token: ${{ secrets.GITHUB_TOKEN }}

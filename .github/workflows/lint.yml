@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - shell: bash
-        run: /usr/bin/make BUILD_HARNESS_PATH=/build-harness PACKAGES_PREFER_HOST=true readme/lint
+        run: /usr/bin/make BUILD_HARNESS_PATH=/build-harness PACKAGES_PREFER_HOST=true git-safe-directory readme/lint
 
   super-linter:
     name: superlinter

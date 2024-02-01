@@ -1,7 +1,7 @@
 
 <!-- markdownlint-disable -->
 [![Project Banner](.github/banner.png?raw=true)](https://cpco.io/homepage)
- [![Build Status](https://github.com/cloudposse/build-harness/workflows/docker/badge.svg?branch=master)](https://github.com/cloudposse/build-harness/actions?query=workflow%3Adocker) [![Latest Release](https://img.shields.io/github/release/cloudposse/build-harness.svg)](https://github.com/cloudposse/build-harness/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
+ [![Build Status](https://img.shields.io/github/actions/workflow/status/cloudposse/build-harness/docker.yml?style=for-the-badge)](https://github.com/cloudposse/build-harness/actions/workflows/docker.yml) [![Latest Release](https://img.shields.io/github/release/cloudposse/build-harness.svg?style=for-the-badge)](https://github.com/cloudposse/build-harness/releases/latest) [![Last Updated](https://img.shields.io/github/last-commit/cloudposse/build-harness/master?style=for-the-badge)](https://github.com/cloudposse/build-harness/commits/master/) [![Slack Community](https://slack.cloudposse.com/for-the-badge.svg)](https://slack.cloudposse.com)
 <!-- markdownlint-restore -->
 
 
@@ -26,7 +26,7 @@
 
 -->
 
-This `build-harness` is a collection of Makefiles to facilitate building Golang projects, Dockerfiles, Helm charts, and more.
+This `build-harness` is a collection of Makefiles to facilitate building READMEs, Golang projects, Dockerfiles, Helm charts, and more.
 It's designed to work with CI/CD systems such as GitHub Actions.
 
 ## Screenshots
@@ -387,7 +387,7 @@ We deliver 10x the value for a fraction of the cost of a full-time engineer. Our
 [![README Commercial Support][readme_commercial_support_img]][readme_commercial_support_link]
 ## License
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=for-the-badge)](https://opensource.org/licenses/Apache-2.0)
 
 See [LICENSE](LICENSE) for full details.
 

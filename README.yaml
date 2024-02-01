@@ -24,13 +24,16 @@ github_repo: cloudposse/build-harness
 # Badges to display
 badges:
   - name: "Build Status"
-    image: "https://github.com/cloudposse/build-harness/workflows/docker/badge.svg?branch=master"
-    url: "https://github.com/cloudposse/build-harness/actions?query=workflow%3Adocker"
+    image: "https://img.shields.io/github/actions/workflow/status/cloudposse/build-harness/docker.yml?style=for-the-badge"
+    url: "https://github.com/cloudposse/build-harness/actions/workflows/docker.yml"
   - name: "Latest Release"
-    image: "https://img.shields.io/github/release/cloudposse/build-harness.svg"
+    image: "https://img.shields.io/github/release/cloudposse/build-harness.svg?style=for-the-badge"
     url: "https://github.com/cloudposse/build-harness/releases/latest"
+  - name: "Last Updated"
+    image: https://img.shields.io/github/last-commit/cloudposse/build-harness/master?style=for-the-badge
+    url: https://github.com/cloudposse/build-harness/commits/master/
   - name: "Slack Community"
-    image: "https://slack.cloudposse.com/badge.svg"
+    image: "https://slack.cloudposse.com/for-the-badge.svg"
     url: "https://slack.cloudposse.com"
 
 related:
@@ -55,7 +58,7 @@ screenshots:
 
 # Short description of this project
 description: |-
-  This `build-harness` is a collection of Makefiles to facilitate building Golang projects, Dockerfiles, Helm charts, and more.
+  This `build-harness` is a collection of Makefiles to facilitate building READMEs, Golang projects, Dockerfiles, Helm charts, and more.
   It's designed to work with CI/CD systems such as GitHub Actions.
   
 # Introduction to the project
