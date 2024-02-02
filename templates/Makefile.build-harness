@@ -160,7 +160,7 @@ precommit/terraform pr/auto-format precommit/terraform/host pr/auto-format/host:
 pr/readme pr/readme/host: ARGS := readme/deps readme
 pr/github-update pr/github-update/host: ARGS := github/update
 precommit/terraform pr/auto-format pr/readme pr/github-update: build-harness/runner
-precommit/terraform/host pr/auto-format/host pr/readme/host pr/github-update/host: git-safe-directgory
+precommit/terraform/host pr/auto-format/host pr/readme/host pr/github-update/host: git-safe-directory
 	$(MAKE) $(ARGS)
 
 pr/pre-commit: ARGS := pre-commit/run

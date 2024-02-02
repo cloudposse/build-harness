@@ -16,7 +16,6 @@ export BUILD_HARNESS_EXTENSIONS_PATH ?= $(BUILD_HARNESS_PATH)/../build-harness-e
 export BUILD_HARNESS_OS ?= $(OS)
 export BUILD_HARNESS_ARCH ?= $(shell uname -m | sed 's/x86_64/amd64/g')
 export SELF ?= $(MAKE)
-export PATH := $(BUILD_HARNESS_PATH)/vendor:$(PATH)
 
 # Forces auto-init off to avoid invoking the macro on recursive $(MAKE)
 export BUILD_HARNESS_AUTO_INIT := false
@@ -59,6 +58,29 @@ include $(BUILD_HARNESS_PATH)/templates/Makefile.build-harness
 # Wildcard conditions is to fixes `make[1]: *** No rule to make target` error
 ifneq ($(wildcard $(BUILD_HARNESS_EXTENSIONS_PATH)/modules/*/Makefile*),)
 -include $(BUILD_HARNESS_EXTENSIONS_PATH)/modules/*/Makefile*
+endif
+
+# Unless PACKAGES_PREFER_HOST is not "false", add the INSTALL_PATH, which
+# is where build-harness installs needed tools, to the PATH, but wait
+# until it is set, which may not be the first time through this Makefile.
+# There is an incredibly subtle behavior here. Changes to PATH do not
+# affect `make` itself, so $(shell ...) will not see the new PATH.
+# Even more subtle, simple recipes that do not require a subshell,
+# such as `kubectl version`, will NOT see the new PATH. To use binaries
+# installed in the INSTALL_PATH, you must use a recipe that forces a subshell,
+# such as by using a pipe or compound command, or if nothing else is needed,
+# using a no-op command such as `: && kubectl version`.
+# To make things even more subtle, this is inconsistent across different
+# versions of Gnu make, with disagreement about the correct behavior and
+# bugs in the implementation. The above behavior is what we have observed
+# with Gnu make 3.81, which is what Apple ships with macOS. Gnu make 4.4.1
+# updates PATH everywhere. We suspect some versions in between update the
+# PATH for recipes but not for $(shell ...).
+# See:
+# - https://savannah.gnu.org/bugs/?10593#comment5
+# - https://savannah.gnu.org/bugs/?56834
+ifneq ($(INSTALL_PATH),)
+export PATH := $(if $(subst false,,$(PACKAGES_PREFER_HOST)),$(PATH),$(INSTALL_PATH):$(PATH))
 endif
 
 # For backwards compatibility with all of our other projects that use build-harness
