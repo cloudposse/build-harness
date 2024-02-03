@@ -2,7 +2,7 @@ export README_LINT ?= $(TMP)/README.md
 export README_FILE ?= README.md
 export README_YAML ?= README.yaml
 
-export README_TEMPLATE_REPO_ORG ?= $(shell [ -f "$(README_YAML)" ] &&  dirname $$(grep '^github_repo: *' "$(README_YAML)" | cut -d: -f2))
+export README_TEMPLATE_REPO_ORG ?= $(shell [ -f "$(README_YAML)" ] &&  dirname $$(grep '^github_repo: *' "$(README_YAML)" | tr -d \'\" | cut -d: -f2))
 export README_TEMPLATE_REPO ?= .github
 export README_TEMPLATE_REPO_REF ?= main
 export README_TEMPLATE_REPO_PATH ?= README.md.gotmpl
