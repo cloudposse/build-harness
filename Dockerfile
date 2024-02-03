@@ -76,9 +76,7 @@ RUN apk --update --no-cache add \
 
 # Use Terraform 1 by default
 ARG DEFAULT_TERRAFORM_VERSION=1
-RUN update-alternatives --set terraform /usr/share/terraform/$DEFAULT_TERRAFORM_VERSION/bin/terraform && \
-  mkdir -p /build-harness/vendor && \
-  cp -p /usr/share/terraform/$DEFAULT_TERRAFORM_VERSION/bin/terraform /build-harness/vendor/terraform
+RUN update-alternatives --set terraform /usr/share/terraform/$DEFAULT_TERRAFORM_VERSION/bin/terraform
 
 # Install tflint
 RUN curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
@@ -102,11 +100,13 @@ RUN v=$(curl -s https://checkpoint-api.hashicorp.com/v1/check/terraform | jq -r 
 
 COPY ./ /build-harness/
 
-ENV INSTALL_PATH /usr/local/bin
+# Set PACKAGES_PREFER_HOST=true to prevent the build-harness from installing packages
+# from the cloudposse/packages repository as part of the Docker image build process.
+# Any needed packages should be installed in the Dockerfile above here instead.
+ENV PACKAGES_PREFER_HOST=true
 
 WORKDIR /build-harness
 
-ARG PACKAGES_PREFER_HOST=true
 RUN make -s bash/lint make/lint
 RUN make -s template/deps readme/deps
 RUN make -s go/deps-dev

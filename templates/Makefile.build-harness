@@ -188,6 +188,7 @@ build-harness/runner:
 	$(info Starting $(RUNNER_DOCKER_IMAGE):$(RUNNER_DOCKER_TAG))
 	docker run --name build-harness \
 		--rm -it \
+		--platform linux/amd64 \
 		-e PACKAGES_PREFER_HOST=true \
 		$(addprefix -e ,$(DOCKER_ENVS)) \
 		$(MOUNT_HOME) \

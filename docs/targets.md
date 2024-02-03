@@ -103,10 +103,10 @@ Available targets:
   init                                Init build-harness
   jenkins/run-job-with-tag            Run a Jenkins Job with $(TAG)
   make/lint                           Lint all makefiles
-  packages/delete                     Delete packages
-  packages/install                    Install packages 
+  packages/delete                     Delete local copy of packages repository
+  packages/install                    Download packages repository
   packages/install/%                  Install package (e.g. helm, helmfile, kubectl)
-  packages/reinstall                  Reinstall packages
+  packages/reinstall                  Reinstall local copy of packages repository
   packages/reinstall/%                Reinstall package (e.g. helm, helmfile, kubectl)
   packages/uninstall/%                Uninstall package (e.g. helm, helmfile, kubectl)
   readme                              Alias for readme/build

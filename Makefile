@@ -60,14 +60,14 @@ ifneq ($(wildcard $(BUILD_HARNESS_EXTENSIONS_PATH)/modules/*/Makefile*),)
 -include $(BUILD_HARNESS_EXTENSIONS_PATH)/modules/*/Makefile*
 endif
 
-# Unless PACKAGES_PREFER_HOST is not "false", add the INSTALL_PATH, which
+# Unless PACKAGES_PREFER_HOST is not "false", add the PACKAGES_INSTALL_PATH, which
 # is where build-harness installs needed tools, to the PATH, but wait
 # until it is set, which may not be the first time through this Makefile.
 # There is an incredibly subtle behavior here. Changes to PATH do not
 # affect `make` itself, so $(shell ...) will not see the new PATH.
 # Even more subtle, simple recipes that do not require a subshell,
 # such as `kubectl version`, will NOT see the new PATH. To use binaries
-# installed in the INSTALL_PATH, you must use a recipe that forces a subshell,
+# installed in the PACKAGES_INSTALL_PATH, you must use a recipe that forces a subshell,
 # such as by using a pipe or compound command, or if nothing else is needed,
 # using a no-op command such as `: && kubectl version`.
 # To make things even more subtle, this is inconsistent across different
@@ -79,8 +79,8 @@ endif
 # See:
 # - https://savannah.gnu.org/bugs/?10593#comment5
 # - https://savannah.gnu.org/bugs/?56834
-ifneq ($(INSTALL_PATH),)
-export PATH := $(if $(subst false,,$(PACKAGES_PREFER_HOST)),$(PATH),$(INSTALL_PATH):$(PATH))
+ifneq ($(PACKAGES_INSTALL_PATH),)
+export PATH := $(if $(subst false,,$(PACKAGES_PREFER_HOST)),$(PATH),$(PACKAGES_INSTALL_PATH):$(PATH))
 endif
 
 # For backwards compatibility with all of our other projects that use build-harness
