@@ -7,7 +7,8 @@ export README_TEMPLATE_REPO ?= .github
 export README_TEMPLATE_REPO_REF ?= main
 export README_TEMPLATE_REPO_PATH ?= README.md.gotmpl
 export README_TEMPLATE_REPO_URL := https://raw.githubusercontent.com/$(README_TEMPLATE_REPO_ORG)/$(README_TEMPLATE_REPO)/$(README_TEMPLATE_REPO_REF)/$(README_TEMPLATE_REPO_PATH)
-export README_TEMPLATE_FILE ?= $(BUILD_HARNESS_PATH)/templates/README.md.gotmpl
+export README_TEMPLATE_REMOTE_FILE ?= $(BUILD_HARNESS_PATH)/templates/README.md.gotmpl
+export README_TEMPLATE_FILE ?= $(README_TEMPLATE_REMOTE_FILE)
 export README_TEMPLATE_YAML := $(BUILD_HARNESS_PATH)/templates/$(README_YAML)
 
 # Only allow allowlisted orgs to supply the README template
@@ -22,11 +23,11 @@ export README_ALLOWLIST_ORGS := \
 	cloudposse-terraform-components \
 	terraform-aws-components
 
-# Fetch the README.md.gotmpl every time, because we have no way of knowing if it's changed
-.PHONY: $(README_TEMPLATE_FILE)
+# Fetch the remote README.md.gotmpl every time, because we have no way of knowing if it's changed
+.PHONY: $(README_TEMPLATE_REMOTE_FILE)
 
 # Fetch the README.md.gotmpl corresponding to this repo's GitHub Org
-$(README_TEMPLATE_FILE):
+$(README_TEMPLATE_REMOTE_FILE):
 	@for README_GITHUB_ORG in $(README_ALLOWLIST_ORGS); do \
 		if [ "$${README_GITHUB_ORG}" == "$${README_TEMPLATE_REPO_ORG}" ]; then \
 			echo "Fetching README template from $${README_TEMPLATE_REPO_ORG}"; \
