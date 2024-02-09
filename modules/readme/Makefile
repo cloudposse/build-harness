@@ -22,9 +22,6 @@ export README_ALLOWLIST_ORGS := \
 	cloudposse-terraform-components \
 	terraform-aws-components
 
-# Fetch the README.md.gotmpl every time, because we have no way of knowing if it's changed
-.PHONY: $(README_TEMPLATE_FILE)
-
 # Fetch the README.md.gotmpl corresponding to this repo's GitHub Org
 $(README_TEMPLATE_FILE):
 	@for README_GITHUB_ORG in $(README_ALLOWLIST_ORGS); do \
