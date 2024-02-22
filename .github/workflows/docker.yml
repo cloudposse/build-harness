@@ -76,7 +76,7 @@ jobs:
       with:
         push: ${{ (github.event_name == 'release' && github.event.action == 'published') || github.event.pull_request.head.repo.full_name == github.repository || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
         tags: ${{ steps.prepare.outputs.tags }}
-        platforms: linux/amd64
+        platforms: linux/amd64,linux/arm64
     - name: "Build and push slim docker image to DockerHub"
       id: docker_slim_build
       uses: docker/build-push-action@v5
@@ -84,4 +84,4 @@ jobs:
         file: ./Dockerfile.slim
         push: ${{ (github.event_name == 'release' && github.event.action == 'published') || github.event.pull_request.head.repo.full_name == github.repository || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
         tags: ${{ steps.prepare.outputs.slim-tags }}
-        platforms: linux/amd64
+        platforms: linux/amd64,linux/arm64
