@@ -402,7 +402,9 @@ Ensure that your team succeeds by using our proven process and turnkey blueprint
 <summary>Preamble to the Apache License, Version 2.0</summary>
 <br/>
 <br/>
+
 Complete license is available in the [`LICENSE`](LICENSE) file.
+
 ```text
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
