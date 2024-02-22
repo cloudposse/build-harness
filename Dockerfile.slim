@@ -1,4 +1,4 @@
-FROM alpine:3.18
+FROM debian:bookworm-slim
 LABEL maintainer="Cloud Posse <hello@cloudposse.com>"
 
 LABEL "com.github.actions.name"="Build Harness"
@@ -6,7 +6,7 @@ LABEL "com.github.actions.description"="Run any build-harness make target"
 LABEL "com.github.actions.icon"="tool"
 LABEL "com.github.actions.color"="blue"
 
-RUN apk --no-cache add \
+RUN apt update && apt install -y --no-install-recommends \
       bash \
       ca-certificates \
       coreutils \
@@ -17,22 +17,24 @@ RUN apk --no-cache add \
       grep \
       jq \
       libc6-compat \
-      make
+      make && \
+   rm -rf /var/cache/apt/lists
 
 RUN git config --global advice.detachedHead false
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-RUN curl -fsSL --retry 3 https://apk.cloudposse.com/install.sh | bash
+RUN curl -fsSL --retry 3 'https://dl.cloudsmith.io/public/cloudposse/packages/cfg/setup/bash.deb.sh' | bash
 
 ## Install as packages
 
-RUN apk --no-cache add \
+RUN apt install -y --no-install-recommends \
       gomplate@cloudposse \
       terraform-0.12@cloudposse terraform-0.13@cloudposse terraform-0.14@cloudposse \
       terraform-0.15@cloudposse terraform-1@cloudposse \
       terraform-config-inspect@cloudposse \
       terraform-docs@cloudposse \
-      vert@cloudposse
+      vert@cloudposse && \
+    rm -rf /var/cache/apt/lists
 
 RUN sed -i /PATH=/d /etc/profile
 

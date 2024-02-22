@@ -1,4 +1,4 @@
-FROM golang:1.20.13-alpine3.18
+FROM golang:1.20.13-bookworm
 
 LABEL maintainer="Cloud Posse <hello@cloudposse.com>"
 
@@ -7,7 +7,7 @@ LABEL "com.github.actions.description"="Run any build-harness make target"
 LABEL "com.github.actions.icon"="tool"
 LABEL "com.github.actions.color"="blue"
 
-RUN apk --update --no-cache add \
+RUN apt update && apt install -y --no-install-recommends \
       bash \
       build-base \
       ca-certificates \
@@ -27,6 +27,7 @@ RUN apk --update --no-cache add \
       py-pip \
       py3-ruamel.yaml \
       py3-cffi && \
+    rm -rf /var/cache/apt/lists && \
     python3 -m pip install --upgrade pip setuptools wheel && \
     pip3 install --no-cache-dir \
       cryptography==41.0.7 \
@@ -52,13 +53,13 @@ RUN cd /usr/local/bin && curl -fsSL https://github.com/npryce/adr-tools/archive/
 #    pip3 install --upgrade pip
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-RUN curl -fsSL --retry 3 https://apk.cloudposse.com/install.sh | bash
+RUN curl -fsSL --retry 3 'https://dl.cloudsmith.io/public/cloudposse/packages/cfg/setup/bash.deb.sh' | bash
 
 ## Install as packages
 
 ## Codefresh required additional libraries for alpine
 ## So can not be curl binary
-RUN apk --update --no-cache add \
+RUN apt update && apt install -y --no-install-recommends \
       chamber@cloudposse \
       gomplate@cloudposse \
       helm@cloudposse \
@@ -72,6 +73,7 @@ RUN apk --update --no-cache add \
       terraform-docs@cloudposse \
       vert@cloudposse \
       yq@cloudposse && \
+    rm -rf /var/cache/apt/lists && \
     sed -i /PATH=/d /etc/profile
 
 # Use Terraform 1 by default
