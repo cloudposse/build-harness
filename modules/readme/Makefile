@@ -67,7 +67,7 @@ readme/lint:
 ## Create README.md by building it from README.yaml
 readme/build: readme/deps $(README_TEMPLATE_FILE) $(README_DEPS)
 	@gomplate --file $(README_TEMPLATE_FILE) --out $(README_FILE) --config $(BUILD_HARNESS_PATH)/configs/gomplate.yaml && \
-	echo "Generated $(README_FILE) from $(README_TEMPLATE_FILE) using data from $(README_TEMPLATE_YAML)"
+	echo "Generated $(README_FILE) from $(README_TEMPLATE_FILE) probably using data from $${README_YAML}"
 
 readme/generate-related-references:
 	@$(BUILD_HARNESS_PATH)/bin/generate_related_references.py

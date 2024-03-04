@@ -1,6 +1,6 @@
 TMP ?= /tmp
 TERRAFORM ?= $(BUILD_HARNESS_PATH)/vendor/terraform
-TERRAFORM_VERSION ?= 1.0.11
+TERRAFORM_VERSION ?= 1.5.7
 TERRAFORM_URL ?= https://releases.hashicorp.com/terraform/$(TERRAFORM_VERSION)/terraform_$(TERRAFORM_VERSION)_$(OS)_$(BUILD_HARNESS_ARCH).zip
 
 .PHONY: terraform/install terraform/get-plugins terraform/get-modules terraform/validate terraform/tflint terraform/lint
