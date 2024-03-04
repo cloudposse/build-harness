@@ -18,7 +18,7 @@ docs/targets.md: docs/deps
 ## Update `docs/terraform.md` from `terraform-docs`
 docs/terraform.md: docs/deps packages/install/terraform-docs
 	@echo "<!-- markdownlint-disable -->" > $@ ; \
-	terraform-docs md . >> $@ ; \
+	terraform-docs --lockfile=false md . >> $@ ; \
 	echo "<!-- markdownlint-restore -->" >> $@
 
 .PHONY : docs/github-action.md
