@@ -1,7 +1,7 @@
 export VENDOR_DIR ?= $(BUILD_HARNESS_PATH)/vendor
 export VENDOR_SUBDIR := $(shell uname -s)/$(shell uname -m)
 export PACKAGES_INSTALL_PATH ?= $(VENDOR_DIR)/$(VENDOR_SUBDIR)
-export PACKAGES_VERSION ?= master
+export PACKAGES_VERSION ?= main
 export PACKAGES_PATH ?= $(VENDOR_DIR)/packages
 # PACKAGES_PREFER_HOST is used to force the use of the host's tools
 # rather than the tools installed by build-harness in the git repo tree.
