@@ -6,13 +6,13 @@ export README_TEMPLATE_REPO_ORG ?= $(shell [ -f "$(README_YAML)" ] &&  dirname $
 export README_TEMPLATE_REPO ?= .github
 export README_TEMPLATE_REPO_REF ?= main
 export README_TEMPLATE_REPO_PATH ?= README.md.gotmpl
-export README_TEMPLATE_REPO_URL := https://raw.githubusercontent.com/$(README_TEMPLATE_REPO_ORG)/$(README_TEMPLATE_REPO)/$(README_TEMPLATE_REPO_REF)/$(README_TEMPLATE_REPO_PATH)
+export README_TEMPLATE_REPO_URL ?= https://raw.githubusercontent.com/$(README_TEMPLATE_REPO_ORG)/$(README_TEMPLATE_REPO)/$(README_TEMPLATE_REPO_REF)/$(README_TEMPLATE_REPO_PATH)
 export README_TEMPLATE_REMOTE_FILE ?= $(BUILD_HARNESS_PATH)/templates/README.md.gotmpl
 export README_TEMPLATE_FILE ?= $(README_TEMPLATE_REMOTE_FILE)
 export README_TEMPLATE_YAML := $(BUILD_HARNESS_PATH)/templates/$(README_YAML)
 
 # Only allow allowlisted orgs to supply the README template
-export README_ALLOWLIST_ORGS := \
+export README_ALLOWLIST_ORGS ?= \
 	cloudposse \
 	cloudposse-archives \
 	cloudposse-corp \
