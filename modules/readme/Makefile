@@ -10,7 +10,7 @@ export README_TEMPLATE_REPO_URL := https://raw.githubusercontent.com/$(README_TE
 export README_TEMPLATE_REMOTE_FILE ?= $(BUILD_HARNESS_PATH)/templates/README.md.gotmpl
 export README_TEMPLATE_FILE ?= $(README_TEMPLATE_REMOTE_FILE)
 export README_TEMPLATE_YAML := $(BUILD_HARNESS_PATH)/templates/$(README_YAML)
-export README_INCLUDES ?= ./
+export README_INCLUDES ?= "./"
 
 # Only allow allowlisted orgs to supply the README template
 export README_ALLOWLIST_ORGS := \
