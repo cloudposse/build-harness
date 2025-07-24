@@ -125,7 +125,7 @@ Available targets:
   codefresh/notify/slack/sync         Send notification from codefresh to slack using "codefresh-sync" template
   codefresh/pipeline/export           Export pipeline vars
   codefresh/sync/apply                Codefresh pipelines sync - Apply the changes
-  codefresh/sync/auth/%               Authentificate on codefresh account
+  codefresh/sync/auth/%               Authenticate on codefresh account
   codefresh/sync/deps                 Install dependencies for codefresh sync
   codefresh/sync/diff                 Codefresh pipelines sync - Show changes
   codefresh/sync/pipeline/export      Export sync pipeline vars
@@ -178,7 +178,7 @@ Available targets:
   go/test                             Run tests
   go/vet                              Vet code
   helm/chart/build                    Build chart $CHART_NAME from $SOURCE_CHART_TPL
-  helm/chart/build-all                Alias for helm/chart/build/all. Depricated.
+  helm/chart/build-all                Alias for helm/chart/build/all. Deprecated.
   helm/chart/build/all                Build chart $CHART_NAME from $SOURCE_CHART_TPL for all available $SEMVERSIONS
   helm/chart/clean                    Clean chart packages
   helm/chart/create                   Create chart $CHART from starter scaffold
