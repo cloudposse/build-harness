@@ -1,139 +1,30 @@
 ---
 # This is the canonical configuration for the `README.md`
-# Run `make readme` to rebuild the `README.md`
-#
+# Run `atmos docs generate readme` to rebuild the `README.md`
 
-# Name of this project
-name: 🧗 Build Harness
+name: Build Harness
 
-# Logo for this project
-#logo: docs/logo.png
-
-# License of this project
 license: "APACHE2"
 
-# Copyrights
 copyrights:
   - name: "Cloud Posse, LLC"
     url: "https://cloudposse.com"
     year: "2016"
 
-# Canonical GitHub repo
 github_repo: cloudposse/build-harness
 
-# Badges to display
-badges:
-  - name: "Build Status"
-    image: "https://img.shields.io/github/actions/workflow/status/cloudposse/build-harness/docker.yml?style=for-the-badge"
-    url: "https://github.com/cloudposse/build-harness/actions/workflows/docker.yml"
-  - name: "Latest Release"
-    image: "https://img.shields.io/github/release/cloudposse/build-harness.svg?style=for-the-badge"
-    url: "https://github.com/cloudposse/build-harness/releases/latest"
-  - name: "Last Updated"
-    image: https://img.shields.io/github/last-commit/cloudposse/build-harness/master?style=for-the-badge
-    url: https://github.com/cloudposse/build-harness/commits/master/
-  - name: "Slack Community"
-    image: "https://slack.cloudposse.com/for-the-badge.svg"
-    url: "https://slack.cloudposse.com"
+deprecated:
+  notice: |-
+    This repository is slated for archival. We recommend switching to [Atmos Custom Commands](https://atmos.tools/cli/configuration/commands?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/build-harness&utm_content=deprecation-notice) and [Atmos Workflows](https://atmos.tools/workflows?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/build-harness&utm_content=deprecation-notice) instead.
+
+    The exact sunset date has not been determined yet.
+
+description: |-
+  This build-harness is a collection of Makefiles to facilitate building READMEs, Golang projects, Dockerfiles, Helm charts, and more.
 
 related:
-  - name: "Packages"
-    description: "Cloud Posse installer and distribution of native apps"
-    url: "https://github.com/cloudposse/packages"
   - name: "Atmos"
     description: "DevOps Automation Tool"
     url: "https://github.com/cloudposse/atmos"
 
-# References
-references:
-  - name: "Wikipedia - Test Harness"
-    description: 'The `build-harness` is similar in concept to a "Test Harness"'
-    url: "https://en.wikipedia.org/wiki/Test_harness"
-
-# Screenshots
-screenshots:
-  - name: "demo"
-    description: "Example of using the `build-harness` to build a docker image"
-    url: "docs/demo.gif?raw=true"
-
-# Short description of this project
-description: |-
-  This `build-harness` is a collection of Makefiles to facilitate building READMEs, Golang projects, Dockerfiles, Helm charts, and more.
-  It's designed to work with CI/CD systems such as GitHub Actions.
-  
-# Introduction to the project
-#introduction: |-
-#  This is an introduction.
-
-# How to use this project
-usage: |-
-
-  > [!IMPORTANT]
-  > **Regarding the phase out of `git.io`**
-  > Prior to April 25, 2022, practically all Cloud Posse Makefiles pulled in a common Makefile via
-  > ```bash
-  > curl -sSL -o .build-harness "https://git.io/build-harness"
-  > ```
-  > 
-  > The `git.io` service is a link shortener/redirector provided by GitHub, but [they no longer support it](https://github.blog/changelog/2022-04-25-git-io-deprecation/).
-  > We have therefore set up `https://cloudposse.tools/build-harness` as an alternative and are migrating
-  > all our Makefiles to use that URL instead. We encourage you to update any references you have in your
-  > own code derived from our code, whether by forking one of our repos or simply following one of our examples.
-  > 
-  > Full details are available in our [`git.io` deprecation documentation](docs/git-io-deprecation.md).
-
-  At the top of your `Makefile` add, the following...
-
-  ```make
-  -include $(shell curl -sSL -o .build-harness "https://cloudposse.tools/build-harness"; echo .build-harness)
-  ```
-
-  This will download a `Makefile` called `.build-harness` and include it at run time. We recommend adding the `.build-harness` file to your `.gitignore`.
-
-  This automatically exposes many new targets that you can leverage throughout your build & CI/CD process.
-
-  Run `make help` for a list of available targets.
-
-  **NOTE:** the `/` is interchangable with the `:` in target names
-
-  ## GitHub Actions
- 
-  The `build-harness` is compatible with [GitHub Actions](https://github.com/features/actions).
-
-  Here's an example of running `make readme/lint`
-
-  ```yaml
-  name: build-harness/readme/lint
-  on: [pull_request]
-  jobs:
-    build:
-      name: 'Lint README.md'
-      runs-on: ubuntu-latest
-      steps:
-      - uses: actions/checkout@master
-      - uses: cloudposse/build-harness@master
-        with:
-          entrypoint: /usr/bin/make
-          args: readme/lint
-   ```
-
-# Example usage
-examples: |-
-  Here is a real world example:
-  - [`terraform-null-label`](https://github.com/cloudposse/terraform-null-label/) - A terraform module that leverages `terraform/%` targets
-
-# How to get started quickly
-quickstart: |-
-  Here's how to get started...
-
-  1. `git clone https://github.com/cloudposse/build-harness.git` to pull down the repository
-  2. `make init` to initialize the [`build-harness`](https://github.com/cloudposse/build-harness/)
-
-# Other files to include in this README from the project folder
-include:
-  - "docs/targets.md"
-  - "docs/extensions.md"
-  - "docs/auto-init.md"
-
-# Include contributors to this project
 contributors: []

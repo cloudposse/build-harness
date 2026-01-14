@@ -1,0 +1,10 @@
+docs:
+  generate:
+    readme:
+      base-dir: .
+      input:
+        - "./README.yaml"
+      template: "https://raw.githubusercontent.com/cloudposse/.github/main/README.md.gotmpl"
+      output: "./README.md"
+      terraform:
+        enabled: false
