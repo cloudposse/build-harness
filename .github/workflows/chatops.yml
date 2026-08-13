@@ -7,7 +7,7 @@ jobs:
   default:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: "Handle common commands"
         uses: cloudposse/actions/github/slash-command-dispatch@0.33.0
         with:
@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout commit"
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: "Run tests"
         uses: cloudposse/actions/github/slash-command-dispatch@0.33.0
         with:
