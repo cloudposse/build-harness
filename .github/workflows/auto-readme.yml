@@ -5,7 +5,8 @@ on:
 
 jobs:
   auto-readme:
-    if: ${{ !contains( github.event.pull_request.labels.*.name, 'auto-readme-disabled') }}
+    # Requires the bot GitHub App credentials; skips cleanly where the org variable is not exposed
+    if: ${{ !contains( github.event.pull_request.labels.*.name, 'auto-readme-disabled') && vars.BOT_GITHUB_APP_ID != '' }}
     runs-on: ubuntu-latest
     container: cloudposse/build-harness:latest
     steps:
