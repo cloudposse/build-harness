@@ -16,11 +16,17 @@ jobs:
     # However, using a personal access token will cause events to be triggered.
     # We need that to ensure a status gets posted after the auto-format commit.
     # We also want to trigger tests if the auto-format made no changes.
+    - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+      id: github-app
+      with:
+        app-id: ${{ vars.BOT_GITHUB_APP_ID }}
+        private-key: ${{ secrets.BOT_GITHUB_APP_PRIVATE_KEY }}
+
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       if: github.event.pull_request.state == 'open'
       name: Privileged Checkout
       with:
-        token: ${{ secrets.REPO_ACCESS_TOKEN }}
+        token: ${{ steps.github-app.outputs.token }}
         repository: ${{ github.event.pull_request.head.repo.full_name }}
         # Check out the PR commit, not the merge commit
         # Use `ref` instead of `sha` to enable pushing back to `ref`
@@ -31,7 +37,7 @@ jobs:
       if: github.event.pull_request.state == 'open'
       shell: bash
       env:
-        GITHUB_TOKEN: "${{ secrets.REPO_ACCESS_TOKEN }}"
+        GITHUB_TOKEN: "${{ steps.github-app.outputs.token }}"
       run: make BUILD_HARNESS_PATH=/build-harness PACKAGES_PREFER_HOST=true -f /build-harness/templates/Makefile.build-harness pr/readme/host
 
     # Commit changes (if any) to the PR branch
