@@ -17,11 +17,11 @@ jobs:
       cancel-in-progress: true
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Set up Docker Buildx (for demo tape)
         id: buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@bb05f3f5519dd87d3ba754cc423b652a5edd6d2c # v4.2.0
 
       - name: Tune vim settings
         run: |
@@ -34,7 +34,7 @@ jobs:
           path: demo.tape
           install-fonts: true
 
-      - uses: stefanzweifel/git-auto-commit-action@v5
+      - uses: stefanzweifel/git-auto-commit-action@4a55954c782fc1ea30b9056cd3e7a2b40ca8887d # v7.2.0
         id: auto-commit
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -48,11 +48,11 @@ jobs:
       - name: Add Image to Job Summary
         if: steps.auto-commit.outputs.changes_detected == 'true'
         run: |
-          echo "## Demo GIF" >> $GITHUB_STEP_SUMMARY
-          echo "![Demo GIF](https://github.com/${{ github.repository }}/blob/${{ steps.auto-commit.outputs.commit_hash }}/docs/demo.gif?raw=true)" >> $GITHUB_STEP_SUMMARY
+          echo "## Demo GIF" >> "$GITHUB_STEP_SUMMARY"
+          echo "![Demo GIF](https://github.com/${{ github.repository }}/blob/${{ steps.auto-commit.outputs.commit_hash }}/docs/demo.gif?raw=true)" >> "$GITHUB_STEP_SUMMARY"
 
       - name: No changes
         if: steps.auto-commit.outputs.changes_detected == 'false'
         run: |
-          echo "No changes to demo" >> $GITHUB_STEP_SUMMARY
+          echo "No changes to demo" >> "$GITHUB_STEP_SUMMARY"
 
